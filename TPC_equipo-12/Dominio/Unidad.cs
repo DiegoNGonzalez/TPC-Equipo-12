@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Leccion
+    public class Unidad
     {
-        public int NroLeccion {  get; set; }
+        public int NroUnidad { get; set; }
+        public int IDCurso { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public List<MaterialLeccion> Materiales {  get; set; }      
+        public List<Leccion> Lecciones {  get; set; }
         public bool Completada { get; set; }
+
+        public Leccion Leccion
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

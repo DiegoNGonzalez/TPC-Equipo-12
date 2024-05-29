@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Negocio
+namespace Dominio
 {
-    public class Class1
+    public class Imagen
     {
+        public int IDImagen { get; set; }
+        public string URL { get; set; }
+
     }
 }

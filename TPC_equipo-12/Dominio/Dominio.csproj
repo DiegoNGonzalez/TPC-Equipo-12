@@ -41,15 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categoria.cs" />
     <Compile Include="Curso.cs" />
     <Compile Include="Estudiante.cs" />
+    <Compile Include="Imagen.cs" />
+    <Compile Include="InscripcionACurso.cs" />
     <Compile Include="Leccion.cs" />
-    <Compile Include="Modulo.cs" />
+    <Compile Include="MaterialLeccion.cs" />
+    <Compile Include="Unidad.cs" />
     <Compile Include="Profesor.cs" />
-    <Compile Include="Progreso.cs" />
-    <Compile Include="Reseña.cs" />
+    <Compile Include="Resenia.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram3.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

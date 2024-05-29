@@ -6,14 +6,28 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Reseña
+    public class Resenia
     {
-        public int IDReseña { get; set; }
+        public int IDResenia { get; set; }
         public int IDEstudiante { get; set; }
         public int Calificacion { get; set; }
         public string Comentario { get; set; }
         public DateTime FechaCreacion { get; set; }
-        
 
+        public Curso Curso
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public Estudiante Estudiante
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

@@ -9,6 +9,16 @@ namespace Dominio
     internal class Profesor : Usuario
     {
         public int IDProfesor {  get; set; }
-        public Curso Curso { get; set; }
+        public List<Curso> Cursos { get; set; }
+
+        public Curso Curso
+        {
+            get => default;
+            set
+            {
+            }
+        }
+        //faltan props para calificaciones y certificaciones si luego llegamos con el desarrollo
+
     }
 }
