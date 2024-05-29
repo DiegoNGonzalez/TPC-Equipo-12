@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Modulo
+    public class CategoriaCurso
     {
-        public int IDModulo { get; set; }
-        public int IDCurso { get; set; }
+        public int IDCategoria { get; set; }
         public string Nombre { get; set; }
-        public Leccion Leccion {  get; set; }
+        public List<Curso> CursosXCategoria { get; set; } 
     }
 }
