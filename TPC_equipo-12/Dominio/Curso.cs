@@ -14,6 +14,7 @@ namespace Dominio
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int Duracion { get; set; }
+        public DateTime Estreno { get; set; }
         public List<Unidad> Unidades { get; set; }
         public DateTime FechaEstreno { get; set; }
         public List<Resenia> Resenias { get; set; }
