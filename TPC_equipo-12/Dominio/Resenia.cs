@@ -14,20 +14,5 @@ namespace Dominio
         public string Comentario { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        public Curso Curso
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public Estudiante Estudiante
-        {
-            get => default;
-            set
-            {
-            }
-        }
     }
 }

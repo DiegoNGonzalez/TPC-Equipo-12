@@ -20,20 +20,7 @@ namespace Dominio
         public CategoriaCurso Categoria { get; set; }
         public Imagen Imagen { get; set; }
 
-        public CategoriaCurso CategoriaCurso
-        {
-            get => default;
-            set
-            {
-            }
-        }
+       
 
-        public Unidad Unidad
-        {
-            get => default;
-            set
-            {
-            }
-        }
     }
 }

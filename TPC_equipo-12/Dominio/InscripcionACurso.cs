@@ -9,16 +9,11 @@ namespace Dominio
     public class InscripcionACurso
     {
         public int IDInscripcion { get; set; }
-        public int IDEstudiante { get; set; }
-        public int IDCurso { get; set; }
+        public Usuario Usuario { get; set; }
+        public Curso Curso { get; set; }
         public DateTime FechaInscripcion { get; set; }
+        public bool Estado { get; set; }
 
-        public Estudiante Estudiante
-        {
-            get => default;
-            set
-            {
-            }
-        }
+      
     }
 }

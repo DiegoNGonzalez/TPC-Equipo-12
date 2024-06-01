@@ -8,6 +8,7 @@ namespace Dominio
 {
     public class Usuario
     {
+        public int IDUsuario { get; set; }
         public int DNI { get; set; }
         public string Genero { get; set; }
         public string Nombre { get; set; }
@@ -15,6 +16,7 @@ namespace Dominio
         public string Email { get; set; } 
         public string Contrasenia { get; set;}
 
+        public bool EsProfesor { get; set; }
         public Imagen ImagenPerfil { get; set; }
     }
 }

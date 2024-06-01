@@ -48,6 +48,8 @@
     <Compile Include="InscripcionACurso.cs" />
     <Compile Include="Leccion.cs" />
     <Compile Include="MaterialLeccion.cs" />
+    <Compile Include="MensajeUsuario.cs" />
+    <Compile Include="Notificacion.cs" />
     <Compile Include="Unidad.cs" />
     <Compile Include="Profesor.cs" />
     <Compile Include="Resenia.cs" />
