@@ -13,12 +13,6 @@ namespace Dominio
         public string TipoMaterial { get; set; }
         public string URL { get; set; }
 
-        public Leccion Leccion
-        {
-            get => default;
-            set
-            {
-            }
-        }
+      
     }
 }
