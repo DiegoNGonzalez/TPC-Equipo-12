@@ -14,7 +14,7 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="Default.aspx">Home</a>
+                    <a class="navbar-brand" href="DefaultEstudiante.aspx">Home</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -28,6 +28,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Tareas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="Default.aspx">Volver al inicio</a>
                             </li>
                         </ul>
                         <span class="navbar-text">Perfil
