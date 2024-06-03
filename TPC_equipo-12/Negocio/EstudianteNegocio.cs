@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using AccesoDB;
+using System.Collections;
 
 namespace Negocio
 {
@@ -87,6 +88,6 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
-        
+
     }
 }

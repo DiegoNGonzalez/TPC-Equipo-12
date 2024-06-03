@@ -76,5 +76,12 @@ namespace AccesoDB
             comando.Parameters.AddWithValue(Nombre, Valor);
 
         }
+        public void LimpiarParametros()
+        {
+            if (comando != null && comando.Parameters != null)
+            {
+                comando.Parameters.Clear();
+            }
+        }
     }
 }
