@@ -20,7 +20,7 @@ namespace Negocio
             List<Usuario> lista = new List<Usuario>();
             try
             {
-                Datos.SetearConsulta("select u.IDUsuario, u.Nombre, u.Apellido, u.Email, u.Contrasenia, u.DNI, u.Genero, EsProfesor, i.IDImagenes, i.URLIMG from Usuarios u inner join Imagenes i on u.IDImagen = i.IDImagenes");
+                Datos.SetearConsulta("select u.IDUsuario, u.Nombre, u.Apellido, u.Email, u.Contrasenia, u.DNI, u.Genero, EsProfesor, i.IDImagenes, i.URLIMG from Usuarios u left join Imagenes i on u.IDImagen = i.IDImagenes");
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
