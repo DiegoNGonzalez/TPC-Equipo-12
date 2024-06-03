@@ -22,7 +22,7 @@ namespace Negocio
 
             try
             {
-                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante inner JOIN Imagenes i on u.IDImagen= i.IDImagenes");
+                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes");
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
@@ -35,9 +35,18 @@ namespace Negocio
                     aux.Email = (string)Datos.Lector["Email"];
                     aux.Contrasenia = (string)Datos.Lector["Contrasenia"];
                     aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];
-                    aux.ImagenPerfil = new Imagen();
-                    aux.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagenes"];
-                    aux.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                    if (Datos.Lector["IDImagenes"] != DBNull.Value)
+                    {
+                        aux.ImagenPerfil = new Imagen();
+                        aux.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagenes"];
+                        aux.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                    }else
+                    {
+                        aux.ImagenPerfil = new Imagen();
+                        aux.ImagenPerfil.IDImagen = 0;
+                        aux.ImagenPerfil.URL = "https://www.abc.com.py/resizer/1J9J9Q1";
+                    }
+                    
                     aux.Estado = (bool)Datos.Lector["Estado"];
                     lista.Add(aux);
                 }
