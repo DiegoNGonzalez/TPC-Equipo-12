@@ -3,10 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 110vh;">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title d-flex justify-content-center align-items-center">Sign Up</h5>
+                <h5 class="card-title d-flex justify-content-center align-items-center">Registrarse</h5>
                 <form>
                     <div class="mb-3">
                         <label for="InputNombres" class="form-label">Nombres</label>

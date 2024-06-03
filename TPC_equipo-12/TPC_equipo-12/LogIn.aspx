@@ -6,7 +6,7 @@
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title d-flex justify-content-center align-items-center">Log In</h5>
+                <h5 class="card-title d-flex justify-content-center align-items-center">Iniciar Sesion</h5>
                 <form>
                     <div class="mb-3">
                         <label for="InputCorreoLogIn" class="form-label">Email</label>

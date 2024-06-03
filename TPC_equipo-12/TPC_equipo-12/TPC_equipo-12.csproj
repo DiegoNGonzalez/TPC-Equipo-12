@@ -66,10 +66,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="DefaultEstudiante.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="SignUp.aspx" />
     <Content Include="LogIn.aspx" />
+    <Content Include="DefaultProfesor.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -78,6 +80,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultEstudiante.aspx.cs">
+      <DependentUpon>DefaultEstudiante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultEstudiante.aspx.designer.cs">
+      <DependentUpon>DefaultEstudiante.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -88,6 +97,13 @@
     </Compile>
     <Compile Include="Master.Master.designer.cs">
       <DependentUpon>Master.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ProfesorMasterPage.Master.cs">
+      <DependentUpon>ProfesorMasterPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProfesorMasterPage.Master.designer.cs">
+      <DependentUpon>ProfesorMasterPage.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SignUp.aspx.cs">
@@ -104,10 +120,26 @@
     <Compile Include="LogIn.aspx.designer.cs">
       <DependentUpon>LogIn.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DefaultProfesor.aspx.cs">
+      <DependentUpon>DefaultProfesor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DefaultProfesor.aspx.designer.cs">
+      <DependentUpon>DefaultProfesor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EstudianteMasterPage.Master.cs">
+      <DependentUpon>EstudianteMasterPage.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EstudianteMasterPage.Master.designer.cs">
+      <DependentUpon>EstudianteMasterPage.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
     <None Include="packages.config" />
+    <Content Include="ProfesorMasterPage.Master" />
+    <Content Include="EstudianteMasterPage.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
