@@ -24,7 +24,7 @@
                                 <a class="nav-link" href="#">Cursos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Estudiantes</a>
+                                <a class="nav-link" href="ProfesorEstudiantes.aspx">Estudiantes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Estudiantes</a>

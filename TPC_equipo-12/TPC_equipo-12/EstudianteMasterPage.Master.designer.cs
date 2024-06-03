@@ -11,7 +11,7 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class Site1
+    public partial class EstudianteMasterPage
     {
 
         /// <summary>

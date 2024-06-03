@@ -72,6 +72,7 @@
     <Content Include="SignUp.aspx" />
     <Content Include="LogIn.aspx" />
     <Content Include="DefaultProfesor.aspx" />
+    <Content Include="ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -133,6 +134,13 @@
     </Compile>
     <Compile Include="EstudianteMasterPage.Master.designer.cs">
       <DependentUpon>EstudianteMasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ProfesorEstudiantes.aspx.cs">
+      <DependentUpon>ProfesorEstudiantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProfesorEstudiantes.aspx.designer.cs">
+      <DependentUpon>ProfesorEstudiantes.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

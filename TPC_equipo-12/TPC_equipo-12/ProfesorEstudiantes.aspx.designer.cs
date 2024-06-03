@@ -11,7 +11,16 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class DefaultProfesor
+    public partial class ProfesorEstudiantes
     {
+
+        /// <summary>
+        /// Control rptEstudiantes.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptEstudiantes;
     }
 }

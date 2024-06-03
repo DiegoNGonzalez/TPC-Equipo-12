@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="EstudianteMasterPage.Master.cs" Inherits="TPC_equipo_12.Site1" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="EstudianteMasterPage.Master.cs" Inherits="TPC_equipo_12.EstudianteMasterPage" %>
 
 <!DOCTYPE html>
 
