@@ -20,17 +20,18 @@ namespace Negocio
             try
             {
                 Datos.SetearConsulta("select m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial from Materiales m inner join materialesxlecciones mxl on mxl.IDMaterial = m.IDmaterial inner join lecciones l on mxl.Idleccion = l.IDLeccion Where l.IDLeccion = @idLeccion");
-                Datos.SetearParametro("@IDLeccion", idLeccion);
+                Datos.SetearParametro("@idLeccion", idLeccion);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
                     MaterialLeccion aux = new MaterialLeccion();
-                    aux.IDMaterial = Datos.Lector.GetInt32(0);
+                    aux.IDMaterial = (int)Datos.Lector["IDMaterial"];
                     aux.Nombre = (string)Datos.Lector["Nombre"];
                     aux.TipoMaterial = (string)Datos.Lector["TipoMaterial"];
-                    aux.URL = (string)Datos.Lector["URL"];
+                    aux.URL = (string)Datos.Lector["URLMaterial"];
                     lista.Add(aux);
                 }
+                Datos.LimpiarParametros();
                 return lista;
             }
             catch (Exception ex)

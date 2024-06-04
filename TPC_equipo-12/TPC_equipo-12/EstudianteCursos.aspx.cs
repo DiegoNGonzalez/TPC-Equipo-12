@@ -31,7 +31,8 @@ namespace TPC_equipo_12
 
         protected void EstaInscripto()
         {
-            List<int> auxIds= cursoNegocio.IDCursosXEstudiante((int)Session["usuario"]);
+            Usuario usuarioensession = (Usuario)Session["usuario"];
+            List<int> auxIds= cursoNegocio.IDCursosXEstudiante(usuarioensession.IDUsuario);
             foreach(int id in auxIds)
             {
                 foreach(Curso curso in listaCursos)
