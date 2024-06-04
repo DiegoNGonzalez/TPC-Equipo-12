@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
 using Dominio;
+using System.Configuration;
 
 namespace TPC_equipo_12
 {
@@ -30,7 +31,7 @@ namespace TPC_equipo_12
 
         protected void EstaInscripto()
         {
-            List<int> auxIds= cursoNegocio.IDCursosXEstudiante(1);
+            List<int> auxIds= cursoNegocio.IDCursosXEstudiante((int)Session["usuario"]);
             foreach(int id in auxIds)
             {
                 foreach(Curso curso in listaCursos)
@@ -44,5 +45,11 @@ namespace TPC_equipo_12
 
 
         }
+
+        protected void LinkButtonCurso_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("DefaultEstudiante.aspx");
+        }
+
     }
 }

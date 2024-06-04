@@ -19,7 +19,7 @@ namespace TPC_equipo_12
                 if (Session["error"] != null)
                 {
                     LabelErrorLogIn.Text = Session["error"].ToString();
-                    LabelErrorRegistro.Text = "No eres estudiante? Registrate!";
+                    LabelErrorRegistro.Text = "No sos estudiante? Registrate!";
                     ButtonErrorRegistro.Visible = true;
                     Session["error"] = null;
                 }

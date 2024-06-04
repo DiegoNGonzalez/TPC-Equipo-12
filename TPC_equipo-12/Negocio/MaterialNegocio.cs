@@ -19,7 +19,7 @@ namespace Negocio
             List<MaterialLeccion> lista = new List<MaterialLeccion>();
             try
             {
-                Datos.SetearConsulta("select m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial from Materiales m inner join materialesxlecciones mxl on mxl.IDMaterial = m.IDmaterial inner join lecciones l on mxl.Idleccion = @IDLeccion");
+                Datos.SetearConsulta("select m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial from Materiales m inner join materialesxlecciones mxl on mxl.IDMaterial = m.IDmaterial inner join lecciones l on mxl.Idleccion = l.IDLeccion Where l.IDLeccion = @idLeccion");
                 Datos.SetearParametro("@IDLeccion", idLeccion);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())

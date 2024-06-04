@@ -22,14 +22,14 @@ namespace Negocio
             List<Leccion> lista = new List<Leccion>();
             try
             {
-                datos.SetearConsulta("select l.Idleccion, l.nombre, l.nroLeccion, l.Descripcion from Lecciones l inner JOIN LeccionesXUnidades lxu on lxu.IDLeccion = l.IDLeccion inner join Unidades u on @IDUnidad = lxu.IDUnidad");
+                datos.SetearConsulta("select l.Idleccion, l.nombre, l.nroLeccion, l.Descripcion from Lecciones l inner JOIN LeccionesXUnidades lxu on lxu.IDLeccion = l.IDLeccion inner join Unidades u on u.IDUnidad = lxu.IDUnidad Where u.IDUnidad = @IDUnidad");
                 datos.SetearParametro("@IDUnidad", IDUnidad);
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
                 {
                     Leccion aux = new Leccion();
-                    aux.IDLeccion = datos.Lector.GetInt32(0);
-                    aux.NroLeccion = datos.Lector.GetInt32(1);
+                    aux.IDLeccion = (int)datos.Lector["Idleccion"];
+                    aux.NroLeccion = (int)datos.Lector["nroLeccion"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     lista.Add(aux);

@@ -8,7 +8,8 @@
             <div class="col-md-12">
                 <h1>Mis Cursos</h1>
                 <asp:Repeater ID="rptCursos" runat="server">
-                    <itemtemplate>
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LinkButtonCurso" runat="server" OnClick="LinkButtonCurso_Click" Style="text-decoration: none;">
                         <div class="card" style="width: 18rem;">
                             <img src='<%# Eval("Imagen.URL") %>' class="card-img-top" alt="...">
                             <div class="card-body">
@@ -25,7 +26,8 @@
                                 <a href="#" class="card-link">Another link</a>
                             </div>
                         </div>
-                    </itemtemplate>
+                        </asp:LinkButton>
+                    </ItemTemplate>
                 </asp:Repeater>
             </div>
         </div>
