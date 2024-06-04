@@ -43,6 +43,7 @@ namespace Negocio
                 {
                     item.Unidades = UnidadesDeCurso.ListarUnidades(item.IDCurso);
                 }
+                    Datos.LimpiarParametros();
                 return lista;
 			}
 			catch (Exception ex)

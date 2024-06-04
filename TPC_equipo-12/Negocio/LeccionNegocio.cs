@@ -38,6 +38,7 @@ namespace Negocio
                 {
                     item.Materiales = MaterialesDeLeccion.ListarMateriales(item.IDLeccion);
                 }
+                    datos.LimpiarParametros();
             }
             catch (Exception)
             {

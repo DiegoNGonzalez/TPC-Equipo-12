@@ -38,6 +38,7 @@ namespace Negocio
                 {
                     item.Lecciones = LeccionesDeUnidad.ListarLecciones(item.IDUnidad);
                 }
+                    Datos.LimpiarParametros();
             }
             catch (Exception)
             {
@@ -50,5 +51,6 @@ namespace Negocio
             }
             return lista;
         }
+
     }
 }
