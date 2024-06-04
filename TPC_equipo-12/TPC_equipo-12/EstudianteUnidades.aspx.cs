@@ -23,5 +23,12 @@ namespace TPC_equipo_12
                 rptUnidades.DataBind();
             }
         }
+
+        protected void ButtonVerLecciones_Command(object sender, CommandEventArgs e)
+        {
+            int IdUnidad = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDUnidad", IdUnidad);
+            Response.Redirect("EstudianteLecciones.aspx");
+        }
     }
 }

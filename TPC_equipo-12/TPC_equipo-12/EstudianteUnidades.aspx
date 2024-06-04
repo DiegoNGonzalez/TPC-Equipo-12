@@ -12,20 +12,21 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">ID Unidad</th>
-                            <th scope="col">Nombre</th>
                             <th scope="col">Nro Unidad</th>
+                            <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
+                            <th scope="col">ID Unidad</th>
                         </tr>
                     </thead>
                     <tbody>
                         <asp:Repeater ID="rptUnidades" runat="server">
                             <ItemTemplate>
                                 <tr>
-                                    <td><%# Eval("IDUnidad") %></td>
-                                    <td><%# Eval("Nombre") %></td>
                                     <td><%# Eval("NroUnidad") %></td>
+                                    <td><%# Eval("Nombre") %></td>
                                     <td><%# Eval("Descripcion") %></td>
+                                    <td><%# Eval("IDUnidad") %></td>
+                                    <td> <asp:Button ID="ButtonVerLecciones" runat="server" Text="Lecciones" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDUnidad") %>' OnCommand="ButtonVerLecciones_Command"/> </td>
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>
