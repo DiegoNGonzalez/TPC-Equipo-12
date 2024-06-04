@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,55 @@ namespace TPC_equipo_12
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                ButtonErrorRegistro.Visible = false;
+                if (Session["error"] != null)
+                {
+                    LabelErrorLogIn.Text = Session["error"].ToString();
+                    LabelErrorRegistro.Text = "No eres estudiante? Registrate!";
+                    ButtonErrorRegistro.Visible = true;
+                    Session["error"] = null;
+                }
+            }
+        }
+        protected void ButtonErrorRegistro_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("SignUp.aspx", true);
+        }
+        protected void ButtonLogIn_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = new Usuario();
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            try
+            {
+                usuario.Email = InputEmailLogIn.Text;
+                usuario.Contrasenia = InputContraseñaLogIn.Text;
+                usuarioNegocio.Logueo(usuario);
+                if (usuario.IDUsuario != 0)
+                {
+                    if (usuario.EsProfesor)
+                    {
+                        Session["usuario"] = usuario;
+                        Response.Redirect("DefaultProfesor.aspx", false);
+                    }
+                    else
+                    {
+                        Session["usuario"] = usuario;
+                        Response.Redirect("DefaultEstudiante.aspx", false);
+                    }
+                }
+                else
+                {
+                    Session["error"] = "Email o Contraseña incorrectos. Reingrese por favor.";
+                    Response.Redirect("LogIn.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+                Response.Redirect("LogIn.aspx");
+            }
         }
     }
 }

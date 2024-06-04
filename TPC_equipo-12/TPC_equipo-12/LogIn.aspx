@@ -8,16 +8,21 @@
             <div class="card-body">
                 <h5 class="card-title d-flex justify-content-center align-items-center">Iniciar Sesion</h5>
                 <form>
+                    <asp:Label ID="LabelErrorLogIn" style="color: red" runat="server" Text=""></asp:Label>
                     <div class="mb-3">
-                        <label for="InputCorreoLogIn" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="InputCorreoLogIn" aria-describedby="emailHelp">
+                        <asp:Label ID="Label1" runat="server" Text="Correo"></asp:Label>
+                        <asp:TextBox ID="InputEmailLogIn" placeholder="Ingrese aqui su correo..." runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="mb-3">
-                        <label for="InputContraseñaLogIn" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="InputContraseñaLogIn">
+                        <asp:Label ID="Label2" runat="server" Text="Contraseña"></asp:Label>
+                        <asp:TextBox ID="InputContraseñaLogIn" placeholder="*****" runat="server" CssClass="form-control"></asp:TextBox>
                         <div id="emailHelp" class="form-text">No la compartas con nadie.</div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Acceder</button>
+                    <asp:Button ID="ButtonLogIn" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary" OnClick="ButtonLogIn_Click" />
+                    <div class="mb-3">
+                        <asp:Label ID="LabelErrorRegistro" runat="server" Text=""></asp:Label>
+                        <asp:Button ID="ButtonErrorRegistro" runat="server" Text="Registrarme!" CssClass="btn btn-primary" OnClick="ButtonErrorRegistro_Click" />
+                    </div>
                 </form>
             </div>
         </div>

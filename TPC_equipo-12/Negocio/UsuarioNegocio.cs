@@ -154,5 +154,32 @@ namespace Negocio
             }
         }
 
+        public bool Logueo(Usuario usuario)
+        {
+            Datos Datos = new Datos();
+            try
+            {
+                Datos.SetearConsulta("select IDUsuario, EsProfesor from Usuarios where Email = @Email and Contrasenia = @Contrasenia");
+                Datos.SetearParametro("@Email", usuario.Email);
+                Datos.SetearParametro("@Contrasenia", usuario.Contrasenia);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    usuario.IDUsuario = Datos.Lector.GetInt32(0);
+                    usuario.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
     }
 }
