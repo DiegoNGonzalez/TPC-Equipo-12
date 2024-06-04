@@ -9,7 +9,8 @@
                 <h1>Mis Cursos</h1>
                 <asp:Repeater ID="rptCursos" runat="server">
                     <ItemTemplate>
-                        <asp:LinkButton ID="LinkButtonCurso" runat="server" OnClick="LinkButtonCurso_Click" Style="text-decoration: none;">
+                        <asp:LinkButton ID="LinkButtonCurso" runat="server" CommandArgument='<%# Eval("IDCurso") %>'
+                            OnCommand="LinkButtonCurso_Command" Style="text-decoration: none;">
                         <div class="card" style="width: 18rem;">
                             <img src='<%# Eval("Imagen.URL") %>' class="card-img-top" alt="...">
                             <div class="card-body">

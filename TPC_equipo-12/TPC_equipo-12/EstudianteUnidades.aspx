@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <asp:Repeater ID="Repeater1" runat="server">
+                        <asp:Repeater ID="rptUnidades" runat="server">
                             <ItemTemplate>
                                 <tr>
                                     <td><%# Eval("IDUnidad") %></td>

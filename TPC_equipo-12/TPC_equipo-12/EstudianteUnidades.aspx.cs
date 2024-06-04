@@ -18,7 +18,9 @@ namespace TPC_equipo_12
             if (!IsPostBack)
             {
                 listaUnidades = unidadNegocio.ListarUnidades((int)Session["IDCurso"]);
-                //falta terminar
+                Session.Add("ListaUnidades", listaUnidades);
+                rptUnidades.DataSource = listaUnidades;
+                rptUnidades.DataBind();
             }
         }
     }

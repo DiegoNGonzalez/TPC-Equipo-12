@@ -46,10 +46,11 @@ namespace TPC_equipo_12
 
 
         }
-
-        protected void LinkButtonCurso_Click(object sender, EventArgs e)
+        protected void LinkButtonCurso_Command(object sender, CommandEventArgs e)
         {
-            Response.Redirect("DefaultEstudiante.aspx");
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDCurso", idCurso);
+            Response.Redirect("EstudianteUnidades.aspx");
         }
 
     }
