@@ -13,9 +13,11 @@ namespace Negocio
     public class CursoNegocio
     {
 		public Datos Datos;
+        private UnidadNegocio UnidadesDeCurso;
 		public CursoNegocio()
 		{
             Datos = new Datos();
+            UnidadesDeCurso = new UnidadNegocio();
         }
         public List<Curso> ListarCursos()
         {
@@ -36,6 +38,10 @@ namespace Negocio
                     aux.Imagen.IDImagen = (int)Datos.Lector["IDImagenes"];
                     aux.Imagen.URL = (string)Datos.Lector["URLIMG"];
                     lista.Add(aux);
+                }
+                foreach (var item in lista)
+                {
+                    item.Unidades = UnidadesDeCurso.ListarUnidades(item.IDCurso);
                 }
                 return lista;
 			}
