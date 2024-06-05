@@ -46,16 +46,17 @@ namespace TPC_equipo_12
                     if (usuario.EsProfesor)
                     {
                         Profesor profesor = new Profesor();
-                        profesor=usuarioNegocio.SetearProfesor(usuario.IDUsuario);
+                        profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
                         profesor.Cursos = listaCursos;
                         Session["profesor"] = profesor;
-                        Response.Redirect("DefaultProfesor.aspx", false);
+                        Response.Redirect("~/Profesor/DefaultProfesor.aspx", false);
                     }
                     else
                     {
-                        
-                        Session["usuario"] = usuario;
-                        Response.Redirect("DefaultEstudiante.aspx", false);
+                        Estudiante estudiante = new Estudiante();
+                        estudiante = usuarioNegocio.SetearEstudiante(usuario.IDUsuario);
+                        Session["estudiante"] = estudiante;
+                        Response.Redirect("~/Estudiante/DefaultEstudiante.aspx", false);
                     }
                 }
                 else

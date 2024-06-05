@@ -66,17 +66,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
-    <Content Include="DefaultEstudiante.aspx" />
-    <Content Include="EstudianteCursos.aspx" />
-    <Content Include="EstudianteLecciones.aspx" />
-    <Content Include="EstudianteUnidades.aspx" />
+    <Content Include="Estudiante\DefaultEstudiante.aspx" />
+    <Content Include="Estudiante\EstudianteCursos.aspx" />
+    <Content Include="Estudiante\EstudianteLecciones.aspx" />
+    <Content Include="Estudiante\EstudianteUnidades.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="ProfesorCursos.aspx" />
+    <Content Include="Profesor\ProfesorCursos.aspx" />
     <Content Include="Web.config" />
     <Content Include="SignUp.aspx" />
     <Content Include="LogIn.aspx" />
-    <Content Include="DefaultProfesor.aspx" />
-    <Content Include="ProfesorEstudiantes.aspx" />
+    <Content Include="Profesor\DefaultProfesor.aspx" />
+    <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">
@@ -86,32 +86,32 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DefaultEstudiante.aspx.cs">
+    <Compile Include="Estudiante\DefaultEstudiante.aspx.cs">
       <DependentUpon>DefaultEstudiante.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DefaultEstudiante.aspx.designer.cs">
+    <Compile Include="Estudiante\DefaultEstudiante.aspx.designer.cs">
       <DependentUpon>DefaultEstudiante.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EstudianteCursos.aspx.cs">
+    <Compile Include="Estudiante\EstudianteCursos.aspx.cs">
       <DependentUpon>EstudianteCursos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EstudianteCursos.aspx.designer.cs">
+    <Compile Include="Estudiante\EstudianteCursos.aspx.designer.cs">
       <DependentUpon>EstudianteCursos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EstudianteLecciones.aspx.cs">
+    <Compile Include="Estudiante\EstudianteLecciones.aspx.cs">
       <DependentUpon>EstudianteLecciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EstudianteLecciones.aspx.designer.cs">
+    <Compile Include="Estudiante\EstudianteLecciones.aspx.designer.cs">
       <DependentUpon>EstudianteLecciones.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EstudianteUnidades.aspx.cs">
+    <Compile Include="Estudiante\EstudianteUnidades.aspx.cs">
       <DependentUpon>EstudianteUnidades.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EstudianteUnidades.aspx.designer.cs">
+    <Compile Include="Estudiante\EstudianteUnidades.aspx.designer.cs">
       <DependentUpon>EstudianteUnidades.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -124,18 +124,18 @@
     <Compile Include="Master.Master.designer.cs">
       <DependentUpon>Master.Master</DependentUpon>
     </Compile>
-    <Compile Include="ProfesorCursos.aspx.cs">
+    <Compile Include="Profesor\ProfesorCursos.aspx.cs">
       <DependentUpon>ProfesorCursos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProfesorCursos.aspx.designer.cs">
+    <Compile Include="Profesor\ProfesorCursos.aspx.designer.cs">
       <DependentUpon>ProfesorCursos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ProfesorMasterPage.Master.cs">
+    <Compile Include="Profesor\ProfesorMasterPage.Master.cs">
       <DependentUpon>ProfesorMasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProfesorMasterPage.Master.designer.cs">
+    <Compile Include="Profesor\ProfesorMasterPage.Master.designer.cs">
       <DependentUpon>ProfesorMasterPage.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -153,33 +153,33 @@
     <Compile Include="LogIn.aspx.designer.cs">
       <DependentUpon>LogIn.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DefaultProfesor.aspx.cs">
+    <Compile Include="Profesor\DefaultProfesor.aspx.cs">
       <DependentUpon>DefaultProfesor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DefaultProfesor.aspx.designer.cs">
+    <Compile Include="Profesor\DefaultProfesor.aspx.designer.cs">
       <DependentUpon>DefaultProfesor.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EstudianteMasterPage.Master.cs">
+    <Compile Include="Estudiante\EstudianteMasterPage.Master.cs">
       <DependentUpon>EstudianteMasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EstudianteMasterPage.Master.designer.cs">
+    <Compile Include="Estudiante\EstudianteMasterPage.Master.designer.cs">
       <DependentUpon>EstudianteMasterPage.Master</DependentUpon>
     </Compile>
-    <Compile Include="ProfesorEstudiantes.aspx.cs">
+    <Compile Include="Profesor\ProfesorEstudiantes.aspx.cs">
       <DependentUpon>ProfesorEstudiantes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProfesorEstudiantes.aspx.designer.cs">
+    <Compile Include="Profesor\ProfesorEstudiantes.aspx.designer.cs">
       <DependentUpon>ProfesorEstudiantes.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Master.Master" />
     <None Include="packages.config" />
-    <Content Include="ProfesorMasterPage.Master" />
-    <Content Include="EstudianteMasterPage.Master" />
+    <Content Include="Profesor\ProfesorMasterPage.Master" />
+    <Content Include="Estudiante\EstudianteMasterPage.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

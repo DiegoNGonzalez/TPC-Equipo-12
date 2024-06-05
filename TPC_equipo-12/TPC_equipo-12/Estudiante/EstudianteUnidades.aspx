@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/EstudianteMasterPage.Master" AutoEventWireup="true" CodeBehind="EstudianteUnidades.aspx.cs" Inherits="TPC_equipo_12.EstudianteUnidades" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Estudiante/EstudianteMasterPage.Master" AutoEventWireup="true" CodeBehind="EstudianteUnidades.aspx.cs" Inherits="TPC_equipo_12.EstudianteUnidades" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

@@ -12,12 +12,12 @@ namespace Negocio
     {
         private Datos Datos;
         private CursoNegocio Cursos;
-        
+
         public UsuarioNegocio()
         {
             Datos = new Datos();
             Cursos = new CursoNegocio();
-            
+
         }
         public List<Usuario> ListarUsuarios()
         {
@@ -183,7 +183,7 @@ namespace Negocio
             {
                 Datos.CerrarConexion();
             }
-        } 
+        }
         public Profesor SetearProfesor(int idUsuario)
         {
             Datos Datos = new Datos();
@@ -205,9 +205,45 @@ namespace Negocio
                     profesor.EsProfesor = (bool)Datos.Lector["EsProfesor"];
                     profesor.ImagenPerfil = new Imagen();
                     profesor.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
-                    
+                    //Falta hacer funcionar las imagenes con un join como 
                 }
                 return profesor;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+
+        } 
+        public Estudiante SetearEstudiante(int idUsuario)
+        {
+            Datos Datos = new Datos();
+            Estudiante estudiante = new Estudiante();
+            try
+            {
+                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, Contrasenia, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDEstudiante");
+                Datos.SetearParametro("@IDEstudiante", idUsuario);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    estudiante.IDUsuario = Datos.Lector.GetInt32(0);
+                    estudiante.Nombre = (string)Datos.Lector["Nombre"];
+                    estudiante.Apellido = (string)Datos.Lector["Apellido"];
+                    estudiante.DNI = (int)Datos.Lector["DNI"];
+                    estudiante.Genero = (string)Datos.Lector["Genero"];
+                    estudiante.Email = (string)Datos.Lector["Email"];
+                    estudiante.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    estudiante.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+                    estudiante.ImagenPerfil = new Imagen();
+                    estudiante.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                    //Falta hacer funcionar las imagenes con un join como 
+
+                }
+                return estudiante;
             }
             catch (Exception ex)
             {
