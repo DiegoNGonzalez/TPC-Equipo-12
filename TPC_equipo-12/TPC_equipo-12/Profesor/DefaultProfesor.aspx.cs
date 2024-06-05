@@ -11,8 +11,12 @@ namespace TPC_equipo_12
 {
     public partial class DefaultProfesor : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
+        if(Session["profesor"]==null){
+            Response.Redirect("../Default.aspx");
+        }
 
         }
     }

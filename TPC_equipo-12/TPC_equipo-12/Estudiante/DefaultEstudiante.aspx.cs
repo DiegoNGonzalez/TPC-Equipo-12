@@ -17,6 +17,10 @@ namespace TPC_equipo_12
         public List<Curso> listaCursosInscriptos = new List<Curso>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["estudiante"] == null)
+            {
+                Response.Redirect("../Default.aspx");
+            }
             if (!IsPostBack)
             {
                 listaCursos = cursoNegocio.ListarCursos();
