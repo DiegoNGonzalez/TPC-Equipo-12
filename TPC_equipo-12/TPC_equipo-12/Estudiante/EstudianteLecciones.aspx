@@ -21,6 +21,7 @@
                             <td><%# Eval("NroLeccion") %></td>
                             <td><%# Eval("Nombre") %></td>
                             <td><%# Eval("Descripcion") %></td>
+                            <td> <asp:Button ID="ButtonVerMateriales" runat="server" Text="Materiales" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDLeccion") %>' OnCommand="ButtonVerMateriales_Command"/> </td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>

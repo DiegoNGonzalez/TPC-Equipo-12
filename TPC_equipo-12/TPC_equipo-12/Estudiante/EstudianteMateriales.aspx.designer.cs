@@ -11,16 +11,16 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class EstudianteLecciones
+    public partial class EstudianteMateriales
     {
 
         /// <summary>
-        /// Control rptLecciones.
+        /// Control rptMateriales.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptLecciones;
+        protected global::System.Web.UI.WebControls.Repeater rptMateriales;
     }
 }

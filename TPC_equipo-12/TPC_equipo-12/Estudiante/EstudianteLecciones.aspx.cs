@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
 using Dominio;
+using System.Configuration;
 
 namespace TPC_equipo_12
 {
@@ -23,6 +24,12 @@ namespace TPC_equipo_12
                 rptLecciones.DataBind();
             }
 
+        }
+        protected void ButtonVerMateriales_Command(object sender, CommandEventArgs e)
+        {
+            int IdLeccion = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDLeccion", IdLeccion);
+            Response.Redirect("EstudianteMateriales.aspx");
         }
     }
 }

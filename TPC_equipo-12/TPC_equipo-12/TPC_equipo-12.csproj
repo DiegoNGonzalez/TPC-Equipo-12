@@ -69,6 +69,7 @@
     <Content Include="Estudiante\DefaultEstudiante.aspx" />
     <Content Include="Estudiante\EstudianteCursos.aspx" />
     <Content Include="Estudiante\EstudianteLecciones.aspx" />
+    <Content Include="Estudiante\EstudianteMateriales.aspx" />
     <Content Include="Estudiante\EstudianteUnidades.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Profesor\ProfesorCursos.aspx" />
@@ -106,6 +107,13 @@
     </Compile>
     <Compile Include="Estudiante\EstudianteLecciones.aspx.designer.cs">
       <DependentUpon>EstudianteLecciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Estudiante\EstudianteMateriales.aspx.cs">
+      <DependentUpon>EstudianteMateriales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estudiante\EstudianteMateriales.aspx.designer.cs">
+      <DependentUpon>EstudianteMateriales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Estudiante\EstudianteUnidades.aspx.cs">
       <DependentUpon>EstudianteUnidades.aspx</DependentUpon>
