@@ -15,6 +15,7 @@ namespace TPC_equipo_12
         {
             if (!IsPostBack)
             {
+                
                 ButtonErrorRegistro.Visible = false;
                 if (Session["error"] != null)
                 {
@@ -38,15 +39,21 @@ namespace TPC_equipo_12
                 usuario.Email = InputEmailLogIn.Text;
                 usuario.Contrasenia = InputContraseñaLogIn.Text;
                 usuarioNegocio.Logueo(usuario);
+                List<Curso> listaCursos = new List<Curso>();
+                listaCursos = (List<Curso>)Session["listaCursos"];
                 if (usuario.IDUsuario != 0)
                 {
                     if (usuario.EsProfesor)
                     {
-                        Session["usuario"] = usuario;
+                        Profesor profesor = new Profesor();
+                        profesor=usuarioNegocio.SetearProfesor(usuario.IDUsuario);
+                        profesor.Cursos = listaCursos;
+                        Session["profesor"] = profesor;
                         Response.Redirect("DefaultProfesor.aspx", false);
                     }
                     else
                     {
+                        
                         Session["usuario"] = usuario;
                         Response.Redirect("DefaultEstudiante.aspx", false);
                     }

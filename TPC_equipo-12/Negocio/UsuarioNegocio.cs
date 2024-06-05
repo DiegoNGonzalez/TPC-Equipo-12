@@ -11,9 +11,13 @@ namespace Negocio
     public class UsuarioNegocio
     {
         private Datos Datos;
+        private CursoNegocio Cursos;
+        
         public UsuarioNegocio()
         {
             Datos = new Datos();
+            Cursos = new CursoNegocio();
+            
         }
         public List<Usuario> ListarUsuarios()
         {
@@ -179,7 +183,43 @@ namespace Negocio
             {
                 Datos.CerrarConexion();
             }
+        } 
+        public Profesor SetearProfesor(int idUsuario)
+        {
+            Datos Datos = new Datos();
+            Profesor profesor = new Profesor();
+            try
+            {
+                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, Contrasenia, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDProfesor");
+                Datos.SetearParametro("@IDProfesor", idUsuario);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    profesor.IDUsuario = Datos.Lector.GetInt32(0);
+                    profesor.Nombre = (string)Datos.Lector["Nombre"];
+                    profesor.Apellido = (string)Datos.Lector["Apellido"];
+                    profesor.DNI = (int)Datos.Lector["DNI"];
+                    profesor.Genero = (string)Datos.Lector["Genero"];
+                    profesor.Email = (string)Datos.Lector["Email"];
+                    profesor.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    profesor.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+                    profesor.ImagenPerfil = new Imagen();
+                    profesor.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                    
+                }
+                return profesor;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+
         }
+        
 
     }
 }
