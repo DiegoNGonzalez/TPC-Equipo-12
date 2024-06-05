@@ -49,13 +49,13 @@ namespace TPC_equipo_12
                         profesor=usuarioNegocio.SetearProfesor(usuario.IDUsuario);
                         profesor.Cursos = listaCursos;
                         Session["profesor"] = profesor;
-                        Response.Redirect("DefaultProfesor.aspx", false);
+                        Response.Redirect("~/Profesor/DefaultProfesor.aspx", false);
                     }
                     else
                     {
                         
                         Session["usuario"] = usuario;
-                        Response.Redirect("DefaultEstudiante.aspx", false);
+                        Response.Redirect("~/Estudiante/DefaultEstudiante.aspx", false);
                     }
                 }
                 else
