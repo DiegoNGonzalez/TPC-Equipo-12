@@ -13,14 +13,15 @@ namespace TPC_equipo_12
     {
         public List<Curso> listaCursos = new List<Curso>();
         public CursoNegocio cursoNegocio = new CursoNegocio();
+        public Profesor profesor = new Profesor();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                listaCursos = cursoNegocio.ListarCursos();
-                Session.Add("listaCursos", listaCursos);
-                rptProfesorCursos.DataSource = listaCursos;
+                profesor = (Profesor)Session["profesor"];
+                Session.Add("listaCursosProfesor", profesor.Cursos);
+                rptProfesorCursos.DataSource = profesor.Cursos;
                 rptProfesorCursos.DataBind();
             }
         }
