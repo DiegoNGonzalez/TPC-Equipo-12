@@ -19,7 +19,7 @@ namespace AccesoDB
         }
         public Datos()
         {
-            conexion = new SqlConnection("data source=.\\SQLEXPRESS; initial catalog=DB_DESPEGA; integrated security=true;");
+            conexion = new SqlConnection("data source=.\\SQLEXPRESS; initial catalog=DB_DESPEGAv2; integrated security=true;");
             comando = new SqlCommand();
         }
         public void SetearConsulta(string consulta)

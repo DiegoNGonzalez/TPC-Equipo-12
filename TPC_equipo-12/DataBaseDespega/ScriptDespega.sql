@@ -1,6 +1,6 @@
-Create Database DB_DESPEGA
+Create Database DB_DESPEGAv2
 GO
-Use DB_DESPEGA
+Use DB_DESPEGAv2
 GO
 Create Table Imagenes(
 	IDImagenes int not null primary key identity(1, 1),
@@ -15,7 +15,7 @@ Create Table Usuarios(
 	Genero char null check(Genero='M' or Genero='F' or Genero='X'),
 	Email varchar(100) not null unique,
 	EsProfesor bit not null default 0,
-	IDImagen int not null Foreign Key References Imagenes(IDImagenes),
+	IDImagen int null Foreign Key References Imagenes(IDImagenes),
 	Contrasenia varchar(100) not null
 )
 GO
@@ -28,7 +28,7 @@ Create Table Cursos(
 	IDCurso int not null Primary Key Identity(1,1),
 	Nombre varchar(200) not null,
 	Descripcion varchar(500) not null,
-	IDImagen int not null Foreign Key References Imagenes(IDImagenes),
+	IDImagen int null Foreign Key References Imagenes(IDImagenes),
 	Estreno DateTime not null,
 	Duracion int not null,
 )
@@ -78,7 +78,7 @@ Create Table Materiales(
 GO
 Create Table Lecciones(
 	IDLeccion int not null Primary Key Identity(1,1),
-	NroLeccion int not null unique,
+	NroLeccion int not null,
 	Nombre varchar(100) not null,
 	Descripcion varchar(500) not null,
 )
@@ -98,7 +98,7 @@ Create Table MaterialesXLecciones(
 GO
 Create Table Unidades(
 	IDUnidad int not null Primary Key Identity(1, 1),
-	NroUnidad int not null unique,
+	NroUnidad int not null,
 	Nombre varchar(100) not null,
 	Descripcion varchar(100) not null,
 )
