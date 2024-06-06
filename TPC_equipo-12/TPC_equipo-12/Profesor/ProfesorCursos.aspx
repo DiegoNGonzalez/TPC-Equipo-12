@@ -5,28 +5,23 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 text-center">
                 <h1 class="text-center">Cursos Cargados</h1>
             </div>
         </div>
         <div class="row">
             <asp:Repeater ID="rptProfesorCursos" runat="server">
                 <ItemTemplate>
-                    <div class="card" style="width: 18rem;">
-                        <img src='<%# Eval("Imagen.URL") %>' class="card-img-top" alt="...">
-                        <div class="card-body">
+                    <div class="card ms-5 mb-5" style="width: 18rem;">
+                        <img src='<%# Eval("Imagen.URL") %>' class="card-img-top mt-3" alt="...">
+                        <div class="card-body text-center">
                             <h5 class="card-title"><%# Eval("Nombre") %></h5>
-                            <p class="card-text"><%# Eval("Descripcion") %></p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><%# Eval("Duracion") %></li>
-                            <li class="list-group-item">A second item</li>
+                            <li class="list-group-item"><%# Eval("Descripcion") %></li>
+                            <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
                             <li class="list-group-item">A third item</li>
                         </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>

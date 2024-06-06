@@ -7,24 +7,47 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title d-flex justify-content-center align-items-center">Iniciar Sesion</h5>
-                <form>
-                    <asp:Label ID="LabelErrorLogIn" style="color: red" runat="server" Text=""></asp:Label>
-                    <div class="mb-3">
-                        <asp:Label ID="Label1" runat="server" Text="Correo"></asp:Label>
-                        <asp:TextBox ID="InputEmailLogIn" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="mb-3">
-                        <asp:Label ID="Label2" runat="server" Text="Contraseña"></asp:Label>
-                        <asp:TextBox type="password" ID="InputContraseñaLogIn" runat="server" CssClass="form-control password"></asp:TextBox>
-                        <div id="emailHelp" class="form-text">No la compartas con nadie.</div>
-                    </div>
-                    <asp:Button ID="ButtonLogIn" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary" OnClick="ButtonLogIn_Click" />
-                    <div class="mb-3">
-                        <asp:Label ID="LabelErrorRegistro" runat="server" Text=""></asp:Label>
-                        <asp:Button ID="ButtonErrorRegistro" runat="server" Text="Registrarme!" CssClass="btn btn-primary" OnClick="ButtonErrorRegistro_Click" />
-                    </div>
-                </form>
+                <asp:Label ID="LabelErrorLogIn" Style="color: red" runat="server" Text=""></asp:Label>
+                <div class="mb-3">
+                    <asp:Label ID="Label1" runat="server" Text="Correo"></asp:Label>
+                    <asp:TextBox ID="InputEmailLogIn" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="mb-3">
+                    <asp:Label ID="Label2" runat="server" Text="Contraseña"></asp:Label>
+                    <asp:TextBox type="password" ID="InputContraseñaLogIn" runat="server" CssClass="form-control password"></asp:TextBox>
+                    <div id="emailHelp" class="form-text">No la compartas con nadie.</div>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+
+                    <asp:Button ID="ButtonLogIn" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary " OnClick="ButtonLogIn_Click" />
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <asp:Label ID="LabelErrorRegistro" runat="server" Text=""></asp:Label>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <asp:Button ID="ButtonErrorRegistro" runat="server" Text="Registrarme!" CssClass="btn btn-primary" OnClick="ButtonErrorRegistro_Click" />
+                </div>
+
             </div>
         </div>
+
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-center align-items-center">Profesor (Desarrollo)</h5>
+                <p class="text-center">Inicias sesion como: hola@maxiprograma.com </p>
+                <asp:Button ID="ButtonLogInFastProf" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary" OnClick="ButtonLogInFastProf_Click" />
+            </div>
+        </div>
+
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-center align-items-center">Estudiante (Desarrollo)</h5>
+                <p class="text-center">Inicias sesion como: tomas.caceres2@alumnos.frgp.utn.edu.ar </p>
+                <asp:Button ID="ButtonLogInFastEst" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary" OnClick="ButtonLogInFastEst_Click" />
+            </div>
+        </div>
+
     </div>
 </asp:Content>
