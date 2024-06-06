@@ -13,5 +13,11 @@ namespace TPC_equipo_12
         {
 
         }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session["estudiante"] = null;
+            Response.Redirect("../Default.aspx");
+        }
     }
 }
