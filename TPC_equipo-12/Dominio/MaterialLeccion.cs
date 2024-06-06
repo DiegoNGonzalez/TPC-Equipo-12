@@ -12,6 +12,7 @@ namespace Dominio
         public string Nombre { get; set; }
         public string TipoMaterial { get; set; }
         public string URL { get; set; }
+        public string Descripcion { get; set; }
 
       
     }

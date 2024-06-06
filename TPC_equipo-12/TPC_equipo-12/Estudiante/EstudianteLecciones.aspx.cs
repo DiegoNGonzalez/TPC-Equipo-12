@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Negocio;
 using Dominio;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace TPC_equipo_12
 {
@@ -22,6 +23,8 @@ namespace TPC_equipo_12
                 Session.Add("ListaLecciones", listaLecciones);
                 rptLecciones.DataSource = listaLecciones;
                 rptLecciones.DataBind();
+
+                
             }
 
         }
@@ -31,5 +34,6 @@ namespace TPC_equipo_12
             Session.Add("IDLeccion", IdLeccion);
             Response.Redirect("EstudianteMateriales.aspx");
         }
+        
     }
 }
