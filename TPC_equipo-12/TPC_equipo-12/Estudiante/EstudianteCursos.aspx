@@ -9,12 +9,12 @@
                 <h1>Mis Cursos</h1>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <asp:Repeater ID="rptCursos" runat="server">
                 <ItemTemplate>
+                        <div class="card ms-5 mb-5" style="width: 18rem;">
                     <asp:LinkButton ID="LinkButtonCurso" runat="server" CommandArgument='<%# Eval("IDCurso") %>'
                         OnCommand="LinkButtonCurso_Command" Style="text-decoration: none;">
-                        <div class="card ms-5 mb-5" style="width: 18rem;">
                             <img src='<%# Eval("Imagen.URL") %>' class="card-img-top mt-3" alt="...">
                             <div class="card-body text-center">
                                 <h5 class="card-title"><%# Eval("Nombre") %></h5>
@@ -24,8 +24,8 @@
                                 <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
                                 <li class="list-group-item">A third item</li>
                             </ul>
-                        </div>
                     </asp:LinkButton>
+                        </div>
                 </ItemTemplate>
             </asp:Repeater>
         </div>

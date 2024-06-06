@@ -9,7 +9,7 @@
                 <h1 class="text-center">Cursos Cargados</h1>
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             <asp:Repeater ID="rptProfesorCursos" runat="server">
                 <ItemTemplate>
                     <div class="card ms-5 mb-5" style="width: 18rem;">

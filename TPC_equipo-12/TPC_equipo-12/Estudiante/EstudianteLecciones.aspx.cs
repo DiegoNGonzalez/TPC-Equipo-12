@@ -34,6 +34,10 @@ namespace TPC_equipo_12
             Session.Add("IDLeccion", IdLeccion);
             Response.Redirect("EstudianteMateriales.aspx");
         }
-        
+
+        protected void ButtonBackUnidad_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EstudianteUnidades.aspx");
+        }
     }
 }

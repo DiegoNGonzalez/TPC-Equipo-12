@@ -3,11 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-header">
-                Lista de Unidades
-            </div>
+    <div class="container">
+        <asp:Button ID="ButtonBackCursos" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Cursos" OnClick="ButtonBackCursos_Click" />
+            <h2> Lista de Unidades</h2>
             <div class="card-body">
                 <table class="table table-striped">
                     <thead>
@@ -15,7 +13,6 @@
                             <th scope="col">Nro Unidad</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Descripción</th>
-                            <th scope="col">ID Unidad</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,7 +22,6 @@
                                     <td><%# Eval("NroUnidad") %></td>
                                     <td><%# Eval("Nombre") %></td>
                                     <td><%# Eval("Descripcion") %></td>
-                                    <td><%# Eval("IDUnidad") %></td>
                                     <td> <asp:Button ID="ButtonVerLecciones" runat="server" Text="Lecciones" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDUnidad") %>' OnCommand="ButtonVerLecciones_Command"/> </td>
                                 </tr>
                             </ItemTemplate>
@@ -34,5 +30,4 @@
                 </table>
             </div>
         </div>
-    </div>
 </asp:Content>

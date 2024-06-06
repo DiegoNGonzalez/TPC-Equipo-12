@@ -75,12 +75,16 @@ namespace TPC_equipo_12
                 {
                     Literal ltlDocumento = (Literal)e.Item.FindControl("ltlDocumento");
                     ltlDocumento.Text = $@"
-                    <a href='{material.URL}' target='_blank' class=''>
+                    <a href='{material.URL}' target='_blank' class='border p-2 m-2 d-inline-block mb-4'>
                         {material.Nombre}
                     </a>";
                 }
             }
         }
 
+        protected void ButtonBackLecciones_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EstudianteLecciones.aspx", false);
+        }
     }
 }

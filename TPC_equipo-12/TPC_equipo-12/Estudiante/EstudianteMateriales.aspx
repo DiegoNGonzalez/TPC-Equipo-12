@@ -3,26 +3,20 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" >
-    <div class="container mt-5">
+    <div class="container">
+        <asp:Button ID="ButtonBackLecciones" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Lecciones" OnClick="ButtonBackLecciones_Click" />
         <asp:Repeater ID="rptMateriales" runat="server" OnItemDataBound="rptMateriales_ItemDataBound">
             <ItemTemplate>
                 <div class="card">
                     <div class="card-header">
                        <h5 class="card-title"><%# Eval("Nombre") %></h5>
-               
                     </div>
                     <div class="card-body">
-
                         <asp:Literal ID="ltlYoutubeVideo" runat="server"></asp:Literal>
                         <asp:Literal ID="ltlDocumento" runat="server"></asp:Literal>
-
-
-
                         <div class="card mb-3">
                             <div class="card-body">
-                                
                                 <p class="card-text"><strong>Descripción:</strong> <%# Eval("Descripcion") %></p>
-                               
                             </div>
                         </div>
 

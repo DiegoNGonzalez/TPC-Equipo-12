@@ -30,5 +30,10 @@ namespace TPC_equipo_12
             Session.Add("IDUnidad", IdUnidad);
             Response.Redirect("EstudianteLecciones.aspx");
         }
+
+        protected void ButtonBackCursos_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EstudianteCursos.aspx");
+        }
     }
 }

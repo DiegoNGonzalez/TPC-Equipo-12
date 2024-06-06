@@ -3,11 +3,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
+        <asp:Button ID="ButtonBackUnidad" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Unidades" OnClick="ButtonBackUnidad_Click" />
         <h2>Lista de Lecciones</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID Lección</th>
                     <th>Nro Lección</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
@@ -17,7 +17,6 @@
                 <asp:Repeater ID="rptLecciones" runat="server">
                     <ItemTemplate>
                         <tr>
-                            <td><%# Eval("IDLeccion") %></td>
                             <td><%# Eval("NroLeccion") %></td>
                             <td><%# Eval("Nombre") %></td>
                             <td><%# Eval("Descripcion") %></td>
