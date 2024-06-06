@@ -61,7 +61,7 @@ namespace TPC_equipo_12
                 }
                 else
                 {
-                    Session["error"] = "Email o Contraseña incorrectos. Reingrese por favor.";
+                    Session.Add("error", "Email o Contraseña incorrectos. Reingrese por favor.");
                     Response.Redirect("LogIn.aspx", false);
                 }
             }

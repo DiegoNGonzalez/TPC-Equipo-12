@@ -11,11 +11,11 @@
                     <asp:Label ID="LabelErrorLogIn" style="color: red" runat="server" Text=""></asp:Label>
                     <div class="mb-3">
                         <asp:Label ID="Label1" runat="server" Text="Correo"></asp:Label>
-                        <asp:TextBox ID="InputEmailLogIn" placeholder="Ingrese aqui su correo..." runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="InputEmailLogIn" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="mb-3">
                         <asp:Label ID="Label2" runat="server" Text="Contraseña"></asp:Label>
-                        <asp:TextBox ID="InputContraseñaLogIn" placeholder="*****" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox type="password" ID="InputContraseñaLogIn" runat="server" CssClass="form-control password"></asp:TextBox>
                         <div id="emailHelp" class="form-text">No la compartas con nadie.</div>
                     </div>
                     <asp:Button ID="ButtonLogIn" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary" OnClick="ButtonLogIn_Click" />
