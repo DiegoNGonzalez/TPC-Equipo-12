@@ -2,30 +2,34 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container">
-        <h2>Lista de Materiales</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID Material</th>
-                    <th>Nombre</th>
-                    <th>Tipo de Material</th>
-                    <th>URL</th>
-                </tr>
-            </thead>
-            <tbody>
-                <asp:Repeater ID="rptMateriales" runat="server">
-                    <itemtemplate>
-                        <tr>
-                            <td><%# Eval("IDMaterial") %></td>
-                            <td><%# Eval("Nombre") %></td>
-                            <td><%# Eval("TipoMaterial") %></td>
-                            <td><%# Eval("URL") %></td>
-                        </tr>
-                    </itemtemplate>
-                </asp:Repeater>
-            </tbody>
-        </table>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server" >
+    <div class="container mt-5">
+        <asp:Repeater ID="rptMateriales" runat="server" OnItemDataBound="rptMateriales_ItemDataBound">
+            <ItemTemplate>
+                <div class="card">
+                    <div class="card-header">
+                       <h5 class="card-title"><%# Eval("Nombre") %></h5>
+               
+                    </div>
+                    <div class="card-body">
+
+                        <asp:Literal ID="ltlYoutubeVideo" runat="server"></asp:Literal>
+                        <asp:Literal ID="ltlDocumento" runat="server"></asp:Literal>
+
+
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                
+                                <p class="card-text"><strong>Descripción:</strong> <%# Eval("Descripcion") %></p>
+                               
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
     </div>
+
 </asp:Content>
