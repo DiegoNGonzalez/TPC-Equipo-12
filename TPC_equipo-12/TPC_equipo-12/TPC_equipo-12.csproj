@@ -73,6 +73,8 @@
     <Content Include="Estudiante\EstudianteMateriales.aspx" />
     <Content Include="Estudiante\EstudianteUnidades.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Profesor\ProfesorMateriales.aspx" />
+    <Content Include="Profesor\ProfesorLecciones.aspx" />
     <Content Include="Profesor\ProfesorUnidades.aspx" />
     <Content Include="Profesor\ProfesorCursos.aspx" />
     <Content Include="Web.config" />
@@ -140,6 +142,20 @@
     </Compile>
     <Compile Include="Master.Master.designer.cs">
       <DependentUpon>Master.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\ProfesorMateriales.aspx.cs">
+      <DependentUpon>ProfesorMateriales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\ProfesorMateriales.aspx.designer.cs">
+      <DependentUpon>ProfesorMateriales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\ProfesorLecciones.aspx.cs">
+      <DependentUpon>ProfesorLecciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\ProfesorLecciones.aspx.designer.cs">
+      <DependentUpon>ProfesorLecciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profesor\ProfesorUnidades.aspx.cs">
       <DependentUpon>ProfesorUnidades.aspx</DependentUpon>
