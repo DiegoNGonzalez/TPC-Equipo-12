@@ -25,5 +25,12 @@ namespace TPC_equipo_12
                 rptProfesorCursos.DataBind();
             }
         }
+
+        protected void LinkButtonCursoProf_Command(object sender, CommandEventArgs e)
+        {
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDCursoProfesor", idCurso);
+            Response.Redirect("ProfesorUnidades.aspx");
+        }
     }
 }
