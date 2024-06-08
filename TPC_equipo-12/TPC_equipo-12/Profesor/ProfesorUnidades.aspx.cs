@@ -15,7 +15,12 @@ namespace TPC_equipo_12
         public UnidadNegocio unidadNegocio = new UnidadNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (Session["profesor"] == null)
+            {
+                Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
+                Response.Redirect("../Error.aspx");
+            }
+            if (!IsPostBack)
             {
                 listaUnidades = unidadNegocio.ListarUnidades((int)Session["IDCursoProfesor"]);
                 Session.Add("ListaUnidadesProfesor", listaUnidades);

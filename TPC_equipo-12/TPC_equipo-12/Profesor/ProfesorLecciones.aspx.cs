@@ -15,7 +15,12 @@ namespace TPC_equipo_12
         public LeccionNegocio leccionNegocio = new LeccionNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (Session["profesor"] == null)
+            {
+                Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
+                Response.Redirect("../Error.aspx");
+            }
+            if (!IsPostBack)
             {
                 listaLecciones = leccionNegocio.ListarLecciones((int)Session["IDUnidadProfesor"]);
                 Session.Add("ListaLeccionesProfesor", listaLecciones);

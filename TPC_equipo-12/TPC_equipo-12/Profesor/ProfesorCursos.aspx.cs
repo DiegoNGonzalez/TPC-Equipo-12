@@ -17,6 +17,11 @@ namespace TPC_equipo_12
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["profesor"] == null)
+            {
+                Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
+                Response.Redirect("../Error.aspx");
+            }
             if (!IsPostBack)
             {
                 profesor = (Profesor)Session["profesor"];

@@ -11,14 +11,13 @@ namespace TPC_equipo_12
 {
     public partial class DefaultProfesor : System.Web.UI.Page
     {
-
-        protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
         {
-        if(Session["profesor"]==null){
-            Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
-            Response.Redirect("../Error.aspx");
-        }
-
+            if (Session["profesor"] == null)
+            {
+                Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
+                Response.Redirect("../Error.aspx");
+            }
         }
     }
 }
