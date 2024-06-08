@@ -65,7 +65,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CrearCurso.aspx" />
+    <Content Include="Profesor\AgregarLecciones.aspx" />
+    <Content Include="Profesor\AgregarMateriales.aspx" />
+    <Content Include="Profesor\AgregarUnidades.aspx" />
+    <Content Include="Profesor\CrearCurso.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Estudiante\DefaultEstudiante.aspx" />
@@ -85,11 +88,32 @@
     <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CrearCurso.aspx.cs">
+    <Compile Include="Profesor\AgregarLecciones.aspx.cs">
+      <DependentUpon>AgregarLecciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\AgregarLecciones.aspx.designer.cs">
+      <DependentUpon>AgregarLecciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\AgregarMateriales.aspx.cs">
+      <DependentUpon>AgregarMateriales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\AgregarMateriales.aspx.designer.cs">
+      <DependentUpon>AgregarMateriales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\AgregarUnidades.aspx.cs">
+      <DependentUpon>AgregarUnidades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\AgregarUnidades.aspx.designer.cs">
+      <DependentUpon>AgregarUnidades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\CrearCurso.aspx.cs">
       <DependentUpon>CrearCurso.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CrearCurso.aspx.designer.cs">
+    <Compile Include="Profesor\CrearCurso.aspx.designer.cs">
       <DependentUpon>CrearCurso.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">

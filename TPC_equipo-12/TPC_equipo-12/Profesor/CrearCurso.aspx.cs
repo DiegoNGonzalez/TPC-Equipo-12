@@ -19,5 +19,10 @@ namespace TPC_equipo_12
         {
                 urlImagenCurso.ImageUrl = TextBoxUrlImagen.Text;
         }
+
+        protected void ButtonAgregarUnidades_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarUnidades.aspx");
+        }
     }
 }
