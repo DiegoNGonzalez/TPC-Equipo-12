@@ -65,6 +65,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Estudiante\DetalleCurso.aspx" />
     <Content Include="Profesor\AgregarLecciones.aspx" />
     <Content Include="Profesor\AgregarMateriales.aspx" />
     <Content Include="Profesor\AgregarUnidades.aspx" />
@@ -88,6 +89,13 @@
     <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Estudiante\DetalleCurso.aspx.cs">
+      <DependentUpon>DetalleCurso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estudiante\DetalleCurso.aspx.designer.cs">
+      <DependentUpon>DetalleCurso.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Profesor\AgregarLecciones.aspx.cs">
       <DependentUpon>AgregarLecciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -2,9 +2,11 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.PerformanceData;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
@@ -15,6 +17,8 @@ namespace TPC_equipo_12
         public CursoNegocio cursoNegocio = new CursoNegocio();
         public Estudiante EstudianteLogeado = new Estudiante();
         public List<Curso> listaCursosInscriptos = new List<Curso>();
+        public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["estudiante"] == null)
@@ -31,6 +35,9 @@ namespace TPC_equipo_12
                 EstudianteLogeado.Cursos=listaCursosInscriptos;
                 Session["estudiante"] = EstudianteLogeado;
                 Session.Add("listaCursosInscriptos", listaCursosInscriptos);
+                rptCursos.DataSource = listaCursos;
+                rptCursos.DataBind();
+                
 
             }
         }
@@ -50,6 +57,31 @@ namespace TPC_equipo_12
             }
 
 
+        }
+
+
+        protected void btnInscribirse_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            Control lblControl = button.NamingContainer.FindControl("lblIDCurso");
+            Label label = (Label)lblControl;
+            int idCurso = Convert.ToInt32(label.Text);
+            Curso aux =cursoNegocio.BuscarCurso(idCurso);
+            bool seInscribio=inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
+            if (seInscribio)
+            {
+                EstaInscripto();
+                EstudianteLogeado.Cursos = listaCursosInscriptos;
+                Session["estudiante"] = EstudianteLogeado;
+                Session["listaCursosInscriptos"] = listaCursosInscriptos;
+                Response.Redirect("DefaultEstudiante.aspx");
+                
+
+            }
+            else
+            {
+                Response.Redirect("../Error.aspx");
+            }
         }
     }
 }

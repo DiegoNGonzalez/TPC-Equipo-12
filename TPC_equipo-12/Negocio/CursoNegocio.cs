@@ -84,6 +84,46 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public Curso BuscarCurso(int idCurso)
+        {
+            Curso aux= new Curso();
+            try
+            {
+                Datos.SetearConsulta("select c.IDCurso, c.Nombre, c.Descripcion, c.Estreno, c.Duracion,c.IDImagen, i.IDImagenes, i.URLIMG from cursos c inner join Imagenes i on c.IDImagen= i.IDImagenes where c.IDCurso=@IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    aux.IDCurso = Datos.Lector.GetInt32(0);
+                    aux.Nombre = (string)Datos.Lector["Nombre"];
+                    aux.Descripcion = (string)Datos.Lector["Descripcion"];
+                    aux.Estreno = (DateTime)Datos.Lector["Estreno"];
+                    aux.Duracion = (int)Datos.Lector["Duracion"];
+                    aux.Imagen = new Imagen();
+                    if (Datos.Lector["IDImagenes"] != DBNull.Value)
+                    {
+                        aux.Imagen.IDImagen = (int)Datos.Lector["IDImagenes"];
+                        aux.Imagen.URL = (string)Datos.Lector["URLIMG"];
+                    }
+                    else
+                    {
+                        aux.Imagen.IDImagen = 0;
+                    }
+                    
+                }
+                Datos.LimpiarParametros();
+                return aux;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
      
         
     }
