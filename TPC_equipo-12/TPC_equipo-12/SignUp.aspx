@@ -7,33 +7,36 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title d-flex justify-content-center align-items-center">Registrarse</h5>
-                <form>
+                
                     <div class="mb-3">
-                        <label for="InputNombres" class="form-label">Nombres</label>
-                        <input type="text" class="form-control" id="InputNombres">
+                        
+                        <asp:Label Text="Nombre/s" runat="server"  ID="lblNombres"/>
+                        <asp:TextBox type="text" id="InputNombres" CssClass="form-control" runat="server" />
                     </div>
                     <div class="mb-3">
-                        <label for="InputApellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" id="InputApellidos">
+                        <asp:Label Text="Apellido/s" runat="server" />
+                        <asp:TextBox type="text" id="InputApellidos" class="form-control" runat="server" />
+                        
                     </div>
                     <div class="mb-3">
-                        <label for="InputDNI" class="form-label">DNI</label>
-                        <input type="number" class="form-control" id="InputDNI">
+                        <asp:Label Text="DNI" runat="server" />
+                        <asp:TextBox type="number" id="InputDNI" class="form-control" runat="server" />
+                        
                     </div>
                     <div class="mb-3">
-                        <label for="InputGenero" class="form-label">Genero</label>
-                        <input type="text" class="form-control" id="InputGenero">
+                        <asp:Label Text="Genero" runat="server" />
+                        <asp:DropDownList ID="dropGenero" runat="server" CssClass="btn btn-secondary dropdown-toggle" />
                     </div>
                     <div class="mb-3">
-                        <label for="InputCorreo" class="form-label">Correo</label>
-                        <input type="email" class="form-control" id="InputCorreo">
+                        <asp:Label text="Email" runat="server"/>
+                       <asp:textbox type="email" id="InputEmail" class="form-control" runat="server"/>
                     </div>
                     <div class="mb-3">
-                        <label for="InputContraseña" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="InputContraseña">
+                        <asp:Label text="Contraseña" runat="server"/>
+                        <asp:TextBox type="password" id="InputPassword" class="form-control" runat="server"/>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrarse</button>
-                </form>
+                     <asp:Button id="btnSignUp" runat="server" class="btn btn-primary" Text="Registrarse" OnClick="btnSignUp_Click"/>
+                
             </div>
         </div>
     </div>

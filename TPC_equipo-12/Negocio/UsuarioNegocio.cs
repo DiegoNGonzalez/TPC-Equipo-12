@@ -88,19 +88,20 @@ namespace Negocio
         {
             try
             {
-                Datos.SetearConsulta("insert into Imagenes (URLIMG) values(@URLIMG)");
-                Datos.SetearParametro("@URLIMG", usuario.ImagenPerfil.URL);
-                Datos.EjecutarAccion();
-                int aux = UltimoIdImagen();
-                Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, Clave, DNI, Genero, EsProfesor, IDImagen) values (@Nombre, @Apellido, @Email, @Clave, @DNI, @Genero, @EsProfesor, @IDImagen)");
+                //Datos.SetearConsulta("insert into Imagenes (URLIMG) values(@URLIMG)");
+                //Datos.SetearParametro("@URLIMG", usuario.ImagenPerfil.URL);
+                //Datos.EjecutarAccion();
+                //int aux = UltimoIdImagen();
+                //Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, Clave, DNI, Genero, EsProfesor, IDImagen) values (@Nombre, @Apellido, @Email, @Clave, @DNI, @Genero, @EsProfesor, @IDImagen)");
+                Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, Contrasenia, DNI, Genero, EsProfesor) values (@Nombre, @Apellido, @Email, @Contrasenia, @DNI, @Genero, @EsProfesor)");
                 Datos.SetearParametro("@Nombre", usuario.Nombre);
                 Datos.SetearParametro("@Apellido", usuario.Apellido);
                 Datos.SetearParametro("@Email", usuario.Email);
-                Datos.SetearParametro("@Clave", usuario.Contrasenia);
+                Datos.SetearParametro("@Contrasenia", usuario.Contrasenia);
                 Datos.SetearParametro("@DNI", usuario.DNI);
-                Datos.SetearParametro("@Genero", usuario.Genero);
+                Datos.SetearParametro("@Genero", (object)usuario.Genero?? DBNull.Value);
                 Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
-                Datos.SetearParametro("@IDImagen", aux);
+                //Datos.SetearParametro("@IDImagen", (object)usuario.ImagenPerfil.IDImagen?? DBNull.Value);
                 Datos.EjecutarAccion();
             }
             catch (Exception ex)
@@ -239,7 +240,13 @@ namespace Negocio
                     estudiante.Contrasenia = (string)Datos.Lector["Contrasenia"];
                     estudiante.EsProfesor = (bool)Datos.Lector["EsProfesor"];
                     estudiante.ImagenPerfil = new Imagen();
-                    estudiante.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                    if (Datos.Lector["IDImagen"] != DBNull.Value)
+                    {
+                        estudiante.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                    }else
+                    {
+                        estudiante.ImagenPerfil.IDImagen = 0;
+                    }
                     //Falta hacer funcionar las imagenes con un join como 
 
                 }

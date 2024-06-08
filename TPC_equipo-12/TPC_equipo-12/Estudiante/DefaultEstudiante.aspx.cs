@@ -31,6 +31,8 @@ namespace TPC_equipo_12
                 EstudianteLogeado.Cursos=listaCursosInscriptos;
                 Session["estudiante"] = EstudianteLogeado;
                 Session.Add("listaCursosInscriptos", listaCursosInscriptos);
+                rptCursos.DataSource = listaCursos;
+                rptCursos.DataBind();
 
             }
         }
@@ -49,6 +51,12 @@ namespace TPC_equipo_12
                 }
             }
 
+
+        }
+
+
+        protected void btnInscribirse_Click(object sender, EventArgs e)
+        {
 
         }
     }
