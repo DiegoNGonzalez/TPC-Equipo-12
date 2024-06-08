@@ -20,11 +20,12 @@
                     <img src='<%# Eval("Imagen.URL") %>' class="card-img-top mt-3" alt="...">
                     <div class="card-body text-center">
                         <h5 class="card-title"><%# Eval("Nombre") %></h5>
+                        <asp:Label runat="server" ID="lblIdCurso" text='<%# Eval ("IdCurso") %>'/>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><%# Eval("Descripcion") %></li>
                         <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
-                        <asp:Button Text="Detalles" runat="server" CssClass="btn btn-primary" ID="btnInscribirse" OnClick="btnDetalles_Click" />
+                        <asp:Button Text="Inscribirse" runat="server" CssClass="btn btn-primary" ID="btnInscribirse" OnClick="btnInscribirse_Click"/>
                     </ul>
                 </div>
             </ItemTemplate>

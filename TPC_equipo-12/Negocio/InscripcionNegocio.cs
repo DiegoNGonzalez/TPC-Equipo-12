@@ -18,5 +18,28 @@ namespace Negocio
             Datos = new Datos();
         }
 
+        public bool Incripcion(Usuario usuario, Curso curso)
+        {
+
+            try
+            {
+                Datos.SetearConsulta("insert into Inscripciones (IDUsuario, IDCurso) values (@IDUsuario, @IDCurso)");
+                Datos.SetearParametro("@IDUsuario", usuario.IDUsuario);
+                Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                Datos.EjecutarAccion();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex ;
+
+            }finally
+            {
+                Datos.CerrarConexion();
+            }
+            return false;
+        }
     }
 }
