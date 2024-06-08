@@ -263,6 +263,48 @@ namespace Negocio
 
         }
         
+        public Usuario buscarUsuario(int idUsuario)
+        {
+            Usuario usuario = new Usuario();
+            try
+            {
+                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, Contrasenia, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDUsuario");
+                Datos.SetearParametro("@IDUsuario", idUsuario);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    usuario.IDUsuario = Datos.Lector.GetInt32(0);
+                    usuario.Nombre = (string)Datos.Lector["Nombre"];
+                    usuario.Apellido = (string)Datos.Lector["Apellido"];
+                    usuario.DNI = (int)Datos.Lector["DNI"];
+                    usuario.Genero = (string)Datos.Lector["Genero"];
+                    usuario.Email = (string)Datos.Lector["Email"];
+                    usuario.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    usuario.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+                    usuario.ImagenPerfil = new Imagen();
+                    if (Datos.Lector["IDImagen"] != DBNull.Value)
+                    {
+                        usuario.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                    }
+                    else
+                    {
+                        usuario.ImagenPerfil.IDImagen = 0;
+                    }
+
+                    
+                }
+                Datos.LimpiarParametros();
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion(); 
+            }
+        }
 
     }
 }

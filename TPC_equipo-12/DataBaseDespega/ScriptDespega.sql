@@ -38,6 +38,7 @@ Create Table Inscripciones(
 	IDusuario int not null Foreign Key References Usuarios(IDUsuario),
 	IDCurso int not null Foreign Key References Cursos(IDCurso),
 	Estado bit not null Default 0,
+	FechaInscripcion DATETIME null,
 	Primary Key (IDUsuario, IDCurso)
 )
 GO

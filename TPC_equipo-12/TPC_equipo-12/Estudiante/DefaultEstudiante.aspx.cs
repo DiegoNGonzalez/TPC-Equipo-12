@@ -18,7 +18,7 @@ namespace TPC_equipo_12
         public Estudiante EstudianteLogeado = new Estudiante();
         public List<Curso> listaCursosInscriptos = new List<Curso>();
         public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["estudiante"] == null)
@@ -32,12 +32,12 @@ namespace TPC_equipo_12
                 listaCursos = cursoNegocio.ListarCursos();
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
                 EstaInscripto();
-                EstudianteLogeado.Cursos=listaCursosInscriptos;
+                EstudianteLogeado.Cursos = listaCursosInscriptos;
                 Session["estudiante"] = EstudianteLogeado;
                 Session.Add("listaCursosInscriptos", listaCursosInscriptos);
                 rptCursos.DataSource = listaCursos;
                 rptCursos.DataBind();
-                
+
 
             }
         }
@@ -66,21 +66,18 @@ namespace TPC_equipo_12
             Control lblControl = button.NamingContainer.FindControl("lblIDCurso");
             Label label = (Label)lblControl;
             int idCurso = Convert.ToInt32(label.Text);
-            Curso aux =cursoNegocio.BuscarCurso(idCurso);
-            bool seInscribio=inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
+            Curso aux = cursoNegocio.BuscarCurso(idCurso);
+            bool seInscribio = inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
             if (seInscribio)
             {
-                EstaInscripto();
-                EstudianteLogeado.Cursos = listaCursosInscriptos;
-                Session["estudiante"] = EstudianteLogeado;
-                Session["listaCursosInscriptos"] = listaCursosInscriptos;
-                Response.Redirect("DefaultEstudiante.aspx");
                 
+
 
             }
             else
             {
-                Response.Redirect("../Error.aspx");
+               
+                
             }
         }
     }

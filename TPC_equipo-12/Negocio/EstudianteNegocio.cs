@@ -78,6 +78,30 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public void CargarEstudianteEnCurso(int idUsuario, int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("insert into EstudiantesXCursos (IDEstudiante, IDCurso) values (@IDEstudiante, @IDCurso)");
+                Datos.SetearParametro("@IDEstudiante", idUsuario);
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros ();
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+                
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+                
+            }
+            
+        }
         public void ModificarEstado(Estudiante estudiante)
         {
             try
@@ -98,5 +122,34 @@ namespace Negocio
             }
         }
 
+        public bool EsEstudiante(int idEstudiante)
+        {
+            try
+            {
+                Datos.SetearConsulta("select * from Estudiantes where IDEstudiante = @IdEstudiante");
+                Datos.SetearParametro("@IdEstudiante", idEstudiante);
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    return true;
+                
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+            
+
+        }
     }
 }
