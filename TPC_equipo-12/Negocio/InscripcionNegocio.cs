@@ -30,7 +30,7 @@ namespace Negocio
             List <InscripcionACurso> lista = new List<InscripcionACurso>();
             try
             {
-                Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso order by i.FechaInscripcion desc");
+                Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso where i.Estado= 0 order by i.FechaInscripcion desc");
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
@@ -99,7 +99,7 @@ namespace Negocio
                     estudianteNegocio.CargarEstudianteEnCurso(aux.IDUsuario, curso.IDCurso);
                 }
                 Datos.LimpiarParametros();
-
+                ModificarEstadoInscripcion(inscripcion.IDInscripcion);
 
             }
             catch (Exception ex)
@@ -137,6 +137,25 @@ namespace Negocio
                 throw;
             }finally
             {
+                Datos.CerrarConexion();
+            }
+        }
+        public void ModificarEstadoInscripcion(int idInscripcion)
+        {
+            try
+            {
+                Datos.SetearConsulta("update Inscripciones set Estado= 1 where IdInscripcion= @IDInscripcion");
+                Datos.SetearParametro("@IDInscripcion", idInscripcion);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }

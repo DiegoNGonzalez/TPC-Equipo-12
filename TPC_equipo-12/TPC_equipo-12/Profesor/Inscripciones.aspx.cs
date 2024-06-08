@@ -31,6 +31,11 @@ namespace TPC_equipo_12
             int idInscripcion = Convert.ToInt32(btn.CommandArgument); 
             InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
             inscripcionNegocio.ConfirmarInscripcion(aux);
+
+            inscripciones = inscripcionNegocio.listarInscripciones();
+            rptInscripciones.DataSource = inscripciones;
+            rptInscripciones.DataBind();
+
             
         }
 
