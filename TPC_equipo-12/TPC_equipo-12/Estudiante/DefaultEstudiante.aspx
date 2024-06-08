@@ -20,7 +20,7 @@
                     <img src='<%# Eval("Imagen.URL") %>' class="card-img-top mt-3" alt="...">
                     <div class="card-body text-center">
                         <h5 class="card-title"><%# Eval("Nombre") %></h5>
-                        <asp:Label runat="server" ID="lblIdCurso" text='<%# Eval ("IdCurso") %>'/>
+                        <asp:Label runat="server" ID="lblIdCurso" Text='<%# Eval ("IdCurso") %>' CssClass="d-none" />
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><%# Eval("Descripcion") %></li>
@@ -30,5 +30,4 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-    </div>
 </asp:Content>

@@ -27,10 +27,13 @@
                                 <a class="nav-link" href="ProfesorEstudiantes.aspx">Estudiantes</a>
                             </li>
                             <li class="nav-item">
-                                <asp:Button ID="btnCerrarSesion" Text="Cerrar Sesion" CssClass="btn btn-danger" runat="server" OnClick="btnCerrarSesion_Click" />
+                                <a class="nav-link" href="Inscripciones.aspx">Inscripciones</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="CrearCurso.aspx">CrearCurso</a>
+                            </li>
+                            <li class="nav-item">
+                                <asp:Button ID="btnCerrarSesion" Text="Cerrar Sesion" CssClass="btn btn-danger" runat="server" OnClick="btnCerrarSesion_Click" />
                             </li>
                         </ul>
                         <span class="navbar-text">Perfil
