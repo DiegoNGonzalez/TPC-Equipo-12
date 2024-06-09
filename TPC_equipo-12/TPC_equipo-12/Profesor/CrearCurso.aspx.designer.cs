@@ -123,15 +123,6 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Image urlImagenCurso;
 
         /// <summary>
-        /// Control ButtonAgregarUnidades.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonAgregarUnidades;
-
-        /// <summary>
         /// Control ButtonCrearCurso.
         /// </summary>
         /// <remarks>
@@ -139,5 +130,32 @@ namespace TPC_equipo_12
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonCrearCurso;
+
+        /// <summary>
+        /// Control ButtonCrearUnidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCrearUnidad;
+
+        /// <summary>
+        /// Control ButtonCrearLeccion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCrearLeccion;
+
+        /// <summary>
+        /// Control ButtonCrearMaterial.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCrearMaterial;
     }
 }

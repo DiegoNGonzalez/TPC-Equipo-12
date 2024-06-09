@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
+using Dominio;
 
 namespace TPC_equipo_12
 {
@@ -11,15 +13,31 @@ namespace TPC_equipo_12
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                CargarDropDownCurso();
+            }
 
         }
 
-        protected void ButtonAgregarLecciones_Click(object sender, EventArgs e)
+        public void CargarDropDownCurso()
         {
-            Response.Redirect("AgregarLecciones.aspx");
+            Profesor profesor = (Profesor)Session["profesor"];
+            if (profesor != null && profesor.Cursos != null && profesor.Cursos.Count > 0)
+            {
+                DropDownListCursos.DataSource = profesor.Cursos;
+                DropDownListCursos.DataValueField = "IDCurso";
+                DropDownListCursos.DataTextField = "Nombre";
+                DropDownListCursos.DataBind();
+            }
+            else
+            {
+                DropDownListCursos.Items.Clear();
+                DropDownListCursos.Items.Add(new ListItem("No hay cursos disponibles", ""));
+            }
         }
 
-        protected void ButtonHechoUnidades_Click(object sender, EventArgs e)
+        protected void ButtonCrearUnidades_Click(object sender, EventArgs e)
         {
             Response.Redirect("CrearCurso.aspx");
         }

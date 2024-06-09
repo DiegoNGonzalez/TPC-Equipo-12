@@ -8,6 +8,10 @@
             <div class="card-body">
                 <h5 class="card-title d-flex justify-content-center align-items-center">Agregar Unidades</h5>
                 <div class="mb-3">
+                    <asp:Label ID="LabelQueCurso" runat="server" CssClass="form-label" Text="Elige el curso al cual quieres agregar una unidad."></asp:Label>
+                    <asp:DropDownList ID="DropDownListCursos" runat="server" CssClass="form-control"></asp:DropDownList>
+                </div>
+                <div class="mb-3">
                     <asp:Label ID="LabelNombreUnidad" runat="server" CssClass="form-label" Text="Nombre"></asp:Label>
                     <asp:TextBox ID="TextBoxNombreUnidad" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
@@ -19,10 +23,7 @@
                     <asp:Label ID="LabelNumeroUnidad" runat="server" CssClass="form-label" Text="Fecha de estreno"></asp:Label>
                     <asp:TextBox ID="TextBoxNumeroUnidad" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                 </div>
-                <div class="mb-3">
-                    <asp:Button ID="ButtonAgregarLecciones" runat="server" Text="Agregar Lecciones" CssClass="btn btn-primary" OnClick="ButtonAgregarLecciones_Click" />
-                </div>
-                <asp:Button ID="ButtonHechoUnidades" runat="server" Text="Hecho" CssClass="btn btn-primary" OnClick="ButtonHechoUnidades_Click" />
+                <asp:Button ID="ButtonCrearUnidades" runat="server" Text="Crear Unidad" CssClass="btn btn-primary" OnClick="ButtonCrearUnidades_Click" />
             </div>
         </div>
     </div>

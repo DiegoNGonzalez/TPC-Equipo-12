@@ -22,9 +22,19 @@ namespace TPC_equipo_12
                 urlImagenCurso.ImageUrl = TextBoxUrlImagen.Text;
         }
 
-        protected void ButtonAgregarUnidades_Click(object sender, EventArgs e)
+        protected void ButtonCrearUnidad_Click(object sender, EventArgs e)
         {
             Response.Redirect("AgregarUnidades.aspx");
+        }
+
+        protected void ButtonCrearLeccion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarLecciones.aspx");
+        }
+
+        protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarMaterial.aspx");
         }
 
         protected void ButtonCrearCurso_Click(object sender, EventArgs e)
