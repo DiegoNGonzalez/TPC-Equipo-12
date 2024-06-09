@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
+using Negocio;
 
 namespace TPC_equipo_12
 {
@@ -23,6 +25,33 @@ namespace TPC_equipo_12
         protected void ButtonAgregarUnidades_Click(object sender, EventArgs e)
         {
             Response.Redirect("AgregarUnidades.aspx");
+        }
+
+        protected void ButtonCrearCurso_Click(object sender, EventArgs e)
+        {
+            try 
+            {
+                CursoNegocio cursoNegocio = new CursoNegocio();
+                Curso curso = new Curso();
+                curso.Nombre = TextBoxNombreCurso.Text;
+                curso.Descripcion = TextBoxDescripcionCurso.Text;
+                curso.Duracion = Convert.ToInt32(TextBoxDuracionCurso.Text);
+                curso.Estreno = Convert.ToDateTime(TextBoxEstrenoCurso.Text);
+                curso.Imagen = new Imagen();
+                curso.Imagen.URL = TextBoxUrlImagen.Text;
+                cursoNegocio.CrearCurso(curso);
+                //Me traigo al profesor de la session, le cargo el ultimo curso agregado y lo cargo de nuevo a la session.
+                Profesor profesor = (Profesor)Session["profesor"];
+                profesor.Cursos.Add(curso);
+                Session.Add("profesor", profesor);
+                Response.Redirect("ProfesorCursos.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../Error.aspx");
+                throw ex;
+            }
         }
     }
 }

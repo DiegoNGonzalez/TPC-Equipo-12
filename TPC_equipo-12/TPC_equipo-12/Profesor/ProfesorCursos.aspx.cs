@@ -26,6 +26,7 @@ namespace TPC_equipo_12
             {
                 profesor = (Profesor)Session["profesor"];
                 Session.Add("listaCursosProfesor", profesor.Cursos);
+                UpdatePanelCursos.Update();
                 rptProfesorCursos.DataSource = profesor.Cursos;
                 rptProfesorCursos.DataBind();
             }

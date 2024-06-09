@@ -18,7 +18,7 @@
                 </div>
                 <div class="mb-3">
                     <asp:Label ID="LabelEstrenoCurso" runat="server" CssClass="form-label" Text="Fecha de estreno"></asp:Label>
-                    <asp:TextBox ID="TextBoxEstrenoCurso" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                    <asp:TextBox ID="TextBoxEstrenoCurso" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                 </div>
                 <div class="mb-3">
                     <asp:Label ID="LabelDuracionCurso" runat="server" CssClass="form-label" Text="Duración del curso (en hs)"></asp:Label>
@@ -39,7 +39,7 @@
                     <div class="mb-3">
                         <asp:Button ID="ButtonAgregarUnidades" runat="server" Text="Agregar Unidades" CssClass="btn btn-primary" OnClick="ButtonAgregarUnidades_Click" />
                     </div>
-                    <asp:Button ID="ButtonCrearCurso" runat="server" Text="CrearCurso" CssClass="btn btn-primary" />
+                    <asp:Button ID="ButtonCrearCurso" runat="server" Text="CrearCurso" CssClass="btn btn-primary" OnClick="ButtonCrearCurso_Click" />
                 </div>
             </div>
         </div>

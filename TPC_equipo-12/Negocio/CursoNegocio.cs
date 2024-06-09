@@ -125,6 +125,40 @@ namespace Negocio
             }
         }
      
-        
+        public void CrearCurso(Curso curso)
+        {
+            try
+            {
+                Datos.SetearConsulta("insert into Imagenes (URLIMG) values (@URLIMG)");
+                Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+                Datos.SetearConsulta("select IDImagenes from Imagenes where URLIMG=@URLIMG");
+                Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    curso.Imagen.IDImagen = (int)Datos.Lector["IDImagenes"];
+                }
+                Datos.CerrarConexion();
+                Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Estreno, @IDImagen)");
+                Datos.SetearParametro("@Nombre", curso.Nombre);
+                Datos.SetearParametro("@Descripcion", curso.Descripcion);
+                Datos.SetearParametro("@Duracion", curso.Duracion);
+                Datos.SetearParametro("@Estreno", curso.Estreno);
+                Datos.SetearParametro("@IDImagen", curso.Imagen.IDImagen);
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
     }
 }

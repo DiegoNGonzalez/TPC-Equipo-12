@@ -3,12 +3,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
                 <h1 class="text-center">Cursos Cargados</h1>
             </div>
         </div>
+        <asp:UpdatePanel ID="UpdatePanelCursos" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
         <div class="row justify-content-center">
             <asp:Repeater ID="rptProfesorCursos" runat="server">
                 <ItemTemplate>
@@ -28,6 +31,8 @@
                 </ItemTemplate>
             </asp:Repeater>
         </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </div>
 
 </asp:Content>
