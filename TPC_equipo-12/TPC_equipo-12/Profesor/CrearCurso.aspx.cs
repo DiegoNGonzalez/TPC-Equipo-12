@@ -34,7 +34,7 @@ namespace TPC_equipo_12
 
         protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AgregarMaterial.aspx");
+            Response.Redirect("AgregarMateriales.aspx");
         }
 
         protected void ButtonCrearCurso_Click(object sender, EventArgs e)
