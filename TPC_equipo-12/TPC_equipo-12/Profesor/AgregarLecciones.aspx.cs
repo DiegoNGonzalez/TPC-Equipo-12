@@ -13,6 +13,7 @@ namespace TPC_equipo_12
     {
         UnidadNegocio unidadNegocio = new UnidadNegocio();
         CursoNegocio cursoNegocio = new CursoNegocio();
+        LeccionNegocio leccionNegocio = new LeccionNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -39,14 +40,27 @@ namespace TPC_equipo_12
             }
         }
 
-        protected void ButtonAgregarMateriales_Click(object sender, EventArgs e)
+        protected void ButtonCrearLeccion_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AgregarMateriales.aspx");
-        }
-
-        protected void ButtonHechoLecciones_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AgregarUnidades.aspx");
+            Profesor profesor = (Profesor)Session["profesor"];
+            Curso curso = profesor.Cursos.Find(x => x.IDCurso == Convert.ToInt32(DropDownListCursos.SelectedValue));
+            Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == Convert.ToInt32(DropDownListUnidades.SelectedValue));
+            try
+            {
+                Leccion leccion = new Leccion();
+                leccion.Nombre = TextBoxNombreLeccion.Text;
+                leccion.Descripcion = TextBoxDescripcionLeccion.Text;
+                leccion.NroLeccion = int.Parse(TextBoxNumeroLeccion.Text);
+                unidad.Lecciones.Add(leccion);
+                leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
+                Response.Redirect("CrearCurso.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../Error.aspx");
+                throw ex;
+            }
         }
 
         protected void DropDownListCursos_SelectedIndexChanged(object sender, EventArgs e)

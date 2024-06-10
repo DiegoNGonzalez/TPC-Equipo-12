@@ -31,9 +31,8 @@
                             <asp:TextBox ID="TextBoxNumeroLeccion" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <asp:Button ID="ButtonAgregarMateriales" runat="server" Text="Agregar Materiales" CssClass="btn btn-primary" OnClick="ButtonAgregarMateriales_Click" />
+                            <asp:Button ID="ButtonCrearLeccion" runat="server" Text="Crear Leccion" CssClass="btn btn-primary" OnClick="ButtonCrearLeccion_Click" />
                         </div>
-                        <asp:Button ID="ButtonHechoLecciones" runat="server" Text="Hecho" CssClass="btn btn-primary" OnClick="ButtonHechoLecciones_Click" />
                     </div>
                 </div>
             </div>
