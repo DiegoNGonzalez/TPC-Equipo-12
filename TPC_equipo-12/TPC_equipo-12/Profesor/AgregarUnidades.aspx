@@ -20,8 +20,8 @@
                     <asp:TextBox ID="TextBoxDescripcionUnidad" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
                 <div class="mb-3">
-                    <asp:Label ID="LabelNumeroUnidad" runat="server" CssClass="form-label" Text="Fecha de estreno"></asp:Label>
-                    <asp:TextBox ID="TextBoxNumeroUnidad" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                    <asp:Label ID="LabelNumeroUnidad" runat="server" CssClass="form-label" Text="Numero de unidad"></asp:Label>
+                    <asp:TextBox ID="TextBoxNumeroUnidad" runat="server" CssClass="form-control" TextMode="number"></asp:TextBox>
                 </div>
                 <asp:Button ID="ButtonCrearUnidades" runat="server" Text="Crear Unidad" CssClass="btn btn-primary" OnClick="ButtonCrearUnidades_Click" />
             </div>

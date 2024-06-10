@@ -11,6 +11,8 @@ namespace TPC_equipo_12
 {
     public partial class AgregarUnidades : System.Web.UI.Page
     {
+        CursoNegocio cursoNegocio = new CursoNegocio();
+        UnidadNegocio unidadNegocio = new UnidadNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -39,7 +41,25 @@ namespace TPC_equipo_12
 
         protected void ButtonCrearUnidades_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CrearCurso.aspx");
+            Profesor profesor = (Profesor)Session["profesor"];
+            Curso curso = profesor.Cursos.Find(x => x.IDCurso == Convert.ToInt32(DropDownListCursos.SelectedValue));
+
+            try
+            {
+                Unidad unidad = new Unidad();
+                unidad.Nombre = TextBoxNombreUnidad.Text;
+                unidad.Descripcion = TextBoxDescripcionUnidad.Text;
+                unidad.NroUnidad = int.Parse(TextBoxNumeroUnidad.Text);
+                curso.Unidades.Add(unidad);
+                unidadNegocio.CrearUnidad(unidad, curso.IDCurso);
+                Response.Redirect("CrearCurso.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../Error.aspx");
+                throw ex;
+            }
         }
     }
 }

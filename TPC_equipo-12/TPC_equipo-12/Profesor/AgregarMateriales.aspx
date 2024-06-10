@@ -16,7 +16,7 @@
                         </div>
                         <div class="mb-3">
                             <asp:Label ID="LabelQueUnidad" runat="server" CssClass="form-label" Text="Elige una unidad."></asp:Label>
-                            <asp:DropDownList ID="DropDownListUnidades" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DropDownListUnidades_SelectedIndexChanged"></asp:DropDownList>
+                            <asp:DropDownList ID="DropDownListUnidades" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
                         </div>
                         <div class="mb-3">
                             <asp:Label ID="LabelQueLeccion" runat="server" CssClass="form-label" Text="Elige la leccion a la cual quieres agregar un material de estudio."></asp:Label>

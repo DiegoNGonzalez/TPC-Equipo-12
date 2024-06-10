@@ -108,10 +108,5 @@ namespace TPC_equipo_12
             int idCursoSeleccionado = int.Parse(DropDownListCursos.SelectedValue);
             CargarUnidades(idCursoSeleccionado);
         }
-
-        protected void DropDownListUnidades_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
