@@ -77,6 +77,29 @@ namespace Negocio
             {
                 Datos.CerrarConexion();
             }
-        }   
+        }
+        
+        public void EliminarMaterial(int idMaterial)
+        {
+            try
+            {
+                Datos.SetearConsulta("delete from MaterialesXLecciones where IDMaterial = @IDMaterial");
+                Datos.SetearParametro("@IDMaterial", idMaterial);
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("delete from Materiales where IDMaterial = @IDMaterial");
+                Datos.SetearParametro("@IDMaterial", idMaterial);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
     }
 }

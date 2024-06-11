@@ -95,5 +95,10 @@ namespace TPC_equipo_12
         {
             Response.Redirect("AgregarMateriales.aspx");
         }
+
+        protected void ButtonEliminarMaterialProf_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EliminarMateriales.aspx");
+        }
     }
 }

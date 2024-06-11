@@ -11,43 +11,43 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class ProfesorMateriales
+    public partial class EliminarMateriales
     {
 
         /// <summary>
-        /// Control ButtonBackLeccionesProf.
+        /// Control ScriptManager1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonBackLeccionesProf;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// Control ButtonCrearMaterialProf.
+        /// Control LabelTipoMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonCrearMaterialProf;
+        protected global::System.Web.UI.WebControls.Label LabelTipoMaterial;
 
         /// <summary>
-        /// Control ButtonEliminarMaterialProf.
+        /// Control DropDownListNroMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonEliminarMaterialProf;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListNroMaterial;
 
         /// <summary>
-        /// Control rptMaterialesProf.
+        /// Control ButtonEliminarMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptMaterialesProf;
+        protected global::System.Web.UI.WebControls.Button ButtonEliminarMaterial;
     }
 }
