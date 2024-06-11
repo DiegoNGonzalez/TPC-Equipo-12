@@ -11,10 +11,6 @@
                     <div class="card-body">
                         <h5 class="card-title d-flex justify-content-center align-items-center">Agregar Unidades</h5>
                         <div class="mb-3">
-                            <asp:Label ID="LabelQueCurso" runat="server" CssClass="form-label" Text="Elige el curso al cual quieres agregar una unidad."></asp:Label>
-                            <asp:DropDownList ID="DropDownListCursos" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
-                        </div>
-                        <div class="mb-3">
                             <asp:Label ID="LabelNombreUnidad" runat="server" CssClass="form-label" Text="Nombre"></asp:Label>
                             <asp:TextBox ID="TextBoxNombreUnidad" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>

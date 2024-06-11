@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <asp:Button ID="ButtonBackCursosProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Cursos" OnClick="ButtonBackCursosProf_Click" />
+        <asp:Button ID="ButtonCrearUnidadProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Crear Unidad" OnClick="ButtonCrearUnidadProf_Click" />
         <h2>Lista de Unidades</h2>
         <div class="card-body">
             <table class="table table-striped">

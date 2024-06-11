@@ -41,5 +41,10 @@ namespace TPC_equipo_12
         {
             Response.Redirect("ProfesorCursos.aspx");
         }
+
+        protected void ButtonCrearUnidadProf_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarUnidades.aspx");
+        }
     }
 }

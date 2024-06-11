@@ -40,5 +40,10 @@ namespace TPC_equipo_12
             Session.Add("IDLeccionProfesor", IdLeccion);
             Response.Redirect("ProfesorMateriales.aspx");
         }
+
+        protected void ButtonCrearLeccionProf_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarLecciones.aspx");
+        }
     }
 }

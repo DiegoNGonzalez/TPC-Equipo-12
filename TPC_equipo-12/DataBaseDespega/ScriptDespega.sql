@@ -74,7 +74,8 @@ Create Table Materiales(
 	IDMaterial int not null Primary Key Identity(1,1),
 	Nombre varchar(100) not null,
 	TipoMaterial varchar(100) not null,
-	URLMaterial varchar(200)
+	URLMaterial varchar(200),
+	Descripcion varchar(500)
 )
 GO
 Create Table Lecciones(

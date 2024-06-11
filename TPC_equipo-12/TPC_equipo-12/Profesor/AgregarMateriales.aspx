@@ -10,18 +10,6 @@
                 <div class="card w-50 my-5">
                     <div class="card-body">
                         <h5 class="card-title d-flex justify-content-center align-items-center">Agregar Materiales</h5>
-                        <div class="mb-3">
-                            <asp:Label ID="LabelQueCurso" runat="server" CssClass="form-label" Text="Elige el curso"></asp:Label>
-                            <asp:DropDownList ID="DropDownListCursos" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DropDownListCursos_SelectedIndexChanged"></asp:DropDownList>
-                        </div>
-                        <div class="mb-3">
-                            <asp:Label ID="LabelQueUnidad" runat="server" CssClass="form-label" Text="Elige una unidad."></asp:Label>
-                            <asp:DropDownList ID="DropDownListUnidades" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DropDownListUnidades_SelectedIndexChanged"></asp:DropDownList>
-                        </div>
-                        <div class="mb-3">
-                            <asp:Label ID="LabelQueLeccion" runat="server" CssClass="form-label" Text="Elige la leccion a la cual quieres agregar un material de estudio."></asp:Label>
-                            <asp:DropDownList ID="DropDownListLecciones" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
-                        </div>
 
                         <div class="mb-3">
                             <asp:Label ID="LabelNombreMaterial" runat="server" CssClass="form-label" Text="Nombre"></asp:Label>

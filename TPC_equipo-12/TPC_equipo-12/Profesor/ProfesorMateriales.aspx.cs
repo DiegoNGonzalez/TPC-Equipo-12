@@ -90,5 +90,10 @@ namespace TPC_equipo_12
                 }
             }
         }
+
+        protected void ButtonCrearMaterialProf_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarMateriales.aspx");
+        }
     }
 }

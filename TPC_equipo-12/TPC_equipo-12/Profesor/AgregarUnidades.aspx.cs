@@ -17,32 +17,15 @@ namespace TPC_equipo_12
         {
             if (!IsPostBack)
             {
-                CargarDropDownCurso();
+
             }
 
-        }
-
-        public void CargarDropDownCurso()
-        {
-            Profesor profesor = (Profesor)Session["profesor"];
-            if (profesor != null && profesor.Cursos != null && profesor.Cursos.Count > 0)
-            {
-                DropDownListCursos.DataSource = profesor.Cursos;
-                DropDownListCursos.DataValueField = "IDCurso";
-                DropDownListCursos.DataTextField = "Nombre";
-                DropDownListCursos.DataBind();
-            }
-            else
-            {
-                DropDownListCursos.Items.Clear();
-                DropDownListCursos.Items.Add(new ListItem("No hay cursos disponibles", ""));
-            }
         }
 
         protected void ButtonCrearUnidades_Click(object sender, EventArgs e)
         {
             Profesor profesor = (Profesor)Session["profesor"];
-            Curso curso = profesor.Cursos.Find(x => x.IDCurso == Convert.ToInt32(DropDownListCursos.SelectedValue));
+            Curso curso = profesor.Cursos.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
 
             try
             {
@@ -53,7 +36,7 @@ namespace TPC_equipo_12
                 unidad.NroUnidad = int.Parse(TextBoxNumeroUnidad.Text);
                 curso.Unidades.Add(unidad);
                 unidadNegocio.CrearUnidad(unidad, curso.IDCurso);
-                Response.Redirect("CrearCurso.aspx", false);
+                Response.Redirect("ProfesorUnidades.aspx", false);
             }
             catch (Exception ex)
             {

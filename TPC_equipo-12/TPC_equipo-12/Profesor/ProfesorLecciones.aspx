@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <asp:Button ID="ButtonBackUnidadProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Unidades" OnClick="ButtonBackUnidadProf_Click" />
+        <asp:Button ID="ButtonCrearLeccionProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Crear Lección" OnClick="ButtonCrearLeccionProf_Click" />
         <h2>Lista de Lecciones</h2>
         <table class="table table-striped">
             <thead>
@@ -16,7 +17,7 @@
             </thead>
             <tbody>
                 <asp:Repeater ID="rptLeccionesProf" runat="server">
-                    <itemtemplate>
+                    <ItemTemplate>
                         <tr>
                             <td><%# Eval("NroLeccion") %></td>
                             <td><%# Eval("Nombre") %></td>
@@ -25,7 +26,7 @@
                                 <asp:Button ID="ButtonVerMaterialesProf" runat="server" Text="Materiales" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDLeccion") %>' OnCommand="ButtonVerMaterialesProf_Command" />
                             </td>
                         </tr>
-                    </itemtemplate>
+                    </ItemTemplate>
                 </asp:Repeater>
             </tbody>
         </table>
