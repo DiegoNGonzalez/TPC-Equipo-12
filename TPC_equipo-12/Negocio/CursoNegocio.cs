@@ -133,6 +133,7 @@ namespace Negocio
                 Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
                 Datos.EjecutarAccion();
                 Datos.CerrarConexion();
+
                 Datos.SetearConsulta("select IDImagenes from Imagenes where URLIMG=@URLIMG");
                 Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
                 Datos.EjecutarLectura();
@@ -141,6 +142,15 @@ namespace Negocio
                     curso.Imagen.IDImagen = (int)Datos.Lector["IDImagenes"];
                 }
                 Datos.CerrarConexion();
+
+                Datos.SetearConsulta("Select top(1) IDCurso From Cursos order by IDCurso desc");
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    curso.IDCurso = (int)Datos.Lector["IDCurso"];
+                }
+                Datos.CerrarConexion();
+
                 Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Estreno, @IDImagen)");
                 Datos.SetearParametro("@Nombre", curso.Nombre);
                 Datos.SetearParametro("@Descripcion", curso.Descripcion);

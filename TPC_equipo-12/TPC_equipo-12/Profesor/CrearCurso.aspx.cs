@@ -19,17 +19,28 @@ namespace TPC_equipo_12
 
         protected void TextBoxUrlImagen_TextChanged(object sender, EventArgs e)
         {
-                urlImagenCurso.ImageUrl = TextBoxUrlImagen.Text;
+            urlImagenCurso.ImageUrl = TextBoxUrlImagen.Text;
         }
 
-        protected void ButtonAgregarUnidades_Click(object sender, EventArgs e)
+        protected void ButtonCrearUnidad_Click(object sender, EventArgs e)
         {
             Response.Redirect("AgregarUnidades.aspx");
         }
 
+        protected void ButtonCrearLeccion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarLecciones.aspx");
+        }
+
+        protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarMateriales.aspx");
+        }
+
         protected void ButtonCrearCurso_Click(object sender, EventArgs e)
         {
-            try 
+            Profesor profesor = (Profesor)Session["profesor"];
+            try
             {
                 CursoNegocio cursoNegocio = new CursoNegocio();
                 Curso curso = new Curso();
@@ -39,9 +50,8 @@ namespace TPC_equipo_12
                 curso.Estreno = Convert.ToDateTime(TextBoxEstrenoCurso.Text);
                 curso.Imagen = new Imagen();
                 curso.Imagen.URL = TextBoxUrlImagen.Text;
+                curso.Unidades = new List<Unidad>();
                 cursoNegocio.CrearCurso(curso);
-                //Me traigo al profesor de la session, le cargo el ultimo curso agregado y lo cargo de nuevo a la session.
-                Profesor profesor = (Profesor)Session["profesor"];
                 profesor.Cursos.Add(curso);
                 Session.Add("profesor", profesor);
                 Response.Redirect("ProfesorCursos.aspx", false);

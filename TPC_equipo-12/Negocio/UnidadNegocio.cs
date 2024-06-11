@@ -52,5 +52,41 @@ namespace Negocio
             return lista;
         }
 
+        public void CrearUnidad(Unidad unidad, int IDCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("insert into Unidades (Nombre, NroUnidad, Descripcion) values (@Nombre, @NroUnidad, @Descripcion)");
+                Datos.SetearParametro("@Nombre", unidad.Nombre);
+                Datos.SetearParametro("@NroUnidad", unidad.NroUnidad);
+                Datos.SetearParametro("@Descripcion", unidad.Descripcion);
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("Select top(1) IDUnidad From Unidades order by IDUnidad desc");
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    unidad.IDUnidad = (int)Datos.Lector["IDUnidad"];
+                }
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("insert into UnidadesXCurso (IDUnidad, IDCurso) values (@IDUnidad, @IDCurso)");
+                Datos.SetearParametro("@IDUnidad", unidad.IDUnidad);
+                Datos.SetearParametro("@IDCurso", IDCurso);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
     }
 }

@@ -36,10 +36,31 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <div class="d-flex flex-column align-items-center">
-                    <div class="mb-3">
-                        <asp:Button ID="ButtonAgregarUnidades" runat="server" Text="Agregar Unidades" CssClass="btn btn-primary" OnClick="ButtonAgregarUnidades_Click" />
-                    </div>
                     <asp:Button ID="ButtonCrearCurso" runat="server" Text="CrearCurso" CssClass="btn btn-primary" OnClick="ButtonCrearCurso_Click" />
+                </div>
+            </div>
+        </div>
+        <div class="card w-50 my-5">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-center align-items-center">Crear Unidad</h5>
+                <div class="mb-3 d-flex justify-content-center align-items-center">
+                    <asp:Button ID="ButtonCrearUnidad" runat="server" Text="Crear Unidad" CssClass="btn btn-primary" OnClick="ButtonCrearUnidad_Click" />
+                </div>
+            </div>
+        </div>
+        <div class="card w-50 my-5">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-center align-items-center">Crear Leccion</h5>
+                <div class="mb-3 d-flex justify-content-center align-items-center">
+                    <asp:Button ID="ButtonCrearLeccion" runat="server" Text="Crear Leccion" CssClass="btn btn-primary" OnClick="ButtonCrearLeccion_Click" />
+                </div>
+            </div>
+        </div>
+        <div class="card w-50 my-5">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-center align-items-center">Crear Material</h5>
+                <div class="mb-3 d-flex justify-content-center align-items-center">
+                    <asp:Button ID="ButtonCrearMaterial" runat="server" Text="Crear Material" CssClass="btn btn-primary" OnClick="ButtonCrearMaterial_Click" />
                 </div>
             </div>
         </div>

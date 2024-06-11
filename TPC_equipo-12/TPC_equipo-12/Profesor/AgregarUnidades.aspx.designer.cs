@@ -15,6 +15,33 @@ namespace TPC_equipo_12
     {
 
         /// <summary>
+        /// Control ScriptManager1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+
+        /// <summary>
+        /// Control LabelQueCurso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelQueCurso;
+
+        /// <summary>
+        /// Control DropDownListCursos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListCursos;
+
+        /// <summary>
         /// Control LabelNombreUnidad.
         /// </summary>
         /// <remarks>
@@ -69,21 +96,12 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.TextBox TextBoxNumeroUnidad;
 
         /// <summary>
-        /// Control ButtonAgregarLecciones.
+        /// Control ButtonCrearUnidades.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonAgregarLecciones;
-
-        /// <summary>
-        /// Control ButtonHechoUnidades.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonHechoUnidades;
+        protected global::System.Web.UI.WebControls.Button ButtonCrearUnidades;
     }
 }
