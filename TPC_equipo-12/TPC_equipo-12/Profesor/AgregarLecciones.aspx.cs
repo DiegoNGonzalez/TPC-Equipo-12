@@ -48,11 +48,12 @@ namespace TPC_equipo_12
             try
             {
                 Leccion leccion = new Leccion();
+                leccion.Materiales = new List<MaterialLeccion>();
                 leccion.Nombre = TextBoxNombreLeccion.Text;
                 leccion.Descripcion = TextBoxDescripcionLeccion.Text;
                 leccion.NroLeccion = int.Parse(TextBoxNumeroLeccion.Text);
-                unidad.Lecciones.Add(leccion);
                 leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
+                unidad.Lecciones.Add(leccion);
                 Response.Redirect("CrearCurso.aspx", false);
             }
             catch (Exception ex)

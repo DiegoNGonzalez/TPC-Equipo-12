@@ -44,5 +44,40 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+
+        public void CrearMaterial(MaterialLeccion material, int idLeccion)
+        {
+            try
+            {
+                Datos.SetearConsulta("insert into Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion) values (@Nombre, @TipoMaterial, @URLMaterial, @Descripcion)");
+                Datos.SetearParametro("@Nombre", material.Nombre);
+                Datos.SetearParametro("@TipoMaterial", material.TipoMaterial);
+                Datos.SetearParametro("@URLMaterial", material.URL);
+                Datos.SetearParametro("@Descripcion", material.Descripcion);
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("Select top(1) IDMaterial From Materiales order by IDMaterial desc");
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    material.IDMaterial = (int)Datos.Lector["IDMaterial"];
+                }
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("insert into MaterialesXLecciones (IDMaterial, IDLeccion) values (@IDMaterial, @IDLeccion)");
+                Datos.SetearParametro("@IDMaterial", material.IDMaterial);
+                Datos.SetearParametro("@IDLeccion", idLeccion);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }   
     }
 }

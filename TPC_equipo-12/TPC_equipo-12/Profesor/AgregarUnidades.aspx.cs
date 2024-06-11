@@ -47,6 +47,7 @@ namespace TPC_equipo_12
             try
             {
                 Unidad unidad = new Unidad();
+                unidad.Lecciones = new List<Leccion>();
                 unidad.Nombre = TextBoxNombreUnidad.Text;
                 unidad.Descripcion = TextBoxDescripcionUnidad.Text;
                 unidad.NroUnidad = int.Parse(TextBoxNumeroUnidad.Text);

@@ -132,30 +132,48 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.TextBox TextBoxNumeroMaterial;
 
         /// <summary>
-        /// Control LabelImagenCurso.
+        /// Control LabelTipoMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelImagenCurso;
+        protected global::System.Web.UI.WebControls.Label LabelTipoMaterial;
 
         /// <summary>
-        /// Control TextBoxImagenCurso.
+        /// Control DropDownListTipoMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxImagenCurso;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListTipoMaterial;
 
         /// <summary>
-        /// Control ButtonHechoMateriales.
+        /// Control LabelURLMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonHechoMateriales;
+        protected global::System.Web.UI.WebControls.Label LabelURLMaterial;
+
+        /// <summary>
+        /// Control TextBoxURLMaterial.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxURLMaterial;
+
+        /// <summary>
+        /// Control ButtonCrearMaterial.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonCrearMaterial;
     }
 }

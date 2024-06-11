@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-     <asp:UpdatePanel runat="server">
+    <asp:UpdatePanel runat="server">
         <ContentTemplate>
             <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
                 <div class="card w-50 my-5">
@@ -16,7 +16,7 @@
                         </div>
                         <div class="mb-3">
                             <asp:Label ID="LabelQueUnidad" runat="server" CssClass="form-label" Text="Elige una unidad."></asp:Label>
-                            <asp:DropDownList ID="DropDownListUnidades" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
+                            <asp:DropDownList ID="DropDownListUnidades" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="DropDownListUnidades_SelectedIndexChanged"></asp:DropDownList>
                         </div>
                         <div class="mb-3">
                             <asp:Label ID="LabelQueLeccion" runat="server" CssClass="form-label" Text="Elige la leccion a la cual quieres agregar un material de estudio."></asp:Label>
@@ -36,12 +36,18 @@
                             <asp:TextBox ID="TextBoxNumeroMaterial" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="LabelImagenCurso" runat="server" CssClass="form-label" Text="URL Archivo"></asp:Label>
-                            <asp:TextBox ID="TextBoxImagenCurso" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:Label ID="LabelTipoMaterial" runat="server" CssClass="form-label" Text="Tipo de Material"></asp:Label>
+                            <asp:DropDownList ID="DropDownListTipoMaterial" runat="server" CssClass="form-control">
+                                <asp:ListItem Text="Video" Value="Video"></asp:ListItem>
+                                <asp:ListItem Text="Contenido" Value="Contenido"></asp:ListItem>
+                            </asp:DropDownList>
+                            <div class="mb-3">
+                                <asp:Label ID="LabelURLMaterial" runat="server" CssClass="form-label" Text="URL Archivo"></asp:Label>
+                                <asp:TextBox ID="TextBoxURLMaterial" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <asp:Button ID="ButtonCrearMaterial" runat="server" Text="Crear Material" CssClass="btn btn-primary" OnClick="ButtonCrearMaterial_Click" />
                         </div>
-                        <asp:Button ID="ButtonHechoMateriales" runat="server" Text="Hecho" CssClass="btn btn-primary" OnClick="ButtonHechoMateriales_Click" />
                     </div>
-                </div>
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>

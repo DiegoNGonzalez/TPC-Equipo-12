@@ -57,8 +57,8 @@ namespace Negocio
             try
             {
                 Datos.SetearConsulta("insert into Unidades (Nombre, NroUnidad, Descripcion) values (@Nombre, @NroUnidad, @Descripcion)");
-                Datos.SetearParametro("@NroUnidad", unidad.NroUnidad);
                 Datos.SetearParametro("@Nombre", unidad.Nombre);
+                Datos.SetearParametro("@NroUnidad", unidad.NroUnidad);
                 Datos.SetearParametro("@Descripcion", unidad.Descripcion);
                 Datos.EjecutarAccion();
                 Datos.CerrarConexion();
@@ -67,7 +67,7 @@ namespace Negocio
                 Datos.EjecutarLectura();
                 if (Datos.Lector.Read())
                 {
-                    unidad.IDUnidad = Datos.Lector.GetInt32(0);
+                    unidad.IDUnidad = (int)Datos.Lector["IDUnidad"];
                 }
                 Datos.CerrarConexion();
 

@@ -80,27 +80,27 @@ namespace TPC_equipo_12
 
         private void CargarLecciones(int idUnidad)
         {
-                if (DropDownListUnidades.Items.Count > 0)
+            if (DropDownListUnidades.Items[0].Text == "No hay unidades disponibles")
+            {
+                DropDownListLecciones.Items.Clear();
+                DropDownListLecciones.Items.Add(new ListItem("No hay unidades seleccionadas", ""));
+            }
+            else
+            {
+                List<Leccion> lecciones = LeccionNegocio.ListarLecciones(idUnidad);
+                if (lecciones != null && lecciones.Count > 0)
                 {
-                    List<Leccion> lecciones = LeccionNegocio.ListarLecciones(idUnidad);
-                    if (lecciones != null && lecciones.Count > 0)
-                    {
-                        DropDownListLecciones.DataSource = lecciones;
-                        DropDownListLecciones.DataValueField = "IDLeccion";
-                        DropDownListLecciones.DataTextField = "Nombre";
-                        DropDownListLecciones.DataBind();
-                    }
-                    else
-                    {
-                        DropDownListLecciones.Items.Clear();
-                        DropDownListLecciones.Items.Add(new ListItem("No hay lecciones disponibles para esta unidad", ""));
-                    }
+                    DropDownListLecciones.DataSource = lecciones;
+                    DropDownListLecciones.DataValueField = "IDLeccion";
+                    DropDownListLecciones.DataTextField = "Nombre";
+                    DropDownListLecciones.DataBind();
                 }
-        }
-
-        protected void ButtonHechoMateriales_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("AgregarLecciones.aspx");
+                else
+                {
+                    DropDownListLecciones.Items.Clear();
+                    DropDownListLecciones.Items.Add(new ListItem("No hay lecciones disponibles para esta unidad", ""));
+                }
+            }
         }
 
         protected void DropDownListCursos_SelectedIndexChanged(object sender, EventArgs e)
@@ -108,5 +108,35 @@ namespace TPC_equipo_12
             int idCursoSeleccionado = int.Parse(DropDownListCursos.SelectedValue);
             CargarUnidades(idCursoSeleccionado);
         }
+        protected void DropDownListUnidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idUnidadSeleccionada = int.Parse(DropDownListUnidades.SelectedValue);
+            CargarLecciones(idUnidadSeleccionada);
+        }
+        protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
+        {
+            Profesor profesor = (Profesor)Session["profesor"];
+            Curso curso = profesor.Cursos.Find(x => x.IDCurso == Convert.ToInt32(DropDownListCursos.SelectedValue));
+            Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == Convert.ToInt32(DropDownListUnidades.SelectedValue));
+            Leccion leccion = unidad.Lecciones.Find(x => x.IDLeccion == Convert.ToInt32(DropDownListLecciones.SelectedValue));
+            try
+            {
+                MaterialLeccion material = new MaterialLeccion();
+                material.Nombre = TextBoxNombreMaterial.Text;
+                material.Descripcion = TextBoxDescripcionMaterial.Text;
+                material.TipoMaterial = DropDownListTipoMaterial.SelectedValue;
+                material.URL = TextBoxURLMaterial.Text;
+                MaterialNegocio.CrearMaterial(material, leccion.IDLeccion);
+                leccion.Materiales.Add(material);
+                Response.Redirect("CrearCurso.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Response.Redirect("../Error.aspx");
+                throw ex;
+            }
+        }
+
     }
 }
