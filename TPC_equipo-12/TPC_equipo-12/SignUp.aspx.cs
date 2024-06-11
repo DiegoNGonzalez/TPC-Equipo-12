@@ -24,7 +24,7 @@ namespace TPC_equipo_12
         }
         protected void btnSignUp_Click(object sender, EventArgs e)
         {
-             Usuario usuario = new Usuario();
+            Usuario usuario = new Usuario();
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
             try
             {
@@ -51,8 +51,20 @@ namespace TPC_equipo_12
             catch (Exception ex)
             {
                 Session["error"] = ex.Message;
-                Response.Redirect("~/LogIn.aspx", false);
+                Response.Redirect("~/Error.aspx", false);
             }
+        }
+        protected void ValidarFormulario()
+        {
+            if (InputNombres.Text == "" || InputApellidos.Text == "" || InputDNI.Text == "" || InputEmail.Text == "" || InputPassword.Text == "" || InputPassword.Text == "")
+            {
+                throw new Exception("Todos los campos son obligatorios");
+            }
+            if (InputPassword.Text != InputPassword.Text)
+            {
+                throw new Exception("Las contraseñas no coinciden");
+            }
+
         }
     }
 }

@@ -63,12 +63,20 @@ namespace Negocio
 
             try
             {
-                Datos.SetearConsulta("insert into Inscripciones (IDUsuario, IDCurso, FechaInscripcion) values (@IDUsuario, @IDCurso, @FechaInscripcion)");
-                Datos.SetearParametro("@IDUsuario", usuario.IDUsuario);
-                Datos.SetearParametro("@IDCurso", curso.IDCurso);
-                Datos.SetearParametro("@FechaInscripcion", DateTime.Now);
-                Datos.EjecutarAccion();
-                return true;
+                if(EstaInscripto(usuario.IDUsuario, curso.IDCurso))
+                {
+                    throw new Exception("El estudiante ya esta inscripto en el curso");
+                }
+                else
+                {
+
+                    Datos.SetearConsulta("insert into Inscripciones (IDUsuario, IDCurso, FechaInscripcion) values (@IDUsuario, @IDCurso, @FechaInscripcion)");
+                    Datos.SetearParametro("@IDUsuario", usuario.IDUsuario);
+                    Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                    Datos.SetearParametro("@FechaInscripcion", DateTime.Now);
+                    Datos.EjecutarAccion();
+                    return true;
+                }
 
             }
             catch (Exception ex)
@@ -88,19 +96,26 @@ namespace Negocio
             Curso curso = inscripcion.Curso;
             try
             {
-                if(estudianteNegocio.EsEstudiante(aux.IDUsuario))
+                if (EstaInscripto(aux.IDUsuario, curso.IDCurso))
                 {
-                 
-                   estudianteNegocio.CargarEstudianteEnCurso(aux.IDUsuario, curso.IDCurso);
+                    throw new Exception("El estudiante ya esta inscripto en el curso");
+
                 }
                 else
                 {
-                    estudianteNegocio.Agregar(aux);
-                    estudianteNegocio.CargarEstudianteEnCurso(aux.IDUsuario, curso.IDCurso);
-                }
-                Datos.LimpiarParametros();
-                ModificarEstadoInscripcion(inscripcion.IDInscripcion);
+                    if (estudianteNegocio.EsEstudiante(aux.IDUsuario))
+                    {
 
+                        estudianteNegocio.CargarEstudianteEnCurso(aux.IDUsuario, curso.IDCurso);
+                    }
+                    else
+                    {
+                        estudianteNegocio.Agregar(aux);
+                        estudianteNegocio.CargarEstudianteEnCurso(aux.IDUsuario, curso.IDCurso);
+                    }
+                    Datos.LimpiarParametros();
+                    ModificarEstadoInscripcion(inscripcion.IDInscripcion);
+                }
             }
             catch (Exception ex)
             {
@@ -147,6 +162,35 @@ namespace Negocio
                 Datos.SetearConsulta("update Inscripciones set Estado= 1 where IdInscripcion= @IDInscripcion");
                 Datos.SetearParametro("@IDInscripcion", idInscripcion);
                 Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public bool EstaInscripto(int idEstudiante, int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("select * from EstudiantesXCursos where IDEstudiante = @IdEstudiante and IDCurso = @IdCurso");
+                Datos.SetearParametro("@IdEstudiante", idEstudiante);
+                Datos.SetearParametro("@IdCurso", idCurso);
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    return true;
+
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
