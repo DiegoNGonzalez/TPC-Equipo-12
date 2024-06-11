@@ -170,5 +170,36 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+
+        public void EliminarCurso(int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("Select IDUnidad from UnidadesXCurso where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    UnidadesDeCurso.EliminarUnidad((int)Datos.Lector["IDUnidad"]);
+                }
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("delete from Cursos where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
 }

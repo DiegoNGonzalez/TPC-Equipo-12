@@ -38,5 +38,26 @@ namespace TPC_equipo_12
             Session.Add("IDCursoProfesor", idCurso);
             Response.Redirect("ProfesorUnidades.aspx");
         }
+
+        protected void ButtonEliminarCurso_Command(object sender, CommandEventArgs e)
+        {
+            Profesor profesor = (Profesor)Session["profesor"];
+            int idCursoAEliminar = Convert.ToInt32(e.CommandArgument);
+            Curso cursoAEliminar = profesor.Cursos.Find(curso => curso.IDCurso == idCursoAEliminar);
+
+            if (cursoAEliminar != null)
+            {
+                profesor.Cursos.Remove(cursoAEliminar);
+                Session["profesor"] = profesor;
+                cursoNegocio.EliminarCurso(idCursoAEliminar);
+                Response.Redirect("ProfesorCursos.aspx", false);
+            }
+            else
+            {
+                Session.Add("Error", "El curso no se encontró en la lista de cursos del profesor.");
+                Response.Redirect("../Error.aspx");
+            }
+
+        }
     }
 }

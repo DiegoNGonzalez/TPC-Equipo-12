@@ -45,5 +45,10 @@ namespace TPC_equipo_12
         {
             Response.Redirect("AgregarLecciones.aspx");
         }
+
+        protected void ButtonEliminarLeccionProf_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EliminarLecciones.aspx");
+        }
     }
 }

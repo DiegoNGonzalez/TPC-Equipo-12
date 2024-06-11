@@ -22,7 +22,8 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><%# Eval("Descripcion") %></li>
                                 <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
-                                <li class="list-group-item">A third item</li>
+                                <li class="list-group-item">
+                                </li>
                             </ul>
                     </asp:LinkButton>
                         </div>

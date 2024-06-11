@@ -11,43 +11,43 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class ProfesorLecciones
+    public partial class EliminarUnidad
     {
 
         /// <summary>
-        /// Control ButtonBackUnidadProf.
+        /// Control ScriptManager1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonBackUnidadProf;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// Control ButtonCrearLeccionProf.
+        /// Control LabelNombreUnidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonCrearLeccionProf;
+        protected global::System.Web.UI.WebControls.Label LabelNombreUnidad;
 
         /// <summary>
-        /// Control ButtonEliminarLeccionProf.
+        /// Control DropDownListNombreUnidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonEliminarLeccionProf;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListNombreUnidad;
 
         /// <summary>
-        /// Control rptLeccionesProf.
+        /// Control ButtonEliminarUnidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptLeccionesProf;
+        protected global::System.Web.UI.WebControls.Button ButtonEliminarUnidad;
     }
 }

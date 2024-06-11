@@ -24,22 +24,22 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// Control LabelTipoMaterial.
+        /// Control LabelNombreMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelTipoMaterial;
+        protected global::System.Web.UI.WebControls.Label LabelNombreMaterial;
 
         /// <summary>
-        /// Control DropDownListNroMaterial.
+        /// Control DropDownListNombreMaterial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListNroMaterial;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListNombreMaterial;
 
         /// <summary>
         /// Control ButtonEliminarMaterial.

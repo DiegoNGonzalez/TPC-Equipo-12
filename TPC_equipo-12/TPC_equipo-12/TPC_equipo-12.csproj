@@ -65,6 +65,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Profesor\EliminarUnidad.aspx" />
+    <Content Include="Profesor\EliminarLecciones.aspx" />
     <Content Include="Profesor\EliminarMateriales.aspx" />
     <Content Include="Profesor\Inscripciones.aspx" />
     <Content Include="Profesor\AgregarLecciones.aspx" />
@@ -90,6 +92,20 @@
     <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Profesor\EliminarUnidad.aspx.cs">
+      <DependentUpon>EliminarUnidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\EliminarUnidad.aspx.designer.cs">
+      <DependentUpon>EliminarUnidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\EliminarLecciones.aspx.cs">
+      <DependentUpon>EliminarLecciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\EliminarLecciones.aspx.designer.cs">
+      <DependentUpon>EliminarLecciones.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Profesor\EliminarMateriales.aspx.cs">
       <DependentUpon>EliminarMateriales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

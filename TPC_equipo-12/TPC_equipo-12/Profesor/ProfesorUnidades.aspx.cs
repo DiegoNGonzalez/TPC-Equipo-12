@@ -46,5 +46,10 @@ namespace TPC_equipo_12
         {
             Response.Redirect("AgregarUnidades.aspx");
         }
+
+        protected void ButtonEliminarUnidadProf_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EliminarUnidad.aspx");
+        }
     }
 }

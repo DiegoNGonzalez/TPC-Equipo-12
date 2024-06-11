@@ -24,16 +24,16 @@ namespace TPC_equipo_12
             {
                 listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]);
                 Session.Add("ListaMaterialesProfesor", listaMateriales);
-                DropDownListNroMaterial.DataSource = listaMateriales;
-                DropDownListNroMaterial.DataTextField = "Nombre";
-                DropDownListNroMaterial.DataValueField = "IDMaterial";
-                DropDownListNroMaterial.DataBind();
+                DropDownListNombreMaterial.DataSource = listaMateriales;
+                DropDownListNombreMaterial.DataTextField = "Nombre";
+                DropDownListNombreMaterial.DataValueField = "IDMaterial";
+                DropDownListNombreMaterial.DataBind();
             }
         }
 
         protected void ButtonEliminarMaterial_Click(object sender, EventArgs e)
         {
-            materialNegocio.EliminarMaterial(Convert.ToInt32(DropDownListNroMaterial.SelectedValue));
+            materialNegocio.EliminarMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
             Response.Redirect("ProfesorMateriales.aspx");
         }
     }

@@ -38,7 +38,7 @@ namespace Negocio
                 {
                     item.Materiales = MaterialesDeLeccion.ListarMateriales(item.IDLeccion);
                 }
-                    datos.LimpiarParametros();
+                datos.LimpiarParametros();
             }
             catch (Exception)
             {
@@ -47,7 +47,7 @@ namespace Negocio
             }
             finally
             {
-                   datos.CerrarConexion();
+                datos.CerrarConexion();
             }
             return lista;
         }
@@ -83,6 +83,44 @@ namespace Negocio
             }
             finally
             {
+                datos.CerrarConexion();
+            }
+        }
+
+        public void EliminarLeccion(int IDLeccion)
+        {
+            int idMaterial = 0;
+            try
+            {
+                datos.SetearConsulta("delete from LeccionesXUnidades where IDLeccion = @IDLeccion");
+                datos.SetearParametro("@IDLeccion", IDLeccion);
+                datos.EjecutarAccion();
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+
+                datos.SetearConsulta("Select IDMaterial from MaterialesXLecciones where IDLeccion = @IDLeccion");
+                datos.SetearParametro("@IDLeccion", IDLeccion);
+                datos.EjecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    idMaterial = (int)datos.Lector["IDMaterial"];
+                    MaterialesDeLeccion.EliminarMaterial(idMaterial);
+                }
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+
+                datos.SetearConsulta("delete from Lecciones where IDLeccion = @IDLeccion");
+                datos.SetearParametro("@IDLeccion", IDLeccion);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
                 datos.CerrarConexion();
             }
         }
