@@ -67,18 +67,29 @@ namespace TPC_equipo_12
             Label label = (Label)lblControl;
             int idCurso = Convert.ToInt32(label.Text);
             Curso aux = cursoNegocio.BuscarCurso(idCurso);
-            bool seInscribio = inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
-            if (seInscribio)
+            try
             {
-                
+                bool seInscribio = inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
+                if (seInscribio)
+                {
+
+                }
+                else
+                {
+                    throw new Exception("No se pudo inscribir al curso");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ex.Message.ToString();
+                Session.Add("error", "No se pudo inscribir al curso, ya estas inscripto u ocurrio un error");
+                Response.Redirect("../Error.aspx");
 
 
             }
-            else
-            {
-               
-                
-            }
+            
+            
         }
     }
 }

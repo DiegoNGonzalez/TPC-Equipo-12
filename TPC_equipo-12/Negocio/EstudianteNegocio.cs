@@ -18,7 +18,7 @@ namespace Negocio
         }
         public List<Estudiante> ListarEstudiantes()
         {
-            List <Estudiante> lista = new List<Estudiante>();
+            List<Estudiante> lista = new List<Estudiante>();
 
             try
             {
@@ -40,13 +40,14 @@ namespace Negocio
                         aux.ImagenPerfil = new Imagen();
                         aux.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagenes"];
                         aux.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
-                    }else
+                    }
+                    else
                     {
                         aux.ImagenPerfil = new Imagen();
                         aux.ImagenPerfil.IDImagen = 0;
                         aux.ImagenPerfil.URL = "https://www.abc.com.py/resizer/1J9J9Q1";
                     }
-                    
+
                     aux.Estado = (bool)Datos.Lector["Estado"];
                     lista.Add(aux);
                 }
@@ -82,25 +83,33 @@ namespace Negocio
         {
             try
             {
-                Datos.SetearConsulta("insert into EstudiantesXCursos (IDEstudiante, IDCurso) values (@IDEstudiante, @IDCurso)");
-                Datos.SetearParametro("@IDEstudiante", idUsuario);
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros ();
-                
+                if (EstaInscripto(idUsuario, idCurso))
+                {
+                    throw new Exception("El estudiante ya esta inscripto en el curso");
+                }
+                else
+                {
+                    Datos.SetearConsulta("insert into EstudiantesXCursos (IDEstudiante, IDCurso) values (@IDEstudiante, @IDCurso)");
+                    Datos.SetearParametro("@IDEstudiante", idUsuario);
+                    Datos.SetearParametro("@IDCurso", idCurso);
+                    Datos.EjecutarAccion();
+                    Datos.LimpiarParametros();
+
+
+                }
             }
             catch (Exception ex)
             {
 
                 throw ex;
-                
+
             }
             finally
             {
                 Datos.CerrarConexion();
-                
+
             }
-            
+
         }
         public void ModificarEstado(Estudiante estudiante)
         {
@@ -132,7 +141,7 @@ namespace Negocio
                 if (Datos.Lector.Read())
                 {
                     return true;
-                
+
                 }
                 else
                 {
@@ -143,13 +152,42 @@ namespace Negocio
             {
 
                 throw ex;
-            }finally
+            }
+            finally
             {
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
-            
 
+
+        }
+        public bool EstaInscripto(int idEstudiante, int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("select * from EstudiantesXCursos where IDEstudiante = @IdEstudiante and IDCurso = @IdCurso");
+                Datos.SetearParametro("@IdEstudiante", idEstudiante);
+                Datos.SetearParametro("@IdCurso", idCurso);
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
         }
     }
 }

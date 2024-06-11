@@ -93,16 +93,24 @@ namespace Negocio
                 //Datos.EjecutarAccion();
                 //int aux = UltimoIdImagen();
                 //Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, Clave, DNI, Genero, EsProfesor, IDImagen) values (@Nombre, @Apellido, @Email, @Clave, @DNI, @Genero, @EsProfesor, @IDImagen)");
-                Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, Contrasenia, DNI, Genero, EsProfesor) values (@Nombre, @Apellido, @Email, @Contrasenia, @DNI, @Genero, @EsProfesor)");
-                Datos.SetearParametro("@Nombre", usuario.Nombre);
-                Datos.SetearParametro("@Apellido", usuario.Apellido);
-                Datos.SetearParametro("@Email", usuario.Email);
-                Datos.SetearParametro("@Contrasenia", usuario.Contrasenia);
-                Datos.SetearParametro("@DNI", usuario.DNI);
-                Datos.SetearParametro("@Genero", (object)usuario.Genero?? DBNull.Value);
-                Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
-                //Datos.SetearParametro("@IDImagen", (object)usuario.ImagenPerfil.IDImagen?? DBNull.Value);
-                Datos.EjecutarAccion();
+                if (ExisteUsuario(usuario))
+                {
+                    throw new Exception("El usuario ya existe");
+                }
+                else
+                {
+                    Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, Contrasenia, DNI, Genero, EsProfesor) values (@Nombre, @Apellido, @Email, @Contrasenia, @DNI, @Genero, @EsProfesor)");
+                    Datos.SetearParametro("@Nombre", usuario.Nombre);
+                    Datos.SetearParametro("@Apellido", usuario.Apellido);
+                    Datos.SetearParametro("@Email", usuario.Email);
+                    Datos.SetearParametro("@Contrasenia", usuario.Contrasenia);
+                    Datos.SetearParametro("@DNI", usuario.DNI);
+                    Datos.SetearParametro("@Genero", (object)usuario.Genero?? DBNull.Value);
+                    Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
+                    //Datos.SetearParametro("@IDImagen", (object)usuario.ImagenPerfil.IDImagen?? DBNull.Value);
+                    Datos.EjecutarAccion();
+
+                }
             }
             catch (Exception ex)
             {
@@ -305,6 +313,28 @@ namespace Negocio
                 Datos.CerrarConexion(); 
             }
         }
-
+        public bool ExisteUsuario(Usuario usuario)
+        {
+            try
+            {
+                Datos.SetearConsulta("select IDUsuario from Usuarios where Email = @Email");
+                Datos.SetearParametro("@Email", usuario.Email);
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
 }
