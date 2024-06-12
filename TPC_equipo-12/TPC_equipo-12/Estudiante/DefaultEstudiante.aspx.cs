@@ -72,19 +72,18 @@ namespace TPC_equipo_12
                 bool seInscribio = inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
                 if (seInscribio)
                 {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
 
                 }
-                else
-                {
-                    throw new Exception("No se pudo inscribir al curso");
-                }
+               
             }
             catch (Exception ex)
             {
 
-                ex.Message.ToString();
-                Session.Add("error", "No se pudo inscribir al curso, ya estas inscripto u ocurrio un error");
-                Response.Redirect("../Error.aspx");
+                //ex.Message.ToString();
+                //Session.Add("error", "No se pudo inscribir al curso, ya estas inscripto u ocurrio un error");
+                //Response.Redirect("../Error.aspx");
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", "<script>showMessage('Ocurrió un error al enviar la inscripción.', 'error');</script>", false);
 
 
             }

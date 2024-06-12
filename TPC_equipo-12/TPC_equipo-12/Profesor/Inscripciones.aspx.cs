@@ -31,24 +31,33 @@ namespace TPC_equipo_12
             int idInscripcion = Convert.ToInt32(btn.CommandArgument); 
             InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
             inscripcionNegocio.ConfirmarInscripcion(aux);
-
-            inscripciones = inscripcionNegocio.listarInscripciones();
-            rptInscripciones.DataSource = inscripciones;
-            rptInscripciones.DataBind();
-
             
+            inscripciones = inscripcionNegocio.listarInscripciones();
+            Session.Add("inscripciones", inscripciones);
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
+                        showMessage('Verifique su información, El usuario ya esta registrado!', 'success');
+                        setTimeout(function() {
+                        window.location.href = 'Inscripciones.aspx'; 
+                        }, 1500); 
+                        </script>", false);
+            //rptInscripciones.DataSource = inscripciones;
+            //rptInscripciones.DataBind();
+            
+            
+
+
         }
 
         protected void btnEliminarInscripcion_Click(object sender, EventArgs e)
         {
-
+            //ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
+            //            showMessage('Verifique su información, El usuario ya esta registrado!', 'success');
+            //            setTimeout(function() {
+            //            window.location.href = 'Inscripciones.aspx'; 
+            //            }, 1500); 
+            //            </script>", false); falta implementar funcionaldiad a este boton y script
         }
 
-        //protected void btnAceptarInscripcion_Command(object sender, CommandEventArgs e)
-        //{
-        //    int idInscripcion = Convert.ToInt32(e.CommandArgument);
-        //    Session.Add("idInscripcion", idInscripcion);
-            
-        //}
+       
     }
 }

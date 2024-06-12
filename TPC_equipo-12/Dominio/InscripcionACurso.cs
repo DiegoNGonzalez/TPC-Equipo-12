@@ -12,7 +12,7 @@ namespace Dominio
         public Usuario Usuario { get; set; }
         public Curso Curso { get; set; }
         public DateTime FechaInscripcion { get; set; }
-        public bool Estado { get; set; }
+        public char Estado { get; set; }
 
       
     }
