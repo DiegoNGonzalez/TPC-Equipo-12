@@ -14,6 +14,7 @@ namespace TPC_equipo_12
             try
             {
                 lblError.Text = Session["error"].ToString();
+
             }
             catch (Exception)
             {
