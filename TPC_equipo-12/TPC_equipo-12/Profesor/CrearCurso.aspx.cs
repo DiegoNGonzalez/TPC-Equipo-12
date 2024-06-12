@@ -39,13 +39,8 @@ namespace TPC_equipo_12
                 cursoNegocio.CrearCurso(curso);
                 profesor.Cursos.Add(curso);
                 Session.Add("profesor", profesor);
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
-                        showMessage('Curso creado exitosamente!', 'success');
-                        setTimeout(function() {
-                        window.location.href = 'ProfesorCursos.aspx'; 
-                        }, 4000); 
-                        </script>", false);
-                //Response.Redirect("ProfesorCursos.aspx", false);
+                Session["MensajeExito"] = "Curso creado con exito!";
+                Response.Redirect("ProfesorCursos.aspx", false);
             }
             catch (Exception ex)
             {

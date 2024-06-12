@@ -33,8 +33,17 @@ namespace TPC_equipo_12
 
         protected void ButtonEliminarLeccion_Click(object sender, EventArgs e)
         {
-            leccionNegocio.EliminarLeccion(Convert.ToInt32(DropDownListNombreLeccion.SelectedValue));
-            Response.Redirect("ProfesorLecciones.aspx", false);
+            try
+            {
+                leccionNegocio.EliminarLeccion(Convert.ToInt32(DropDownListNombreLeccion.SelectedValue));
+                Session["MensajeExito"] = "Lección eliminada con éxito.";
+                Response.Redirect("ProfesorLecciones.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorLecciones.aspx", false);
+            }
         }
     }
 }

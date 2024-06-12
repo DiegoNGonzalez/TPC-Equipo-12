@@ -175,6 +175,30 @@ namespace Negocio
         {
             try
             {
+                Datos.SetearConsulta("delete from ProfesorXCursos where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("delete from EstudiantesXCursos where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("delete from CategoriasXCurso where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
                 Datos.SetearConsulta("Select IDUnidad from UnidadesXCurso where IDCurso = @IDCurso");
                 Datos.SetearParametro("@IDCurso", idCurso);
                 Datos.EjecutarLectura();

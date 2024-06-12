@@ -36,13 +36,13 @@ namespace TPC_equipo_12
                 leccion.NroLeccion = int.Parse(TextBoxNumeroLeccion.Text);
                 leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
                 unidad.Lecciones.Add(leccion);
+                Session["MensajeExito"] = "Leccion creada con exito!";
                 Response.Redirect("ProfesorLecciones.aspx", false);
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../Error.aspx");
-                throw ex;
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorLecciones.aspx", false);
             }
         }
 

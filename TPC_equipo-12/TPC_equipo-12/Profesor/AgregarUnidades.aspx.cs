@@ -36,13 +36,13 @@ namespace TPC_equipo_12
                 unidad.NroUnidad = int.Parse(TextBoxNumeroUnidad.Text);
                 curso.Unidades.Add(unidad);
                 unidadNegocio.CrearUnidad(unidad, curso.IDCurso);
+                Session["MensajeExito"] = "Unidad creada con exito!";
                 Response.Redirect("ProfesorUnidades.aspx", false);
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../Error.aspx");
-                throw ex;
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorUnidades.aspx", false);
             }
         }
     }

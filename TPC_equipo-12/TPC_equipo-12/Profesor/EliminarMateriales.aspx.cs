@@ -33,8 +33,17 @@ namespace TPC_equipo_12
 
         protected void ButtonEliminarMaterial_Click(object sender, EventArgs e)
         {
-            materialNegocio.EliminarMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
-            Response.Redirect("ProfesorMateriales.aspx");
+            try
+            {
+                materialNegocio.EliminarMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
+                Session["MensajeExito"] = "Material eliminado con éxito.";
+                Response.Redirect("ProfesorMateriales.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorMateriales.aspx", false);
+            }
         }
     }
 }

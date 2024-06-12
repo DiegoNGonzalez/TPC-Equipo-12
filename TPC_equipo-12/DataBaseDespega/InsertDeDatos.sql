@@ -74,24 +74,30 @@ INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (3, 3);
 INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (4, 4);
 go
 -- Insertar materiales
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial)
-VALUES ('Material Algebra', 'PDF', 'https://sitios.ucsc.cl/pace/wp-content/uploads/sites/41/2020/03/ManualAlgebra.pdf');
-go
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial)
-VALUES ('Material Fisica', 'Video', 'https://www.youtube.com/watch?v=0vlAAjszSFA');
-go
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial)
-VALUES ('Material Programación', 'PDF', 'https://sanfrancisco.utn.edu.ar/documentos/archivos/cursillo_de_ingreso/2024/Intro_%20a%20la%20Programaci%C3%B3n%20-%20S_%20Ingreso%20TUP.pdf');
-go
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial)
-VALUES ('Material Historia', 'Video', 'https://www.youtube.com/watch?v=qgw4D_9t_mw');
-go
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial)
-VALUES ('Material Variables y Tipos de Datos', 'PDF', 'https://departamento.us.es/edan/php/asig/LICFIS/LFIPC/Tema2FISPC0809.pdf');
-go
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial)
-VALUES ('Material Edad Media', 'Video', 'https://www.youtube.com/watch?v=DjdFLJT5lhY');
-go
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
+VALUES ('Material Algebra', 'Documento', 'https://sitios.ucsc.cl/pace/wp-content/uploads/sites/41/2020/03/ManualAlgebra.pdf', 'Manual de Álgebra para estudiantes universitarios');
+GO
+
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
+VALUES ('Material Fisica', 'Video', 'https://www.youtube.com/watch?v=0vlAAjszSFA', 'Video explicativo sobre fundamentos de Física');
+GO
+
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
+VALUES ('Material Programación', 'Documento', 'https://sanfrancisco.utn.edu.ar/documentos/archivos/cursillo_de_ingreso/2024/Intro_%20a%20la%20Programaci%C3%B3n%20-%20S_%20Ingreso%20TUP.pdf', 'Introducción a la programación para principiantes');
+GO
+
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
+VALUES ('Material Historia', 'Video', 'https://www.youtube.com/watch?v=qgw4D_9t_mw', 'Documental sobre la historia antigua');
+GO
+
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
+VALUES ('Material Variables y Tipos de Datos', 'Documento', 'https://departamento.us.es/edan/php/asig/LICFIS/LFIPC/Tema2FISPC0809.pdf', 'Guía sobre variables y tipos de datos en programación');
+GO
+
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
+VALUES ('Material Edad Media', 'Video', 'https://www.youtube.com/watch?v=DjdFLJT5lhY', 'Exploración de la Edad Media en Europa');
+GO
+
 -- Insertar lecciones
 INSERT INTO Lecciones (NroLeccion, Nombre, Descripcion)
 VALUES (1, 'Introducción al Algebra', 'Esta lección cubre los conceptos básicos de algebra.');

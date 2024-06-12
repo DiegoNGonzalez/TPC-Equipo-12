@@ -38,13 +38,13 @@ namespace TPC_equipo_12
                 material.URL = TextBoxURLMaterial.Text;
                 MaterialNegocio.CrearMaterial(material, leccion.IDLeccion);
                 leccion.Materiales.Add(material);
+                Session["MensajeExito"] = "Material creado con exito!";
                 Response.Redirect("ProfesorMateriales.aspx", false);
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../Error.aspx");
-                throw ex;
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorMateriales.aspx", false);
             }
         }
 

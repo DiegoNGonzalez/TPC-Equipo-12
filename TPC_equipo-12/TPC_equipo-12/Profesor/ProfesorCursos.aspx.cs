@@ -24,6 +24,25 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                if (Session["MensajeExito"] != null)
+                {
+                    string msj = Session["MensajeExito"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');",true);
+                    Session["MensajeExito"] = null;
+                }
+                if (Session["MensajeError"] != null)
+                {
+                    string msj = Session["MensajeError"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
+                    Session["MensajeError"] = null;
+                }
+                if (Session["MensajeInfo"] != null)
+                {
+                    string msj = Session["MensajeInfo"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
+                    Session["MensajeInfo"] = null;
+                }
+
                 profesor = (Profesor)Session["profesor"];
                 Session.Add("listaCursosProfesor", profesor.Cursos);
                 UpdatePanelCursos.Update();
@@ -47,16 +66,19 @@ namespace TPC_equipo_12
 
             if (cursoAEliminar != null)
             {
+                try
+                {
                 profesor.Cursos.Remove(cursoAEliminar);
                 Session["profesor"] = profesor;
                 cursoNegocio.EliminarCurso(idCursoAEliminar);
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
-                        showMessage('El curso fue eliminado con exito!', 'success');
-                        setTimeout(function() {
-                        window.location.href = 'ProfesorCursos.aspx'; 
-                        }, 1500); 
-                        </script>", false);
-                //Response.Redirect("ProfesorCursos.aspx", false);
+                Session["MensajeExito"] = "Curso eliminado con exito!";
+                Response.Redirect("ProfesorCursos.aspx", false);
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex.ToString());
+                    Response.Redirect("../Error.aspx");
+                }
             }
             else
             {

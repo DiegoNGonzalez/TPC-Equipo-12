@@ -33,8 +33,17 @@ namespace TPC_equipo_12
 
         protected void ButtonEliminarUnidad_Click(object sender, EventArgs e)
         {
-            unidadNegocio.EliminarUnidad(Convert.ToInt32(DropDownListNombreUnidad.SelectedValue));
-            Response.Redirect("ProfesorUnidades.aspx", false);
+            try
+            {
+                unidadNegocio.EliminarUnidad(Convert.ToInt32(DropDownListNombreUnidad.SelectedValue));
+                Session["MensajeExito"] = "Unidad eliminada con éxito.";
+                Response.Redirect("ProfesorUnidades.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorUnidades.aspx", false);
+            }
         }
     }
 }
