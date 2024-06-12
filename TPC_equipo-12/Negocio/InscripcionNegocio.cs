@@ -30,7 +30,7 @@ namespace Negocio
             List <InscripcionACurso> lista = new List<InscripcionACurso>();
             try
             {
-                Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso where i.Estado= 0 order by i.FechaInscripcion desc");
+                Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso where i.Estado= 'P' order by i.FechaInscripcion desc");
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
@@ -40,7 +40,7 @@ namespace Negocio
                     aux.Curso= cursoNegocio.BuscarCurso((int)Datos.Lector["IdCurso"]);
                     aux.Usuario=new Usuario();
                     aux.Usuario = usuarioNegocio.buscarUsuario((int)Datos.Lector["IdUsuario"]);
-                    aux.Estado = (bool)Datos.Lector["Estado"];
+                    aux.Estado = Convert.ToChar(Datos.Lector["Estado"]);
                     aux.FechaInscripcion = (DateTime)Datos.Lector["FechaInscripcion"];
                     lista.Add(aux);
                 }
@@ -140,7 +140,7 @@ namespace Negocio
                     aux.Curso = cursoNegocio.BuscarCurso((int)Datos.Lector["IdCurso"]);
                     aux.Usuario = new Usuario();
                     aux.Usuario = usuarioNegocio.buscarUsuario((int)Datos.Lector["IdUsuario"]);
-                    aux.Estado = (bool)Datos.Lector["Estado"];
+                    aux.Estado = Convert.ToChar(Datos.Lector["Estado"]);
                     aux.FechaInscripcion = (DateTime)Datos.Lector["FechaInscripcion"];
                     
                 }
@@ -159,7 +159,7 @@ namespace Negocio
         {
             try
             {
-                Datos.SetearConsulta("update Inscripciones set Estado= 1 where IdInscripcion= @IDInscripcion");
+                Datos.SetearConsulta("update Inscripciones set Estado= 'A' where IdInscripcion= @IDInscripcion");
                 Datos.SetearParametro("@IDInscripcion", idInscripcion);
                 Datos.EjecutarAccion();
             }
@@ -203,6 +203,39 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
-        
+        public List<InscripcionACurso> listarInscripcionesXEstudiante(int idEstudiante)
+        {
+            List<InscripcionACurso> lista = new List<InscripcionACurso>();
+            try
+            {
+                Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso where i.IDUsuario=@IdEstudiante order by i.FechaInscripcion desc");
+                Datos.SetearParametro("@IdEstudiante", idEstudiante);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    InscripcionACurso aux = new InscripcionACurso();
+                    aux.IDInscripcion = Datos.Lector.GetInt32(0);
+                    aux.Curso = new Curso();
+                    aux.Curso = cursoNegocio.BuscarCurso((int)Datos.Lector["IdCurso"]);
+                    aux.Usuario = new Usuario();
+                    aux.Usuario = usuarioNegocio.buscarUsuario((int)Datos.Lector["IdUsuario"]);
+                    aux.Estado =Convert.ToChar(Datos.Lector["Estado"]);
+                    aux.FechaInscripcion = (DateTime)Datos.Lector["FechaInscripcion"];
+                    lista.Add(aux);
+                }
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
     }
 }

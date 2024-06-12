@@ -44,11 +44,6 @@ namespace TPC_equipo_12
 
         }
 
-        //protected void btnAceptarInscripcion_Command(object sender, CommandEventArgs e)
-        //{
-        //    int idInscripcion = Convert.ToInt32(e.CommandArgument);
-        //    Session.Add("idInscripcion", idInscripcion);
-            
-        //}
+       
     }
 }
