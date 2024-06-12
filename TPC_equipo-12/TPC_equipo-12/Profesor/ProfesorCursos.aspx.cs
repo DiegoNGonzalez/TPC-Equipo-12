@@ -50,7 +50,13 @@ namespace TPC_equipo_12
                 profesor.Cursos.Remove(cursoAEliminar);
                 Session["profesor"] = profesor;
                 cursoNegocio.EliminarCurso(idCursoAEliminar);
-                Response.Redirect("ProfesorCursos.aspx", false);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
+                        showMessage('El curso fue eliminado con exito!', 'success');
+                        setTimeout(function() {
+                        window.location.href = 'ProfesorCursos.aspx'; 
+                        }, 1500); 
+                        </script>", false);
+                //Response.Redirect("ProfesorCursos.aspx", false);
             }
             else
             {
