@@ -19,39 +19,9 @@ namespace TPC_equipo_12
                 Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
                 Response.Redirect("../Error.aspx");
             }
-            if (!IsPostBack)
-            {
-                Profesor profesor = (Profesor)Session["profesor"];
-                ProfesorMasterPage master = (ProfesorMasterPage)this.Master;
-                master.CargarNotificaciones(profesor.IDUsuario);
-
-                if (Request.QueryString["accion"] == "redirigir")
-                {
-                    MarcarNotificacionComoLeida();
-                    RedirigirSegunTipo();
-                }
-            }
+            
         }
-        private void MarcarNotificacionComoLeida()
-        {
-            int idNotificacion = Convert.ToInt32(Request.QueryString["id"]);
-            NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
-            notificacionNegocio.MarcarComoLeida(idNotificacion);
-        }
-
-        private void RedirigirSegunTipo()
-        {
-            string tipo = Request.QueryString["tipo"];
-            if (tipo == "Inscripcion")
-            {
-                Response.Redirect("Inscripciones.aspx");
-            }
-            else if (tipo == "Mensaje")
-            {
-                int idMensaje = Convert.ToInt32(Request.QueryString["idMensaje"]);
-                Response.Redirect($"MensajeDetalle.aspx?id={idMensaje}");
-            }
-        }
+        
 
     }
 }
