@@ -45,7 +45,6 @@ namespace TPC_equipo_12
 
                 profesor = (Profesor)Session["profesor"];
                 Session.Add("listaCursosProfesor", profesor.Cursos);
-                UpdatePanelCursos.Update();
                 rptProfesorCursos.DataSource = profesor.Cursos;
                 rptProfesorCursos.DataBind();
             }
@@ -85,7 +84,13 @@ namespace TPC_equipo_12
                 Session.Add("Error", "El curso no se encontró en la lista de cursos del profesor.");
                 Response.Redirect("../Error.aspx");
             }
+        }
 
+        protected void ButtonModificarCurso_Command(object sender, CommandEventArgs e)
+        {
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDCursoProfesor", idCurso);
+            Response.Redirect("CrearCurso.aspx?IdCurso=" + idCurso);
         }
     }
 }
