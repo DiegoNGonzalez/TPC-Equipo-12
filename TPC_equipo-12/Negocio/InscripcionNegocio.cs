@@ -293,5 +293,25 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public int UltimoIDInscripcion()
+        {
+            try
+            {
+                Datos.SetearConsulta("select top 1(IdInscripcion) from Inscripciones where Estado='P' order by IDInscripcion desc");
+                Datos.EjecutarLectura();
+                Datos.Lector.Read();
+                return Datos.Lector.GetInt32(0);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
 }
