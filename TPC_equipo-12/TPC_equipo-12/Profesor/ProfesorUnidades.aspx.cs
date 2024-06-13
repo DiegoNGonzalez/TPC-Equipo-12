@@ -51,5 +51,10 @@ namespace TPC_equipo_12
         {
             Response.Redirect("EliminarUnidad.aspx");
         }
+
+        protected void btnEstudiantesXCurso_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ProfesorEstudiantesXCurso.aspx");
+        }
     }
 }

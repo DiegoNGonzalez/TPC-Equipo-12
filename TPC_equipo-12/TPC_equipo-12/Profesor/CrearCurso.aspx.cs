@@ -43,7 +43,7 @@ namespace TPC_equipo_12
                         showMessage('Curso creado exitosamente!', 'success');
                         setTimeout(function() {
                         window.location.href = 'ProfesorCursos.aspx'; 
-                        }, 4000); 
+                        }, 2000); 
                         </script>", false);
                 //Response.Redirect("ProfesorCursos.aspx", false);
             }

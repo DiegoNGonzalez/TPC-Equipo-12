@@ -58,6 +58,11 @@ namespace Negocio
 
                 throw ex;
             }
+            finally 
+            { 
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
         }
         public void Agregar(Usuario usuario)
         {
@@ -189,5 +194,6 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+       
     }
 }

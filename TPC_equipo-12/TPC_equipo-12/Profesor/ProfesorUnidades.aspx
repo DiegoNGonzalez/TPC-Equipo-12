@@ -6,7 +6,8 @@
     <div class="container">
         <asp:Button ID="ButtonBackCursosProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Cursos" OnClick="ButtonBackCursosProf_Click" />
         <asp:Button ID="ButtonCrearUnidadProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Crear Unidad" OnClick="ButtonCrearUnidadProf_Click" />
-<asp:Button ID="ButtonEliminarUnidadProf" CssClass="btn btn-danger mb-3 mt-3" runat="server" Text="Eliminar Unidad" OnClick="ButtonEliminarUnidadProf_Click" />
+        <asp:Button ID="ButtonEliminarUnidadProf" CssClass="btn btn-danger mb-3 mt-3" runat="server" Text="Eliminar Unidad" OnClick="ButtonEliminarUnidadProf_Click" />
+        <asp:Button ID="btnEstudiantesXCurso" CssClass="btn btn-info mb-3 mt-3" runat="server" Text="Estudiantes" OnClick="btnEstudiantesXCurso_Click"/>
         <h2>Lista de Unidades</h2>
         <div class="card-body">
             <table class="table table-striped">
@@ -25,7 +26,7 @@
                                 <td><%# Eval("Nombre") %></td>
                                 <td><%# Eval("Descripcion") %></td>
                                 <td>
-                                    <asp:Button ID="ButtonVerLeccionesProf" runat="server" Text="Lecciones" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDUnidad") %>' OnCommand="ButtonVerLeccionesProf_Command"/>
+                                    <asp:Button ID="ButtonVerLeccionesProf" runat="server" Text="Lecciones" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDUnidad") %>' OnCommand="ButtonVerLeccionesProf_Command" />
                                 </td>
                             </tr>
                         </ItemTemplate>

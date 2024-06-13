@@ -54,6 +54,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
@@ -86,6 +87,7 @@ namespace Negocio
 
             }finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
             return false;
@@ -152,6 +154,7 @@ namespace Negocio
                 throw;
             }finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
@@ -233,9 +236,62 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
+        public void RechazarInscripcion(int idInscripcion)
+        {
+            try
+            {
+                Datos.SetearConsulta("update Inscripciones set Estado= 'R' where IdInscripcion= @IDInscripcion");
+                Datos.SetearParametro("@IDInscripcion", idInscripcion);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public List<InscripcionACurso> listarInscripcionesXCurso(int idCurso)
+        {
+            List<InscripcionACurso> lista = new List<InscripcionACurso>();
+            try
+            {
+                Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso where i.IDCurso=@IDCurso and i.Estado = 'A' order by i.FechaInscripcion desc");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    InscripcionACurso aux = new InscripcionACurso();
+                    aux.IDInscripcion = Datos.Lector.GetInt32(0);
+                    aux.Curso = new Curso();
+                    aux.Curso = cursoNegocio.BuscarCurso((int)Datos.Lector["IdCurso"]);
+                    aux.Usuario = new Usuario();
+                    aux.Usuario = usuarioNegocio.buscarUsuario((int)Datos.Lector["IdUsuario"]);
+                    aux.Estado = Convert.ToChar(Datos.Lector["Estado"]);
+                    aux.FechaInscripcion = (DateTime)Datos.Lector["FechaInscripcion"];
+                    lista.Add(aux);
+                }
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
 }
