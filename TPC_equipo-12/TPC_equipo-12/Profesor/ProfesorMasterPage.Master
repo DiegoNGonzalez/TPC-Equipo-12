@@ -57,14 +57,19 @@
                                 <a class="nav-link" href="Inscripciones.aspx">Inscripciones</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="CrearCurso.aspx">CrearCurso</a>
-                            </li>
-                            <li class="nav-item">
-                                <asp:Button ID="btnCerrarSesion" Text="Cerrar Sesion" CssClass="btn btn-danger" runat="server" OnClick="btnCerrarSesion_Click" />
+                                <a class="nav-link" href="CrearCurso.aspx">Crear Curso</a>
                             </li>
                         </ul>
-                        <span class="navbar-text">Perfil
-                        </span>
+                        <span class="navbar-text">Perfil</span>
+                    </div>
+                    <div class="d-flex dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <asp:Image ID="imgPerfil" style="height:40px; width:40px; border-radius:50%;" ImageUrl="https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" runat="server" />
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="EditarPerfil.aspx">Editar perfil</a></li>
+                            <li><asp:Button ID="btnCerrarSesionDropdown" Text="Cerrar Sesión" CssClass="dropdown-item" runat="server" OnClick="btnCerrarSesion_Click" /></li>
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -72,5 +77,6 @@
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         </asp:ContentPlaceHolder>
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
