@@ -8,11 +8,12 @@
         <asp:Button ID="ButtonCrearMaterialProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Crear un Material" OnClick="ButtonCrearMaterialProf_Click" />
         <asp:Button ID="ButtonEliminarMaterialProf" CssClass="btn btn-danger mb-3 mt-3" runat="server" Text="Eliminar un Material" OnClick="ButtonEliminarMaterialProf_Click"/>
         <h1 class="text-center">Materiales de la Lección</h1>
-        <asp:Repeater ID="rptMaterialesProf" runat="server" OnItemDataBound="rptMaterialesProf_ItemDataBound">
+        <asp:Repeater ID="rptMaterialesProf" runat="server" OnItemDataBound="rptMaterialesProf_ItemDataBound" OnItemCommand="rptMaterialesProf_ItemCommand">
             <ItemTemplate>
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title"><%# Eval("Nombre") %></h5>
+                        <asp:Button ID="ButtonModificarMaterialesProf" CssClass="btn btn-primary" runat="server" Text="Modificar Material" CommandName="Modificar" CommandArgument='<%# Eval("IDMaterial") %>'/>
                     </div>
                     <div class="card-body">
                         <asp:Literal ID="ltlYoutubeVideo" runat="server"></asp:Literal>

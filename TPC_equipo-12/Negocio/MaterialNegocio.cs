@@ -19,7 +19,7 @@ namespace Negocio
             List<MaterialLeccion> lista = new List<MaterialLeccion>();
             try
             {
-                Datos.SetearConsulta("select m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial, m.Descripcion from Materiales m inner join materialesxlecciones mxl on mxl.IDMaterial = m.IDmaterial inner join lecciones l on mxl.Idleccion = l.IDLeccion Where l.IDLeccion = @idLeccion");
+                Datos.SetearConsulta("select m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial, m.Descripcion, m.NroMaterial from Materiales m inner join materialesxlecciones mxl on mxl.IDMaterial = m.IDmaterial inner join lecciones l on mxl.Idleccion = l.IDLeccion Where l.IDLeccion = @idLeccion");
                 Datos.SetearParametro("@idLeccion", idLeccion);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
@@ -30,6 +30,7 @@ namespace Negocio
                     aux.TipoMaterial = (string)Datos.Lector["TipoMaterial"];
                     aux.URL = (string)Datos.Lector["URLMaterial"];
                     aux.Descripcion = (string)Datos.Lector["Descripcion"];
+                    aux.NroMaterial = (int)Datos.Lector["NroMaterial"];
                     lista.Add(aux);
                 }
                 Datos.LimpiarParametros();
@@ -49,11 +50,12 @@ namespace Negocio
         {
             try
             {
-                Datos.SetearConsulta("insert into Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion) values (@Nombre, @TipoMaterial, @URLMaterial, @Descripcion)");
+                Datos.SetearConsulta("insert into Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion, NroMaterial) values (@Nombre, @TipoMaterial, @URLMaterial, @Descripcion, @NroMaterial)");
                 Datos.SetearParametro("@Nombre", material.Nombre);
                 Datos.SetearParametro("@TipoMaterial", material.TipoMaterial);
                 Datos.SetearParametro("@URLMaterial", material.URL);
                 Datos.SetearParametro("@Descripcion", material.Descripcion);
+                Datos.SetearParametro("@NroMaterial", material.NroMaterial);
                 Datos.EjecutarAccion();
                 Datos.CerrarConexion();
 
@@ -91,6 +93,29 @@ namespace Negocio
 
                 Datos.SetearConsulta("delete from Materiales where IDMaterial = @IDMaterial");
                 Datos.SetearParametro("@IDMaterial", idMaterial);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
+        public void ModificarMaterial(MaterialLeccion material)
+        {
+            try
+            {
+                Datos.SetearConsulta("update Materiales set Nombre = @Nombre, TipoMaterial = @TipoMaterial, URLMaterial = @URLMaterial, Descripcion = @Descripcion, NroMaterial = @NroMaterial where IDMaterial = @IDMaterial");
+                Datos.SetearParametro("@IDMaterial", material.IDMaterial);
+                Datos.SetearParametro("@Nombre", material.Nombre);
+                Datos.SetearParametro("@TipoMaterial", material.TipoMaterial);
+                Datos.SetearParametro("@URLMaterial", material.URL);
+                Datos.SetearParametro("@Descripcion", material.Descripcion);
+                Datos.SetearParametro("@NroMaterial", material.NroMaterial);
                 Datos.EjecutarAccion();
             }
             catch (Exception ex)

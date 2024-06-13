@@ -14,6 +14,6 @@ namespace Dominio
         public string URL { get; set; }
         public string Descripcion { get; set; }
 
-      
+        public int NroMaterial { get; set; }    
     }
 }

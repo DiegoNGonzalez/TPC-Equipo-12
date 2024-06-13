@@ -20,6 +20,7 @@ namespace TPC_equipo_12
         {
             if (!IsPostBack)
             {
+                ModificarMaterial();
             }
         }
 
@@ -34,6 +35,7 @@ namespace TPC_equipo_12
                 MaterialLeccion material = new MaterialLeccion();
                 material.Nombre = TextBoxNombreMaterial.Text;
                 material.Descripcion = TextBoxDescripcionMaterial.Text;
+                material.NroMaterial = int.Parse(TextBoxNumeroMaterial.Text);
                 material.TipoMaterial = DropDownListTipoMaterial.SelectedValue;
                 material.URL = TextBoxURLMaterial.Text;
                 MaterialNegocio.CrearMaterial(material, leccion.IDLeccion);
@@ -48,5 +50,19 @@ namespace TPC_equipo_12
             }
         }
 
+        protected void ModificarMaterial()
+        {
+            if (Request.QueryString["idMaterial"] != null)
+            {
+                int idMaterial = Convert.ToInt32(Request.QueryString["idMaterial"]);
+                MaterialLeccion material = MaterialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]).Find(x => x.IDMaterial == idMaterial);
+                TextBoxNombreMaterial.Text = material.Nombre;
+                TextBoxDescripcionMaterial.Text = material.Descripcion;
+                TextBoxNumeroMaterial.Text = material.NroMaterial.ToString();
+                TextBoxNumeroMaterial.Enabled = false;
+                DropDownListTipoMaterial.SelectedValue = material.TipoMaterial;
+                TextBoxURLMaterial.Text = material.URL;
+            }
+        }
     }
 }
