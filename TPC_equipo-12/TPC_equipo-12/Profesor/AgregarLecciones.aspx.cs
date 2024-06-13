@@ -46,6 +46,9 @@ namespace TPC_equipo_12
             }
         }
 
-        
+        protected void ButtonVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ProfesorLecciones.aspx", false);
+        }
     }
 }

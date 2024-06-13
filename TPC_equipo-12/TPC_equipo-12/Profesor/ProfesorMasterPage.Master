@@ -60,7 +60,6 @@
                                 <a class="nav-link" href="CrearCurso.aspx">Crear Curso</a>
                             </li>
                         </ul>
-                        <span class="navbar-text">Perfil</span>
                     </div>
                     <div class="d-flex dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

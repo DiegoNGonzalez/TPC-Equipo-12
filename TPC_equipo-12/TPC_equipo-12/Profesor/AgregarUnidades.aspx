@@ -22,7 +22,10 @@
                             <asp:Label ID="LabelNumeroUnidad" runat="server" CssClass="form-label" Text="Numero de unidad"></asp:Label>
                             <asp:TextBox ID="TextBoxNumeroUnidad" runat="server" CssClass="form-control" TextMode="number"></asp:TextBox>
                         </div>
-                        <asp:Button ID="ButtonCrearUnidades" runat="server" Text="Crear Unidad" CssClass="btn btn-primary" OnClick="ButtonCrearUnidades_Click" />
+                        <div class="d-flex justify-content-between align-items-center">
+                            <asp:Button ID="ButtonCrearUnidades" runat="server" Text="Crear Unidad" CssClass="btn btn-primary" OnClick="ButtonCrearUnidades_Click" />
+                            <asp:Button ID="ButtonVolver" runat="server" Text="Volver" CssClass="btn btn-secondary" OnClick="ButtonVolver_Click" />
+                        </div>
                     </div>
                 </div>
             </div>

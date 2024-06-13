@@ -33,10 +33,13 @@
                                 <asp:Label ID="LabelURLMaterial" runat="server" CssClass="form-label" Text="URL Archivo"></asp:Label>
                                 <asp:TextBox ID="TextBoxURLMaterial" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
-                            <asp:Button ID="ButtonCrearMaterial" runat="server" Text="Crear Material" CssClass="btn btn-primary" OnClick="ButtonCrearMaterial_Click" />
+                            <div class="d-flex justify-content-between align-items-center">
+                                <asp:Button ID="ButtonCrearMaterial" runat="server" Text="Crear Material" CssClass="btn btn-primary" OnClick="ButtonCrearMaterial_Click" />
+                                <asp:Button ID="ButtonVolver" runat="server" Text="Volver" CssClass="btn btn-secondary" OnClick="ButtonVolver_Click" />
+                            </div>
                         </div>
                     </div>
-            </div>
+                </div>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

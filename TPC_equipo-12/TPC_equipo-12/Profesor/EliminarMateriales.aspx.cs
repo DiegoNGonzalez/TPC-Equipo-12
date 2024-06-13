@@ -45,5 +45,10 @@ namespace TPC_equipo_12
                 Response.Redirect("ProfesorMateriales.aspx", false);
             }
         }
+
+        protected void ButtonVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ProfesorMateriales.aspx", false);
+        }
     }
 }
