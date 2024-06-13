@@ -9,7 +9,7 @@
             <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
                 <div class="card w-50 my-5">
                     <div class="card-body">
-                        <h5 class="card-title d-flex justify-content-center align-items-center">Elige el nombre de la unidad a eliminar</h5>
+                        <h5 class="card-title d-flex justify-content-center align-items-center">Elige una unidad a eliminar</h5>
                         <div class="mb-3">
                             <asp:Label ID="LabelNombreUnidad" runat="server" CssClass="form-label" Text="Nombre de la Unidad"></asp:Label>
                             <asp:DropDownList ID="DropDownListNombreUnidad" runat="server" CssClass="form-control">

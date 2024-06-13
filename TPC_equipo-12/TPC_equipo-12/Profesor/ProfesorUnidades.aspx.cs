@@ -70,5 +70,12 @@ namespace TPC_equipo_12
         {
             Response.Redirect("EliminarUnidad.aspx");
         }
+
+        protected void ButtonModificarUnidadProf_Command(object sender, CommandEventArgs e)
+        {
+            int IdUnidad = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDUnidadProfesor", IdUnidad);
+            Response.Redirect("AgregarUnidades.aspx?IdUnidad=" + IdUnidad);
+        }
     }
 }

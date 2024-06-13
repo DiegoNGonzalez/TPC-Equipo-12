@@ -61,13 +61,14 @@ namespace TPC_equipo_12
         {
             if (Request.QueryString["idLeccion"] != null)
             {
-                LabelAgregarLecciones.Text = "Modificar Leccion";
+                LabelNombreLeccion.Text = "Modificar Leccion";
                 ButtonCrearLeccion.Text = "Modificar Leccion";
                 int idLeccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
                 Leccion leccion = leccionNegocio.ListarLecciones((int)Session["IDUnidadProfesor"]).Find(x => x.IDLeccion == idLeccion);
                 TextBoxNombreLeccion.Text = leccion.Nombre;
                 TextBoxDescripcionLeccion.Text = leccion.Descripcion;
                 TextBoxNumeroLeccion.Text = leccion.NroLeccion.ToString();
+                TextBoxNumeroLeccion.Enabled = false;
                 leccion.IDLeccion = idLeccion;
             }
         }

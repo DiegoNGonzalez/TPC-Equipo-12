@@ -17,7 +17,7 @@ namespace TPC_equipo_12
         {
             if (!IsPostBack)
             {
-
+                ModificarUnidad();
             }
 
         }
@@ -34,10 +34,20 @@ namespace TPC_equipo_12
                 unidad.Nombre = TextBoxNombreUnidad.Text;
                 unidad.Descripcion = TextBoxDescripcionUnidad.Text;
                 unidad.NroUnidad = int.Parse(TextBoxNumeroUnidad.Text);
-                curso.Unidades.Add(unidad);
-                unidadNegocio.CrearUnidad(unidad, curso.IDCurso);
-                Session["MensajeExito"] = "Unidad creada con exito!";
-                Response.Redirect("ProfesorUnidades.aspx", false);
+                if (Request.QueryString["idUnidad"] != null)
+                {
+                    unidad.IDUnidad = Convert.ToInt32(Request.QueryString["idUnidad"]);
+                    unidadNegocio.ModificarUnidad(unidad);
+                    Session["MensajeExito"] = "Unidad modificada con exito!";
+                    Response.Redirect("ProfesorUnidades.aspx", false);
+                }
+                else
+                {
+                    curso.Unidades.Add(unidad);
+                    unidadNegocio.CrearUnidad(unidad, curso.IDCurso);
+                    Session["MensajeExito"] = "Unidad creada con exito!";
+                    Response.Redirect("ProfesorUnidades.aspx", false);
+                }
             }
             catch (Exception ex)
             {
@@ -49,6 +59,22 @@ namespace TPC_equipo_12
         protected void ButtonVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorUnidades.aspx", false);
+        }
+
+        protected void ModificarUnidad()
+        {
+            if (Request.QueryString["IdUnidad"] != null)
+            {
+                LabelAgregarUnidad.Text = "Modificar Unidad";
+                ButtonCrearUnidades.Text = "Modificar Unidad";
+                int idUnidad = Convert.ToInt32(Request.QueryString["IdUnidad"]);
+                Unidad unidad = unidadNegocio.ListarUnidades((int)Session["IDCursoProfesor"]).Find(x => x.IDUnidad == idUnidad);
+                TextBoxNombreUnidad.Text = unidad.Nombre;
+                TextBoxDescripcionUnidad.Text = unidad.Descripcion;
+                TextBoxNumeroUnidad.Text = unidad.NroUnidad.ToString();
+                TextBoxNumeroUnidad.Enabled = false;
+                unidad.IDUnidad = idUnidad;
+            }
         }
     }
 }
