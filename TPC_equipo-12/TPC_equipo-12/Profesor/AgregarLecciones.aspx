@@ -9,7 +9,7 @@
             <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
                 <div class="card w-50 my-5">
                     <div class="card-body">
-                        <h5 class="card-title d-flex justify-content-center align-items-center">Agregar Lecciones</h5>
+                        <asp:Label ID="LabelAgregarLecciones" runat="server" CssClass="card-title d-flex justify-content-center align-items-center" Text="Agregar Lecciones"></asp:Label>
                         <div class="mb-3">
                             <asp:Label ID="LabelNombreLeccion" runat="server" CssClass="form-label" Text="Nombre"></asp:Label>
                             <asp:TextBox ID="TextBoxNombreLeccion" runat="server" CssClass="form-control"></asp:TextBox>

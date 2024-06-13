@@ -120,14 +120,11 @@ namespace TPC_equipo_12
             Response.Redirect("EliminarMateriales.aspx");
         }
 
-        protected void rptMaterialesProf_ItemCommand(object source, RepeaterCommandEventArgs e)
+        protected void ButtonModificarMaterialesProf_Command(object sender, CommandEventArgs e)
         {
-            if (e.CommandName == "Modificar")
-            {
-                int idMaterial = Convert.ToInt32(e.CommandArgument);
-
-                Response.Redirect("AgregarMateriales.aspx?IDMaterial=" + idMaterial, false);
-            }
+            int IdMaterial = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDMaterialProfesor", IdMaterial);
+            Response.Redirect("AgregarMateriales.aspx?idMaterial=" + IdMaterial);
         }
     }
 }

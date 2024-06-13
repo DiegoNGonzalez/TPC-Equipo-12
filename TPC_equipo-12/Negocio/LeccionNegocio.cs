@@ -124,5 +124,27 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public void ModificarLeccion(Leccion leccion)
+        {
+            try
+            {
+                datos.SetearConsulta("update Lecciones set Nombre = @Nombre, NroLeccion = @NroLeccion, Descripcion = @Descripcion where IDLeccion = @IDLeccion");
+                datos.SetearParametro("@Nombre", leccion.Nombre);
+                datos.SetearParametro("@NroLeccion", leccion.NroLeccion);
+                datos.SetearParametro("@Descripcion", leccion.Descripcion);
+                datos.SetearParametro("@IDLeccion", leccion.IDLeccion);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }

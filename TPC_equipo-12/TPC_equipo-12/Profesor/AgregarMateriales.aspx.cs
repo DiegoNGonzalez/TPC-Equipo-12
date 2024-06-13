@@ -18,14 +18,17 @@ namespace TPC_equipo_12
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                 ModificarMaterial();
             }
         }
 
+        
         protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
         {
+            
             Profesor profesor = (Profesor)Session["profesor"];
             Curso curso = profesor.Cursos.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
             Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);
@@ -64,6 +67,7 @@ namespace TPC_equipo_12
         {
             if (Request.QueryString["idMaterial"] != null)
             {
+                LabelAgregarMaterial.Text = "Modificar Material";
                 ButtonCrearMaterial.Text = "Modificar Material";
                 int idMaterial = Convert.ToInt32(Request.QueryString["idMaterial"]);
                 MaterialLeccion material = MaterialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]).Find(x => x.IDMaterial == idMaterial);

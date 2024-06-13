@@ -18,6 +18,7 @@ namespace TPC_equipo_12
         {
             if (!IsPostBack)
             {
+                ModificarLeccion();
             }
 
         }
@@ -34,10 +35,20 @@ namespace TPC_equipo_12
                 leccion.Nombre = TextBoxNombreLeccion.Text;
                 leccion.Descripcion = TextBoxDescripcionLeccion.Text;
                 leccion.NroLeccion = int.Parse(TextBoxNumeroLeccion.Text);
-                leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
-                unidad.Lecciones.Add(leccion);
-                Session["MensajeExito"] = "Leccion creada con exito!";
-                Response.Redirect("ProfesorLecciones.aspx", false);
+                if (Request.QueryString["idLeccion"] != null)
+                {
+                    leccion.IDLeccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
+                    leccionNegocio.ModificarLeccion(leccion);
+                    Session["MensajeExito"] = "Leccion modificada con exito!";
+                    Response.Redirect("ProfesorLecciones.aspx", false);
+                }
+                else
+                {
+                    leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
+                    unidad.Lecciones.Add(leccion);
+                    Session["MensajeExito"] = "Leccion creada con exito!";
+                    Response.Redirect("ProfesorLecciones.aspx", false);
+                }
             }
             catch (Exception ex)
             {
@@ -46,6 +57,20 @@ namespace TPC_equipo_12
             }
         }
 
+        protected void ModificarLeccion()
+        {
+            if (Request.QueryString["idLeccion"] != null)
+            {
+                LabelAgregarLecciones.Text = "Modificar Leccion";
+                ButtonCrearLeccion.Text = "Modificar Leccion";
+                int idLeccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
+                Leccion leccion = leccionNegocio.ListarLecciones((int)Session["IDUnidadProfesor"]).Find(x => x.IDLeccion == idLeccion);
+                TextBoxNombreLeccion.Text = leccion.Nombre;
+                TextBoxDescripcionLeccion.Text = leccion.Descripcion;
+                TextBoxNumeroLeccion.Text = leccion.NroLeccion.ToString();
+                leccion.IDLeccion = idLeccion;
+            }
+        }
         protected void ButtonVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorLecciones.aspx", false);

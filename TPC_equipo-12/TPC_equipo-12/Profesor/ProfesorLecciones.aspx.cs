@@ -69,5 +69,12 @@ namespace TPC_equipo_12
         {
             Response.Redirect("EliminarLecciones.aspx");
         }
+
+        protected void ButtonModificarLeccionProf_Command(object sender, CommandEventArgs e)
+        {
+            int IdLeccion = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDLeccionProfesor", IdLeccion);
+            Response.Redirect("AgregarLecciones.aspx?IdLeccion=" + IdLeccion);
+        }
     }
 }
