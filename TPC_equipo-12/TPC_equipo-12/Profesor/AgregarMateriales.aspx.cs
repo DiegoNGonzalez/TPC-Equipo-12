@@ -38,10 +38,20 @@ namespace TPC_equipo_12
                 material.NroMaterial = int.Parse(TextBoxNumeroMaterial.Text);
                 material.TipoMaterial = DropDownListTipoMaterial.SelectedValue;
                 material.URL = TextBoxURLMaterial.Text;
-                MaterialNegocio.CrearMaterial(material, leccion.IDLeccion);
-                leccion.Materiales.Add(material);
-                Session["MensajeExito"] = "Material creado con exito!";
-                Response.Redirect("ProfesorMateriales.aspx", false);
+                if (Request.QueryString["idMaterial"] != null)
+                {
+                    material.IDMaterial = Convert.ToInt32(Request.QueryString["idMaterial"]);
+                    MaterialNegocio.ModificarMaterial(material);
+                    Session["MensajeExito"] = "Material modificado con exito!";
+                    Response.Redirect("ProfesorMateriales.aspx", false);
+                }
+                else
+                {
+                    MaterialNegocio.CrearMaterial(material, leccion.IDLeccion);
+                    leccion.Materiales.Add(material);
+                    Session["MensajeExito"] = "Material creado con exito!";
+                    Response.Redirect("ProfesorMateriales.aspx", false);
+                }
             }
             catch (Exception ex)
             {
@@ -54,6 +64,7 @@ namespace TPC_equipo_12
         {
             if (Request.QueryString["idMaterial"] != null)
             {
+                ButtonCrearMaterial.Text = "Modificar Material";
                 int idMaterial = Convert.ToInt32(Request.QueryString["idMaterial"]);
                 MaterialLeccion material = MaterialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]).Find(x => x.IDMaterial == idMaterial);
                 TextBoxNombreMaterial.Text = material.Nombre;
@@ -62,6 +73,8 @@ namespace TPC_equipo_12
                 TextBoxNumeroMaterial.Enabled = false;
                 DropDownListTipoMaterial.SelectedValue = material.TipoMaterial;
                 TextBoxURLMaterial.Text = material.URL;
+                material.IDMaterial = idMaterial;
+
             }
         }
     }
