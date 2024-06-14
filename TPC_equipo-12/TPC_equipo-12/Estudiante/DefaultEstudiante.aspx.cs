@@ -18,6 +18,7 @@ namespace TPC_equipo_12
         public Estudiante EstudianteLogeado = new Estudiante();
         public List<Curso> listaCursosInscriptos = new List<Curso>();
         public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
+        public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -90,6 +91,8 @@ namespace TPC_equipo_12
                 bool seInscribio = inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
                 if (seInscribio)
                 {
+                    int idInscripcion= inscripcionNegocio.UltimoIDInscripcion();
+                    notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion);
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
 
                 }

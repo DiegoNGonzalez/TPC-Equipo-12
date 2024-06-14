@@ -70,6 +70,19 @@ namespace TPC_equipo_12
 
         protected void btnEliminarInscripcion_Click(object sender, EventArgs e)
         {
+            Button btn = (Button)sender;
+            int idInscripcion = Convert.ToInt32(btn.CommandArgument);
+            InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
+            inscripcionNegocio.RechazarInscripcion(aux.IDInscripcion);
+            inscripciones = inscripcionNegocio.listarInscripciones();
+            Session.Add("inscripciones", inscripciones);
+            ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
+                        showMessage('La inscripción fue rechazada!', 'success');
+                        setTimeout(function() {
+                        window.location.href = 'Inscripciones.aspx'; 
+                        }, 1500); 
+                        </script>", false);
+
             //ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
             //            showMessage('Verifique su información, El usuario ya esta registrado!', 'success');
             //            setTimeout(function() {

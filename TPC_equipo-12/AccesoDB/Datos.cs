@@ -83,5 +83,6 @@ namespace AccesoDB
                 comando.Parameters.Clear();
             }
         }
+       
     }
 }

@@ -36,7 +36,7 @@
                                         <asp:HiddenField ID="hiddenId" runat="server" />
                                     </td>
                                     <td>
-                                        <asp:Button Text="Eliminar" runat="server" CssClass="btn btn-danger" ID="btnEliminarInscripcion" OnClick="btnEliminarInscripcion_Click" />
+                                        <asp:Button Text="Rechazar" runat="server" CssClass="btn btn-danger" ID="btnEliminarInscripcion" OnClick="btnEliminarInscripcion_Click" CommandArgument='<%# Eval("IdInscripcion") %>' autopostback="true" />
                                     </td>
                                 </tr>
                             </ItemTemplate>

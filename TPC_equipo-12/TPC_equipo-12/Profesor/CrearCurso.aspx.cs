@@ -44,6 +44,7 @@ namespace TPC_equipo_12
                 curso.Imagen = new Imagen();
                 curso.Imagen.URL = TextBoxUrlImagen.Text;
                 curso.Unidades = new List<Unidad>();
+
                 if (Request.QueryString["idCurso"] != null)
                 {
                     curso.IDCurso = Convert.ToInt32(Request.QueryString["idCurso"]);
@@ -61,6 +62,7 @@ namespace TPC_equipo_12
                     Session["MensajeExito"] = "Curso creado con exito!";
                     Response.Redirect("ProfesorCursos.aspx", false);
                 }
+
             }
             catch (Exception ex)
             {

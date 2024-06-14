@@ -6,12 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Negocio;
 using Dominio;
+using System.Web.UI.HtmlControls;
 
 namespace TPC_equipo_12
 {
     public partial class DefaultProfesor : System.Web.UI.Page
     {
-    protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["profesor"] == null)
             {
@@ -39,6 +40,9 @@ namespace TPC_equipo_12
                     Session["MensajeInfo"] = null;
                 }
             }
+            
         }
+        
+
     }
 }
