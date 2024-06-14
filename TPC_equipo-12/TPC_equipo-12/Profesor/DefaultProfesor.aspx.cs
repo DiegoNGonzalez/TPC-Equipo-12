@@ -15,10 +15,10 @@ namespace TPC_equipo_12
         {
             if (Session["profesor"] == null)
             {
-                Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
-                Response.Redirect("../Error.aspx");
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                Response.Redirect("../LogIn.aspx");
             }
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 if (Session["MensajeExito"] != null)
                 {

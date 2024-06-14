@@ -15,7 +15,12 @@ namespace TPC_equipo_12
         public string urlImagen { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (Session["profesor"] == null)
+            {
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                Response.Redirect("../LogIn.aspx");
+            }
+            if (!IsPostBack)
             {
                 ModificarCurso();
             }
