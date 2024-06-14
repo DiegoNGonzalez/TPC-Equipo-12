@@ -213,6 +213,15 @@ namespace Negocio
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
+                    Datos.SetearConsulta("Select IDLeccion from LeccionesXUnidad where IDUnidad = @IDUnidad");
+                    Datos.SetearParametro("@IDUnidad", (int)Datos.Lector["IDUnidad"]);
+                    Datos.EjecutarLectura();
+                    while (Datos.Lector.Read())
+                    {
+                            Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
+                            Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
+                            Datos.EjecutarAccion();
+                    }
                     UnidadesDeCurso.EliminarUnidad((int)Datos.Lector["IDUnidad"]);
                 }
                 Datos.LimpiarParametros();
