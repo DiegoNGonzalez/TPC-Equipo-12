@@ -16,6 +16,11 @@ namespace TPC_equipo_12
         public List<Curso> listaCursosInscriptos = new List<Curso>();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["estudiante"] == null)
+            {
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                Response.Redirect("../LogIn.aspx");
+            }
             if (!IsPostBack)
             {
                 listaCursosInscriptos = (List<Curso>)Session["listaCursosInscriptos"];

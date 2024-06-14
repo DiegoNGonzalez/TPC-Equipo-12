@@ -17,6 +17,11 @@ namespace TPC_equipo_12
         public LeccionNegocio leccionNegocio = new LeccionNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["estudiante"] == null)
+            {
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                Response.Redirect("../LogIn.aspx");
+            }
             if (!IsPostBack)
             {
                 listaLecciones = leccionNegocio.ListarLecciones((int)Session["IDUnidad"]);

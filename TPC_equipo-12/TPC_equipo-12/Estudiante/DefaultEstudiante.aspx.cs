@@ -23,9 +23,8 @@ namespace TPC_equipo_12
         {
             if (Session["estudiante"] == null)
             {
-                Session.Add("error", "Unicamente los estudiantes pueden acceder a esta pestaña.");
-                Response.Redirect("../Error.aspx");
-
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                Response.Redirect("../LogIn.aspx");
             }
             if (!IsPostBack)
             {

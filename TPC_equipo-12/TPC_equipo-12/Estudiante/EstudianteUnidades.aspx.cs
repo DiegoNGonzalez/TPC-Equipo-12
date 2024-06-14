@@ -15,6 +15,11 @@ namespace TPC_equipo_12
         public UnidadNegocio unidadNegocio = new UnidadNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["estudiante"] == null)
+            {
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                Response.Redirect("../LogIn.aspx");
+            }
             if (!IsPostBack)
             {
                 listaUnidades = unidadNegocio.ListarUnidades((int)Session["IDCurso"]);
