@@ -16,8 +16,15 @@ namespace TPC_equipo_12
         LeccionNegocio leccionNegocio = new LeccionNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["profesor"] == null)
+            {
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                Response.Redirect("../LogIn.aspx");
+            }
+
             if (!IsPostBack)
             {
+                ModificarLeccion();
             }
 
         }
@@ -34,18 +41,46 @@ namespace TPC_equipo_12
                 leccion.Nombre = TextBoxNombreLeccion.Text;
                 leccion.Descripcion = TextBoxDescripcionLeccion.Text;
                 leccion.NroLeccion = int.Parse(TextBoxNumeroLeccion.Text);
-                leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
-                unidad.Lecciones.Add(leccion);
-                Response.Redirect("ProfesorLecciones.aspx", false);
+                if (Request.QueryString["idLeccion"] != null)
+                {
+                    leccion.IDLeccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
+                    leccionNegocio.ModificarLeccion(leccion);
+                    Session["MensajeExito"] = "Leccion modificada con exito!";
+                    Response.Redirect("ProfesorLecciones.aspx", false);
+                }
+                else
+                {
+                    leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
+                    unidad.Lecciones.Add(leccion);
+                    Session["MensajeExito"] = "Leccion creada con exito!";
+                    Response.Redirect("ProfesorLecciones.aspx", false);
+                }
             }
             catch (Exception ex)
             {
-                Session.Add("Error", ex.ToString());
-                Response.Redirect("../Error.aspx");
-                throw ex;
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorLecciones.aspx", false);
             }
         }
 
-        
+        protected void ModificarLeccion()
+        {
+            if (Request.QueryString["idLeccion"] != null)
+            {
+                LabelNombreLeccion.Text = "Modificar Leccion";
+                ButtonCrearLeccion.Text = "Modificar Leccion";
+                int idLeccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
+                Leccion leccion = leccionNegocio.ListarLecciones((int)Session["IDUnidadProfesor"]).Find(x => x.IDLeccion == idLeccion);
+                TextBoxNombreLeccion.Text = leccion.Nombre;
+                TextBoxDescripcionLeccion.Text = leccion.Descripcion;
+                TextBoxNumeroLeccion.Text = leccion.NroLeccion.ToString();
+                TextBoxNumeroLeccion.Enabled = false;
+                leccion.IDLeccion = idLeccion;
+            }
+        }
+        protected void ButtonVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ProfesorLecciones.aspx", false);
+        }
     }
 }

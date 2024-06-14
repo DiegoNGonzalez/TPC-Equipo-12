@@ -73,29 +73,29 @@ INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (2, 2);
 INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (3, 3);
 INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (4, 4);
 go
--- Insertar materiales
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
-VALUES ('Material Algebra', 'Documento', 'https://sitios.ucsc.cl/pace/wp-content/uploads/sites/41/2020/03/ManualAlgebra.pdf', 'Manual de Álgebra para estudiantes universitarios');
+-- Insertar materiales con NroMaterial al final
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion, NroMaterial)
+VALUES ('Material Algebra', 'Documento', 'https://sitios.ucsc.cl/pace/wp-content/uploads/sites/41/2020/03/ManualAlgebra.pdf', 'Manual de Álgebra para estudiantes universitarios', 1);
 GO
 
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
-VALUES ('Material Fisica', 'Video', 'https://www.youtube.com/watch?v=0vlAAjszSFA', 'Video explicativo sobre fundamentos de Física');
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion, NroMaterial)
+VALUES ('Material Fisica', 'Video', 'https://www.youtube.com/watch?v=0vlAAjszSFA', 'Video explicativo sobre fundamentos de Física', 1);
 GO
 
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
-VALUES ('Material Programación', 'Documento', 'https://sanfrancisco.utn.edu.ar/documentos/archivos/cursillo_de_ingreso/2024/Intro_%20a%20la%20Programaci%C3%B3n%20-%20S_%20Ingreso%20TUP.pdf', 'Introducción a la programación para principiantes');
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion, NroMaterial)
+VALUES ('Material Programación', 'Documento', 'https://sanfrancisco.utn.edu.ar/documentos/archivos/cursillo_de_ingreso/2024/Intro_%20a%20la%20Programaci%C3%B3n%20-%20S_%20Ingreso%20TUP.pdf', 'Introducción a la programación para principiantes', 1);
 GO
 
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
-VALUES ('Material Historia', 'Video', 'https://www.youtube.com/watch?v=qgw4D_9t_mw', 'Documental sobre la historia antigua');
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion, NroMaterial)
+VALUES ('Material Historia', 'Video', 'https://www.youtube.com/watch?v=qgw4D_9t_mw', 'Documental sobre la historia antigua', 1);
 GO
 
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
-VALUES ('Material Variables y Tipos de Datos', 'Documento', 'https://departamento.us.es/edan/php/asig/LICFIS/LFIPC/Tema2FISPC0809.pdf', 'Guía sobre variables y tipos de datos en programación');
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion, NroMaterial)
+VALUES ('Material Variables y Tipos de Datos', 'Documento', 'https://departamento.us.es/edan/php/asig/LICFIS/LFIPC/Tema2FISPC0809.pdf', 'Guía sobre variables y tipos de datos en programación', 1);
 GO
 
-INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion)
-VALUES ('Material Edad Media', 'Video', 'https://www.youtube.com/watch?v=DjdFLJT5lhY', 'Exploración de la Edad Media en Europa');
+INSERT INTO Materiales (Nombre, TipoMaterial, URLMaterial, Descripcion, NroMaterial)
+VALUES ('Material Edad Media', 'Video', 'https://www.youtube.com/watch?v=DjdFLJT5lhY', 'Exploración de la Edad Media en Europa', 1);
 GO
 
 -- Insertar lecciones

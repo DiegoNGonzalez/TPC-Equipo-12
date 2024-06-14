@@ -11,8 +11,9 @@
         <asp:Repeater ID="rptMaterialesProf" runat="server" OnItemDataBound="rptMaterialesProf_ItemDataBound">
             <ItemTemplate>
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="card-title"><%# Eval("Nombre") %></h5>
+                        <asp:Button ID="ButtonModificarMaterialesProf" CssClass="btn btn-primary" runat="server" Text="Modificar Material" CommandArgument='<%# Eval("IDMaterial") %>' OnCommand="ButtonModificarMaterialesProf_Command"/>
                     </div>
                     <div class="card-body">
                         <asp:Literal ID="ltlYoutubeVideo" runat="server"></asp:Literal>

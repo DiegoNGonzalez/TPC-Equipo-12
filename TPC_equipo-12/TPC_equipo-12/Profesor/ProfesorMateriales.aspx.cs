@@ -18,11 +18,30 @@ namespace TPC_equipo_12
         {
             if (Session["profesor"] == null)
             {
-                Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
-                Response.Redirect("../Error.aspx");
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                Response.Redirect("../LogIn.aspx");
             }
             if (!IsPostBack)
             {
+                if (Session["MensajeExito"] != null)
+                {
+                    string msj = Session["MensajeExito"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
+                    Session["MensajeExito"] = null;
+                }
+                if (Session["MensajeError"] != null)
+                {
+                    string msj = Session["MensajeError"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
+                    Session["MensajeError"] = null;
+                }
+                if (Session["MensajeInfo"] != null)
+                {
+                    string msj = Session["MensajeInfo"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
+                    Session["MensajeInfo"] = null;
+                }
+
                 listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]);
                 Session.Add("ListaMaterialesProfesor", listaMateriales);
                 rptMaterialesProf.DataSource = listaMateriales;
@@ -99,6 +118,13 @@ namespace TPC_equipo_12
         protected void ButtonEliminarMaterialProf_Click(object sender, EventArgs e)
         {
             Response.Redirect("EliminarMateriales.aspx");
+        }
+
+        protected void ButtonModificarMaterialesProf_Command(object sender, CommandEventArgs e)
+        {
+            int IdMaterial = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDMaterialProfesor", IdMaterial);
+            Response.Redirect("AgregarMateriales.aspx?idMaterial=" + IdMaterial);
         }
     }
 }

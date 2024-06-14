@@ -75,7 +75,8 @@ Create Table Materiales(
 	Nombre varchar(100) not null,
 	TipoMaterial varchar(100) not null,
 	URLMaterial varchar(200),
-	Descripcion varchar(500)
+	Descripcion varchar(500),
+	NroMaterial int not null
 )
 GO
 Create Table Lecciones(

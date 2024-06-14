@@ -17,8 +17,8 @@ namespace TPC_equipo_12
         {
             if (Session["profesor"] == null)
             {
-                Session.Add("error", "Unicamente el profesor puede acceder a esta pestaña.");
-                Response.Redirect("../Error.aspx");
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                Response.Redirect("../LogIn.aspx");
             }
             if (!IsPostBack)
             {
@@ -33,8 +33,22 @@ namespace TPC_equipo_12
 
         protected void ButtonEliminarMaterial_Click(object sender, EventArgs e)
         {
-            materialNegocio.EliminarMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
-            Response.Redirect("ProfesorMateriales.aspx");
+            try
+            {
+                materialNegocio.EliminarMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
+                Session["MensajeExito"] = "Material eliminado con éxito.";
+                Response.Redirect("ProfesorMateriales.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorMateriales.aspx", false);
+            }
+        }
+
+        protected void ButtonVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ProfesorMateriales.aspx", false);
         }
     }
 }

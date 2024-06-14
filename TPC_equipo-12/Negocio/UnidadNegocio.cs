@@ -128,5 +128,27 @@ namespace Negocio
             }
         }
 
+        public void ModificarUnidad(Unidad unidad)
+        {
+            try
+            {
+                Datos.SetearConsulta("update Unidades set Nombre = @Nombre, NroUnidad = @NroUnidad, Descripcion = @Descripcion where IDUnidad = @IDUnidad");
+                Datos.SetearParametro("@IDUnidad", unidad.IDUnidad);
+                Datos.SetearParametro("@Nombre", unidad.Nombre);
+                Datos.SetearParametro("@NroUnidad", unidad.NroUnidad);
+                Datos.SetearParametro("@Descripcion", unidad.Descripcion);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
     }
 }

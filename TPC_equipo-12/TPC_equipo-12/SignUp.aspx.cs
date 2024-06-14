@@ -16,6 +16,25 @@ namespace TPC_equipo_12
         {
             if (!IsPostBack)
             {
+                if (Session["MensajeExito"] != null)
+                {
+                    string msj = Session["MensajeExito"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
+                    Session["MensajeExito"] = null;
+                }
+                if (Session["MensajeError"] != null)
+                {
+                    string msj = Session["MensajeError"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
+                    Session["MensajeError"] = null;
+                }
+                if (Session["MensajeInfo"] != null)
+                {
+                    string msj = Session["MensajeInfo"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
+                    Session["MensajeInfo"] = null;
+                }
+
                 dropGenero.Items.Add("Masculino");
                 dropGenero.Items.Add("Femenino");
                 dropGenero.Items.Add("No binario");
@@ -54,35 +73,23 @@ namespace TPC_equipo_12
                     }
                     usuarioNegocio.AgregarUsuario(usuario);
                     Session["usuario"] = usuario;
-                    //ScriptManager.RegisterStartupScript(this, typeof(Page), "Succes", "<script>showMessage('Registro exitoso, redirigiendo a Login!', 'info');</script>", false);
-                    //Response.Redirect("~/LogIn.aspx", false);
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
-                        showMessage('Registro exitoso, redirigiendo a Login!', 'info');
-                        setTimeout(function() {
-                        window.location.href = 'LogIn.aspx'; 
-                        }, 3000); 
-                        </script>", false);
+                    Session["MensajeExito"] = "Usuario registrado con éxito!";
+                    Response.Redirect("LogIn.aspx", false);
                 }
 
                
             }
             catch (Exception ex)
             {
-                //Session["error"] = ex.Message;
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", @"<script>
-                        showMessage('Verifique su información, El usuario ya esta registrado!', 'info');
-                        setTimeout(function() {
-                        window.location.href = 'LogIn.aspx'; 
-                        }, 4000); 
-                        </script>", false);
-                //Response.Redirect("~/Error.aspx", false);
+                Session["MensajeError"] = "El Email ingresado ya esta asociado a una cuenta!";
+                Response.Redirect("SignUp.aspx", false);
             }
         }
         protected bool ValidarFormulario()
         {
             if (InputNombres.Text == "" || InputApellidos.Text == "" || InputDNI.Text == "" || InputEmail.Text == "" || InputPassword.Text == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Falta rellenar algun campo!', 'info');</script>", false);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Faltan campos por completar!', 'info');</script>", false);
                 return false;
             }
 

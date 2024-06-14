@@ -24,6 +24,25 @@ namespace TPC_equipo_12
                     ButtonErrorRegistro.Visible = true;
                     Session["error"] = null;
                 }
+
+                if (Session["MensajeExito"] != null)
+                {
+                    string msj = Session["MensajeExito"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
+                    Session["MensajeExito"] = null;
+                }
+                if (Session["MensajeError"] != null)
+                {
+                    string msj = Session["MensajeError"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
+                    Session["MensajeError"] = null;
+                }
+                if (Session["MensajeInfo"] != null)
+                {
+                    string msj = Session["MensajeInfo"].ToString();
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
+                    Session["MensajeInfo"] = null;
+                }
             }
         }
         protected void ButtonErrorRegistro_Click(object sender, EventArgs e)
@@ -49,14 +68,16 @@ namespace TPC_equipo_12
                         profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
                         profesor.Cursos = listaCursos;
                         Session["profesor"] = profesor;
-                        Response.Redirect("~/Profesor/DefaultProfesor.aspx", false);
+                        Session["MensajeExito"] = "Bienvenido " + profesor.Nombre + " " + profesor.Apellido + "!";
+                        Response.Redirect("/Profesor/DefaultProfesor.aspx", false);
                     }
                     else
                     {
                         Estudiante estudiante = new Estudiante();
                         estudiante = usuarioNegocio.SetearEstudiante(usuario.IDUsuario);
                         Session["estudiante"] = estudiante;
-                        Response.Redirect("~/Estudiante/DefaultEstudiante.aspx", false);
+                        Session["MensajeExito"] = "Bienvenido " + estudiante.Nombre + " " + estudiante.Apellido + "!";
+                        Response.Redirect("/Estudiante/DefaultEstudiante.aspx", false);
                     }
                 }
                 else

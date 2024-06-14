@@ -7,7 +7,7 @@
     <div class="container d-flex justify-content-center align-items-center flex-column" style="min-height: 100vh;">
         <div class="card w-50 my-5">
             <div class="card-body">
-                <h5 class="card-title d-flex justify-content-center align-items-center">Crear Curso</h5>
+                <asp:Label ID="LabelTitulo" runat="server" CssClass="card-title d-flex justify-content-center align-items-center" Text="Crear Curso"></asp:Label>
                 <div class="mb-3">
                     <asp:Label ID="LabelNombreCurso" runat="server" CssClass="form-label" Text="Nombre"></asp:Label>
                     <asp:TextBox ID="TextBoxNombreCurso" runat="server" CssClass="form-control"></asp:TextBox>
@@ -35,8 +35,9 @@
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-                <div class="d-flex flex-column align-items-center">
-                    <asp:Button ID="ButtonCrearCurso" runat="server" Text="CrearCurso" CssClass="btn btn-primary" OnClick="ButtonCrearCurso_Click" />
+                <div class="d-flex justify-content-center align-items-center">
+                    <asp:Button ID="ButtonCrearCurso" runat="server" Text="CrearCurso" CssClass="btn btn-primary mx-4" OnClick="ButtonCrearCurso_Click" />
+                    <asp:Button ID="ButtonVolver" runat="server" Text="Volver" CssClass="btn btn-secondary mx-4" OnClick="ButtonVolver_Click" />
                 </div>
             </div>
         </div>
