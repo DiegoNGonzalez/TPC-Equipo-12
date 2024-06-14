@@ -75,13 +75,15 @@ namespace TPC_equipo_12
         protected void btnEstudiantesXCurso_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorEstudiantesXCurso.aspx");
+        }
 
         protected void ButtonModificarUnidadProf_Command(object sender, CommandEventArgs e)
-        {
-            int IdUnidad = Convert.ToInt32(e.CommandArgument);
-            Session.Add("IDUnidadProfesor", IdUnidad);
-            Response.Redirect("AgregarUnidades.aspx?IdUnidad=" + IdUnidad);
+         {
+                int IdUnidad = Convert.ToInt32(e.CommandArgument);
+                Session.Add("IDUnidadProfesor", IdUnidad);
+                Response.Redirect("AgregarUnidades.aspx?IdUnidad=" + IdUnidad);
 
-        }
-    }
+         }
+        
+    } 
 }
