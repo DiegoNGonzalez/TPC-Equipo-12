@@ -75,7 +75,7 @@
                             <li class="nav-item">
                                 <asp:Button ID="btnCerrarSesion" Text="Cerrar Sesion" CssClass="btn btn-danger" runat="server" OnClick="btnCerrarSesion_Click" />
 
-                                <a class="nav-link" href="CrearCurso.aspx">Crear Curso</a>
+                                
 
                             </li>
 
