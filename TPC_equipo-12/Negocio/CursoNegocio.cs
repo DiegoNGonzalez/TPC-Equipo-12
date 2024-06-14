@@ -81,6 +81,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }

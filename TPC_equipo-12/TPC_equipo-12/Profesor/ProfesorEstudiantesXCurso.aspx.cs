@@ -17,10 +17,20 @@ namespace TPC_equipo_12
         {
             if (!IsPostBack)
             {
+
                 inscripciones = inscripcionNegocio.listarInscripcionesXCurso((int)Session["IDCursoProfesor"]);
-                Session.Add("inscripciones", inscripciones);
-                rptInscripciones.DataSource = inscripciones;
-                rptInscripciones.DataBind();
+                if (inscripciones.Count == 0)
+                {
+                    Session["MensajeInfo"] = "No hay inscripciones en este curso.";
+                    Response.Redirect("ProfesorUnidades.aspx");
+                }
+                else
+                {
+                    Session.Add("inscripciones", inscripciones);
+                    rptInscripciones.DataSource = inscripciones;
+                    rptInscripciones.DataBind();
+
+                }
             }
         }
 
