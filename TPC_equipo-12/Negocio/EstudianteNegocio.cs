@@ -200,10 +200,18 @@ namespace Negocio
             Datos datos = new Datos();
             try
             {
+                datos.SetearConsulta("UPDATE Usuarios SET Nombre = @nombre, Apellido = @apellido WHERE IDUsuario = @IDUsuario");
+                datos.SetearParametro("@nombre", estudiante.Nombre);
+                datos.SetearParametro("@apellido", estudiante.Apellido);
+                datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
+                datos.EjecutarAccion();
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+
                 datos.SetearConsulta("SELECT IDImagen FROM Usuarios WHERE IDUsuario = @IDUsuario");
                 datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
                 datos.EjecutarLectura();
-
+                
                 int idImagen = 0;
                 if (datos.Lector.Read() && datos.Lector["IDImagen"] != DBNull.Value)
                 {
@@ -235,6 +243,7 @@ namespace Negocio
                     datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
                     datos.EjecutarAccion();
                 }
+
             }
             catch (Exception)
             {

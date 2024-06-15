@@ -13,11 +13,12 @@ namespace TPC_equipo_12
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+       
             if (!IsPostBack)
             {
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
 
+                
                 txtEmail.Text = estudiante.Email;
                 txtEmail.ReadOnly = true;
                 txtNombre.Text = estudiante.Nombre;
@@ -30,6 +31,8 @@ namespace TPC_equipo_12
                 {
                     imgAvatar.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s";
                 }
+
+                
             }
         }
 
