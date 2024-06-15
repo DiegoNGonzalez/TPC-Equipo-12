@@ -69,5 +69,10 @@ namespace TPC_equipo_12
             //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
             Session.Add("mensaje", mensaje);
         }
+
+        protected void btnNuevoMensaje_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NuevoMensaje.aspx");
+        }
     }
 }

@@ -31,6 +31,7 @@ namespace Dominio
             Contrasenia = contrasenia;
             TipoUsuario = profesor ? TipoUsuario.Profesor : TipoUsuario.Estudiante;
         }
+        public string NombreCompleto => $"{Nombre} {Apellido}";
     }
 
 }

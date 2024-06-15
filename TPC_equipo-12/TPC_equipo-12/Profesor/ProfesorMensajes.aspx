@@ -9,6 +9,7 @@
                 <hr />
             </div>
         </div>
+        <asp:Button ID="btnNuevoMensaje" runat="server" Text="Nuevo Mensaje" CssClass="btn btn-primary" OnClick="btnNuevoMensaje_Click" />
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">

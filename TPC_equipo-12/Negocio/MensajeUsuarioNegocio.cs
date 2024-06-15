@@ -64,11 +64,12 @@ namespace Negocio
         {
             try
             {
-                datos.SetearConsulta("insert into Mensajes (Mensaje, FechaHora, IDUsuarioEmisor, IDUsuarioReceptor) values (@Mensaje, @FechaHora, @IDUsuarioEmisor, @IDUsuarioReceptor)");
+                datos.SetearConsulta("insert into Mensajes (Mensaje, FechaHora, IDEmisor, IDReceptor, Asunto) values (@Mensaje, @FechaHora, @IDEmisor, @IDReceptor, @Asunto)");
                 datos.SetearParametro("@Mensaje", mensaje.Mensaje);
                 datos.SetearParametro("@FechaHora", mensaje.FechaHora);
-                datos.SetearParametro("@IDUsuarioEmisor", mensaje.UsuarioEmisor.IDUsuario);
-                datos.SetearParametro("@IDUsuarioReceptor", mensaje.UsuarioReceptor.IDUsuario);
+                datos.SetearParametro("@IDEmisor", mensaje.UsuarioEmisor.IDUsuario);
+                datos.SetearParametro("@IDReceptor", mensaje.UsuarioReceptor.IDUsuario);
+                datos.SetearParametro("@Asunto", mensaje.Asunto);
                 datos.EjecutarAccion();
             }
             catch (Exception)
