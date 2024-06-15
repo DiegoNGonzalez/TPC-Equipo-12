@@ -33,7 +33,7 @@ namespace Negocio
                     aux.Nombre = (string)Datos.Lector["Nombre"];
                     aux.Apellido = (string)Datos.Lector["Apellido"];
                     aux.Email = (string)Datos.Lector["Email"];
-                    aux.Contrasenia = (string)Datos.Lector["Clave"];
+                    aux.Contrasenia = (string)Datos.Lector["Contrasenia"];
                     aux.DNI = (int)Datos.Lector["DNI"];
                     aux.Genero = (string)Datos.Lector["Genero"];
                     aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];

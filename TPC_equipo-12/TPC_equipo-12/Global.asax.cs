@@ -16,9 +16,9 @@ namespace TPC_equipo_12
         {
             Exception exc = Server.GetLastError();
 
-            Session["MensajeError"] = exc.Message;
-            Session.Add("Error", exc.ToString());
-            Server.Transfer("Error.aspx");
+            //Session["MensajeError"] = exc.Message;
+            //Session.Add("Error", exc.ToString());
+            //Server.Transfer("Error.aspx");
         }
     }
 }

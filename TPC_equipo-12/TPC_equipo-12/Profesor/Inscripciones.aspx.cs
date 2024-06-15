@@ -13,6 +13,7 @@ namespace TPC_equipo_12
     {
         public List<InscripcionACurso> inscripciones = new List<InscripcionACurso>();
         public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
+        public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -55,7 +56,9 @@ namespace TPC_equipo_12
             int idInscripcion = Convert.ToInt32(btn.CommandArgument); 
             InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
             inscripcionNegocio.ConfirmarInscripcion(aux);
-            
+
+            notificacionNegocio.NotificacionRespuestaInscripcion(aux, true);
+
             inscripciones = inscripcionNegocio.listarInscripciones();
             Session.Add("inscripciones", inscripciones);
             Session["MensajeExito"] = "Inscripcion confirmada con exito";
@@ -74,6 +77,7 @@ namespace TPC_equipo_12
             int idInscripcion = Convert.ToInt32(btn.CommandArgument);
             InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
             inscripcionNegocio.RechazarInscripcion(aux.IDInscripcion);
+            notificacionNegocio.NotificacionRespuestaInscripcion(aux, false);
             inscripciones = inscripcionNegocio.listarInscripciones();
             Session.Add("inscripciones", inscripciones);
             ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>

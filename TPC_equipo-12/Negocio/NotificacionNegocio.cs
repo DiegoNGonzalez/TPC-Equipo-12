@@ -134,5 +134,55 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public void NotificacionRespuestaInscripcion(InscripcionACurso inscripcion, bool estado)
+        {
+            string mensaje = "Pendiente";
+            try
+            {
+                 if (estado)
+                {
+                     mensaje = "Inscripción aceptada";
+                }
+                else
+                {
+                     mensaje = "Inscripción rechazada";
+                }
+                datos.SetearConsulta("INSERT INTO Notificaciones (Mensaje, Tipo, Fecha, IDInscripcion) VALUES (@Mensaje, @Tipo, @Fecha, @IDInscripcion); SELECT SCOPE_IDENTITY();");
+                datos.SetearParametro("@Mensaje", mensaje);
+                datos.SetearParametro("@Tipo", "Inscripcion");
+                datos.SetearParametro("@Fecha", DateTime.Now);
+                datos.SetearParametro("@IDInscripcion", inscripcion.IDInscripcion);
+                datos.EjecutarAccion();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+            try
+            {
+                int idNotificacion = UltimoID();
+                datos.LimpiarParametros();
+                datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
+                datos.SetearParametro("@IDNotificacion", idNotificacion);
+                datos.SetearParametro("@IDUsuario", inscripcion.Usuario.IDUsuario);
+                datos.EjecutarAccion();
+                datos.LimpiarParametros();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }

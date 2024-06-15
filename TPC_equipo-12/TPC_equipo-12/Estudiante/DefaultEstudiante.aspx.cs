@@ -19,6 +19,7 @@ namespace TPC_equipo_12
         public List<Curso> listaCursosInscriptos = new List<Curso>();
         public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
         public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
+        public List<Curso> cursosNoInscriptos = new List<Curso>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,7 +55,8 @@ namespace TPC_equipo_12
                 EstudianteLogeado.Cursos = listaCursosInscriptos;
                 Session["estudiante"] = EstudianteLogeado;
                 Session.Add("listaCursosInscriptos", listaCursosInscriptos);
-                rptCursos.DataSource = listaCursos;
+                NoEstaInscripto();
+                rptCursos.DataSource = cursosNoInscriptos;
                 rptCursos.DataBind();
 
 
@@ -77,7 +79,18 @@ namespace TPC_equipo_12
 
 
         }
-
+        protected void NoEstaInscripto()
+        {
+            Estudiante EstudianteEnSession = (Estudiante)Session["estudiante"];
+            List<int> auxIds = cursoNegocio.IDCursosXEstudiante(EstudianteEnSession.IDUsuario);
+            foreach (Curso curso in listaCursos)
+            {
+                if (!auxIds.Contains(curso.IDCurso))
+                {
+                    cursosNoInscriptos.Add(curso);
+                }
+            }
+        }
 
         protected void btnInscribirse_Click(object sender, EventArgs e)
         {

@@ -65,7 +65,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Estudiante\EstudianteMensajes.aspx" />
     <Content Include="Estudiante\EstudianteInscripciones.aspx" />
+    <Content Include="Profesor\NuevoMensaje.aspx" />
+    <Content Include="Profesor\ProfesorMensajes.aspx" />
     <Content Include="Profesor\ProfesorEstudiantesXCurso.aspx" />
     <Content Include="Profesor\EliminarUnidad.aspx" />
     <Content Include="Profesor\EliminarLecciones.aspx" />
@@ -87,6 +90,8 @@
     <Content Include="Profesor\ProfesorLecciones.aspx" />
     <Content Include="Profesor\ProfesorUnidades.aspx" />
     <Content Include="Profesor\ProfesorCursos.aspx" />
+    <Content Include="Profesor\VerMensaje.aspx" />
+    <Content Include="Estudiante\VerMensaje.aspx" />
     <Content Include="Web.config" />
     <Content Include="SignUp.aspx" />
     <Content Include="LogIn.aspx" />
@@ -94,12 +99,33 @@
     <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Estudiante\EstudianteMensajes.aspx.cs">
+      <DependentUpon>EstudianteMensajes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estudiante\EstudianteMensajes.aspx.designer.cs">
+      <DependentUpon>EstudianteMensajes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Estudiante\EstudianteInscripciones.aspx.cs">
       <DependentUpon>EstudianteInscripciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Estudiante\EstudianteInscripciones.aspx.designer.cs">
       <DependentUpon>EstudianteInscripciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\NuevoMensaje.aspx.cs">
+      <DependentUpon>NuevoMensaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\NuevoMensaje.aspx.designer.cs">
+      <DependentUpon>NuevoMensaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\ProfesorMensajes.aspx.cs">
+      <DependentUpon>ProfesorMensajes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\ProfesorMensajes.aspx.designer.cs">
+      <DependentUpon>ProfesorMensajes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profesor\ProfesorEstudiantesXCurso.aspx.cs">
       <DependentUpon>ProfesorEstudiantesXCurso.aspx</DependentUpon>
@@ -293,6 +319,20 @@
     </Compile>
     <Compile Include="Profesor\ProfesorEstudiantes.aspx.designer.cs">
       <DependentUpon>ProfesorEstudiantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\VerMensaje.aspx.cs">
+      <DependentUpon>VerMensaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\VerMensaje.aspx.designer.cs">
+      <DependentUpon>VerMensaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Estudiante\VerMensaje.aspx.cs">
+      <DependentUpon>VerMensaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estudiante\VerMensaje.aspx.designer.cs">
+      <DependentUpon>VerMensaje.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
