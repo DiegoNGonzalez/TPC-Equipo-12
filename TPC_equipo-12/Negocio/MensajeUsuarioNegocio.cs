@@ -21,7 +21,7 @@ namespace Negocio
             List<MensajeUsuario> lista = new List<MensajeUsuario>();
             try
             {
-                datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto from Mensajes m WHERE m.IDReceptor = @IDUsuario");
+                datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto, m.Leido from Mensajes m WHERE m.IDReceptor = @IDUsuario");
                 datos.SetearParametro("@IDUsuario", IDUsuario);
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
@@ -31,6 +31,7 @@ namespace Negocio
                     aux.Mensaje = (string)datos.Lector["Mensaje"];
                     aux.Asunto = (string)datos.Lector["Asunto"];
                     aux.FechaHora = (DateTime)datos.Lector["FechaHora"];
+                    aux.Leido = (bool)datos.Lector["Leido"];
                     aux.UsuarioEmisor = new Usuario();
                     aux.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDEmisor"];
                     aux.UsuarioReceptor = new Usuario();
@@ -69,6 +70,41 @@ namespace Negocio
                 datos.SetearParametro("@IDUsuarioEmisor", mensaje.UsuarioEmisor.IDUsuario);
                 datos.SetearParametro("@IDUsuarioReceptor", mensaje.UsuarioReceptor.IDUsuario);
                 datos.EjecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public MensajeUsuario BuscarMensaje(int idMensaje)
+        {
+            MensajeUsuario mensaje = new MensajeUsuario();
+            try
+            {
+                datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto from Mensajes m WHERE m.IDMensaje = @IDMensaje");
+                datos.SetearParametro("@IDMensaje", idMensaje);
+                datos.EjecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    mensaje.IDMensaje = (int)datos.Lector["IDMensaje"];
+                    mensaje.Mensaje = (string)datos.Lector["Mensaje"];
+                    mensaje.Asunto = (string)datos.Lector["Asunto"];
+                    mensaje.FechaHora = (DateTime)datos.Lector["FechaHora"];
+                    mensaje.UsuarioEmisor = new Usuario();
+                    mensaje.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDEmisor"];
+                    mensaje.UsuarioReceptor = new Usuario();
+                    mensaje.UsuarioReceptor.IDUsuario = (int)datos.Lector["IDReceptor"];
+                }
+                UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                mensaje.UsuarioReceptor= usuarioNegocio.buscarUsuario(mensaje.UsuarioReceptor.IDUsuario);
+                mensaje.UsuarioEmisor = usuarioNegocio.buscarUsuario(mensaje.UsuarioEmisor.IDUsuario);
+                return mensaje;
             }
             catch (Exception)
             {

@@ -28,11 +28,18 @@
                                     <tr>
                                         <td><%# Eval("FechaHora") %></td>
                                         <td><%# Eval("UsuarioEmisor.Nombre") %> <%# Eval("UsuarioEmisor.Apellido")  %></td>
-                                        <%--<td><%# Eval("Asunto") %></td>
-                                        <td><%# Eval("Leido") %></td>--%>
+                                        <td><%# Eval("asunto") %></td>
+
                                         <td>
-                                            <asp:LinkButton ID="LinkButton1" runat="server" Text="Ver" CommandName="Ver" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-primary" />
-                                            <asp:LinkButton ID="LinkButton2" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-danger" />
+                                            <%# 
+                                                (bool)Eval("Leido")?"Si":"No" 
+    
+                                                %>
+
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="btnVerMensaje" runat="server" Text="Ver" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-primary" OnClick="btnVerMensaje_Click" OnCommand="btnVerMensaje_Command"/>
+                                            <asp:LinkButton ID="btnBorrarMensaje" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-danger" />
                                         </td>
                                     </tr>
                                 </ItemTemplate>

@@ -14,5 +14,6 @@ namespace Dominio
         public string Asunto { get; set; }
         public string Mensaje { get; set; }
         public DateTime FechaHora { get; set; }
+        public bool Leido { get; set; }
     }
 }

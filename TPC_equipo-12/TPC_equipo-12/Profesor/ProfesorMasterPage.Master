@@ -76,12 +76,7 @@
 
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <asp:Button ID="btnCerrarSesion" Text="Cerrar Sesion" CssClass="btn btn-danger" runat="server" OnClick="btnCerrarSesion_Click" />
-
-
-
-                            </li>
+                            
 
 
                         </ul>
