@@ -194,6 +194,57 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
-       
+
+        public void actualizar(Estudiante estudiante)
+        {
+            Datos datos = new Datos();
+            try
+            {
+                datos.SetearConsulta("SELECT IDImagen FROM Usuarios WHERE IDUsuario = @IDUsuario");
+                datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
+                datos.EjecutarLectura();
+
+                int idImagen = 0;
+                if (datos.Lector.Read() && datos.Lector["IDImagen"] != DBNull.Value)
+                {
+                    idImagen = (int)datos.Lector["IDImagen"];
+                }
+                datos.CerrarConexion(); // Asegúrate de cerrar la conexión después de la lectura
+
+                if (idImagen != 0)
+                {
+                    // Actualizar la URL de la imagen existente
+                    datos.LimpiarParametros();
+                    datos.SetearConsulta("UPDATE Imagenes SET URLIMG = @imagen WHERE IDImagenes = @IDImagenes");
+                    datos.SetearParametro("@imagen", estudiante.ImagenPerfil.URL);
+                    datos.SetearParametro("@IDImagenes", idImagen);
+                    datos.EjecutarAccion();
+                }
+                else
+                {
+                    // Insertar una nueva imagen y obtener el nuevo ID
+                    datos.LimpiarParametros();
+                    datos.SetearConsulta("INSERT INTO Imagenes (URLIMG) OUTPUT INSERTED.IDImagenes VALUES (@imagen)");
+                    datos.SetearParametro("@imagen", estudiante.ImagenPerfil.URL);
+                    int nuevoIDImagen = datos.ejecutarAccionScalar();
+                    datos.CerrarConexion();
+                    // Actualizar el IDImagen del usuario con el nuevo IDImagen de la imagen insertada
+                    datos.LimpiarParametros();
+                    datos.SetearConsulta("UPDATE Usuarios SET IDImagen = @IDImagen WHERE IDUsuario = @IDUsuario");
+                    datos.SetearParametro("@IDImagen", nuevoIDImagen);
+                    datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
+                    datos.EjecutarAccion();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
     }
 }

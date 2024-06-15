@@ -17,13 +17,21 @@ namespace TPC_equipo_12
             {
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
 
-
                 if (Request.QueryString["accion"] == "redirigir")
                 {
                     MarcarNotificacionComoLeida();
                     RedirigirSegunTipo();
                 }
                 CargarNotificaciones(estudiante.IDUsuario);
+
+                if (estudiante != null && estudiante.ImagenPerfil.URL != null)
+                {
+                    imgPerfil.ImageUrl= "~/Images/" + estudiante.ImagenPerfil.URL;
+                }
+                else
+                {
+                    imgPerfil.ImageUrl = "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+                }
             }
         }
 

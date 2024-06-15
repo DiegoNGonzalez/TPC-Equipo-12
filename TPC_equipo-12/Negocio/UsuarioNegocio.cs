@@ -105,7 +105,7 @@ namespace Negocio
                     Datos.SetearParametro("@Email", usuario.Email);
                     Datos.SetearParametro("@Contrasenia", usuario.Contrasenia);
                     Datos.SetearParametro("@DNI", usuario.DNI);
-                    Datos.SetearParametro("@Genero", (object)usuario.Genero?? DBNull.Value);
+                    Datos.SetearParametro("@Genero", (object)usuario.Genero ?? DBNull.Value);
                     Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
                     //Datos.SetearParametro("@IDImagen", (object)usuario.ImagenPerfil.IDImagen?? DBNull.Value);
                     Datos.EjecutarAccion();
@@ -227,14 +227,17 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
 
-        } 
+        }
         public Estudiante SetearEstudiante(int idUsuario)
         {
             Datos Datos = new Datos();
             Estudiante estudiante = new Estudiante();
             try
             {
-                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, Contrasenia, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDEstudiante");
+                Datos.SetearConsulta("SELECT u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, u.IDImagen, i.URLIMG " +
+                     "FROM Usuarios u " +
+                     "LEFT JOIN Imagenes i ON u.IDImagen = i.IDImagenes " +
+                     "WHERE u.IDUsuario = @IDEstudiante");
                 Datos.SetearParametro("@IDEstudiante", idUsuario);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
@@ -251,15 +254,16 @@ namespace Negocio
                     if (Datos.Lector["IDImagen"] != DBNull.Value)
                     {
                         estudiante.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
-                    }else
+                        estudiante.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                    }
+                    else
                     {
                         estudiante.ImagenPerfil.IDImagen = 0;
                     }
-                    //Falta hacer funcionar las imagenes con un join como 
-
                 }
                 return estudiante;
             }
+
             catch (Exception ex)
             {
                 throw ex;
@@ -272,69 +276,69 @@ namespace Negocio
         }
         
         public Usuario buscarUsuario(int idUsuario)
+{
+    Usuario usuario = new Usuario();
+    try
+    {
+        Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, Contrasenia, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDUsuario");
+        Datos.SetearParametro("@IDUsuario", idUsuario);
+        Datos.EjecutarLectura();
+        while (Datos.Lector.Read())
         {
-            Usuario usuario = new Usuario();
-            try
+            usuario.IDUsuario = Datos.Lector.GetInt32(0);
+            usuario.Nombre = (string)Datos.Lector["Nombre"];
+            usuario.Apellido = (string)Datos.Lector["Apellido"];
+            usuario.DNI = (int)Datos.Lector["DNI"];
+            usuario.Genero = (string)Datos.Lector["Genero"];
+            usuario.Email = (string)Datos.Lector["Email"];
+            usuario.Contrasenia = (string)Datos.Lector["Contrasenia"];
+            usuario.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+            usuario.ImagenPerfil = new Imagen();
+            if (Datos.Lector["IDImagen"] != DBNull.Value)
             {
-                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, Contrasenia, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDUsuario");
-                Datos.SetearParametro("@IDUsuario", idUsuario);
-                Datos.EjecutarLectura();
-                while (Datos.Lector.Read())
-                {
-                    usuario.IDUsuario = Datos.Lector.GetInt32(0);
-                    usuario.Nombre = (string)Datos.Lector["Nombre"];
-                    usuario.Apellido = (string)Datos.Lector["Apellido"];
-                    usuario.DNI = (int)Datos.Lector["DNI"];
-                    usuario.Genero = (string)Datos.Lector["Genero"];
-                    usuario.Email = (string)Datos.Lector["Email"];
-                    usuario.Contrasenia = (string)Datos.Lector["Contrasenia"];
-                    usuario.EsProfesor = (bool)Datos.Lector["EsProfesor"];
-                    usuario.ImagenPerfil = new Imagen();
-                    if (Datos.Lector["IDImagen"] != DBNull.Value)
-                    {
-                        usuario.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
-                    }
-                    else
-                    {
-                        usuario.ImagenPerfil.IDImagen = 0;
-                    }
+                usuario.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+            }
+            else
+            {
+                usuario.ImagenPerfil.IDImagen = 0;
+            }
 
-                    
-                }
-                Datos.LimpiarParametros();
-                return usuario;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                Datos.CerrarConexion(); 
-            }
+
         }
-        public bool ExisteUsuario(Usuario usuario)
+        Datos.LimpiarParametros();
+        return usuario;
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    finally
+    {
+        Datos.CerrarConexion();
+    }
+}
+public bool ExisteUsuario(Usuario usuario)
+{
+    try
+    {
+        Datos.SetearConsulta("select IDUsuario from Usuarios where Email = @Email");
+        Datos.SetearParametro("@Email", usuario.Email);
+        Datos.EjecutarLectura();
+        if (Datos.Lector.Read())
         {
-            try
-            {
-                Datos.SetearConsulta("select IDUsuario from Usuarios where Email = @Email");
-                Datos.SetearParametro("@Email", usuario.Email);
-                Datos.EjecutarLectura();
-                if (Datos.Lector.Read())
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-            }
+            return true;
         }
+        return false;
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    finally
+    {
+        Datos.LimpiarParametros();
+        Datos.CerrarConexion();
+    }
+}
     }
 }
