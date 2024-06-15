@@ -1,5 +1,4 @@
 ﻿using Dominio;
-using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +8,8 @@ using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
-    public partial class EstudianteMensajes : System.Web.UI.Page
+    public partial class VerMensaje1 : System.Web.UI.Page
     {
-        public List<MensajeUsuario> mensajes = new List<MensajeUsuario>();
-        public MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["estudiante"] == null)
@@ -40,34 +37,17 @@ namespace TPC_equipo_12
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
                     Session["MensajeInfo"] = null;
                 }
-                Estudiante estudiante = (Estudiante)Session["estudiante"];
-                mensajes = mensajeUsuarioNegocio.listarMensajes(estudiante.IDUsuario);
-                Session.Add("mensajes", mensajes);
-                rptMensajes.DataSource = mensajes;
-                rptMensajes.DataBind();
+
+                MensajeUsuario mensaje = (MensajeUsuario)Session["mensaje"];
+                lblAsunto.Text = mensaje.Asunto;
+                lblFecha.Text = mensaje.FechaHora.ToString();
+                lblDe.Text = mensaje.UsuarioEmisor.Nombre + " " + mensaje.UsuarioEmisor.Apellido;
+                lblMensaje.Text = mensaje.Mensaje;
+
+
+
+
             }
-        }
-
-
-
-        protected void btnVerMensaje_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            int idMensaje = Convert.ToInt32(btn.CommandArgument);
-            MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
-            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
-            Session.Add("mensaje", mensaje);
-
-            Response.Redirect("VerMensaje.aspx");
-        }
-
-        protected void btnVerMensaje_Command(object sender, CommandEventArgs e)
-        {
-            Button btn = (Button)sender;
-            int idMensaje = Convert.ToInt32(btn.CommandArgument);
-            MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
-            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
-            Session.Add("mensaje", mensaje);
         }
     }
 }
