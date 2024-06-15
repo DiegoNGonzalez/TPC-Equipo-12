@@ -124,7 +124,8 @@ Create Table Mensajes(
 	IDEmisor int not null Foreign Key References Usuarios(IDusuario),
 	IDReceptor int not null Foreign Key References Usuarios(IDusuario),
 	FechaHora datetime not null default(getdate()),
-	Asunto varchar(100) null
+	Asunto varchar(100) null,
+	Leido bit not null DEFAULT 0
 )
 GO
 Create Table MensajesXUsuario(
