@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AccesoDB;
 using Dominio;
-using AccesoDB;
-using System.Security.Cryptography.X509Certificates;
-using System.Collections;
+using System;
+using System.Collections.Generic;
 
 namespace Negocio
 {
@@ -16,7 +11,7 @@ namespace Negocio
         private CursoNegocio cursoNegocio;
         private UsuarioNegocio usuarioNegocio;
         private EstudianteNegocio estudianteNegocio;
-        
+
 
         public InscripcionNegocio()
         {
@@ -27,7 +22,7 @@ namespace Negocio
         }
         public List<InscripcionACurso> listarInscripciones()
         {
-            List <InscripcionACurso> lista = new List<InscripcionACurso>();
+            List<InscripcionACurso> lista = new List<InscripcionACurso>();
             try
             {
                 Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso where i.Estado= 'P' order by i.FechaInscripcion desc");
@@ -37,8 +32,8 @@ namespace Negocio
                     InscripcionACurso aux = new InscripcionACurso();
                     aux.IDInscripcion = Datos.Lector.GetInt32(0);
                     aux.Curso = new Curso();
-                    aux.Curso= cursoNegocio.BuscarCurso((int)Datos.Lector["IdCurso"]);
-                    aux.Usuario=new Usuario();
+                    aux.Curso = cursoNegocio.BuscarCurso((int)Datos.Lector["IdCurso"]);
+                    aux.Usuario = new Usuario();
                     aux.Usuario = usuarioNegocio.buscarUsuario((int)Datos.Lector["IdUsuario"]);
                     aux.Estado = Convert.ToChar(Datos.Lector["Estado"]);
                     aux.FechaInscripcion = (DateTime)Datos.Lector["FechaInscripcion"];
@@ -58,13 +53,13 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
-        
+
         public bool Incripcion(Usuario usuario, Curso curso)
         {
 
             try
             {
-                if(EstaInscripto(usuario.IDUsuario, curso.IDCurso))
+                if (EstaInscripto(usuario.IDUsuario, curso.IDCurso))
                 {
                     throw new Exception("El estudiante ya esta inscripto en el curso");
                 }
@@ -83,9 +78,10 @@ namespace Negocio
             catch (Exception ex)
             {
 
-                throw ex ;
+                throw ex;
 
-            }finally
+            }
+            finally
             {
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
@@ -124,7 +120,7 @@ namespace Negocio
 
                 throw ex;
             }
-            
+
         }
         public InscripcionACurso BuscarInscripcion(int idInscripcion)
         {
@@ -132,7 +128,7 @@ namespace Negocio
 
             try
             {
-                Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso where i.IdInscripcion = @IDInscripcion" );
+                Datos.SetearConsulta("select i.IdInscripcion,i. IdUsuario, i.IdCurso,i.FechaInscripcion, u.Nombre, u.Apellido, c.Nombre as NombreCurso, i.Estado from Inscripciones i inner join Usuarios u on i.IDusuario= u.IDUsuario INNER JOIN Cursos c on i.IDCurso= c.IDCurso where i.IdInscripcion = @IDInscripcion");
                 Datos.SetearParametro("@IDInscripcion", idInscripcion);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
@@ -144,7 +140,7 @@ namespace Negocio
                     aux.Usuario = usuarioNegocio.buscarUsuario((int)Datos.Lector["IdUsuario"]);
                     aux.Estado = Convert.ToChar(Datos.Lector["Estado"]);
                     aux.FechaInscripcion = (DateTime)Datos.Lector["FechaInscripcion"];
-                    
+
                 }
                 return aux;
             }
@@ -152,7 +148,8 @@ namespace Negocio
             {
 
                 throw;
-            }finally
+            }
+            finally
             {
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
@@ -222,7 +219,7 @@ namespace Negocio
                     aux.Curso = cursoNegocio.BuscarCurso((int)Datos.Lector["IdCurso"]);
                     aux.Usuario = new Usuario();
                     aux.Usuario = usuarioNegocio.buscarUsuario((int)Datos.Lector["IdUsuario"]);
-                    aux.Estado =Convert.ToChar(Datos.Lector["Estado"]);
+                    aux.Estado = Convert.ToChar(Datos.Lector["Estado"]);
                     aux.FechaInscripcion = (DateTime)Datos.Lector["FechaInscripcion"];
                     lista.Add(aux);
                 }

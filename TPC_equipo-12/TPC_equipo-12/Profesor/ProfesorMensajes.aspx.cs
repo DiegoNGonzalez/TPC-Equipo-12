@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
-using Dominio;
 
 namespace TPC_equipo_12
 {
@@ -42,9 +40,17 @@ namespace TPC_equipo_12
                 }
                 Profesor profesor = (Profesor)Session["profesor"];
                 mensajes = mensajeUsuarioNegocio.listarMensajes(profesor.IDUsuario);
-                Session.Add("mensajes", mensajes);
-                rptMensajes.DataSource = mensajes;
-                rptMensajes.DataBind();
+                if (mensajes.Count == 0)
+                {
+                    PanelMensajes.Visible = false;
+                    LabelNoHayMensajes.Visible = true;
+                }
+                else
+                {
+                    Session.Add("mensajes", mensajes);
+                    rptMensajes.DataSource = mensajes;
+                    rptMensajes.DataBind();
+                }
             }
         }
 

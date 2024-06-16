@@ -1,11 +1,7 @@
-﻿using Negocio;
+﻿using Dominio;
+using Negocio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using Dominio;
 
 namespace TPC_equipo_12
 {
@@ -77,7 +73,7 @@ namespace TPC_equipo_12
                     Response.Redirect("LogIn.aspx", false);
                 }
 
-               
+
             }
             catch (Exception ex)
             {

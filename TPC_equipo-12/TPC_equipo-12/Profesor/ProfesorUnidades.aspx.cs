@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
-using Dominio;
 
 namespace TPC_equipo_12
 {
@@ -78,12 +76,12 @@ namespace TPC_equipo_12
         }
 
         protected void ButtonModificarUnidadProf_Command(object sender, CommandEventArgs e)
-         {
-                int IdUnidad = Convert.ToInt32(e.CommandArgument);
-                Session.Add("IDUnidadProfesor", IdUnidad);
-                Response.Redirect("AgregarUnidades.aspx?IdUnidad=" + IdUnidad);
+        {
+            int IdUnidad = Convert.ToInt32(e.CommandArgument);
+            Session.Add("IDUnidadProfesor", IdUnidad);
+            Response.Redirect("AgregarUnidades.aspx?IdUnidad=" + IdUnidad);
 
-         }
-        
-    } 
+        }
+
+    }
 }

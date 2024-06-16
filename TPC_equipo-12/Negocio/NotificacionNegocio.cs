@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AccesoDB;
 using Dominio;
-using AccesoDB;
+using System;
+using System.Collections.Generic;
 
 namespace Negocio
 {
@@ -85,13 +82,14 @@ namespace Negocio
                 datos.SetearParametro("@Fecha", DateTime.Now);
                 datos.SetearParametro("@IDInscripcion", idInscripcion);
                 datos.EjecutarAccion();
-                              
+
             }
             catch (Exception)
             {
 
                 throw;
-            }finally
+            }
+            finally
             {
                 datos.CerrarConexion();
             }
@@ -112,7 +110,7 @@ namespace Negocio
             }
             finally
             {
-                   datos.CerrarConexion();
+                datos.CerrarConexion();
             }
         }
         public int UltimoID()
@@ -139,13 +137,13 @@ namespace Negocio
             string mensaje = "Pendiente";
             try
             {
-                 if (estado)
+                if (estado)
                 {
-                     mensaje = "Inscripción aceptada";
+                    mensaje = "Inscripción aceptada";
                 }
                 else
                 {
-                     mensaje = "Inscripción rechazada";
+                    mensaje = "Inscripción rechazada";
                 }
                 datos.SetearConsulta("INSERT INTO Notificaciones (Mensaje, Tipo, Fecha, IDInscripcion) VALUES (@Mensaje, @Tipo, @Fecha, @IDInscripcion); SELECT SCOPE_IDENTITY();");
                 datos.SetearParametro("@Mensaje", mensaje);

@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
-using Dominio;
 
 namespace TPC_equipo_12
 {
@@ -27,7 +25,7 @@ namespace TPC_equipo_12
                 if (Session["MensajeExito"] != null)
                 {
                     string msj = Session["MensajeExito"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');",true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
                     Session["MensajeExito"] = null;
                 }
                 if (Session["MensajeError"] != null)
@@ -67,11 +65,11 @@ namespace TPC_equipo_12
             {
                 try
                 {
-                profesor.Cursos.Remove(cursoAEliminar);
-                Session["profesor"] = profesor;
-                cursoNegocio.EliminarCurso(idCursoAEliminar);
-                Session["MensajeExito"] = "Curso eliminado con exito!";
-                Response.Redirect("ProfesorCursos.aspx", false);
+                    profesor.Cursos.Remove(cursoAEliminar);
+                    Session["profesor"] = profesor;
+                    cursoNegocio.EliminarCurso(idCursoAEliminar);
+                    Session["MensajeExito"] = "Curso eliminado con exito!";
+                    Response.Redirect("ProfesorCursos.aspx", false);
                 }
                 catch (Exception ex)
                 {

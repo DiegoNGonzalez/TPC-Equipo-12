@@ -1,10 +1,6 @@
 ﻿using Dominio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
@@ -14,7 +10,7 @@ namespace TPC_equipo_12
         {
             if (Session["estudiante"] == null)
             {
-                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser estudiante.";
                 Response.Redirect("../LogIn.aspx");
             }
             if (!IsPostBack)

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AccesoDB;
 using Dominio;
-using AccesoDB;
+using System;
+using System.Collections.Generic;
 
 namespace Negocio
 {
@@ -38,7 +35,7 @@ namespace Negocio
                     aux.UsuarioReceptor.IDUsuario = (int)datos.Lector["IDReceptor"];
                     lista.Add(aux);
                 }
-                foreach(MensajeUsuario mensaje in lista)
+                foreach (MensajeUsuario mensaje in lista)
                 {
                     int idEmisor = mensaje.UsuarioEmisor.IDUsuario;
                     int idReceptor = mensaje.UsuarioReceptor.IDUsuario;
@@ -103,7 +100,7 @@ namespace Negocio
                     mensaje.UsuarioReceptor.IDUsuario = (int)datos.Lector["IDReceptor"];
                 }
                 UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-                mensaje.UsuarioReceptor= usuarioNegocio.buscarUsuario(mensaje.UsuarioReceptor.IDUsuario);
+                mensaje.UsuarioReceptor = usuarioNegocio.buscarUsuario(mensaje.UsuarioReceptor.IDUsuario);
                 mensaje.UsuarioEmisor = usuarioNegocio.buscarUsuario(mensaje.UsuarioEmisor.IDUsuario);
                 return mensaje;
             }

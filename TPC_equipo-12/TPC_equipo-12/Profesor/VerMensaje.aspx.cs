@@ -1,10 +1,6 @@
 ﻿using Dominio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
@@ -44,7 +40,7 @@ namespace TPC_equipo_12
                 lblDe.Text = mensaje.UsuarioEmisor.Nombre + " " + mensaje.UsuarioEmisor.Apellido;
                 lblMensaje.Text = mensaje.Mensaje;
 
-                
+
 
 
             }

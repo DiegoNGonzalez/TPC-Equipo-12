@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AccesoDB;
 using Dominio;
-using AccesoDB;
-using System.Collections;
-using System.Diagnostics.Eventing.Reader;
+using System;
+using System.Collections.Generic;
 
 namespace Negocio
 {
@@ -219,9 +214,9 @@ namespace Negocio
                     Datos.EjecutarLectura();
                     while (Datos.Lector.Read())
                     {
-                            Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
-                            Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
-                            Datos.EjecutarAccion();
+                        Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
+                        Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
+                        Datos.EjecutarAccion();
                     }
                     UnidadesDeCurso.EliminarUnidad((int)Datos.Lector["IDUnidad"]);
                 }

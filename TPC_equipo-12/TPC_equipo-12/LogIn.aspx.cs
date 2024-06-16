@@ -2,10 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
@@ -104,11 +101,11 @@ namespace TPC_equipo_12
                 usuarioNegocio.Logueo(usuario);
                 List<Curso> listaCursos = new List<Curso>();
                 listaCursos = (List<Curso>)Session["listaCursos"];
-                    Profesor profesor = new Profesor();
-                    profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
-                    profesor.Cursos = listaCursos;
-                    Session["profesor"] = profesor;
-                    Response.Redirect("~/Profesor/DefaultProfesor.aspx", false);
+                Profesor profesor = new Profesor();
+                profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
+                profesor.Cursos = listaCursos;
+                Session["profesor"] = profesor;
+                Response.Redirect("~/Profesor/DefaultProfesor.aspx", false);
             }
             catch (Exception ex)
             {
@@ -128,10 +125,10 @@ namespace TPC_equipo_12
                 usuarioNegocio.Logueo(usuario);
                 List<Curso> listaCursos = new List<Curso>();
                 listaCursos = (List<Curso>)Session["listaCursos"];
-                    Estudiante estudiante = new Estudiante();
-                    estudiante = usuarioNegocio.SetearEstudiante(usuario.IDUsuario);
-                    Session["estudiante"] = estudiante;
-                    Response.Redirect("~/Estudiante/DefaultEstudiante.aspx", false);
+                Estudiante estudiante = new Estudiante();
+                estudiante = usuarioNegocio.SetearEstudiante(usuario.IDUsuario);
+                Session["estudiante"] = estudiante;
+                Response.Redirect("~/Estudiante/DefaultEstudiante.aspx", false);
             }
             catch (Exception ex)
             {

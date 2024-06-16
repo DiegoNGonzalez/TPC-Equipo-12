@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AccesoDB;
 using Dominio;
-using AccesoDB;
-using System.Collections;
+using System;
+using System.Collections.Generic;
 
 namespace Negocio
 {
@@ -58,8 +54,8 @@ namespace Negocio
 
                 throw ex;
             }
-            finally 
-            { 
+            finally
+            {
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }

@@ -2,17 +2,12 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
     public partial class ProfesorMasterPage : System.Web.UI.MasterPage
     {
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["profesor"] == null)
@@ -23,7 +18,7 @@ namespace TPC_equipo_12
             if (!IsPostBack)
             {
                 Profesor profesor = (Profesor)Session["profesor"];
-                
+
 
                 if (Request.QueryString["accion"] == "redirigir")
                 {

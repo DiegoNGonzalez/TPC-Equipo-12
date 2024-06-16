@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
-using Dominio;
 
 namespace TPC_equipo_12
 {
@@ -53,7 +51,7 @@ namespace TPC_equipo_12
         protected void btnAceptarInscripcion_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            int idInscripcion = Convert.ToInt32(btn.CommandArgument); 
+            int idInscripcion = Convert.ToInt32(btn.CommandArgument);
             InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
             inscripcionNegocio.ConfirmarInscripcion(aux);
 
@@ -95,6 +93,6 @@ namespace TPC_equipo_12
             //            </script>", false); falta implementar funcionaldiad a este boton y script
         }
 
-       
+
     }
 }

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Dominio;
 using Negocio;
-using Dominio;
+using System;
+using System.Collections.Generic;
 
 
 namespace TPC_equipo_12
 {
     public partial class Default : System.Web.UI.Page
     {
-        public List<Curso> listaCursos= new List<Curso>();
+        public List<Curso> listaCursos = new List<Curso>();
         public CursoNegocio cursoNegocio = new CursoNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {

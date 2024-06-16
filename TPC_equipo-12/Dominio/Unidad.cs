@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Dominio
 {
@@ -12,7 +8,7 @@ namespace Dominio
         public int NroUnidad { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public List<Leccion> Lecciones {  get; set; }
+        public List<Leccion> Lecciones { get; set; }
         public bool Completada { get; set; }
 
 
