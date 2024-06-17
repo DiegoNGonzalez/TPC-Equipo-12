@@ -9,6 +9,7 @@ namespace TPC_equipo_12
     public partial class VerMensaje : System.Web.UI.Page
     {
         public MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["profesor"] == null)
@@ -18,24 +19,8 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
-                if (Session["MensajeExito"] != null)
-                {
-                    string msj = Session["MensajeExito"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
-                    Session["MensajeExito"] = null;
-                }
-                if (Session["MensajeError"] != null)
-                {
-                    string msj = Session["MensajeError"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
-                    Session["MensajeError"] = null;
-                }
-                if (Session["MensajeInfo"] != null)
-                {
-                    string msj = Session["MensajeInfo"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
-                    Session["MensajeInfo"] = null;
-                }
+                ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
+                master.VerificarMensaje();
 
                 MensajeUsuario mensaje = (MensajeUsuario)Session["mensaje"];
                 int idMensaje = mensaje.IDMensaje;
@@ -56,7 +41,7 @@ namespace TPC_equipo_12
                 // Asignar el HTML al Literal
                 ltlRespuestas.Text = htmlRespuestas;
 
-                
+
                 lblAsunto.Text = mensaje.Asunto;
                 lblFecha.Text = mensaje.FechaHora.ToString();
                 lblDe.Text = mensaje.UsuarioEmisor.Nombre + " " + mensaje.UsuarioEmisor.Apellido;
@@ -80,13 +65,31 @@ namespace TPC_equipo_12
             MensajeUsuario aux = (MensajeUsuario)Session["mensaje"];
             Profesor profesor = (Profesor)Session["profesor"];
             MensajeUsuarioNegocio mensajeNegocio = new MensajeUsuarioNegocio();
-            mensaje.IDMensajeOriginal = aux.IDMensaje;
-            mensaje.UsuarioEmisor = profesor;
-            mensaje.Texto = txtRespuesta.Text;
-            mensaje.FechaHora = DateTime.Now;
-            mensajeNegocio.GuardarRespuesta(mensaje);
-            Session["MensajeExito"] = "Mensaje enviado con éxito.";
-            Response.Redirect("ProfesorMensajes.aspx");
+            if (!ValidarCampos())
+            {
+                Session["MensajeError"] = "Debe completar todos los campos.";
+                Response.Redirect("VerMensaje.aspx");            
+            }
+            else
+            {
+                mensaje.IDMensajeOriginal = aux.IDMensaje;
+                mensaje.UsuarioEmisor = profesor;
+                mensaje.Texto = txtRespuesta.Text;
+                mensaje.FechaHora = DateTime.Now;
+                mensajeNegocio.GuardarRespuesta(mensaje);
+                Session["MensajeExito"] = "Mensaje enviado con éxito.";
+                Response.Redirect("ProfesorMensajes.aspx");
+
+            }
+        }
+        protected bool ValidarCampos()
+        {
+            if (txtRespuesta.Text == "")
+            {
+                Session["MensajeError"] = "Debe completar todos los campos.";
+                return false;
+            }
+            return true;
         }
     }
 }

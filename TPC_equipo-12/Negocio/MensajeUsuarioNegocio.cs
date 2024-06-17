@@ -36,7 +36,14 @@ namespace Negocio
                     MensajeUsuario aux = new MensajeUsuario();
                     aux.IDMensaje = (int)datos.Lector["IDMensaje"];
                     aux.Mensaje = (string)datos.Lector["Mensaje"];
-                    aux.Asunto = (string)datos.Lector["Asunto"];
+                    if (datos.Lector["Asunto"] != DBNull.Value)
+                    {
+                        aux.Asunto = (string)datos.Lector["Asunto"];
+                    }
+                    else
+                    {
+                        aux.Asunto = "Sin Asunto";
+                    }
                     aux.FechaHora = (DateTime)datos.Lector["FechaHora"];
                     aux.Leido = (bool)datos.Lector["Leido"];
                     aux.UsuarioEmisor = new Usuario();
@@ -102,7 +109,13 @@ namespace Negocio
                 {
                     mensaje.IDMensaje = (int)datos.Lector["IDMensaje"];
                     mensaje.Mensaje = (string)datos.Lector["Mensaje"];
-                    mensaje.Asunto = (string)datos.Lector["Asunto"];
+                    if (datos.Lector["Asunto"] != DBNull.Value)
+                    {
+                        mensaje.Asunto = (string)datos.Lector["Asunto"];
+                    }else
+                    {
+                        mensaje.Asunto = "Sin Asunto";
+                    }
                     mensaje.FechaHora = (DateTime)datos.Lector["FechaHora"];
                     mensaje.UsuarioEmisor = new Usuario();
                     mensaje.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDEmisor"];

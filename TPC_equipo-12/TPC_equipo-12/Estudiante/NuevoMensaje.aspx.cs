@@ -23,6 +23,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
                 usuarios = usuarioNegocio.ListarUsuarios();
                 foreach (Usuario usuario in usuarios)
