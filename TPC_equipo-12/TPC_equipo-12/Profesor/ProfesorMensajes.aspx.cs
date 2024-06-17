@@ -122,5 +122,14 @@ namespace TPC_equipo_12
             Response.Redirect("ProfesorMensajes.aspx");
 
         }
+
+        protected void btnBorrarMensaje_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            mensajeUsuarioNegocio.BorrarMensaje(idMensaje);
+            Session["MensajeExito"] = "Mensaje eliminado con éxito.";
+            Response.Redirect("ProfesorMensajes.aspx");
+        }
     }
 }

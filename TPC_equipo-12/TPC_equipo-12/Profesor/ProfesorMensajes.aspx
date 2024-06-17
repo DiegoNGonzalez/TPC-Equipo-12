@@ -4,14 +4,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-
+        <asp:Button ID="btnNuevoMensaje" runat="server" Text="Nuevo Mensaje" CssClass="btn btn-primary" OnClick="btnNuevoMensaje_Click" />
         <div class="row">
             <div class="col-md-12">
                 <h1>Mensajes Recibidos</h1>
                 <hr />
             </div>
         </div>
-        <asp:Button ID="btnNuevoMensaje" runat="server" Text="Nuevo Mensaje" CssClass="btn btn-primary" OnClick="btnNuevoMensaje_Click" />
+        
         <asp:Panel ID="PanelMensajes" runat="server">
             <div class="row">
                 <div class="col-md-12">
@@ -43,7 +43,7 @@
                                             </td>
                                             <td>
                                                 <asp:Button ID="btnVerMensaje" runat="server" Text="Ver" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-primary" OnClick="btnVerMensaje_Click" OnCommand="btnVerMensaje_Command" />
-                                                <asp:LinkButton ID="btnBorrarMensaje" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-danger" />
+                                                <asp:Button ID="btnBorrarMensaje" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-danger" onclick="btnBorrarMensaje_Click"/>
                                             </td>
                                         </tr>
                                     </ItemTemplate>

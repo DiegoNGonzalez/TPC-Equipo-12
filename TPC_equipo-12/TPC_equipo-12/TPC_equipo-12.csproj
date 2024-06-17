@@ -67,6 +67,7 @@
     <Content Include="Estudiante\EstudianteMensajes.aspx" />
     <Content Include="Estudiante\EstudianteInscripciones.aspx" />
     <Content Include="MiPerfil.aspx" />
+    <Content Include="Estudiante\NuevoMensaje.aspx" />
     <Content Include="Profesor\NuevoMensaje.aspx" />
     <Content Include="Profesor\ProfesorMensajes.aspx" />
     <Content Include="Profesor\ProfesorEstudiantesXCurso.aspx" />
@@ -119,6 +120,13 @@
     </Compile>
     <Compile Include="MiPerfil.aspx.designer.cs">
       <DependentUpon>MiPerfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Estudiante\NuevoMensaje.aspx.cs">
+      <DependentUpon>NuevoMensaje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estudiante\NuevoMensaje.aspx.designer.cs">
+      <DependentUpon>NuevoMensaje.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profesor\NuevoMensaje.aspx.cs">
       <DependentUpon>NuevoMensaje.aspx</DependentUpon>
