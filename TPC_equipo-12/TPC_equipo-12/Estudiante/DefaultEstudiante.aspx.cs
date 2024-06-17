@@ -2,11 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.PerformanceData;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
@@ -30,24 +26,8 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
-                if (Session["MensajeExito"] != null)
-                {
-                    string msj = Session["MensajeExito"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
-                    Session["MensajeExito"] = null;
-                }
-                if (Session["MensajeError"] != null)
-                {
-                    string msj = Session["MensajeError"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
-                    Session["MensajeError"] = null;
-                }
-                if (Session["MensajeInfo"] != null)
-                {
-                    string msj = Session["MensajeInfo"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
-                    Session["MensajeInfo"] = null;
-                }
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
 
                 listaCursos = cursoNegocio.ListarCursos();
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
@@ -104,12 +84,12 @@ namespace TPC_equipo_12
                 bool seInscribio = inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
                 if (seInscribio)
                 {
-                    int idInscripcion= inscripcionNegocio.UltimoIDInscripcion();
+                    int idInscripcion = inscripcionNegocio.UltimoIDInscripcion();
                     notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion);
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
 
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -121,8 +101,8 @@ namespace TPC_equipo_12
 
 
             }
-            
-            
+
+
         }
     }
 }

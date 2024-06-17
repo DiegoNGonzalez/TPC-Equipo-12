@@ -11,17 +11,26 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class VerMensaje
+    public partial class NuevoMensaje1
     {
 
         /// <summary>
-        /// lblDe control.
+        /// lblDestinatario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDe;
+        protected global::System.Web.UI.WebControls.Label lblDestinatario;
+
+        /// <summary>
+        /// ddlDestinatario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDestinatario;
 
         /// <summary>
         /// lblAsunto control.
@@ -33,13 +42,13 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Label lblAsunto;
 
         /// <summary>
-        /// lblFecha control.
+        /// txtAsunto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFecha;
+        protected global::System.Web.UI.WebControls.TextBox txtAsunto;
 
         /// <summary>
         /// lblMensaje control.
@@ -51,48 +60,21 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
-        /// ltlRespuestas control.
+        /// txtMensaje control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlRespuestas;
+        protected global::System.Web.UI.WebControls.TextBox txtMensaje;
 
         /// <summary>
-        /// pnlResponder control.
+        /// btnEnviar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlResponder;
-
-        /// <summary>
-        /// txtRespuesta control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRespuesta;
-
-        /// <summary>
-        /// btnEnviarRespuesta control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnviarRespuesta;
-
-        /// <summary>
-        /// btnResponder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnResponder;
+        protected global::System.Web.UI.WebControls.Button btnEnviar;
     }
 }

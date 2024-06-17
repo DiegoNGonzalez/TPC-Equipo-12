@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Dominio;
 using Negocio;
-using Dominio;
+using System;
+using System.Collections.Generic;
 
 
 namespace TPC_equipo_12
@@ -14,7 +10,7 @@ namespace TPC_equipo_12
     {
         InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
         Estudiante Estudiante = new Estudiante();
-        List <InscripcionACurso> listaInscripciones = new List<InscripcionACurso>();
+        List<InscripcionACurso> listaInscripciones = new List<InscripcionACurso>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["estudiante"] == null)

@@ -1,11 +1,6 @@
 ﻿using Dominio;
 using Negocio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
@@ -29,10 +24,10 @@ namespace TPC_equipo_12
             }
         }
 
-        
+
         protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
         {
-            
+
             Profesor profesor = (Profesor)Session["profesor"];
             Curso curso = profesor.Cursos.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
             Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);

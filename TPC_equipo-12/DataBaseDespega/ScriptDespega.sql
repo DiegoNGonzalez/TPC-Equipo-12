@@ -38,7 +38,7 @@ Create Table Inscripciones(
 	IDusuario int not null Foreign Key References Usuarios(IDUsuario),
 	IDCurso int not null Foreign Key References Cursos(IDCurso),
 	Estado char(1) not null Default 'P' check (Estado= 'A' or Estado='P' or Estado = 'R'),
-	FechaInscripcion DATETIME null,
+	FechaInscripcion DATETIME not null default getdate(),
 	Primary Key (IDUsuario, IDCurso)
 )
 GO
@@ -134,14 +134,23 @@ Create Table MensajesXUsuario(
 	Primary Key (IDMensaje, IDUsuario)
 )
 GO
+CREATE TABLE Respuestas (
+    IDRespuesta INT PRIMARY KEY IDENTITY,
+    IDMensaje INT FOREIGN KEY REFERENCES Mensajes(IDMensaje) ON DELETE CASCADE,
+    Respuesta varchar(5000) not null,
+    FechaHora DATETIME not null default getdate(),
+    IDEmisor  int not null FOREIGN key REFERENCES Usuarios(IDusuario)
+)
+GO
 Create Table Notificaciones(
 	IDNotificacion int not null Primary Key Identity(1, 1),
 	Mensaje varchar(200) not null,
-	Tipo varchar(100) not null check(Tipo='INSCRIPCION' or Tipo='MENSAJE'),
+	Tipo varchar(100) not null check(Tipo='INSCRIPCION' or Tipo='MENSAJE' or Tipo='RESPUESTA'),
 	Fecha datetime not null default(getdate()),
 	Leido bit not null default 0,
 	IDInscripcion int Foreign Key References Inscripciones(IDInscripcion),
-	IDMensaje int Foreign Key References Mensajes(IDMensaje)
+	IDMensaje int Foreign Key References Mensajes(IDMensaje) ,
+	IDRespuesta int FOREIGN KEY REFERENCES Respuestas(IDRespuesta) 
 )
 GO
 Create Table Resenias(
@@ -159,8 +168,9 @@ Create Table ReseniasXCurso(
 )
 GO
 Create Table NotificacionesXUsuario(
-		IDNotificacion int not null Foreign Key References Notificaciones(IDNotificacion),
-		IDUsuario int not null Foreign Key References Usuarios(IDUsuario)
+		IDNotificacion int not null FOREIGN KEY REFERENCES Notificaciones (IDNotificacion),
+		IDUsuario int not null Foreign Key References Usuarios (IDUsuario) 
 		Primary Key (IDNotificacion, IDUsuario)
 )
 GO
+

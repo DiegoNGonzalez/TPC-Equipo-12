@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
-using Dominio;
 
 namespace TPC_equipo_12
 {
@@ -24,24 +22,8 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
-                if (Session["MensajeExito"] != null)
-                {
-                    string msj = Session["MensajeExito"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
-                    Session["MensajeExito"] = null;
-                }
-                if (Session["MensajeError"] != null)
-                {
-                    string msj = Session["MensajeError"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
-                    Session["MensajeError"] = null;
-                }
-                if (Session["MensajeInfo"] != null)
-                {
-                    string msj = Session["MensajeInfo"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
-                    Session["MensajeInfo"] = null;
-                }
+                ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
+                master.VerificarMensaje();
 
                 inscripciones = inscripcionNegocio.listarInscripciones();
                 Session.Add("inscripciones", inscripciones);
@@ -53,7 +35,7 @@ namespace TPC_equipo_12
         protected void btnAceptarInscripcion_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            int idInscripcion = Convert.ToInt32(btn.CommandArgument); 
+            int idInscripcion = Convert.ToInt32(btn.CommandArgument);
             InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
             inscripcionNegocio.ConfirmarInscripcion(aux);
 
@@ -95,6 +77,6 @@ namespace TPC_equipo_12
             //            </script>", false); falta implementar funcionaldiad a este boton y script
         }
 
-       
+
     }
 }

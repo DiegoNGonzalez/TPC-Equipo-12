@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio
 {
@@ -13,6 +9,7 @@ namespace Dominio
         public string Tipo { get; set; }
         public InscripcionACurso Inscripcion { get; set; }
         public MensajeUsuario Mensaje { get; set; }
+        public MensajeRespuesta MensajeRespuesta { get; set; }
         public DateTime Fecha { get; set; }
         public bool Estado { get; set; }
 

@@ -2,10 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
@@ -26,7 +23,7 @@ namespace TPC_equipo_12
 
                 if (estudiante != null && estudiante.ImagenPerfil.URL != null)
                 {
-                    imgPerfil.ImageUrl= "~/Images/" + estudiante.ImagenPerfil.URL;
+                    imgPerfil.ImageUrl = "~/Images/" + estudiante.ImagenPerfil.URL;
                 }
                 else
                 {
@@ -55,10 +52,15 @@ namespace TPC_equipo_12
                     {
                         urlRedireccion = $"DefaultEstudiante.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Inscripcion";
                     }
-                    else
+                    else if (notificacion.Tipo == "Mensaje")
                     {
                         urlRedireccion = $"DefaultEstudiante.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Mensaje&idMensaje={notificacion.Mensaje.IDMensaje}";
                     }
+                    else
+                    {
+                        urlRedireccion = $"DefaultEstudiante.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Mensaje&idMensaje={notificacion.MensajeRespuesta.IDRespuesta}";
+                    }
+                    
 
                     notificationList.InnerHtml += $"<a class='dropdown-item' href='{urlRedireccion}'>{notificacion.MensajeNotificacion} - {notificacion.Fecha.ToString("dd/MM/yyyy")}</a>";
                 }
@@ -85,10 +87,35 @@ namespace TPC_equipo_12
             else if (tipo == "Mensaje")
             {
                 int idMensaje = Convert.ToInt32(Request.QueryString["idMensaje"]);
-                Response.Redirect($"MensajeDetalle.aspx?id={idMensaje}");
+                Response.Redirect($"EstudianteMensajes.aspx");
+            }
+            else
+            {
+                int idRespuesta= Convert.ToInt32(Request.QueryString["idRespuesta"]);
+                Response.Redirect("EstudianteMensajes.aspx");
             }
         }
-
+        public void VerificarMensaje()
+        {
+            if (Session["MensajeExito"] != null)
+            {
+                string msj = Session["MensajeExito"].ToString();
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
+                Session["MensajeExito"] = null;
+            }
+            if (Session["MensajeError"] != null)
+            {
+                string msj = Session["MensajeError"].ToString();
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
+                Session["MensajeError"] = null;
+            }
+            if (Session["MensajeInfo"] != null)
+            {
+                string msj = Session["MensajeInfo"].ToString();
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
+                Session["MensajeInfo"] = null;
+            }
+        }
 
     }
 }

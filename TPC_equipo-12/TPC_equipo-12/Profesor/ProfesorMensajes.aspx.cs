@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
-using Dominio;
 
 namespace TPC_equipo_12
 {
@@ -13,6 +11,7 @@ namespace TPC_equipo_12
     {
         public List<MensajeUsuario> mensajes = new List<MensajeUsuario>();
         public MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
+        public List<MensajeUsuario> mensajesEnviados = new List<MensajeUsuario>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["profesor"] == null)
@@ -22,29 +21,34 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
-                if (Session["MensajeExito"] != null)
-                {
-                    string msj = Session["MensajeExito"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
-                    Session["MensajeExito"] = null;
-                }
-                if (Session["MensajeError"] != null)
-                {
-                    string msj = Session["MensajeError"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
-                    Session["MensajeError"] = null;
-                }
-                if (Session["MensajeInfo"] != null)
-                {
-                    string msj = Session["MensajeInfo"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
-                    Session["MensajeInfo"] = null;
-                }
+                ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 Profesor profesor = (Profesor)Session["profesor"];
-                mensajes = mensajeUsuarioNegocio.listarMensajes(profesor.IDUsuario);
-                Session.Add("mensajes", mensajes);
-                rptMensajes.DataSource = mensajes;
-                rptMensajes.DataBind();
+                mensajes = mensajeUsuarioNegocio.listarMensajes("recibidos",profesor.IDUsuario);
+                if (mensajes.Count == 0)
+                {
+                    PanelMensajes.Visible = false;
+                    LabelNoHayMensajes.Visible = true;
+                }
+                else
+                {
+                    Session.Add("mensajes", mensajes);
+                    rptMensajes.DataSource = mensajes;
+                    rptMensajes.DataBind();
+                }
+                mensajesEnviados = mensajeUsuarioNegocio.listarMensajes("enviados", profesor.IDUsuario);
+                if (mensajesEnviados.Count == 0)
+                {
+                    PanelMensajesEnviados.Visible = false;
+                    
+                }
+                else
+                {
+                    Session.Add("mensajesEnviados", mensajesEnviados);
+                    rptMensajesEnviados.DataSource = mensajesEnviados;
+                    rptMensajesEnviados.DataBind();
+                }
             }
         }
 
@@ -73,6 +77,44 @@ namespace TPC_equipo_12
         protected void btnNuevoMensaje_Click(object sender, EventArgs e)
         {
             Response.Redirect("NuevoMensaje.aspx");
+        }
+
+        protected void btnVerMensajeEnviado_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
+            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
+            Session.Add("mensaje", mensaje);
+            Response.Redirect("VerMensaje.aspx");
+        }
+
+        protected void btnVerMensajeEnviado_Command(object sender, CommandEventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
+            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
+            Session.Add("mensaje", mensaje);
+        }
+
+        protected void btnBorrarMensajeEnviado_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            mensajeUsuarioNegocio.BorrarMensaje(idMensaje);
+            Session["MensajeExito"] = "Mensaje eliminado con éxito.";
+            Response.Redirect("ProfesorMensajes.aspx");
+
+        }
+
+        protected void btnBorrarMensaje_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            mensajeUsuarioNegocio.BorrarMensaje(idMensaje);
+            Session["MensajeExito"] = "Mensaje eliminado con éxito.";
+            Response.Redirect("ProfesorMensajes.aspx");
         }
     }
 }

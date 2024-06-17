@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Dominio;
+﻿using Dominio;
 using Negocio;
+using System;
+using System.Collections.Generic;
+using System.Web.UI;
 
 
 namespace TPC_equipo_12
@@ -15,6 +12,7 @@ namespace TPC_equipo_12
         public List<Usuario> usuarios = new List<Usuario>();
         public UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
         public MensajeUsuarioNegocio mensajeNegocio = new MensajeUsuarioNegocio();
+        public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["profesor"] == null)
@@ -24,6 +22,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 Profesor profesor = (Profesor)Session["profesor"];
                 usuarios = usuarioNegocio.ListarUsuarios();
                 foreach (Usuario usuario in usuarios)
@@ -36,7 +37,7 @@ namespace TPC_equipo_12
                 }
                 Session.Add("usuarios", usuarios);
                 ddlDestinatario.DataSource = usuarios;
-                ddlDestinatario.DataTextField ="NombreCompleto";
+                ddlDestinatario.DataTextField = "NombreCompleto";
                 ddlDestinatario.DataValueField = "IDUsuario";
                 ddlDestinatario.DataBind();
             }
@@ -46,16 +47,37 @@ namespace TPC_equipo_12
         {
             MensajeUsuario mensaje = new MensajeUsuario();
             Profesor profesor = (Profesor)Session["profesor"];
-            mensaje.UsuarioEmisor = profesor;
-            mensaje.UsuarioReceptor = usuarioNegocio.buscarUsuario(Convert.ToInt32(ddlDestinatario.SelectedValue));
-            mensaje.Asunto = txtAsunto.Text;
-            mensaje.Mensaje = txtMensaje.Text;
-            mensaje.FechaHora = DateTime.Now;
-            mensajeNegocio.EnviarMensaje(mensaje);
-            Session["MensajeExito"] = "Mensaje enviado con éxito.";
-            Response.Redirect("ProfesorMensajes.aspx");
+            if (!ValidarCampos())
+            {
+                Session["MensajeError"] = "Debe completar todos los campos.";
+                Response.Redirect("NuevoMensaje.aspx");
+            }
+            else
+            {
+                mensaje.UsuarioEmisor = profesor;
+                mensaje.UsuarioReceptor = usuarioNegocio.buscarUsuario(Convert.ToInt32(ddlDestinatario.SelectedValue));
+                mensaje.Asunto = txtAsunto.Text;
+                mensaje.Mensaje = txtMensaje.Text;
+                mensaje.FechaHora = DateTime.Now;
+                mensajeNegocio.EnviarMensaje(mensaje);
+                int id = mensajeNegocio.UltimoIDMensaje();
+                mensaje.IDMensaje = id;
+                notificacionNegocio.AgregarNotificacionXMensaje(mensaje);
+                Session["MensajeExito"] = "Mensaje enviado con éxito.";
+                Response.Redirect("ProfesorMensajes.aspx");
+
+            }
 
 
+        }
+        protected bool ValidarCampos()
+        {
+            if (txtMensaje.Text == "")
+            {
+                Session["MensajeError"] = "Debe completar todos los campos.";
+                return false;
+            }
+            return true;
         }
     }
 }

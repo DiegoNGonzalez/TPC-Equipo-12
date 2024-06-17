@@ -56,10 +56,10 @@ INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 3);
 INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 4);
 go
 -- Insertar inscripciones
-INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (2, 1, 1);
-INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (2, 2, 0);
-INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (3, 3, 1);
-INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (4, 4, 1);
+INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (2, 1, 'A');
+INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (2, 2, 'A');
+INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (3, 3, 'A');
+INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (4, 4, 'A');
 go
 -- Insertar estudiantes por curso
 INSERT INTO EstudiantesXCursos (IDEstudiante, IDCurso, Completado) VALUES (2, 1, 1);

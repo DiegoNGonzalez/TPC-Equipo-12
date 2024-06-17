@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dominio
 {
@@ -21,7 +17,7 @@ namespace Dominio
         public CategoriaCurso Categoria { get; set; }
         public Imagen Imagen { get; set; }
 
-       
+
 
     }
 }

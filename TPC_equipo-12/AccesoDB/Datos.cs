@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 namespace AccesoDB
@@ -58,7 +54,7 @@ namespace AccesoDB
 
                 throw ex;
             }
-   
+
         }
         public int ejecutarAccionScalar()
         {
@@ -84,7 +80,15 @@ namespace AccesoDB
 
         public void SetearParametro(string Nombre, object Valor)
         {
-            comando.Parameters.AddWithValue(Nombre, Valor);
+            if (Valor == null)
+            {
+                comando.Parameters.AddWithValue(Nombre, DBNull.Value);
+            }
+            else
+            {
+                comando.Parameters.AddWithValue(Nombre, Valor);
+
+            }
 
         }
         public void LimpiarParametros()
@@ -94,6 +98,6 @@ namespace AccesoDB
                 comando.Parameters.Clear();
             }
         }
-       
+
     }
 }

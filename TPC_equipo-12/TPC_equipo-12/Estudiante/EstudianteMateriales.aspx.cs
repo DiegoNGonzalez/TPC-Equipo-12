@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Dominio;
 using Negocio;
-using Dominio;
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
@@ -28,13 +25,13 @@ namespace TPC_equipo_12
                 Session.Add("ListaMateriales", listaMateriales);
                 rptMateriales.DataSource = listaMateriales;
                 rptMateriales.DataBind();
-                
-               
+
+
             }
         }
         private string ExtractVideoId(string youtubeLink)
         {
-            
+
             var regex = new Regex(@"(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^""&?\/\s]{11})");
 
             var match = regex.Match(youtubeLink);
@@ -45,14 +42,14 @@ namespace TPC_equipo_12
             }
             else
             {
-                
-                return null; 
+
+                return null;
             }
         }
         private string CargarIframe(MaterialLeccion material)
         {
-            string youtubeLink = material.URL; 
-            
+            string youtubeLink = material.URL;
+
             string videoId = ExtractVideoId(youtubeLink);
 
             string iframeHtml = $@"
@@ -76,7 +73,8 @@ namespace TPC_equipo_12
                 {
                     Literal ltlYoutubeVideo = (Literal)e.Item.FindControl("ltlYoutubeVideo");
                     ltlYoutubeVideo.Text = CargarIframe(material);
-                }else if (material.TipoMaterial == "Documento")
+                }
+                else if (material.TipoMaterial == "Documento")
                 {
                     Literal ltlDocumento = (Literal)e.Item.FindControl("ltlDocumento");
                     ltlDocumento.Text = $@"

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AccesoDB;
 using Dominio;
-using AccesoDB;
-using System.Collections;
-using System.Diagnostics.Eventing.Reader;
+using System;
+using System.Collections.Generic;
 
 namespace Negocio
 {
@@ -135,12 +130,15 @@ namespace Negocio
                     Datos.SetearConsulta("insert into Imagenes (URLIMG) values (@URLIMG)");
                     Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
                     Datos.EjecutarAccion();
+                    Datos.LimpiarParametros();
                     Datos.CerrarConexion();
+
                 }
                 else
                 {
                     Datos.SetearConsulta("insert into Imagenes (URLIMG) values (https://vilmanunez.com/wp-content/uploads/2016/04/VN-Como-crear-el-mejor-temario-de-tu-curso-online-Incluye-plantillas.png)");
                     Datos.EjecutarAccion();
+                    Datos.LimpiarParametros();
                     Datos.CerrarConexion();
                 }
 
@@ -151,6 +149,7 @@ namespace Negocio
                 {
                     curso.Imagen.IDImagen = (int)Datos.Lector["IDImagenes"];
                 }
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
 
                 Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Estreno, @IDImagen)");
@@ -160,6 +159,7 @@ namespace Negocio
                 Datos.SetearParametro("@Estreno", curso.Estreno);
                 Datos.SetearParametro("@IDImagen", curso.Imagen.IDImagen);
                 Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
 
                 Datos.SetearConsulta("Select top(1) IDCurso From Cursos order by IDCurso desc");
@@ -168,6 +168,7 @@ namespace Negocio
                 {
                     curso.IDCurso = (int)Datos.Lector["IDCurso"];
                 }
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
             catch (Exception ex)
@@ -219,9 +220,9 @@ namespace Negocio
                     Datos.EjecutarLectura();
                     while (Datos.Lector.Read())
                     {
-                            Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
-                            Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
-                            Datos.EjecutarAccion();
+                        Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
+                        Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
+                        Datos.EjecutarAccion();
                     }
                     UnidadesDeCurso.EliminarUnidad((int)Datos.Lector["IDUnidad"]);
                 }

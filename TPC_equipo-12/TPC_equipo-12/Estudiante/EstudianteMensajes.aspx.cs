@@ -2,8 +2,6 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -17,34 +15,26 @@ namespace TPC_equipo_12
         {
             if (Session["estudiante"] == null)
             {
-                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser estudiante.";
                 Response.Redirect("../LogIn.aspx");
             }
             if (!IsPostBack)
             {
-                if (Session["MensajeExito"] != null)
-                {
-                    string msj = Session["MensajeExito"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
-                    Session["MensajeExito"] = null;
-                }
-                if (Session["MensajeError"] != null)
-                {
-                    string msj = Session["MensajeError"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
-                    Session["MensajeError"] = null;
-                }
-                if (Session["MensajeInfo"] != null)
-                {
-                    string msj = Session["MensajeInfo"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
-                    Session["MensajeInfo"] = null;
-                }
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
-                mensajes = mensajeUsuarioNegocio.listarMensajes(estudiante.IDUsuario);
+                mensajes = mensajeUsuarioNegocio.listarMensajes("recibidos",estudiante.IDUsuario);
+                if (mensajes.Count == 0)
+                {
+                    PnlMensaje.Visible = false;
+                    LabelNoHayMensajes.Visible = true;
+                }else
+                {
                 Session.Add("mensajes", mensajes);
                 rptMensajes.DataSource = mensajes;
                 rptMensajes.DataBind();
+                }
             }
         }
 
@@ -68,6 +58,11 @@ namespace TPC_equipo_12
             MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
             //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
             Session.Add("mensaje", mensaje);
+        }
+
+        protected void btnNuevoMensaje_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NuevoMensaje.aspx");
         }
     }
 }
