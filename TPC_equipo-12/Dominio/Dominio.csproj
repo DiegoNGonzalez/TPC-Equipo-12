@@ -53,6 +53,7 @@
     <Compile Include="InscripcionACurso.cs" />
     <Compile Include="Leccion.cs" />
     <Compile Include="MaterialLeccion.cs" />
+    <Compile Include="MensajeRespuesta.cs" />
     <Compile Include="MensajeUsuario.cs" />
     <Compile Include="Notificacion.cs" />
     <Compile Include="Unidad.cs" />

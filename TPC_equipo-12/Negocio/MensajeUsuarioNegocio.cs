@@ -1,6 +1,7 @@
 ﻿using AccesoDB;
 using Dominio;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Negocio
@@ -11,15 +12,24 @@ namespace Negocio
         public MensajeUsuarioNegocio()
         {
             datos = new Datos();
+            
         }
 
-        public List<MensajeUsuario> listarMensajes(int IDUsuario)
+        public List<MensajeUsuario> listarMensajes(string consulta, int IDUsuario)
         {
             List<MensajeUsuario> lista = new List<MensajeUsuario>();
             try
             {
-                datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto, m.Leido from Mensajes m WHERE m.IDReceptor = @IDUsuario");
-                datos.SetearParametro("@IDUsuario", IDUsuario);
+                if (consulta == "recibidos")
+                {
+                    datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto, m.Leido from Mensajes m WHERE m.IDReceptor = @IDUsuario");
+                    datos.SetearParametro("@IDUsuario", IDUsuario);
+                }
+                else if (consulta == "enviados")
+                {
+                    datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto, m.Leido from Mensajes m WHERE m.IDEmisor = @IDUsuario");
+                    datos.SetearParametro("@IDUsuario", IDUsuario);
+                }
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -115,5 +125,92 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public List<MensajeRespuesta> ObtenerRespuestas(int idMensaje)
+        {
+            List<MensajeRespuesta> respuestas = new List<MensajeRespuesta>();
+
+            try
+            {
+                datos.SetearConsulta("SELECT r.IDRespuesta, r.Respuesta, r.FechaHora, r.IDEmisor FROM Respuestas r INNER JOIN Mensajes m ON r.IDMensaje = m.IDMensaje WHERE r.IDMensaje = @IDMensaje");
+                datos.SetearParametro("@IDMensaje", idMensaje);
+                datos.EjecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    MensajeRespuesta respuesta = new MensajeRespuesta();
+                    respuesta.IDRespuesta = (int)datos.Lector["IDRespuesta"];
+                    respuesta.Texto = (string)datos.Lector["Respuesta"];
+                    respuesta.FechaHora = (DateTime)datos.Lector["FechaHora"];
+                    respuesta.UsuarioEmisor = new Usuario();
+                    respuesta.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDEmisor"]; 
+                    
+
+                    respuestas.Add(respuesta);
+                }
+                foreach (MensajeRespuesta mensaje in respuestas)
+                {
+                    int idEmisor = mensaje.UsuarioEmisor.IDUsuario;
+                    UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+                    mensaje.UsuarioEmisor = usuarioNegocio.buscarUsuario(idEmisor);
+                }
+                return respuestas;
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception("Error al obtener las respuestas: " + ex.Message);
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+
+            
+        }
+        public void GuardarRespuesta(MensajeRespuesta respuesta)
+        {
+            try
+            {
+                MensajeRespuesta mensaje = respuesta;
+                datos.SetearConsulta("INSERT INTO Respuestas (IDMensaje, Respuesta, FechaHora, IDEmisor) VALUES (@IDMensaje, @Respuesta, @FechaHora, @IDEmisor)");
+                datos.SetearParametro("@IDMensaje",mensaje.IDMensajeOriginal);
+                datos.SetearParametro("@Respuesta", mensaje.Texto);
+                datos.SetearParametro("@FechaHora", DateTime.Now); 
+                datos.SetearParametro("@IDEmisor", respuesta.UsuarioEmisor.IDUsuario);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception("Error al guardar la respuesta: " + ex.Message);
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public bool BorrarMensaje(int idMensaje)
+        {
+            try
+            {
+                datos.SetearConsulta("DELETE FROM Mensajes WHERE IDMensaje = @IDMensaje");
+                datos.SetearParametro("@IDMensaje", idMensaje);
+                datos.EjecutarAccion();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception("Error al borrar el mensaje: " + ex.Message);
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+
     }
 }

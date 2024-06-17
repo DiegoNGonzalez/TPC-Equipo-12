@@ -39,7 +39,7 @@ namespace TPC_equipo_12
                     Session["MensajeInfo"] = null;
                 }
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
-                mensajes = mensajeUsuarioNegocio.listarMensajes(estudiante.IDUsuario);
+                mensajes = mensajeUsuarioNegocio.listarMensajes("recibidos",estudiante.IDUsuario);
                 if (mensajes.Count == 0)
                 {
                     PnlMensaje.Visible = false;
