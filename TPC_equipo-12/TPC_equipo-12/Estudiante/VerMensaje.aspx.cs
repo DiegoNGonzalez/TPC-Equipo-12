@@ -9,6 +9,7 @@ namespace TPC_equipo_12
     public partial class VerMensaje1 : System.Web.UI.Page
     {
         public MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
+        public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["estudiante"] == null)
@@ -18,24 +19,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
-                if (Session["MensajeExito"] != null)
-                {
-                    string msj = Session["MensajeExito"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
-                    Session["MensajeExito"] = null;
-                }
-                if (Session["MensajeError"] != null)
-                {
-                    string msj = Session["MensajeError"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
-                    Session["MensajeError"] = null;
-                }
-                if (Session["MensajeInfo"] != null)
-                {
-                    string msj = Session["MensajeInfo"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
-                    Session["MensajeInfo"] = null;
-                }
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 MensajeUsuario mensaje = (MensajeUsuario)Session["mensaje"];
                 int idMensaje = mensaje.IDMensaje;
                 List<MensajeRespuesta> respuestas = mensajeUsuarioNegocio.ObtenerRespuestas(idMensaje);
@@ -77,13 +63,34 @@ namespace TPC_equipo_12
             MensajeUsuario aux = (MensajeUsuario)Session["mensaje"];
             Estudiante estudiante = (Estudiante)Session["estudiante"];
             MensajeUsuarioNegocio mensajeNegocio = new MensajeUsuarioNegocio();
-            mensaje.IDMensajeOriginal = aux.IDMensaje;
-            mensaje.UsuarioEmisor = estudiante;
-            mensaje.Texto = txtRespuesta.Text;
-            mensaje.FechaHora = DateTime.Now;
-            mensajeNegocio.GuardarRespuesta(mensaje);
-            Session["MensajeExito"] = "Mensaje enviado con éxito.";
-            Response.Redirect("EstudianteMensajes.aspx");
+            if (ValidarCampos())
+            {
+                mensaje.IDMensajeOriginal = aux.IDMensaje;
+                mensaje.UsuarioEmisor = estudiante;
+                mensaje.UsuarioReceptor = aux.UsuarioEmisor;
+                mensaje.Texto = txtRespuesta.Text;
+                mensaje.FechaHora = DateTime.Now;
+                mensajeNegocio.GuardarRespuesta(mensaje);
+                int id = mensajeNegocio.UltimoIDRespuesta();
+                mensaje.IDRespuesta = id;
+                notificacionNegocio.AgregarNotificacionXRespuesta(mensaje);
+                Session["MensajeExito"] = "Mensaje enviado con éxito.";
+                Response.Redirect("EstudianteMensajes.aspx");
+            }
+            else
+            {
+                Session["MensajeError"] = "Debe completar todos los campos.";
+                Response.Redirect("EstudianteMensajes.aspx");
+            }
+           
+        }
+        private bool ValidarCampos()
+        {
+            if (txtRespuesta.Text == "")
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

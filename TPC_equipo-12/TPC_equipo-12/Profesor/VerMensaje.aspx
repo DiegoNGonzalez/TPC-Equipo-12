@@ -6,7 +6,7 @@
     <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Ver Mensaje</h1>
+            <h2>Ver Mensaje</h2>
             <hr />
         </div>
     </div>

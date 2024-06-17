@@ -9,6 +9,8 @@ namespace TPC_equipo_12
     public partial class VerMensaje : System.Web.UI.Page
     {
         public MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
+        public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["profesor"] == null)
@@ -18,45 +20,28 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
-                if (Session["MensajeExito"] != null)
-                {
-                    string msj = Session["MensajeExito"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", $@"showMessage('{msj}', 'success');", true);
-                    Session["MensajeExito"] = null;
-                }
-                if (Session["MensajeError"] != null)
-                {
-                    string msj = Session["MensajeError"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", $@"showMessage('{msj}', 'error');", true);
-                    Session["MensajeError"] = null;
-                }
-                if (Session["MensajeInfo"] != null)
-                {
-                    string msj = Session["MensajeInfo"].ToString();
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", $@"showMessage('{msj}', 'info');", true);
-                    Session["MensajeInfo"] = null;
-                }
+                ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
+                master.VerificarMensaje();
 
                 MensajeUsuario mensaje = (MensajeUsuario)Session["mensaje"];
                 int idMensaje = mensaje.IDMensaje;
-                // 2. Cargar las respuestas
+                
                 List<MensajeRespuesta> respuestas = mensajeUsuarioNegocio.ObtenerRespuestas(idMensaje);
 
-                // 3. Construir el HTML para las respuestas
                 string htmlRespuestas = "";
                 foreach (MensajeRespuesta respuesta in respuestas)
                 {
-                    // Aquí personaliza el formato HTML como desees
+                    
                     htmlRespuestas += $"<div class='respuesta'>";
                     htmlRespuestas += $"<b>{respuesta.UsuarioEmisor.Nombre} {respuesta.UsuarioEmisor.Apellido} ({respuesta.FechaHora}):</b><br/>";
                     htmlRespuestas += $"{respuesta.Texto}<br/>";
                     htmlRespuestas += "</div><hr/>";
                 }
 
-                // Asignar el HTML al Literal
+                
                 ltlRespuestas.Text = htmlRespuestas;
 
-                
+
                 lblAsunto.Text = mensaje.Asunto;
                 lblFecha.Text = mensaje.FechaHora.ToString();
                 lblDe.Text = mensaje.UsuarioEmisor.Nombre + " " + mensaje.UsuarioEmisor.Apellido;
@@ -78,15 +63,37 @@ namespace TPC_equipo_12
         {
             MensajeRespuesta mensaje = new MensajeRespuesta();
             MensajeUsuario aux = (MensajeUsuario)Session["mensaje"];
-            Profesor profesor = (Profesor)Session["profesor"];
+            Profesor profesor = (Profesor)Session["Profesor"];
             MensajeUsuarioNegocio mensajeNegocio = new MensajeUsuarioNegocio();
-            mensaje.IDMensajeOriginal = aux.IDMensaje;
-            mensaje.UsuarioEmisor = profesor;
-            mensaje.Texto = txtRespuesta.Text;
-            mensaje.FechaHora = DateTime.Now;
-            mensajeNegocio.GuardarRespuesta(mensaje);
-            Session["MensajeExito"] = "Mensaje enviado con éxito.";
-            Response.Redirect("ProfesorMensajes.aspx");
+            if (ValidarCampos())
+            {
+                mensaje.IDMensajeOriginal = aux.IDMensaje;
+                mensaje.UsuarioEmisor = profesor;
+                mensaje.UsuarioReceptor = aux.UsuarioEmisor;
+                mensaje.Texto = txtRespuesta.Text;
+                mensaje.FechaHora = DateTime.Now;
+                mensajeNegocio.GuardarRespuesta(mensaje);
+                int id = mensajeNegocio.UltimoIDRespuesta();
+                mensaje.IDRespuesta = id;
+                notificacionNegocio.AgregarNotificacionXRespuesta(mensaje);
+                Session["MensajeExito"] = "Mensaje enviado con éxito.";
+                Response.Redirect("ProfesorMensajes.aspx");
+            }
+            else
+            {
+                Session["MensajeError"] = "Debe completar todos los campos.";
+                Response.Redirect("ProfesorMensajes.aspx");
+            }
+
+        }
+        protected bool ValidarCampos()
+        {
+            if (txtRespuesta.Text == "")
+            {
+                Session["MensajeError"] = "Debe completar todos los campos.";
+                return false;
+            }
+            return true;
         }
     }
 }
