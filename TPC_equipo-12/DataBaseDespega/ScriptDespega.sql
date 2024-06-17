@@ -164,3 +164,11 @@ Create Table NotificacionesXUsuario(
 		Primary Key (IDNotificacion, IDUsuario)
 )
 GO
+CREATE TABLE Respuestas (
+    IDRespuesta INT PRIMARY KEY IDENTITY,
+    IDMensaje INT FOREIGN KEY REFERENCES Mensajes(IDMensaje) ON DELETE CASCADE,
+    Respuesta varchar(5000) not null,
+    FechaHora DATETIME not null default getdate(),
+    IDEmisor  int not null FOREIGN key REFERENCES Usuarios(IDusuario)
+)
+GO
