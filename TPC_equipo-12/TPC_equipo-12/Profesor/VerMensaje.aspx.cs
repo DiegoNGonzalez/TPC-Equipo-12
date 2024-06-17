@@ -9,6 +9,7 @@ namespace TPC_equipo_12
     public partial class VerMensaje : System.Web.UI.Page
     {
         public MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
+        public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,21 +25,20 @@ namespace TPC_equipo_12
 
                 MensajeUsuario mensaje = (MensajeUsuario)Session["mensaje"];
                 int idMensaje = mensaje.IDMensaje;
-                // 2. Cargar las respuestas
+                
                 List<MensajeRespuesta> respuestas = mensajeUsuarioNegocio.ObtenerRespuestas(idMensaje);
 
-                // 3. Construir el HTML para las respuestas
                 string htmlRespuestas = "";
                 foreach (MensajeRespuesta respuesta in respuestas)
                 {
-                    // Aquí personaliza el formato HTML como desees
+                    
                     htmlRespuestas += $"<div class='respuesta'>";
                     htmlRespuestas += $"<b>{respuesta.UsuarioEmisor.Nombre} {respuesta.UsuarioEmisor.Apellido} ({respuesta.FechaHora}):</b><br/>";
                     htmlRespuestas += $"{respuesta.Texto}<br/>";
                     htmlRespuestas += "</div><hr/>";
                 }
 
-                // Asignar el HTML al Literal
+                
                 ltlRespuestas.Text = htmlRespuestas;
 
 
@@ -63,24 +63,28 @@ namespace TPC_equipo_12
         {
             MensajeRespuesta mensaje = new MensajeRespuesta();
             MensajeUsuario aux = (MensajeUsuario)Session["mensaje"];
-            Profesor profesor = (Profesor)Session["profesor"];
+            Profesor profesor = (Profesor)Session["Profesor"];
             MensajeUsuarioNegocio mensajeNegocio = new MensajeUsuarioNegocio();
-            if (!ValidarCampos())
-            {
-                Session["MensajeError"] = "Debe completar todos los campos.";
-                Response.Redirect("VerMensaje.aspx");            
-            }
-            else
+            if (ValidarCampos())
             {
                 mensaje.IDMensajeOriginal = aux.IDMensaje;
                 mensaje.UsuarioEmisor = profesor;
+                mensaje.UsuarioReceptor = aux.UsuarioEmisor;
                 mensaje.Texto = txtRespuesta.Text;
                 mensaje.FechaHora = DateTime.Now;
                 mensajeNegocio.GuardarRespuesta(mensaje);
+                int id = mensajeNegocio.UltimoIDRespuesta();
+                mensaje.IDRespuesta = id;
+                notificacionNegocio.AgregarNotificacionXRespuesta(mensaje);
                 Session["MensajeExito"] = "Mensaje enviado con éxito.";
                 Response.Redirect("ProfesorMensajes.aspx");
-
             }
+            else
+            {
+                Session["MensajeError"] = "Debe completar todos los campos.";
+                Response.Redirect("ProfesorMensajes.aspx");
+            }
+
         }
         protected bool ValidarCampos()
         {

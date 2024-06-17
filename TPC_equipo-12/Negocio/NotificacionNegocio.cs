@@ -18,7 +18,7 @@ namespace Negocio
             List<Notificacion> lista = new List<Notificacion>();
             try
             {
-                datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE nxu.IDUsuario = @IDUsuario and n.Leido=0");
+                datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, n.IDRespuesta, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE nxu.IDUsuario = @IDUsuario and n.Leido=0");
                 datos.SetearParametro("@IDUsuario", IDUsuario);
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
@@ -34,10 +34,15 @@ namespace Negocio
                         aux.Inscripcion = new InscripcionACurso();
                         aux.Inscripcion.IDInscripcion = (int)datos.Lector["IDInscripcion"];
                     }
-                    else
+                    else if (aux.Tipo == "Mensaje")
                     {
                         aux.Mensaje = new MensajeUsuario();
                         aux.Mensaje.IDMensaje = (int)datos.Lector["IDMensaje"];
+                    }
+                    else
+                    {
+                        aux.MensajeRespuesta = new MensajeRespuesta();
+                        aux.MensajeRespuesta.IDRespuesta = (int)datos.Lector["IDRespuesta"];
                     }
                     lista.Add(aux);
                 }
@@ -181,6 +186,90 @@ namespace Negocio
             {
                 datos.CerrarConexion();
             }
+        }
+        public void AgregarNotificacionXMensaje(MensajeUsuario mensaje)
+        {
+            try
+            {
+                datos.SetearConsulta("INSERT INTO Notificaciones (Mensaje, Tipo, Fecha, IDMensaje) VALUES (@Mensaje, @Tipo, @Fecha, @IDMensaje); SELECT SCOPE_IDENTITY();");
+                datos.SetearParametro("@Mensaje", "Nuevo mensaje");
+                datos.SetearParametro("@Tipo", "Mensaje");
+                datos.SetearParametro("@Fecha", DateTime.Now);
+                datos.SetearParametro("@IDMensaje", mensaje.IDMensaje);
+                datos.EjecutarAccion();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+            try
+            {
+                int idNotificacion = UltimoID();
+                datos.LimpiarParametros();
+                datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
+                datos.SetearParametro("@IDNotificacion", idNotificacion);
+                datos.SetearParametro("@IDUsuario", mensaje.UsuarioReceptor.IDUsuario);
+                datos.EjecutarAccion();
+                datos.LimpiarParametros();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        public void AgregarNotificacionXRespuesta(MensajeRespuesta respuesta)
+        {
+            try
+            {
+                datos.SetearConsulta("INSERT INTO Notificaciones (Mensaje, Tipo, Fecha, IDRespuesta) VALUES (@Mensaje, @Tipo, @Fecha, @IDMensaje); SELECT SCOPE_IDENTITY();");
+                datos.SetearParametro("@Mensaje", "Nueva respuesta");
+                datos.SetearParametro("@Tipo", "Respuesta");
+                datos.SetearParametro("@Fecha", DateTime.Now);
+                datos.SetearParametro("@IDMensaje", respuesta.IDRespuesta);
+                datos.EjecutarAccion();
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+            try
+            {
+                int idNotificacion = UltimoID();
+                datos.LimpiarParametros();
+                datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
+                datos.SetearParametro("@IDNotificacion", idNotificacion);
+                datos.SetearParametro("@IDUsuario", respuesta.UsuarioReceptor.IDUsuario);
+                datos.EjecutarAccion();
+                datos.LimpiarParametros();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
         }
     }
 }

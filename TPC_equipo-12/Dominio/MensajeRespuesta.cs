@@ -13,5 +13,6 @@ namespace Dominio
         public string Texto { get; set; }
         public DateTime FechaHora { get; set; }
         public Usuario UsuarioEmisor { get; set; }
+        public Usuario UsuarioReceptor { get; set; }
     }
 }

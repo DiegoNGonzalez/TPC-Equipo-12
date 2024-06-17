@@ -14,6 +14,7 @@ namespace TPC_equipo_12
         public List<Usuario> usuarios = new List<Usuario>();
         public UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
         public MensajeUsuarioNegocio mensajeNegocio = new MensajeUsuarioNegocio();
+        public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["estudiante"] == null)
@@ -54,6 +55,9 @@ namespace TPC_equipo_12
             mensaje.Mensaje = txtMensaje.Text;
             mensaje.FechaHora = DateTime.Now;
             mensajeNegocio.EnviarMensaje(mensaje);
+            int id = mensajeNegocio.UltimoIDMensaje();
+            mensaje.IDMensaje = id;
+            notificacionNegocio.AgregarNotificacionXMensaje(mensaje);
             Session["MensajeExito"] = "Mensaje enviado con éxito.";
             Response.Redirect("EstudianteMensajes.aspx");
 

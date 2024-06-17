@@ -52,10 +52,15 @@ namespace TPC_equipo_12
                     {
                         urlRedireccion = $"DefaultEstudiante.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Inscripcion";
                     }
-                    else
+                    else if (notificacion.Tipo == "Mensaje")
                     {
                         urlRedireccion = $"DefaultEstudiante.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Mensaje&idMensaje={notificacion.Mensaje.IDMensaje}";
                     }
+                    else
+                    {
+                        urlRedireccion = $"DefaultEstudiante.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Mensaje&idMensaje={notificacion.MensajeRespuesta.IDRespuesta}";
+                    }
+                    
 
                     notificationList.InnerHtml += $"<a class='dropdown-item' href='{urlRedireccion}'>{notificacion.MensajeNotificacion} - {notificacion.Fecha.ToString("dd/MM/yyyy")}</a>";
                 }
@@ -82,7 +87,12 @@ namespace TPC_equipo_12
             else if (tipo == "Mensaje")
             {
                 int idMensaje = Convert.ToInt32(Request.QueryString["idMensaje"]);
-                Response.Redirect($"MensajeDetalle.aspx?id={idMensaje}");
+                Response.Redirect($"EstudianteMensajes.aspx");
+            }
+            else
+            {
+                int idRespuesta= Convert.ToInt32(Request.QueryString["idRespuesta"]);
+                Response.Redirect("EstudianteMensajes.aspx");
             }
         }
         public void VerificarMensaje()
