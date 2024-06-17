@@ -83,6 +83,10 @@ namespace Negocio
                 datos.SetearParametro("@FechaHora", mensaje.FechaHora);
                 datos.SetearParametro("@IDEmisor", mensaje.UsuarioEmisor.IDUsuario);
                 datos.SetearParametro("@IDReceptor", mensaje.UsuarioReceptor.IDUsuario);
+                if (mensaje.Asunto == null || mensaje.Asunto=="")
+                {
+                    mensaje.Asunto = null;
+                }
                 datos.SetearParametro("@Asunto", mensaje.Asunto);
                 datos.EjecutarAccion();
             }
