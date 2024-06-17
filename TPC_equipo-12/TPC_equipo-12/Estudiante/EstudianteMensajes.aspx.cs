@@ -39,7 +39,7 @@ namespace TPC_equipo_12
                     Session["MensajeInfo"] = null;
                 }
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
-                mensajes = mensajeUsuarioNegocio.listarMensajes(estudiante.IDUsuario);
+                mensajes = mensajeUsuarioNegocio.listarMensajes("recibidos",estudiante.IDUsuario);
                 if (mensajes.Count == 0)
                 {
                     PnlMensaje.Visible = false;
@@ -73,6 +73,11 @@ namespace TPC_equipo_12
             MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
             //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
             Session.Add("mensaje", mensaje);
+        }
+
+        protected void btnNuevoMensaje_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NuevoMensaje.aspx");
         }
     }
 }
