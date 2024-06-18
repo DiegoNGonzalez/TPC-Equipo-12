@@ -22,7 +22,7 @@
                     <asp:Label Text="DNI" runat="server" />
                     <asp:TextBox type="number" ID="InputDNI" class="form-control" runat="server" />
 
-                </div>
+                </div><<
                 <div class="mb-3">
                     <asp:Label Text="Genero" runat="server" />
                     <asp:DropDownList ID="dropGenero" runat="server" CssClass="btn btn-secondary dropdown-toggle" />

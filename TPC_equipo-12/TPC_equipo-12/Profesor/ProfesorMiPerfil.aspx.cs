@@ -19,9 +19,23 @@ namespace TPC_equipo_12
 
 
                 txtEmail.Text = profesor.Email;
-                txtEmail.ReadOnly = true;
+                txtEmail.Enabled = false;
                 txtNombre.Text = profesor.Nombre;
                 txtApellido.Text = profesor.Apellido;
+                InputDNI.Text = profesor.DNI.ToString();
+
+                dropGenero.Items.Add(new ListItem("Masculino", "M"));
+                dropGenero.Items.Add(new ListItem("Femenino", "F"));
+                dropGenero.Items.Add(new ListItem("No binario", "x"));
+                dropGenero.Items.Add(new ListItem("No contesta", null));
+
+                string genero = !string.IsNullOrEmpty(profesor.Genero) ? profesor.Genero : "No contesta";
+                ListItem item = dropGenero.Items.FindByValue(genero);
+                if (item != null)
+                {
+                    item.Selected = true;
+                }
+
                 if (profesor != null && profesor.ImagenPerfil.URL != null && !string.IsNullOrEmpty(profesor.ImagenPerfil.URL))
                 {
                     imgAvatar.ImageUrl = "~/Images/" + profesor.ImagenPerfil.URL;
@@ -30,7 +44,6 @@ namespace TPC_equipo_12
                 {
                     imgAvatar.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s";
                 }
-
 
             }
         }
@@ -48,12 +61,30 @@ namespace TPC_equipo_12
             }
             profesor.Nombre = txtNombre.Text;
             profesor.Apellido = txtApellido.Text;
+            profesor.DNI = Convert.ToInt32(InputDNI.Text);
+            if (dropGenero.SelectedValue == "M")
+            {
+                profesor.Genero = "M";
+            }
+            else if (dropGenero.SelectedValue == "F")
+            {
+                profesor.Genero = "F";
+            }
+            else if (dropGenero.SelectedValue == "x")
+            {
+               profesor.Genero = "x";
+            }
+            else
+            {
+                profesor.Genero = null;
+            }
 
             //Guardar datos de perfil
             profesorNegocio.actualizar(profesor);
 
             Image img = (Image)Master.FindControl("imgPerfil");
             img.ImageUrl = "~/Images/" + profesor.ImagenPerfil.URL;
+            
         }
     }
 }

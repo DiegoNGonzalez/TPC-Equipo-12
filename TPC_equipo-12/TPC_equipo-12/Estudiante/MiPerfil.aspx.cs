@@ -13,12 +13,24 @@ namespace TPC_equipo_12
             if (!IsPostBack)
             {
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
-
-                
                 txtEmail.Text = estudiante.Email;
-                txtEmail.ReadOnly = true;
+                txtEmail.Enabled = false;
                 txtNombre.Text = estudiante.Nombre;
                 txtApellido.Text = estudiante.Apellido;
+                InputDNI.Text = estudiante.DNI.ToString();
+                
+                dropGenero.Items.Add(new ListItem("Masculino", "M"));
+                dropGenero.Items.Add(new ListItem("Femenino", "F"));
+                dropGenero.Items.Add(new ListItem("No binario", "x"));
+                dropGenero.Items.Add(new ListItem("No contesta", null));
+
+                string genero = !string.IsNullOrEmpty(estudiante.Genero) ? estudiante.Genero : "No contesta";
+                ListItem item = dropGenero.Items.FindByValue(genero);
+                if (item != null)
+                {
+                    item.Selected = true;
+                }
+
                 if (estudiante != null && estudiante.ImagenPerfil.URL != null && !string.IsNullOrEmpty(estudiante.ImagenPerfil.URL))
                 {
                     imgAvatar.ImageUrl = "~/Images/" + estudiante.ImagenPerfil.URL;
@@ -27,8 +39,8 @@ namespace TPC_equipo_12
                 {
                     imgAvatar.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s";
                 }
-
                 
+
             }
         }
 
@@ -45,7 +57,23 @@ namespace TPC_equipo_12
             }
             estudiante.Nombre = txtNombre.Text;
             estudiante.Apellido = txtApellido.Text;
-
+            estudiante.DNI = Convert.ToInt32(InputDNI.Text);
+            if (dropGenero.SelectedValue == "M")
+            {
+                estudiante.Genero = "M";
+            }
+            else if (dropGenero.SelectedValue == "F")
+            {
+                estudiante.Genero = "F";
+            }
+            else if (dropGenero.SelectedValue == "x")
+            {
+                estudiante.Genero = "x";
+            }
+            else
+            {
+                estudiante.Genero = null;
+            }
             //Guardar datos de perfil
             estudianteNegocio.actualizar(estudiante);
 

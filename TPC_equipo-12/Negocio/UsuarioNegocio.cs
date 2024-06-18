@@ -253,7 +253,15 @@ namespace Negocio
                     estudiante.Nombre = (string)Datos.Lector["Nombre"];
                     estudiante.Apellido = (string)Datos.Lector["Apellido"];
                     estudiante.DNI = (int)Datos.Lector["DNI"];
-                    estudiante.Genero = (string)Datos.Lector["Genero"];
+                    //estudiante.Genero = (string)Datos.Lector["Genero"];
+                    if (Datos.Lector["Genero"] != DBNull.Value)
+                    {
+                        estudiante.Genero = (string)Datos.Lector["Genero"];
+                    }
+                    else
+                    {
+                        estudiante.Genero = "No contesta";
+                    }
                     estudiante.Email = (string)Datos.Lector["Email"];
                     estudiante.Contrasenia = (string)Datos.Lector["Contrasenia"];
                     estudiante.EsProfesor = (bool)Datos.Lector["EsProfesor"];

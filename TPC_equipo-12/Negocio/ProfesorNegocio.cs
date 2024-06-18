@@ -21,9 +21,11 @@ namespace Negocio
             Datos datos = new Datos();
             try
             {
-                datos.SetearConsulta("UPDATE Usuarios SET Nombre = @nombre, Apellido = @apellido WHERE IDUsuario = @IDUsuario");
+                datos.SetearConsulta("UPDATE Usuarios SET Nombre = @nombre, Apellido = @apellido, DNI = @dni, Genero = @genero WHERE IDUsuario = @IDUsuario");
                 datos.SetearParametro("@nombre", profesor.Nombre);
                 datos.SetearParametro("@apellido", profesor.Apellido);
+                datos.SetearParametro("@dni", profesor.DNI);
+                datos.SetearParametro("@genero", (object)profesor.Genero ?? DBNull.Value);
                 datos.SetearParametro("@IDUsuario", profesor.IDUsuario);
                 datos.EjecutarAccion();
                 datos.LimpiarParametros();
