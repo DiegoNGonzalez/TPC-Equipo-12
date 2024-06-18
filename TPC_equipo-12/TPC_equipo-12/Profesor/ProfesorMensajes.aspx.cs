@@ -29,7 +29,7 @@ namespace TPC_equipo_12
                 if (mensajes.Count == 0)
                 {
                     PanelMensajes.Visible = false;
-                    LabelNoHayMensajes.Visible = true;
+                    LabelNoHayMensajesRecibidos.Visible = true;
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace TPC_equipo_12
                 if (mensajesEnviados.Count == 0)
                 {
                     PanelMensajesEnviados.Visible = false;
-                    
+                    LabelNoHayMensajesEnviados.Visible = true;
                 }
                 else
                 {

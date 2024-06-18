@@ -45,11 +45,6 @@ namespace TPC_equipo_12
             Session.Add("inscripciones", inscripciones);
             Session["MensajeExito"] = "Inscripcion confirmada con exito";
             Response.Redirect("Inscripciones.aspx", false);
-            //rptInscripciones.DataSource = inscripciones;
-            //rptInscripciones.DataBind();
-
-
-
 
         }
 
@@ -62,19 +57,8 @@ namespace TPC_equipo_12
             notificacionNegocio.NotificacionRespuestaInscripcion(aux, false);
             inscripciones = inscripcionNegocio.listarInscripciones();
             Session.Add("inscripciones", inscripciones);
-            ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
-                        showMessage('La inscripción fue rechazada!', 'success');
-                        setTimeout(function() {
-                        window.location.href = 'Inscripciones.aspx'; 
-                        }, 1500); 
-                        </script>", false);
-
-            //ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", @"<script>
-            //            showMessage('Verifique su información, El usuario ya esta registrado!', 'success');
-            //            setTimeout(function() {
-            //            window.location.href = 'Inscripciones.aspx'; 
-            //            }, 1500); 
-            //            </script>", false); falta implementar funcionaldiad a este boton y script
+            Session["MensajeExito"] = "Inscripcion rechazada con exito";
+            Response.Redirect("Inscripciones.aspx", false);
         }
 
 
