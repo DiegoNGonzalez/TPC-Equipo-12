@@ -11,6 +11,7 @@
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <link media="screen" rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" />
+    <link href="../Custom/styles.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
     <script type="text/javascript">
@@ -78,7 +79,8 @@
                         </ul>
                     </div>
                     <div class="d-flex dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <asp:Label Text="" ID="lblNombreEstudiante" CssClass="lbl-blanco"  runat="server" />
+                        <a class="nav-link dropdown-toggle" href="#" id="nvdpdEstudiante" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <asp:Image ID="imgPerfil" Style="height: 40px; width: 40px; border-radius: 50%;" runat="server" />
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

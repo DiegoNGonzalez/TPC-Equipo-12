@@ -196,7 +196,10 @@ namespace Negocio
             Profesor profesor = new Profesor();
             try
             {
-                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, Contrasenia, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDProfesor");
+                Datos.SetearConsulta("SELECT u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, u.IDImagen, i.URLIMG " +
+                     "FROM Usuarios u " +
+                     "LEFT JOIN Imagenes i ON u.IDImagen = i.IDImagenes " +
+                     "WHERE u.IDUsuario = @IDProfesor");
                 Datos.SetearParametro("@IDProfesor", idUsuario);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
@@ -210,8 +213,15 @@ namespace Negocio
                     profesor.Contrasenia = (string)Datos.Lector["Contrasenia"];
                     profesor.EsProfesor = (bool)Datos.Lector["EsProfesor"];
                     profesor.ImagenPerfil = new Imagen();
-                    profesor.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
-                    //Falta hacer funcionar las imagenes con un join como 
+                    if (Datos.Lector["IDImagen"] != DBNull.Value)
+                    {
+                        profesor.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                        profesor.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                    }
+                    else
+                    {
+                        profesor.ImagenPerfil.IDImagen = 0;
+                    }
                 }
                 return profesor;
             }
@@ -223,8 +233,8 @@ namespace Negocio
             {
                 Datos.CerrarConexion();
             }
-
         }
+
         public Estudiante SetearEstudiante(int idUsuario)
         {
             Datos Datos = new Datos();

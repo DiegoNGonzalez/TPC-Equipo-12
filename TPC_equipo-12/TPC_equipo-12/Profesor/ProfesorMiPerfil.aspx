@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Estudiante/EstudianteMasterPage.Master" AutoEventWireup="true" CodeBehind="MiPerfil.aspx.cs" Inherits="TPC_equipo_12.MiPerfil" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Profesor/ProfesorMasterPage.Master" AutoEventWireup="true" CodeBehind="ProfesorMiPerfil.aspx.cs" Inherits="TPC_equipo_12.ProfesorMiPerfil" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -12,7 +11,7 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" />
+                    <asp:TextBox  runat="server" CssClass="form-control" ID="txtEmail" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Nombre/s</label>
@@ -43,8 +42,4 @@
         </div>
     </div>
 </asp:Content>
-
-
-
-
 

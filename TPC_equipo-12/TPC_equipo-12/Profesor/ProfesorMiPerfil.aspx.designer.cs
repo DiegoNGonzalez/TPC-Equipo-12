@@ -11,7 +11,7 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class MiPerfil
+    public partial class ProfesorMiPerfil
     {
 
         /// <summary>

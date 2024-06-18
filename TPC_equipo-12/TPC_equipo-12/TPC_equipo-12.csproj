@@ -64,10 +64,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Custom\styles.css" />
     <Content Include="Estudiante\EstudianteMensajes.aspx" />
     <Content Include="Estudiante\EstudianteInscripciones.aspx" />
-    <Content Include="MiPerfil.aspx" />
+    <Content Include="Estudiante\MiPerfil.aspx" />
     <Content Include="Estudiante\NuevoMensaje.aspx" />
+    <Content Include="Profesor\ProfesorMiPerfil.aspx" />
     <Content Include="Profesor\NuevoMensaje.aspx" />
     <Content Include="Profesor\ProfesorMensajes.aspx" />
     <Content Include="Profesor\ProfesorEstudiantesXCurso.aspx" />
@@ -114,11 +116,11 @@
     <Compile Include="Estudiante\EstudianteInscripciones.aspx.designer.cs">
       <DependentUpon>EstudianteInscripciones.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MiPerfil.aspx.cs">
+    <Compile Include="Estudiante\MiPerfil.aspx.cs">
       <DependentUpon>MiPerfil.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MiPerfil.aspx.designer.cs">
+    <Compile Include="Estudiante\MiPerfil.aspx.designer.cs">
       <DependentUpon>MiPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Estudiante\NuevoMensaje.aspx.cs">
@@ -127,6 +129,13 @@
     </Compile>
     <Compile Include="Estudiante\NuevoMensaje.aspx.designer.cs">
       <DependentUpon>NuevoMensaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\ProfesorMiPerfil.aspx.cs">
+      <DependentUpon>ProfesorMiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\ProfesorMiPerfil.aspx.designer.cs">
+      <DependentUpon>ProfesorMiPerfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profesor\NuevoMensaje.aspx.cs">
       <DependentUpon>NuevoMensaje.aspx</DependentUpon>

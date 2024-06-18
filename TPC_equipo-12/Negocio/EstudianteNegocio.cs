@@ -213,7 +213,7 @@ namespace Negocio
                 {
                     idImagen = (int)datos.Lector["IDImagen"];
                 }
-                datos.CerrarConexion(); // Asegúrate de cerrar la conexión después de la lectura
+                datos.CerrarConexion();
 
                 if (idImagen != 0)
                 {

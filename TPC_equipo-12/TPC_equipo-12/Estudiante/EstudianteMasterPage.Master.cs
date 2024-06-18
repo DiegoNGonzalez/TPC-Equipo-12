@@ -23,6 +23,7 @@ namespace TPC_equipo_12
 
                 if (estudiante != null && estudiante.ImagenPerfil.URL != null)
                 {
+                    lblNombreEstudiante.Text = estudiante.Nombre;
                     imgPerfil.ImageUrl = "~/Images/" + estudiante.ImagenPerfil.URL;
                 }
                 else

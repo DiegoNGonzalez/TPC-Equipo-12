@@ -27,6 +27,15 @@ namespace TPC_equipo_12
                     RedirigirSegunTipo();
                 }
                 CargarNotificaciones(profesor.IDUsuario);
+                if (profesor != null && profesor.ImagenPerfil.URL != null)
+                {
+                    lblNombreProfesor.Text = profesor.Nombre;
+                    imgPerfil.ImageUrl = "~/Images/" + profesor.ImagenPerfil.URL;
+                }
+                else
+                {
+                    imgPerfil.ImageUrl = "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+                }
             }
 
         }
