@@ -64,7 +64,6 @@ go
 -- Insertar estudiantes por curso
 INSERT INTO EstudiantesXCursos (IDEstudiante, IDCurso, Completado) VALUES (2, 1, 1);
 INSERT INTO EstudiantesXCursos (IDEstudiante, IDCurso, Completado) VALUES (2, 2, 0);
-INSERT INTO EstudiantesXCursos (IDEstudiante, IDCurso, Completado) VALUES (3, 3, 0);
 INSERT INTO EstudiantesXCursos (IDEstudiante, IDCurso, Completado) VALUES (4, 4, 0);
 go
 -- Insertar categorias por curso

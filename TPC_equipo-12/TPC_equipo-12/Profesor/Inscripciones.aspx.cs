@@ -26,9 +26,19 @@ namespace TPC_equipo_12
                 master.VerificarMensaje();
 
                 inscripciones = inscripcionNegocio.listarInscripciones();
-                Session.Add("inscripciones", inscripciones);
-                rptInscripciones.DataSource = inscripciones;
-                rptInscripciones.DataBind();
+                if (inscripciones.Count == 0)
+                {
+                    PanelInscripciones.Visible = false;
+                    LabelNoHayInscripciones.Visible = true;
+                }
+                else
+                {
+                    PanelInscripciones.Visible = true;
+                    LabelNoHayInscripciones.Visible = false;
+                    Session.Add("inscripciones", inscripciones);
+                    rptInscripciones.DataSource = inscripciones;
+                    rptInscripciones.DataBind();
+                }
             }
         }
 
