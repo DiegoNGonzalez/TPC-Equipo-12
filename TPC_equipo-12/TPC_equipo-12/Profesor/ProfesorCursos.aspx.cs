@@ -29,6 +29,7 @@ namespace TPC_equipo_12
                 Session.Add("listaCursosProfesor", profesor.Cursos);
                 rptProfesorCursos.DataSource = profesor.Cursos;
                 rptProfesorCursos.DataBind();
+                MostrarCategoria();
             }
         }
 

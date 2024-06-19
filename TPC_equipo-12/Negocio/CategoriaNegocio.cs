@@ -46,20 +46,28 @@ namespace Negocio
         }
         public string CategoriaNombreXIDCurso(int idcurso)
         {
+            int IDCategoria = 0;
             try
             {
-                Datos.SetearConsulta("SELECT IDCategoria from CategoriaXCurso WHERE CC.IDCurso = @IDCurso");
+                Datos.SetearConsulta("SELECT IDCategoria from CategoriasXCurso WHERE IDCurso = @IDCurso");
                 Datos.SetearParametro("@IDCurso", idcurso);
                 Datos.EjecutarLectura();
 
                 while (Datos.Lector.Read())
                 {
+                    IDCategoria = (int)Datos.Lector["IDCategoria"];
+                }
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                if (IDCategoria != 0)
+                {
                     Datos.SetearConsulta("SELECT Nombre FROM Categorias WHERE IDCategoria = @IDCategoria");
-                    Datos.SetearParametro("@IDCategoria", (int)Datos.Lector["IDCategoria"]);
+                    Datos.SetearParametro("@IDCategoria", IDCategoria);
                     Datos.EjecutarLectura();
                     while (Datos.Lector.Read())
                     {
-                    return (string)Datos.Lector["Nombre"];
+                        return (string)Datos.Lector["Nombre"];
                     }
                 }
                 return "";
