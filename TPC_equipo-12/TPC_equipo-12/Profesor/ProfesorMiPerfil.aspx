@@ -47,7 +47,7 @@
         <div class="row justify-content-center mt-3">
             <div class="col-md-4 text-center">
                 <asp:Button Text="Guardar" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" />
-                <a href="DefaultEstudiante.aspx" class="btn btn-secondary ms-2">Regresar</a>
+                <a href="DefaultProfesor.aspx" class="btn btn-secondary ms-2">Regresar</a>
             </div>
         </div>
     </div>
