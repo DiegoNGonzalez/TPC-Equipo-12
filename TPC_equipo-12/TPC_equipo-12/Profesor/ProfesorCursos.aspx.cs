@@ -74,5 +74,27 @@ namespace TPC_equipo_12
             Session.Add("IDCursoProfesor", idCurso);
             Response.Redirect("CrearCurso.aspx?IdCurso=" + idCurso);
         }
+
+        private void MostrarCategoria()
+        {
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            foreach (RepeaterItem item in rptProfesorCursos.Items)
+            {
+                HiddenField hiddenFieldIDCurso = (HiddenField)item.FindControl("HiddenFieldIDCurso");
+                Label lblCategoria = (Label)item.FindControl("LabelCategoriaCurso");
+
+                if (hiddenFieldIDCurso != null && lblCategoria != null)
+                {
+                    int idCurso = int.Parse(hiddenFieldIDCurso.Value);
+                    if (categoriaNegocio.CategoriaNombreXIDCurso(idCurso) != "")
+                    {
+                    lblCategoria.Text = categoriaNegocio.CategoriaNombreXIDCurso(idCurso);
+                    } else
+                    {
+                        lblCategoria.Text = "Sin categoria";
+                    }
+                }
+            }
+        }
     }
 }

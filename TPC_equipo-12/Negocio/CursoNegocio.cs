@@ -141,6 +141,20 @@ namespace Negocio
                     Datos.LimpiarParametros();
                     Datos.CerrarConexion();
                 }
+                Datos.SetearConsulta("insert into Categorias (Nombre) values (@Nombre)");
+                Datos.SetearParametro("@Nombre", curso.Categoria.Nombre);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("select top(1) IDCategoria from Categorias order by IDCategoria desc");
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    curso.Categoria.IDCategoria = (int)Datos.Lector["IDCategoria"];
+                }
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
 
                 Datos.SetearConsulta("select IDImagenes from Imagenes where URLIMG=@URLIMG");
                 Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
@@ -168,6 +182,13 @@ namespace Negocio
                 {
                     curso.IDCurso = (int)Datos.Lector["IDCurso"];
                 }
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+                
+                Datos.SetearConsulta("insert into CategoriasXCurso (IDCurso, IDCategoria) values (@IDCurso, @IDCategoria)");
+                Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                Datos.SetearParametro("@IDCategoria", curso.Categoria.IDCategoria);
+                Datos.EjecutarAccion();
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }

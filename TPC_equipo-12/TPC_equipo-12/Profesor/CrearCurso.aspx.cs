@@ -37,6 +37,8 @@ namespace TPC_equipo_12
                 curso.Descripcion = TextBoxDescripcionCurso.Text;
                 curso.Duracion = Convert.ToInt32(TextBoxDuracionCurso.Text);
                 curso.Estreno = Convert.ToDateTime(TextBoxEstrenoCurso.Text);
+                curso.Categoria = new CategoriaCurso();
+                curso.Categoria.Nombre = TextBoxCategoriaCurso.Text;
                 curso.Imagen = new Imagen();
                 curso.Imagen.URL = TextBoxUrlImagen.Text;
                 curso.Unidades = new List<Unidad>();
@@ -86,6 +88,7 @@ namespace TPC_equipo_12
                 TextBoxDescripcionCurso.Text = curso.Descripcion;
                 TextBoxDuracionCurso.Text = curso.Duracion.ToString();
                 TextBoxEstrenoCurso.Text = curso.Estreno.ToString("yyyy-MM-dd");
+                TextBoxCategoriaCurso.Text = curso.Categoria.Nombre;
                 TextBoxUrlImagen.Text = curso.Imagen.URL;
             }
         }

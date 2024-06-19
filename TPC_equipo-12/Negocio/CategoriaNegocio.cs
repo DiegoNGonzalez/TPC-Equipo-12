@@ -8,7 +8,7 @@ using Dominio;
 
 namespace Negocio
 {
-    internal class CategoriaNegocio
+    public class CategoriaNegocio
     {
         public Datos Datos;
 
@@ -44,7 +44,36 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public string CategoriaNombreXIDCurso(int idcurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("SELECT IDCategoria from CategoriaXCurso WHERE CC.IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idcurso);
+                Datos.EjecutarLectura();
 
+                while (Datos.Lector.Read())
+                {
+                    Datos.SetearConsulta("SELECT Nombre FROM Categorias WHERE IDCategoria = @IDCategoria");
+                    Datos.SetearParametro("@IDCategoria", (int)Datos.Lector["IDCategoria"]);
+                    Datos.EjecutarLectura();
+                    while (Datos.Lector.Read())
+                    {
+                    return (string)Datos.Lector["Nombre"];
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
         public void AgregarCategoria(CategoriaCurso categoria)
         {
             try
@@ -64,5 +93,24 @@ namespace Negocio
             }
         }
 
+        public void AgregarCursoXCategoria(int idCurso, int idCategoria)
+        {
+            try
+            {
+                Datos.SetearConsulta("INSERT INTO CursosXCategorias (IDCurso, IDCategoria) VALUES (@IDCurso, @IDCategoria)");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.SetearParametro("@IDCategoria", idCategoria);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
 }
