@@ -13,13 +13,21 @@ namespace Negocio
             datos = new Datos();
         }
 
-        public List<Notificacion> listarNotificaciones(int IDUsuario)
+        public List<Notificacion> listarNotificaciones(int IDUsuarioODeInscripcion, string UsuarioOInscripcion)
         {
             List<Notificacion> lista = new List<Notificacion>();
             try
             {
-                datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, n.IDRespuesta, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE nxu.IDUsuario = @IDUsuario and n.Leido=0");
-                datos.SetearParametro("@IDUsuario", IDUsuario);
+                if (UsuarioOInscripcion == "Usuario")
+                {
+                    datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, n.IDRespuesta, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE nxu.IDUsuario = @IDUsuario and n.Leido=0");
+                    datos.SetearParametro("@IDUsuario", IDUsuarioODeInscripcion);
+
+                }else if(UsuarioOInscripcion == "Inscripcion")
+                {
+                    datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, n.IDRespuesta, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE n.IDInscripcion = @IDInscripcion");
+                    datos.SetearParametro("@IDInscripcion", IDUsuarioODeInscripcion);
+                }
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -77,7 +85,7 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
-        public void AgregarNotificacionXInscripcion(int idInscripcion)
+        public void AgregarNotificacionXInscripcion(int idInscripcion, int idCurso)
         {
             try
             {
@@ -102,12 +110,12 @@ namespace Negocio
             try
             {
                 int idUsuario = 0;
-                datos.SetearConsulta("Select IDUsuario from Inscripciones where IDInscripcion = @IDInscripcion");
-                datos.SetearParametro("@IDInscripcion", idInscripcion);
+                datos.SetearConsulta("Select IDProfesor from ProfesorXCursos where IDCurso = @IDCurso");
+                datos.SetearParametro("@IDCurso", idCurso);
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
                 {
-                    idUsuario = (int)datos.Lector["IDUsuario"];
+                    idUsuario = (int)datos.Lector["IDProfesor"];
                 }
                 datos.LimpiarParametros();
                 datos.CerrarConexion();
@@ -282,6 +290,45 @@ namespace Negocio
                 datos.CerrarConexion();
             }
 
+        }
+        public void BorrarNotificacionXUsuario(int iDNotificacion)
+        {
+            try
+            {
+                datos.SetearConsulta("delete from NotificacionesXUsuario where IDNotificacion=@IDNotificacion");
+                datos.SetearParametro("@IDNotificacion", iDNotificacion);
+                datos.EjecutarAccion();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public void BorrarNotificacion(int iDNotificacion)
+        {
+            try
+            {
+                datos.SetearConsulta("delete from Notificaciones where IDNotificacion=@IDNotificacion");
+                datos.SetearParametro("@IDNotificacion", iDNotificacion);
+                datos.EjecutarAccion();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
         }
     }
 }

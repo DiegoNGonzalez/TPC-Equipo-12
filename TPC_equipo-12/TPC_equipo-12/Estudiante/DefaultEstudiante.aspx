@@ -20,7 +20,8 @@
                 <asp:Repeater ID="rptCursos" runat="server">
                     <ItemTemplate>
                         <div class="card ms-5 mb-5" style="width: 18rem; min-height: 24rem;">
-                            <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
+                            <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' /> 
+                            <asp:label ID="lblIDCurso" runat="server" Text='<%# Eval("IDCurso") %>' Visible="false"></asp:label>
                             <div class="img-container" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                                 <img src='<%# Eval("Imagen.URL") %>' class="card-img-top img-fluid" alt="..." style="max-height: 100%; width: auto;">
                             </div>

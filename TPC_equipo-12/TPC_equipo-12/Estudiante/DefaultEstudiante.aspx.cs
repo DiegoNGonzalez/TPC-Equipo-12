@@ -85,7 +85,7 @@ namespace TPC_equipo_12
                 if (seInscribio)
                 {
                     int idInscripcion = inscripcionNegocio.UltimoIDInscripcion();
-                    notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion);
+                    notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion,idCurso);
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
 
                 }
