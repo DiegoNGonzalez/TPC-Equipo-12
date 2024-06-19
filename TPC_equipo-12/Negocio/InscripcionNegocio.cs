@@ -88,8 +88,10 @@ namespace Negocio
             }
             return false;
         }
-        public void EliminarInscripcion(int idCurso, int IdEstudiante)
+        public void EliminarInscripcion(int IdEstudiante, int idCurso)
         {
+            int IDinscripcion = 0;
+            List<int> IDNotificaciones = new List<int>();
             try
             {
                 Datos.SetearConsulta("Select IDInscripcion from Inscripciones where IDCurso = @IDCurso and IDUsuario = @IDUsuario");
@@ -98,17 +100,39 @@ namespace Negocio
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
-                    Datos.SetearConsulta("Delete from NotificacionesXUsuarios where IDInscripcion = @IDInscripcion");
-                    Datos.SetearParametro("@IDInscripcion", Datos.Lector["IDInscripcion"]);
-                    Datos.EjecutarAccion();
-                    Datos.LimpiarParametros();
-
-                    Datos.SetearConsulta("delete from Notificaciones where IDInscripcion = @IDInscripcion");
-                    Datos.SetearParametro("@IDInscripcion", Datos.Lector["IDInscripcion"]);
-                    Datos.EjecutarAccion();
-                    Datos.LimpiarParametros();
+                    IDinscripcion = (int)Datos.Lector["IDInscripcion"];
                 }
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+                if (IDinscripcion != 0)
+                {
 
+                    Datos.SetearConsulta("select IDNotificacion from Notificaciones where IDInscripcion = @IDInscripcion");
+                    Datos.SetearParametro("@IDInscripcion", IDinscripcion);
+                    Datos.EjecutarLectura();
+                    while (Datos.Lector.Read())
+                    {
+                        IDNotificaciones.Add((int)Datos.Lector["IDNotificacion"]);
+                    }
+                    Datos.CerrarConexion();
+                    foreach (int idNotificacion in IDNotificaciones)
+                    {
+                        Datos.SetearConsulta("delete from NotificacionesXUsuario where IDNotificacion = @IDNotificacion");
+                        Datos.SetearParametro("@IDNotificacion", idNotificacion);
+                        Datos.EjecutarAccion();
+                        Datos.LimpiarParametros();
+                        Datos.CerrarConexion();
+                    }
+                    
+                   foreach (int idNotificacion in IDNotificaciones)
+                    {
+                        Datos.SetearConsulta("delete from Notificaciones where IDNotificacion = @IDNotificacion");
+                        Datos.SetearParametro("@IDNotificacion", idNotificacion);
+                        Datos.EjecutarAccion();
+                        Datos.LimpiarParametros();
+                        Datos.CerrarConexion();
+                    }
+                }
                 Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso and IDUsuario = @IDUsuario");
                 Datos.SetearParametro("@IDCurso", idCurso);
                 Datos.SetearParametro("@IDUsuario", IdEstudiante);

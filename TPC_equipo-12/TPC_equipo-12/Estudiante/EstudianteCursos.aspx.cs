@@ -45,9 +45,9 @@ namespace TPC_equipo_12
             Curso cursoADesinscribir = estudiante.Cursos.Find(curso => curso.IDCurso == idCursoADesinscribir);
             try
             {
+                inscripcionNegocio.EliminarInscripcion(estudiante.IDUsuario, idCursoADesinscribir);
                 estudianteNegocio.Desuscribirse(estudiante.IDUsuario, idCursoADesinscribir);
                 estudiante.Cursos.Remove(cursoADesinscribir);
-                inscripcionNegocio.EliminarInscripcion(estudiante.IDUsuario, idCursoADesinscribir);
                 Session["estudiante"] = estudiante;
                 Session["MensajeExito"] = "Desinscripcion exitosa!";
                 Response.Redirect("EstudianteCursos.aspx", false);
