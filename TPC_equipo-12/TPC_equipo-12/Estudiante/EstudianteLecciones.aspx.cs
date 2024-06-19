@@ -19,6 +19,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 listaLecciones = leccionNegocio.ListarLecciones((int)Session["IDUnidad"]);
                 Session.Add("ListaLecciones", listaLecciones);
                 rptLecciones.DataSource = listaLecciones;

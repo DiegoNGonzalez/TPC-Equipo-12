@@ -19,6 +19,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 listaUnidades = unidadNegocio.ListarUnidades((int)Session["IDCurso"]);
                 Session.Add("ListaUnidades", listaUnidades);
                 rptUnidades.DataSource = listaUnidades;

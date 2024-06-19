@@ -20,6 +20,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 Estudiante = (Estudiante)Session["estudiante"];
                 listaInscripciones = inscripcionNegocio.listarInscripcionesXEstudiante(Estudiante.IDUsuario);
                 rptInscripciones.DataSource = listaInscripciones;

@@ -21,6 +21,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
                 rptCursos.DataSource = estudiante.Cursos;
                 rptCursos.DataBind();

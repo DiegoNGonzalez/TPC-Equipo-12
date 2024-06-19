@@ -12,6 +12,9 @@ namespace TPC_equipo_12
        
             if (!IsPostBack)
             {
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
                 txtEmail.Text = estudiante.Email;
                 txtEmail.Enabled = false;

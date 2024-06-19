@@ -21,6 +21,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
+                master.VerificarMensaje();
+
                 listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccion"]);
                 Session.Add("ListaMateriales", listaMateriales);
                 rptMateriales.DataSource = listaMateriales;
