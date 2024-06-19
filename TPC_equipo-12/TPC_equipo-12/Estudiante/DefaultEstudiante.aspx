@@ -23,11 +23,23 @@
                         <asp:Label runat="server" ID="lblIdCurso" Text='<%# Eval ("IdCurso") %>' CssClass="d-none" />
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><%# Eval("Descripcion") %></li>
+                        <li class="list-group-item text-truncate" onclick="expandirDescripcion(this);">
+                            <%# Eval("Descripcion") %>
+                        </li>
                         <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
-                        <asp:Button Text="Inscribirse" runat="server" CssClass="btn btn-primary" ID="btnInscribirse" OnClick="btnInscribirse_Click"/>
+                        <asp:Button Text="Inscribirse" runat="server" CssClass="btn btn-primary" ID="btnInscribirse" OnClick="btnInscribirse_Click" />
                     </ul>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
+        <script>
+            function expandirDescripcion(element) {
+                const EstaTruncado = element.classList.contains("text-truncate");
+                if (EstaTruncado) {
+                    element.classList.remove("text-truncate");
+                } else {
+                    element.classList.add("text-truncate");
+                }
+            }
+        </script>
 </asp:Content>

@@ -12,24 +12,35 @@
         <div class="row justify-content-center">
             <asp:Repeater ID="rptCursos" runat="server">
                 <ItemTemplate>
-                        <div class="card ms-5 mb-5" style="width: 18rem;">
-                    <asp:LinkButton ID="LinkButtonCurso" runat="server" CommandArgument='<%# Eval("IDCurso") %>'
-                        OnCommand="LinkButtonCurso_Command" Style="text-decoration: none;">
+                    <div class="card ms-5 mb-5" style="width: 18rem;">
+                        <asp:LinkButton ID="LinkButtonCurso" runat="server" CommandArgument='<%# Eval("IDCurso") %>'
+                            OnCommand="LinkButtonCurso_Command" Style="text-decoration: none;">
                             <img src='<%# Eval("Imagen.URL") %>' class="card-img-top mt-3" alt="...">
                             <div class="card-body text-center">
                                 <h5 class="card-title"><%# Eval("Nombre") %></h5>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><%# Eval("Descripcion") %></li>
-                                <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
-                                <li class="list-group-item">
-                                </li>
-                            </ul>
-                    </asp:LinkButton>
+                        </asp:LinkButton>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-truncate" onclick="expandirDescripcion(this);">
+                                <%# Eval("Descripcion") %>
+                            </li>
+                            <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
+                        </ul>
+                        <div class="d-flex justify-content-center align-items-center mt-2">
+                            <asp:Button ID="ButtonDesuscribir" runat="server" Text="Desuscribirme" CssClass="btn btn-primary btn-sm mx-2 mb-4" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDesuscribir_Command" />
                         </div>
                 </ItemTemplate>
             </asp:Repeater>
         </div>
     </div>
-
+    <script>
+        function expandirDescripcion(element) {
+            const EstaTruncado = element.classList.contains("text-truncate");
+            if (EstaTruncado) {
+                element.classList.remove("text-truncate");
+            } else {
+                element.classList.add("text-truncate");
+            }
+        }
+    </script>
 </asp:Content>

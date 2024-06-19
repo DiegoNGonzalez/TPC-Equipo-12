@@ -104,7 +104,7 @@ namespace Negocio
                 datos.LimpiarParametros();
                 datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
                 datos.SetearParametro("@IDNotificacion", idNotificacion);
-                datos.SetearParametro("@IDUsuario", 1);
+                datos.SetearParametro("@IDUsuario", 7);
                 datos.EjecutarAccion();
                 datos.LimpiarParametros();
             }

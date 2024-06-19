@@ -20,7 +20,7 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
-                Estudiante = (Estudiante)Session["Estudiante"];
+                Estudiante = (Estudiante)Session["estudiante"];
                 listaInscripciones = inscripcionNegocio.listarInscripcionesXEstudiante(Estudiante.IDUsuario);
                 rptInscripciones.DataSource = listaInscripciones;
                 rptInscripciones.DataBind();

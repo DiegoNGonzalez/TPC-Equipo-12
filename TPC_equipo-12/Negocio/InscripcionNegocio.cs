@@ -88,6 +88,43 @@ namespace Negocio
             }
             return false;
         }
+        public void EliminarInscripcion(int idCurso, int IdEstudiante)
+        {
+            try
+            {
+                Datos.SetearConsulta("Select IDInscripcion from Inscripciones where IDCurso = @IDCurso and IDUsuario = @IDUsuario");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.SetearParametro("@IDUsuario", IdEstudiante);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    Datos.SetearConsulta("Delete from NotificacionesXUsuarios where IDInscripcion = @IDInscripcion");
+                    Datos.SetearParametro("@IDInscripcion", Datos.Lector["IDInscripcion"]);
+                    Datos.EjecutarAccion();
+                    Datos.LimpiarParametros();
+
+                    Datos.SetearConsulta("delete from Notificaciones where IDInscripcion = @IDInscripcion");
+                    Datos.SetearParametro("@IDInscripcion", Datos.Lector["IDInscripcion"]);
+                    Datos.EjecutarAccion();
+                    Datos.LimpiarParametros();
+                }
+
+                Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso and IDUsuario = @IDUsuario");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.SetearParametro("@IDUsuario", IdEstudiante);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
         public void ConfirmarInscripcion(InscripcionACurso inscripcion)
         {
             Usuario aux = inscripcion.Usuario;
@@ -184,11 +221,12 @@ namespace Negocio
                 Datos.EjecutarLectura();
                 if (Datos.Lector.Read())
                 {
+                    Datos.LimpiarParametros();
                     return true;
-
                 }
                 else
                 {
+                    Datos.LimpiarParametros();
                     return false;
                 }
             }
