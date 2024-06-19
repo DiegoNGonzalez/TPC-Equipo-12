@@ -60,5 +60,27 @@ namespace TPC_equipo_12
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", "<script>showMessage('Ocurrió un error al Desinscribirse.', 'error');</script>", false);
             }
         }
+        private void MostrarCategoria()
+        {
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            foreach (RepeaterItem item in rptCursos.Items)
+            {
+                HiddenField hiddenFieldIDCurso = (HiddenField)item.FindControl("HiddenFieldIDCurso");
+                Label lblCategoria = (Label)item.FindControl("LabelCategoriaCurso");
+
+                if (hiddenFieldIDCurso != null && lblCategoria != null)
+                {
+                    int idCurso = int.Parse(hiddenFieldIDCurso.Value);
+                    if (categoriaNegocio.CategoriaNombreXIDCurso(idCurso) != "")
+                    {
+                        lblCategoria.Text = categoriaNegocio.CategoriaNombreXIDCurso(idCurso);
+                    }
+                    else
+                    {
+                        lblCategoria.Text = "Sin categoria";
+                    }
+                }
+            }
+        }
     }
 }
