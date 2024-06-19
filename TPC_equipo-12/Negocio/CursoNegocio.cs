@@ -9,10 +9,12 @@ namespace Negocio
     {
         public Datos Datos;
         private UnidadNegocio UnidadesDeCurso;
+        private CategoriaNegocio CategoriaNegocio;
         public CursoNegocio()
         {
             Datos = new Datos();
             UnidadesDeCurso = new UnidadNegocio();
+            CategoriaNegocio = new CategoriaNegocio();
         }
         public List<Curso> ListarCursos()
         {
@@ -37,6 +39,8 @@ namespace Negocio
                 foreach (var item in lista)
                 {
                     item.Unidades = UnidadesDeCurso.ListarUnidades(item.IDCurso);
+                    item.Categoria = new CategoriaCurso();
+                    item.Categoria.Nombre = CategoriaNegocio.CategoriaNombreXIDCurso(item.IDCurso);
                 }
                 Datos.LimpiarParametros();
                 return lista;
@@ -184,7 +188,7 @@ namespace Negocio
                 }
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
-                
+
                 Datos.SetearConsulta("insert into CategoriasXCurso (IDCurso, IDCategoria) values (@IDCurso, @IDCategoria)");
                 Datos.SetearParametro("@IDCurso", curso.IDCurso);
                 Datos.SetearParametro("@IDCategoria", curso.Categoria.IDCategoria);
@@ -269,53 +273,66 @@ namespace Negocio
 
         public void ModificarCurso(Curso curso)
         {
-            int IDImagen = 0;
             try
             {
                 Datos.SetearConsulta("Select IDImagen from Cursos where IDCurso = @IDCurso");
                 Datos.SetearParametro("@IDCurso", curso.IDCurso);
                 Datos.EjecutarLectura();
-                if (Datos.Lector.Read())
+                while (Datos.Lector.Read())
                 {
-                    IDImagen = (int)Datos.Lector["IDImagen"];
+                    curso.Imagen.IDImagen = (int)Datos.Lector["IDImagen"];
                 }
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
 
-                if (IDImagen != 0)
+                try
                 {
-                    try
+                    if (curso.Imagen.URL != "")
                     {
-                        if (curso.Imagen.URL != "")
-                        {
-                            Datos.SetearConsulta("update Imagenes set URLIMG = @URLIMG where IDImagenes = @IDImagenes");
-                            Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
-                            Datos.SetearParametro("@IDImagenes", IDImagen);
-                            Datos.EjecutarAccion();
-                            Datos.CerrarConexion();
-                        }
-                        else
-                        {
-                            Datos.SetearConsulta("insert into Imagenes (URLIMG) values (https://vilmanunez.com/wp-content/uploads/2016/04/VN-Como-crear-el-mejor-temario-de-tu-curso-online-Incluye-plantillas.png)");
-                            Datos.EjecutarAccion();
-                            Datos.CerrarConexion();
-                        }
-
+                        Datos.SetearConsulta("update Imagenes set URLIMG = @URLIMG where IDImagenes = @IDImagenes");
+                        Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
+                        Datos.SetearParametro("@IDImagenes", curso.Imagen.IDImagen);
+                        Datos.EjecutarAccion();
+                        Datos.CerrarConexion();
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        throw ex;
+                        Datos.SetearConsulta("insert into Imagenes (URLIMG) values (https://vilmanunez.com/wp-content/uploads/2016/04/VN-Como-crear-el-mejor-temario-de-tu-curso-online-Incluye-plantillas.png)");
+                        Datos.EjecutarAccion();
+                        Datos.CerrarConexion();
                     }
-
-                    Datos.SetearConsulta("update Cursos set Nombre = @Nombre, Descripcion = @Descripcion, Duracion = @Duracion, Estreno = @Estreno where IDCurso = @IDCurso");
-                    Datos.SetearParametro("@Nombre", curso.Nombre);
-                    Datos.SetearParametro("@Descripcion", curso.Descripcion);
-                    Datos.SetearParametro("@Duracion", curso.Duracion);
-                    Datos.SetearParametro("@Estreno", curso.Estreno);
-                    Datos.SetearParametro("@IDCurso", curso.IDCurso);
-                    Datos.EjecutarAccion();
-                    Datos.CerrarConexion();
                 }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                Datos.SetearConsulta("Select IDCategoria from CategoriasXCurso where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    curso.Categoria.IDCategoria = (int)Datos.Lector["IDCategoria"];
+                }
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("update Categorias set Nombre = @Nombre where IDCategoria = @IDCategoria");
+                Datos.SetearParametro("@Nombre", curso.Categoria.Nombre);
+                Datos.SetearParametro("@IDCategoria", curso.Categoria.IDCategoria);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("update Cursos set Nombre = @Nombre, Descripcion = @Descripcion, Duracion = @Duracion, Estreno = @Estreno where IDCurso = @IDCurso");
+                Datos.SetearParametro("@Nombre", curso.Nombre);
+                Datos.SetearParametro("@Descripcion", curso.Descripcion);
+                Datos.SetearParametro("@Duracion", curso.Duracion);
+                Datos.SetearParametro("@Estreno", curso.Estreno);
+                Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
             }
             catch (Exception ex)
             {
