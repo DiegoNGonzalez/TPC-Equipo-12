@@ -87,6 +87,24 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.TextBox TextBoxEstrenoCurso;
 
         /// <summary>
+        /// Control LabelCategoriaCurso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelCategoriaCurso;
+
+        /// <summary>
+        /// Control DropDownListCategoriaCurso.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListCategoriaCurso;
+
+        /// <summary>
         /// Control LabelDuracionCurso.
         /// </summary>
         /// <remarks>
