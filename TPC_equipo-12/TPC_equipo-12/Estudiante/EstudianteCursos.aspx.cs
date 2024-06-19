@@ -27,6 +27,7 @@ namespace TPC_equipo_12
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
                 rptCursos.DataSource = estudiante.Cursos;
                 rptCursos.DataBind();
+                MostrarCategoria();
             }
 
         }
