@@ -96,15 +96,26 @@ namespace Negocio
             }
             finally
             {
+                datos.LimpiarParametros();
                 datos.CerrarConexion();
             }
             try
             {
-                int idNotificacion = UltimoID();
+                int idUsuario = 0;
+                datos.SetearConsulta("Select IDUsuario from Inscripciones where IDInscripcion = @IDInscripcion");
+                datos.SetearParametro("@IDInscripcion", idInscripcion);
+                datos.EjecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    idUsuario = (int)datos.Lector["IDUsuario"];
+                }
                 datos.LimpiarParametros();
+                datos.CerrarConexion();
+
+                int idNotificacion = UltimoID();
                 datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
                 datos.SetearParametro("@IDNotificacion", idNotificacion);
-                datos.SetearParametro("@IDUsuario", 7);
+                datos.SetearParametro("@IDUsuario", idUsuario);
                 datos.EjecutarAccion();
                 datos.LimpiarParametros();
             }
@@ -134,6 +145,7 @@ namespace Negocio
             }
             finally
             {
+                datos.LimpiarParametros();
                 datos.CerrarConexion();
             }
         }

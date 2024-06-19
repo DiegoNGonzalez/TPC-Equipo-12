@@ -27,7 +27,7 @@
                             <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
                         </ul>
                         <div class="d-flex justify-content-center align-items-center mt-2">
-                            <asp:Button ID="ButtonDesuscribir" runat="server" Text="Desuscribirme" CssClass="btn btn-primary btn-sm mx-2 mb-4" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDesuscribir_Command" />
+                            <asp:Button ID="ButtonDesinscribirse" runat="server" Text="Desinscribirse" CssClass="btn btn-primary btn-sm mx-2 mb-4" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDesinscribirse_Command" />
                         </div>
                 </ItemTemplate>
             </asp:Repeater>

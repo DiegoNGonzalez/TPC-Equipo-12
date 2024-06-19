@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Inscripciones Pendientes</h1>
+                <h1>Mis inscripciones</h1>
 
                 <table class="table table-bordered">
                     <thead>

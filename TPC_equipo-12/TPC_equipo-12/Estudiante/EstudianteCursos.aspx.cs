@@ -39,7 +39,7 @@ namespace TPC_equipo_12
             Response.Redirect("EstudianteUnidades.aspx");
         }
 
-        protected void ButtonDesuscribir_Command(object sender, CommandEventArgs e)
+        protected void ButtonDesinscribirse_Command(object sender, CommandEventArgs e)
         {
             InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
             EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
