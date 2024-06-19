@@ -208,7 +208,15 @@ namespace Negocio
                     profesor.Nombre = (string)Datos.Lector["Nombre"];
                     profesor.Apellido = (string)Datos.Lector["Apellido"];
                     profesor.DNI = (int)Datos.Lector["DNI"];
-                    profesor.Genero = (string)Datos.Lector["Genero"];
+                    //profesor.Genero = (string)Datos.Lector["Genero"];
+                    if (Datos.Lector["Genero"] != DBNull.Value)
+                    {
+                        profesor.Genero = (string)Datos.Lector["Genero"];
+                    }
+                    else
+                    {
+                        profesor.Genero = "No contesta";
+                    }
                     profesor.Email = (string)Datos.Lector["Email"];
                     profesor.Contrasenia = (string)Datos.Lector["Contrasenia"];
                     profesor.EsProfesor = (bool)Datos.Lector["EsProfesor"];
