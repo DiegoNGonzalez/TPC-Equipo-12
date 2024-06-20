@@ -56,6 +56,7 @@
     <Compile Include="NotificacionNegocio.cs" />
     <Compile Include="ProfesorNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReseniaNegocio.cs" />
     <Compile Include="UnidadNegocio.cs" />
     <Compile Include="UsuarioNegocio.cs" />
   </ItemGroup>

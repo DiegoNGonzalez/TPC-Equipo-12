@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AgregarResenia.aspx" />
     <Content Include="Custom\styles.css" />
     <Content Include="Estudiante\EstudianteMensajes.aspx" />
     <Content Include="Estudiante\EstudianteInscripciones.aspx" />
@@ -102,6 +103,13 @@
     <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgregarResenia.aspx.cs">
+      <DependentUpon>AgregarResenia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgregarResenia.aspx.designer.cs">
+      <DependentUpon>AgregarResenia.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Estudiante\EstudianteMensajes.aspx.cs">
       <DependentUpon>EstudianteMensajes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
