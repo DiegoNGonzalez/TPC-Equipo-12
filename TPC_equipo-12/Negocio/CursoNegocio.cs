@@ -141,7 +141,7 @@ namespace Negocio
             }
         }
 
-        public void CrearCurso(Curso curso)
+        public void CrearCurso(Curso curso, int idProfesor)
         {
             try
             {
@@ -202,6 +202,13 @@ namespace Negocio
                 {
                     curso.IDCurso = (int)Datos.Lector["IDCurso"];
                 }
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("insert into ProfesorXCursos (IDCurso, IDProfesor) values (@IDCurso, @IDProfesor)");
+                Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                Datos.SetearParametro("@IDProfesor", idProfesor);
+                Datos.EjecutarAccion();
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
 

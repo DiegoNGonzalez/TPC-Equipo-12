@@ -54,7 +54,7 @@ namespace TPC_equipo_12
                 }
                 else
                 {
-                    cursoNegocio.CrearCurso(curso);
+                    cursoNegocio.CrearCurso(curso, profesor.IDUsuario);
                     profesor.Cursos.Add(curso);
                     Session.Add("profesor", profesor);
                     Session["MensajeExito"] = "Curso creado con exito!";
