@@ -10,11 +10,27 @@ namespace Negocio
         public Datos Datos;
         private UnidadNegocio UnidadesDeCurso;
         private CategoriaNegocio CategoriaNegocio;
+        private EstudianteNegocio EstudianteNegocio;
+        private InscripcionNegocio InscripcionNegocio;
+        private LeccionNegocio LeccionNegocio;
+        private MaterialNegocio MaterialNegocio;
+
+        private ProfesorNegocio ProfesorNegocio;
+        private NotificacionNegocio NotificacionNegocio;
+
         public CursoNegocio()
         {
             Datos = new Datos();
             UnidadesDeCurso = new UnidadNegocio();
             CategoriaNegocio = new CategoriaNegocio();
+            EstudianteNegocio = new EstudianteNegocio();
+            InscripcionNegocio = new InscripcionNegocio(true);
+            LeccionNegocio = new LeccionNegocio();
+            MaterialNegocio = new MaterialNegocio();
+
+            ProfesorNegocio = new ProfesorNegocio();
+            NotificacionNegocio = new NotificacionNegocio();
+
         }
         public List<Curso> ListarCursos()
         {
@@ -209,50 +225,85 @@ namespace Negocio
 
         public void EliminarCurso(int idCurso)
         {
+            List<int> idsInscripciones = new List<int>();
+            List<int> idsNotificaciones = new List<int>();
+            List<int> idsUnidades = new List<int>();
+            List<int> idsLecciones = new List<int>();
             try
             {
-                Datos.SetearConsulta("delete from ProfesorXCursos where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
+                //Datos.SetearConsulta("delete from ProfesorXCursos where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarAccion();
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
+                ProfesorNegocio.BorrarProfesorXCurso(idCurso);
 
-                Datos.SetearConsulta("delete from EstudiantesXCursos where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
+                //Datos.SetearConsulta("delete from EstudiantesXCursos where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarAccion();
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
+                EstudianteNegocio.BorrarEstudianteXcurso(idCurso);
 
-                Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
 
-                Datos.SetearConsulta("delete from CategoriasXCurso where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-
-                Datos.SetearConsulta("Select IDUnidad from UnidadesXCurso where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarLectura();
-                while (Datos.Lector.Read())
+                //Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarAccion();
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
+                idsInscripciones = InscripcionNegocio.listarIdsInscripcionXCurso(idCurso);
+                foreach (int idInscripcion in idsInscripciones)
                 {
-                    Datos.SetearConsulta("Select IDLeccion from LeccionesXUnidad where IDUnidad = @IDUnidad");
-                    Datos.SetearParametro("@IDUnidad", (int)Datos.Lector["IDUnidad"]);
-                    Datos.EjecutarLectura();
-                    while (Datos.Lector.Read())
-                    {
-                        Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
-                        Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
-                        Datos.EjecutarAccion();
-                    }
-                    UnidadesDeCurso.EliminarUnidad((int)Datos.Lector["IDUnidad"]);
+                    idsNotificaciones = NotificacionNegocio.listarIdsNotificacionesXInscripcion(idInscripcion);
                 }
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
+                foreach (int idNotificacion in idsNotificaciones)
+                {
+                    NotificacionNegocio.BorrarNotificacionXUsuario(idNotificacion);
+                    NotificacionNegocio.BorrarNotificacion(idNotificacion);
+                }
+
+                InscripcionNegocio.BorrarInscripcionXCurso(idCurso);
+
+                //Datos.SetearConsulta("delete from CategoriasXCurso where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarAccion();
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
+                CategoriaNegocio.BorrarCategoriaXCurso(idCurso);
+
+                idsUnidades = UnidadesDeCurso.ListaIdUnidadXCurso(idCurso);
+                foreach (int idUnidad in idsUnidades)
+                {
+                    idsLecciones = LeccionNegocio.ListarIdLeccionXUnidad(idUnidad);
+
+                }
+                foreach (int idLeccion in idsLecciones)
+                {
+                    LeccionNegocio.BorrarLeccionesXEstudiante(idLeccion);
+                }
+
+                foreach (int idUnidad in idsUnidades)
+                {
+                    UnidadesDeCurso.EliminarUnidad(idUnidad);
+                }
+                //Datos.SetearConsulta("Select IDUnidad from UnidadesXCurso where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarLectura();
+                //while (Datos.Lector.Read())
+                //{
+                //    Datos.SetearConsulta("Select IDLeccion from LeccionesXUnidad where IDUnidad = @IDUnidad");
+                //    Datos.SetearParametro("@IDUnidad", (int)Datos.Lector["IDUnidad"]);
+                //    Datos.EjecutarLectura();
+                //    while (Datos.Lector.Read())
+                //    {
+                //        Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
+                //        Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
+                //        Datos.EjecutarAccion();
+                //    }
+                //    UnidadesDeCurso.EliminarUnidad((int)Datos.Lector["IDUnidad"]);
+                //}
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
 
                 Datos.SetearConsulta("delete from Cursos where IDCurso = @IDCurso");
                 Datos.SetearParametro("@IDCurso", idCurso);

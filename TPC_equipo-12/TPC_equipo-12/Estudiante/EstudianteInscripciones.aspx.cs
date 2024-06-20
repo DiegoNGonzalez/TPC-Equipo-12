@@ -8,7 +8,7 @@ namespace TPC_equipo_12
 {
     public partial class EstudianteInscripciones : System.Web.UI.Page
     {
-        InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
+        InscripcionNegocio inscripcionNegocio = new InscripcionNegocio(false);
         Estudiante Estudiante = new Estudiante();
         List<InscripcionACurso> listaInscripciones = new List<InscripcionACurso>();
         protected void Page_Load(object sender, EventArgs e)

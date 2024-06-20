@@ -13,7 +13,7 @@ namespace TPC_equipo_12
         public CursoNegocio cursoNegocio = new CursoNegocio();
         public Estudiante EstudianteLogeado = new Estudiante();
         public List<Curso> listaCursosInscriptos = new List<Curso>();
-        public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
+        public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio(false);
         public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
         public List<Curso> cursosNoInscriptos = new List<Curso>();
 

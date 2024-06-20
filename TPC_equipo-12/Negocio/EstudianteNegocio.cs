@@ -77,6 +77,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
@@ -94,7 +95,7 @@ namespace Negocio
                     Datos.SetearParametro("@IDEstudiante", idUsuario);
                     Datos.SetearParametro("@IDCurso", idCurso);
                     Datos.EjecutarAccion();
-                    Datos.LimpiarParametros();
+                    
 
 
                 }
@@ -107,6 +108,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
 
             }
@@ -200,7 +202,7 @@ namespace Negocio
                 datos.SetearParametro("@nombre", estudiante.Nombre);
                 datos.SetearParametro("@apellido", estudiante.Apellido);
                 datos.SetearParametro("@dni", estudiante.DNI);
-                datos.SetearParametro("@genero", (object) estudiante.Genero ?? DBNull.Value);
+                datos.SetearParametro("@genero", (object)estudiante.Genero ?? DBNull.Value);
                 datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
                 datos.EjecutarAccion();
                 datos.LimpiarParametros();
@@ -209,7 +211,7 @@ namespace Negocio
                 datos.SetearConsulta("SELECT IDImagen FROM Usuarios WHERE IDUsuario = @IDUsuario");
                 datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
                 datos.EjecutarLectura();
-                
+
                 int idImagen = 0;
                 if (datos.Lector.Read() && datos.Lector["IDImagen"] != DBNull.Value)
                 {
@@ -277,6 +279,26 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public void BorrarEstudianteXcurso(int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("delete from EstudiantesXCursos where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                   Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
