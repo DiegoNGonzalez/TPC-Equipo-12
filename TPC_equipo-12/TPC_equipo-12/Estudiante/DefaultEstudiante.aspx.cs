@@ -28,7 +28,6 @@ namespace TPC_equipo_12
             {
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
-
                 listaCursos = cursoNegocio.ListarCursos();
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
                 EstaInscripto();
