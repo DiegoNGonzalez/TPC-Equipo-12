@@ -36,9 +36,9 @@ namespace Negocio
                     aux.Estudiante.IDUsuario = (int)Datos.Lector["IDEstudiante"];
                     lista.Add(aux);
                 }
-                foreach(Resenia resenia in lista)
+                foreach (Resenia resenia in lista)
                 {
-                    resenia.Estudiante= estudianteNegocio.BuscarEstudiante(resenia.Estudiante.IDUsuario);
+                    resenia.Estudiante = estudianteNegocio.BuscarEstudiante(resenia.Estudiante.IDUsuario);
                 }
                 return lista;
             }
@@ -167,7 +167,7 @@ namespace Negocio
                 {
                     idResenia = (int)Datos.Lector["IDResenia"];
                 }
-                
+
                 if (idResenia != 0)
                 {
                     return true;
@@ -188,6 +188,43 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public List<Resenia> ListarReseniasXCurso(int IDCurso)
+        {
+            List<Resenia> lista = new List<Resenia>();
+            try
+            {
+                Datos.SetearConsulta("select r.IDResenia, r.IDEstudiante, r.Resenia, r.Calificacion, r.Fecha from Resenias r INNER JOIN ReseniasXCurso rxc on r.IDResenia= rxc.IDResenia where rxc.IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", IDCurso);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    Resenia aux = new Resenia();
+                    aux.IDResenia = (int)Datos.Lector["IDResenia"];
+                    aux.Calificacion = (int)Datos.Lector["Calificacion"];
+                    aux.Comentario = (string)Datos.Lector["Resenia"];
+                    aux.FechaCreacion = (DateTime)Datos.Lector["Fecha"];
+                    aux.IDCurso = IDCurso;
+                    aux.Estudiante = new Estudiante();
+                    aux.Estudiante.IDUsuario = (int)Datos.Lector["IDEstudiante"];
+                    lista.Add(aux);
+                }
+                foreach (Resenia resenia in lista)
+                {
+                    resenia.Estudiante = estudianteNegocio.BuscarEstudiante(resenia.Estudiante.IDUsuario);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
-    
+
 }
