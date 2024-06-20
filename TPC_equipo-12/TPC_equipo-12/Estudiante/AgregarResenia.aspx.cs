@@ -13,5 +13,10 @@ namespace TPC_equipo_12
         {
 
         }
+
+        protected void btnAgregarResenia_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
