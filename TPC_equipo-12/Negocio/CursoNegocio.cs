@@ -14,6 +14,7 @@ namespace Negocio
         private InscripcionNegocio InscripcionNegocio;
         private LeccionNegocio LeccionNegocio;
         private MaterialNegocio MaterialNegocio;
+        private ReseniaNegocio ReseniaNegocio;
 
         private ProfesorNegocio ProfesorNegocio;
         private NotificacionNegocio NotificacionNegocio;
@@ -27,7 +28,7 @@ namespace Negocio
             InscripcionNegocio = new InscripcionNegocio(true);
             LeccionNegocio = new LeccionNegocio();
             MaterialNegocio = new MaterialNegocio();
-
+            ReseniaNegocio = new ReseniaNegocio();
             ProfesorNegocio = new ProfesorNegocio();
             NotificacionNegocio = new NotificacionNegocio();
 
@@ -115,6 +116,9 @@ namespace Negocio
                     aux.Descripcion = (string)Datos.Lector["Descripcion"];
                     aux.Estreno = (DateTime)Datos.Lector["Estreno"];
                     aux.Duracion = (int)Datos.Lector["Duracion"];
+                    aux.Unidades = new List<Unidad>();
+                    aux.Categoria = new CategoriaCurso();
+                    aux.Resenias = new List<Resenia>();
                     aux.Imagen = new Imagen();
                     if (Datos.Lector["IDImagenes"] != DBNull.Value)
                     {
@@ -125,8 +129,10 @@ namespace Negocio
                     {
                         aux.Imagen.IDImagen = 0;
                     }
-
                 }
+                aux.Unidades = UnidadesDeCurso.ListarUnidades(aux.IDCurso);
+                aux.Categoria.Nombre = CategoriaNegocio.CategoriaNombreXIDCurso(aux.IDCurso);
+                aux.Resenias = ReseniaNegocio.
                 Datos.LimpiarParametros();
                 return aux;
             }

@@ -96,6 +96,7 @@
     <Content Include="Profesor\ProfesorCursos.aspx" />
     <Content Include="Profesor\VerMensaje.aspx" />
     <Content Include="Estudiante\VerMensaje.aspx" />
+    <Content Include="VerDetalleCurso.aspx" />
     <Content Include="Web.config" />
     <Content Include="SignUp.aspx" />
     <Content Include="LogIn.aspx" />
@@ -365,6 +366,13 @@
     </Compile>
     <Compile Include="Estudiante\VerMensaje.aspx.designer.cs">
       <DependentUpon>VerMensaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VerDetalleCurso.aspx.cs">
+      <DependentUpon>VerDetalleCurso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VerDetalleCurso.aspx.designer.cs">
+      <DependentUpon>VerDetalleCurso.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

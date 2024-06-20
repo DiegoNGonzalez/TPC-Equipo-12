@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -48,6 +49,13 @@ namespace TPC_equipo_12
                     }
                 }
             }
+        }
+
+        protected void LinkButtonDefault_Command(object sender, CommandEventArgs e)
+        {
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect("VerDetalleCurso.aspx?idCurso=" + idCurso);
+            
         }
     }
 }
