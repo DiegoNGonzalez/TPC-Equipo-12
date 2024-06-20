@@ -11,8 +11,9 @@ namespace TPC_equipo_12
 {
     public partial class AgregarResenia : System.Web.UI.Page
     {
-        public List <int> calificacion = new List<int> {0, 1, 2, 3, 4, 5 };
+        public List <int> calificacion = new List<int> {1, 2, 3, 4, 5,6,7,8,9,10 };
         public ReseniaNegocio reseniaNegocio = new ReseniaNegocio();
+        public bool existeResenia = false;
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,12 +23,23 @@ namespace TPC_equipo_12
                 Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
                 Response.Redirect("../LogIn.aspx");
             }
-            if (!IsPostBack)
+            existeResenia = reseniaNegocio.ExisteReseniaUsuarioXCurso(((Estudiante)Session["estudiante"]).IDUsuario, (int)Session["IDCurso"] );
+            if (existeResenia)
+            {
+                Session["MensajeError"] = "Ya ha realizado una reseña para este curso.";
+                Response.Redirect("EstudianteCursos.aspx");
+            }else if (!IsPostBack)
             {
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
-                ddlCalificacion.DataSource = calificacion;
-                ddlCalificacion.DataBind();
+               
+                
+               
+
+                    ddlCalificacion.DataSource = calificacion;
+                    ddlCalificacion.SelectedIndex = 0;
+                    ddlCalificacion.DataBind();
+                
             }
         }
 
