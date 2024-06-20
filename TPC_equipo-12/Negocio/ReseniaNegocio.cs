@@ -154,6 +154,40 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public bool ExisteReseniaUsuarioXCurso(int idEstudiante, int idCurso)
+        {
+            int idResenia = 0;
+            try
+            {
+                Datos.SetearConsulta("select r.IDResenia from Resenias r INNER JOIN ReseniasXCurso rxc on r.IDResenia= rxc.IDResenia where r.IDEstudiante = @IDEstudiante and rxc.IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDEstudiante", idEstudiante);
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    idResenia = (int)Datos.Lector["IDResenia"];
+                }
+                
+                if (idResenia != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
     
 }
