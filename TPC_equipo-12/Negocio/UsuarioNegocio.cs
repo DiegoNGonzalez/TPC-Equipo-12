@@ -34,9 +34,19 @@ namespace Negocio
                     aux.DNI = (int)Datos.Lector["DNI"];
                     aux.Genero = (string)Datos.Lector["Genero"];
                     aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];
-                    aux.ImagenPerfil = new Imagen();
-                    aux.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagenes"];
-                    aux.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                    if (Datos.Lector["IDImagenes"] != DBNull.Value)
+                    {
+                        aux.ImagenPerfil = new Imagen();
+                        aux.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagenes"];
+                        aux.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                    }
+                    else
+                    {
+                        aux.ImagenPerfil = new Imagen();
+                        aux.ImagenPerfil.IDImagen = 0;
+                        aux.ImagenPerfil.URL = "https://www.abc.com.py/resizer/1J9J9Q1";
+                    }
+                    
 
                     lista.Add(aux);
                 }
