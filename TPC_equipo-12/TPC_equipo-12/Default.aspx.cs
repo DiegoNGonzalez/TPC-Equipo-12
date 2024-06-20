@@ -36,6 +36,7 @@ namespace TPC_equipo_12
 
                 if (hiddenFieldIDCurso != null && lblCategoria != null)
                 {
+
                     int idCurso = int.Parse(hiddenFieldIDCurso.Value);
                     if (categoriaNegocio.CategoriaNombreXIDCurso(idCurso) != "")
                     {
