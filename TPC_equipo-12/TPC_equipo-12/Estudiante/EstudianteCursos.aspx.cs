@@ -42,7 +42,7 @@ namespace TPC_equipo_12
 
         protected void ButtonDesinscribirse_Command(object sender, CommandEventArgs e)
         {
-            InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
+            InscripcionNegocio inscripcionNegocio = new InscripcionNegocio(false);
             EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
             Estudiante estudiante = (Estudiante)Session["estudiante"];
             int idCursoADesinscribir = Convert.ToInt32(e.CommandArgument);

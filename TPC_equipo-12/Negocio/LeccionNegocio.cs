@@ -143,5 +143,50 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public List<int> ListarIdLeccionXUnidad(int idUnidad)
+        {
+            List<int> lista = new List<int>();
+            try
+            {
+                datos.SetearConsulta("Select IDLeccion from LeccionesXUnidades where IDUnidad = @IDUnidad");
+                datos.SetearParametro("@IDUnidad", idUnidad);
+                datos.EjecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    lista.Add((int)datos.Lector["IDLeccion"]);
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public void BorrarLeccionesXEstudiante(int idLeccion)
+        {
+            try
+            {
+                datos.SetearConsulta("delete from LeccionesXEstudiantes where IDLeccion = @IDLeccion");
+                datos.SetearParametro("@IDLeccion", idLeccion);
+                datos.EjecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
     }
 }

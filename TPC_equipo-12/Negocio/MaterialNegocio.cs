@@ -86,7 +86,9 @@ namespace Negocio
                 Datos.SetearConsulta("delete from MaterialesXLecciones where IDMaterial = @IDMaterial");
                 Datos.SetearParametro("@IDMaterial", idMaterial);
                 Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
+
 
                 Datos.SetearConsulta("delete from Materiales where IDMaterial = @IDMaterial");
                 Datos.SetearParametro("@IDMaterial", idMaterial);
@@ -98,6 +100,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }

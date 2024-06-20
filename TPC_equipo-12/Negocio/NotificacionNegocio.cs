@@ -23,7 +23,8 @@ namespace Negocio
                     datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, n.IDRespuesta, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE nxu.IDUsuario = @IDUsuario and n.Leido=0");
                     datos.SetearParametro("@IDUsuario", IDUsuarioODeInscripcion);
 
-                }else if(UsuarioOInscripcion == "Inscripcion")
+                }
+                else if (UsuarioOInscripcion == "Inscripcion")
                 {
                     datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, n.IDRespuesta, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE n.IDInscripcion = @IDInscripcion");
                     datos.SetearParametro("@IDInscripcion", IDUsuarioODeInscripcion);
@@ -304,7 +305,8 @@ namespace Negocio
             {
 
                 throw;
-            }finally
+            }
+            finally
             {
                 datos.LimpiarParametros();
                 datos.CerrarConexion();
@@ -318,6 +320,31 @@ namespace Negocio
                 datos.SetearParametro("@IDNotificacion", iDNotificacion);
                 datos.EjecutarAccion();
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public List<int> listarIdsNotificacionesXInscripcion(int idInscripcion)
+        {
+            List<int> lista = new List<int>();
+            try
+            {
+                datos.SetearConsulta("select IDNotificacion from Notificaciones where IDInscripcion = @IDInscripcion");
+                datos.SetearParametro("@IDInscripcion", idInscripcion);
+                datos.EjecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    lista.Add((int)datos.Lector["IDNotificacion"]);
+                }
+                return lista;
             }
             catch (Exception)
             {
