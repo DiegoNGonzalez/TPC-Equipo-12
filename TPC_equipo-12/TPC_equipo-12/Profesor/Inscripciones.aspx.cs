@@ -10,7 +10,7 @@ namespace TPC_equipo_12
     public partial class Inscripciones : System.Web.UI.Page
     {
         public List<InscripcionACurso> inscripciones = new List<InscripcionACurso>();
-        public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
+        public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio(false);
         public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
 
         protected void Page_Load(object sender, EventArgs e)

@@ -41,7 +41,7 @@ namespace TPC_equipo_12
         public void CargarNotificaciones(int userID)
         {
             NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
-            List<Notificacion> notificaciones = notificacionNegocio.listarNotificaciones(userID);
+            List<Notificacion> notificaciones = notificacionNegocio.listarNotificaciones(userID, "Usuario");
 
             if (notificaciones != null && notificaciones.Count > 0)
             {

@@ -9,10 +9,29 @@ namespace Negocio
     {
         public Datos Datos;
         private UnidadNegocio UnidadesDeCurso;
+        private CategoriaNegocio CategoriaNegocio;
+        private EstudianteNegocio EstudianteNegocio;
+        private InscripcionNegocio InscripcionNegocio;
+        private LeccionNegocio LeccionNegocio;
+        private MaterialNegocio MaterialNegocio;
+        private ReseniaNegocio ReseniaNegocio;
+
+        private ProfesorNegocio ProfesorNegocio;
+        private NotificacionNegocio NotificacionNegocio;
+
         public CursoNegocio()
         {
             Datos = new Datos();
             UnidadesDeCurso = new UnidadNegocio();
+            CategoriaNegocio = new CategoriaNegocio();
+            EstudianteNegocio = new EstudianteNegocio();
+            InscripcionNegocio = new InscripcionNegocio(true);
+            LeccionNegocio = new LeccionNegocio();
+            MaterialNegocio = new MaterialNegocio();
+            ReseniaNegocio = new ReseniaNegocio();
+            ProfesorNegocio = new ProfesorNegocio();
+            NotificacionNegocio = new NotificacionNegocio();
+
         }
         public List<Curso> ListarCursos()
         {
@@ -37,6 +56,8 @@ namespace Negocio
                 foreach (var item in lista)
                 {
                     item.Unidades = UnidadesDeCurso.ListarUnidades(item.IDCurso);
+                    item.Categoria = new CategoriaCurso();
+                    item.Categoria.Nombre = CategoriaNegocio.CategoriaNombreXIDCurso(item.IDCurso);
                 }
                 Datos.LimpiarParametros();
                 return lista;
@@ -95,6 +116,9 @@ namespace Negocio
                     aux.Descripcion = (string)Datos.Lector["Descripcion"];
                     aux.Estreno = (DateTime)Datos.Lector["Estreno"];
                     aux.Duracion = (int)Datos.Lector["Duracion"];
+                    aux.Unidades = new List<Unidad>();
+                    aux.Categoria = new CategoriaCurso();
+                    aux.Resenias = new List<Resenia>();
                     aux.Imagen = new Imagen();
                     if (Datos.Lector["IDImagenes"] != DBNull.Value)
                     {
@@ -105,8 +129,10 @@ namespace Negocio
                     {
                         aux.Imagen.IDImagen = 0;
                     }
-
                 }
+                aux.Unidades = UnidadesDeCurso.ListarUnidades(aux.IDCurso);
+                aux.Categoria.Nombre = CategoriaNegocio.CategoriaNombreXIDCurso(aux.IDCurso);
+                aux.Resenias = ReseniaNegocio.ListarReseniasXCurso(aux.IDCurso);
                 Datos.LimpiarParametros();
                 return aux;
             }
@@ -121,7 +147,7 @@ namespace Negocio
             }
         }
 
-        public void CrearCurso(Curso curso)
+        public void CrearCurso(Curso curso, int idProfesor)
         {
             try
             {
@@ -184,7 +210,14 @@ namespace Negocio
                 }
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
-                
+
+                Datos.SetearConsulta("insert into ProfesorXCursos (IDCurso, IDProfesor) values (@IDCurso, @IDProfesor)");
+                Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                Datos.SetearParametro("@IDProfesor", idProfesor);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
                 Datos.SetearConsulta("insert into CategoriasXCurso (IDCurso, IDCategoria) values (@IDCurso, @IDCategoria)");
                 Datos.SetearParametro("@IDCurso", curso.IDCurso);
                 Datos.SetearParametro("@IDCategoria", curso.Categoria.IDCategoria);
@@ -205,50 +238,85 @@ namespace Negocio
 
         public void EliminarCurso(int idCurso)
         {
+            List<int> idsInscripciones = new List<int>();
+            List<int> idsNotificaciones = new List<int>();
+            List<int> idsUnidades = new List<int>();
+            List<int> idsLecciones = new List<int>();
             try
             {
-                Datos.SetearConsulta("delete from ProfesorXCursos where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
+                //Datos.SetearConsulta("delete from ProfesorXCursos where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarAccion();
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
+                ProfesorNegocio.BorrarProfesorXCurso(idCurso);
 
-                Datos.SetearConsulta("delete from EstudiantesXCursos where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
+                //Datos.SetearConsulta("delete from EstudiantesXCursos where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarAccion();
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
+                EstudianteNegocio.BorrarEstudianteXcurso(idCurso);
 
-                Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
 
-                Datos.SetearConsulta("delete from CategoriasXCurso where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-
-                Datos.SetearConsulta("Select IDUnidad from UnidadesXCurso where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarLectura();
-                while (Datos.Lector.Read())
+                //Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarAccion();
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
+                idsInscripciones = InscripcionNegocio.listarIdsInscripcionXCurso(idCurso);
+                foreach (int idInscripcion in idsInscripciones)
                 {
-                    Datos.SetearConsulta("Select IDLeccion from LeccionesXUnidad where IDUnidad = @IDUnidad");
-                    Datos.SetearParametro("@IDUnidad", (int)Datos.Lector["IDUnidad"]);
-                    Datos.EjecutarLectura();
-                    while (Datos.Lector.Read())
-                    {
-                        Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
-                        Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
-                        Datos.EjecutarAccion();
-                    }
-                    UnidadesDeCurso.EliminarUnidad((int)Datos.Lector["IDUnidad"]);
+                    idsNotificaciones = NotificacionNegocio.listarIdsNotificacionesXInscripcion(idInscripcion);
                 }
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
+                foreach (int idNotificacion in idsNotificaciones)
+                {
+                    NotificacionNegocio.BorrarNotificacionXUsuario(idNotificacion);
+                    NotificacionNegocio.BorrarNotificacion(idNotificacion);
+                }
+
+                InscripcionNegocio.BorrarInscripcionXCurso(idCurso);
+
+                //Datos.SetearConsulta("delete from CategoriasXCurso where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarAccion();
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
+                CategoriaNegocio.BorrarCategoriaXCurso(idCurso);
+
+                idsUnidades = UnidadesDeCurso.ListaIdUnidadXCurso(idCurso);
+                foreach (int idUnidad in idsUnidades)
+                {
+                    idsLecciones = LeccionNegocio.ListarIdLeccionXUnidad(idUnidad);
+
+                }
+                foreach (int idLeccion in idsLecciones)
+                {
+                    LeccionNegocio.BorrarLeccionesXEstudiante(idLeccion);
+                }
+
+                foreach (int idUnidad in idsUnidades)
+                {
+                    UnidadesDeCurso.EliminarUnidad(idUnidad);
+                }
+                //Datos.SetearConsulta("Select IDUnidad from UnidadesXCurso where IDCurso = @IDCurso");
+                //Datos.SetearParametro("@IDCurso", idCurso);
+                //Datos.EjecutarLectura();
+                //while (Datos.Lector.Read())
+                //{
+                //    Datos.SetearConsulta("Select IDLeccion from LeccionesXUnidad where IDUnidad = @IDUnidad");
+                //    Datos.SetearParametro("@IDUnidad", (int)Datos.Lector["IDUnidad"]);
+                //    Datos.EjecutarLectura();
+                //    while (Datos.Lector.Read())
+                //    {
+                //        Datos.SetearConsulta("delete from LeccionesXEstudiante where IDLeccion = @IDLeccion");
+                //        Datos.SetearParametro("@IDLeccion", (int)Datos.Lector["IDLeccion"]);
+                //        Datos.EjecutarAccion();
+                //    }
+                //    UnidadesDeCurso.EliminarUnidad((int)Datos.Lector["IDUnidad"]);
+                //}
+                //Datos.LimpiarParametros();
+                //Datos.CerrarConexion();
 
                 Datos.SetearConsulta("delete from Cursos where IDCurso = @IDCurso");
                 Datos.SetearParametro("@IDCurso", idCurso);
@@ -269,53 +337,66 @@ namespace Negocio
 
         public void ModificarCurso(Curso curso)
         {
-            int IDImagen = 0;
             try
             {
                 Datos.SetearConsulta("Select IDImagen from Cursos where IDCurso = @IDCurso");
                 Datos.SetearParametro("@IDCurso", curso.IDCurso);
                 Datos.EjecutarLectura();
-                if (Datos.Lector.Read())
+                while (Datos.Lector.Read())
                 {
-                    IDImagen = (int)Datos.Lector["IDImagen"];
+                    curso.Imagen.IDImagen = (int)Datos.Lector["IDImagen"];
                 }
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
 
-                if (IDImagen != 0)
+                try
                 {
-                    try
+                    if (curso.Imagen.URL != "")
                     {
-                        if (curso.Imagen.URL != "")
-                        {
-                            Datos.SetearConsulta("update Imagenes set URLIMG = @URLIMG where IDImagenes = @IDImagenes");
-                            Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
-                            Datos.SetearParametro("@IDImagenes", IDImagen);
-                            Datos.EjecutarAccion();
-                            Datos.CerrarConexion();
-                        }
-                        else
-                        {
-                            Datos.SetearConsulta("insert into Imagenes (URLIMG) values (https://vilmanunez.com/wp-content/uploads/2016/04/VN-Como-crear-el-mejor-temario-de-tu-curso-online-Incluye-plantillas.png)");
-                            Datos.EjecutarAccion();
-                            Datos.CerrarConexion();
-                        }
-
+                        Datos.SetearConsulta("update Imagenes set URLIMG = @URLIMG where IDImagenes = @IDImagenes");
+                        Datos.SetearParametro("@URLIMG", curso.Imagen.URL);
+                        Datos.SetearParametro("@IDImagenes", curso.Imagen.IDImagen);
+                        Datos.EjecutarAccion();
+                        Datos.CerrarConexion();
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        throw ex;
+                        Datos.SetearConsulta("insert into Imagenes (URLIMG) values (https://vilmanunez.com/wp-content/uploads/2016/04/VN-Como-crear-el-mejor-temario-de-tu-curso-online-Incluye-plantillas.png)");
+                        Datos.EjecutarAccion();
+                        Datos.CerrarConexion();
                     }
-
-                    Datos.SetearConsulta("update Cursos set Nombre = @Nombre, Descripcion = @Descripcion, Duracion = @Duracion, Estreno = @Estreno where IDCurso = @IDCurso");
-                    Datos.SetearParametro("@Nombre", curso.Nombre);
-                    Datos.SetearParametro("@Descripcion", curso.Descripcion);
-                    Datos.SetearParametro("@Duracion", curso.Duracion);
-                    Datos.SetearParametro("@Estreno", curso.Estreno);
-                    Datos.SetearParametro("@IDCurso", curso.IDCurso);
-                    Datos.EjecutarAccion();
-                    Datos.CerrarConexion();
                 }
+
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+                Datos.SetearConsulta("Select IDCategoria from CategoriasXCurso where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    curso.Categoria.IDCategoria = (int)Datos.Lector["IDCategoria"];
+                }
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("update Categorias set Nombre = @Nombre where IDCategoria = @IDCategoria");
+                Datos.SetearParametro("@Nombre", curso.Categoria.Nombre);
+                Datos.SetearParametro("@IDCategoria", curso.Categoria.IDCategoria);
+                Datos.EjecutarAccion();
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("update Cursos set Nombre = @Nombre, Descripcion = @Descripcion, Duracion = @Duracion, Estreno = @Estreno where IDCurso = @IDCurso");
+                Datos.SetearParametro("@Nombre", curso.Nombre);
+                Datos.SetearParametro("@Descripcion", curso.Descripcion);
+                Datos.SetearParametro("@Duracion", curso.Duracion);
+                Datos.SetearParametro("@Estreno", curso.Estreno);
+                Datos.SetearParametro("@IDCurso", curso.IDCurso);
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
             }
             catch (Exception ex)
             {

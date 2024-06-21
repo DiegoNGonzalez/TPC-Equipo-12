@@ -11,34 +11,52 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class EstudianteUnidades
+    public partial class AgregarResenia
     {
 
         /// <summary>
-        /// ButtonBackCursos control.
+        /// lblCalificacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonBackCursos;
+        protected global::System.Web.UI.WebControls.Label lblCalificacion;
 
         /// <summary>
-        /// btnReseniaCurso control.
+        /// ddlCalificacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReseniaCurso;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCalificacion;
 
         /// <summary>
-        /// rptUnidades control.
+        /// lblMensaje control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptUnidades;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
+
+        /// <summary>
+        /// txtResenia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtResenia;
+
+        /// <summary>
+        /// btnAgregarResenia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarResenia;
     }
 }

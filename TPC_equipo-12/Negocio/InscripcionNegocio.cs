@@ -12,13 +12,21 @@ namespace Negocio
         private UsuarioNegocio usuarioNegocio;
         private EstudianteNegocio estudianteNegocio;
 
-
-        public InscripcionNegocio()
+       
+        public InscripcionNegocio(bool datosSiONO)
         {
-            Datos = new Datos();
-            cursoNegocio = new CursoNegocio();
-            usuarioNegocio = new UsuarioNegocio();
-            estudianteNegocio = new EstudianteNegocio();
+            if (datosSiONO)
+            {
+                Datos = new Datos();
+            }
+            else
+            {
+                Datos= new Datos();
+                cursoNegocio = new CursoNegocio();
+                usuarioNegocio = new UsuarioNegocio();
+                estudianteNegocio = new EstudianteNegocio();
+            }
+            
         }
         public List<InscripcionACurso> listarInscripciones()
         {
@@ -367,6 +375,50 @@ namespace Negocio
                 throw ex;
             }
             finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public void BorrarInscripcionXCurso(int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public List<int> listarIdsInscripcionXCurso(int idCurso)
+        {
+            List<int> lista = new List<int>();
+            try
+            {
+                Datos.SetearConsulta("select IDInscripcion from Inscripciones where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    lista.Add((int)Datos.Lector["IDInscripcion"]);
+                }
+                return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally 
             {
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();

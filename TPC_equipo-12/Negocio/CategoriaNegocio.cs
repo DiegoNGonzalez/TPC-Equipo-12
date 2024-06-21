@@ -120,5 +120,22 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public void BorrarCategoriaXCurso(int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("delete from CategoriasXCurso where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
 }

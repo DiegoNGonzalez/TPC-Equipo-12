@@ -13,7 +13,7 @@ namespace TPC_equipo_12
         public CursoNegocio cursoNegocio = new CursoNegocio();
         public Estudiante EstudianteLogeado = new Estudiante();
         public List<Curso> listaCursosInscriptos = new List<Curso>();
-        public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio();
+        public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio(false);
         public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
         public List<Curso> cursosNoInscriptos = new List<Curso>();
 
@@ -28,7 +28,6 @@ namespace TPC_equipo_12
             {
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
-
                 listaCursos = cursoNegocio.ListarCursos();
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
                 EstaInscripto();
@@ -38,7 +37,7 @@ namespace TPC_equipo_12
                 NoEstaInscripto();
                 rptCursos.DataSource = cursosNoInscriptos;
                 rptCursos.DataBind();
-
+                MostrarCategoria();
 
             }
         }
@@ -85,7 +84,7 @@ namespace TPC_equipo_12
                 if (seInscribio)
                 {
                     int idInscripcion = inscripcionNegocio.UltimoIDInscripcion();
-                    notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion);
+                    notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion,idCurso);
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
 
                 }
@@ -101,8 +100,28 @@ namespace TPC_equipo_12
 
 
             }
+        }
+        private void MostrarCategoria()
+        {
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            foreach (RepeaterItem item in rptCursos.Items)
+            {
+                HiddenField hiddenFieldIDCurso = (HiddenField)item.FindControl("HiddenFieldIDCurso");
+                Label lblCategoria = (Label)item.FindControl("LabelCategoriaCurso");
 
-
+                if (hiddenFieldIDCurso != null && lblCategoria != null)
+                {
+                    int idCurso = int.Parse(hiddenFieldIDCurso.Value);
+                    if (categoriaNegocio.CategoriaNombreXIDCurso(idCurso) != "")
+                    {
+                        lblCategoria.Text = categoriaNegocio.CategoriaNombreXIDCurso(idCurso);
+                    }
+                    else
+                    {
+                        lblCategoria.Text = "Sin categoria";
+                    }
+                }
+            }
         }
     }
 }

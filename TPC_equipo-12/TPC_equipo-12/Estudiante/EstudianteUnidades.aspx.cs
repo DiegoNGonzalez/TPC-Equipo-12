@@ -21,7 +21,6 @@ namespace TPC_equipo_12
             {
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
-
                 listaUnidades = unidadNegocio.ListarUnidades((int)Session["IDCurso"]);
                 Session.Add("ListaUnidades", listaUnidades);
                 rptUnidades.DataSource = listaUnidades;
@@ -39,6 +38,11 @@ namespace TPC_equipo_12
         protected void ButtonBackCursos_Click(object sender, EventArgs e)
         {
             Response.Redirect("EstudianteCursos.aspx");
+        }
+
+        protected void btnReseniaCurso_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarResenia.aspx");
         }
     }
 }

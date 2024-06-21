@@ -77,6 +77,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
@@ -94,7 +95,7 @@ namespace Negocio
                     Datos.SetearParametro("@IDEstudiante", idUsuario);
                     Datos.SetearParametro("@IDCurso", idCurso);
                     Datos.EjecutarAccion();
-                    Datos.LimpiarParametros();
+                    
 
 
                 }
@@ -107,6 +108,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
 
             }
@@ -200,7 +202,7 @@ namespace Negocio
                 datos.SetearParametro("@nombre", estudiante.Nombre);
                 datos.SetearParametro("@apellido", estudiante.Apellido);
                 datos.SetearParametro("@dni", estudiante.DNI);
-                datos.SetearParametro("@genero", (object) estudiante.Genero ?? DBNull.Value);
+                datos.SetearParametro("@genero", (object)estudiante.Genero ?? DBNull.Value);
                 datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
                 datos.EjecutarAccion();
                 datos.LimpiarParametros();
@@ -209,7 +211,7 @@ namespace Negocio
                 datos.SetearConsulta("SELECT IDImagen FROM Usuarios WHERE IDUsuario = @IDUsuario");
                 datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
                 datos.EjecutarLectura();
-                
+
                 int idImagen = 0;
                 if (datos.Lector.Read() && datos.Lector["IDImagen"] != DBNull.Value)
                 {
@@ -277,6 +279,73 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public void BorrarEstudianteXcurso(int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("delete from EstudiantesXCursos where IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                   Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public Estudiante BuscarEstudiante(int idEstudiante)
+        {
+
+            try
+            {
+                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes where e.IDEstudiante = @IDEstudiante");
+                Datos.SetearParametro("@IDEstudiante", idEstudiante);
+                Datos.EjecutarLectura();
+                Estudiante aux = new Estudiante();
+                if (Datos.Lector.Read())
+                {
+                    aux.IDUsuario = Datos.Lector.GetInt32(9);
+                    aux.Nombre = (string)Datos.Lector["Nombre"];
+                    aux.Apellido = (string)Datos.Lector["Apellido"];
+                    aux.DNI = (int)Datos.Lector["DNI"];
+                    aux.Genero = (string)Datos.Lector["Genero"];
+                    aux.Email = (string)Datos.Lector["Email"];
+                    aux.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+                    if (Datos.Lector["IDImagenes"] != DBNull.Value)
+                    {
+                        aux.ImagenPerfil = new Imagen();
+                        aux.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagenes"];
+                        aux.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                    }
+                    else
+                    {
+                        aux.ImagenPerfil = new Imagen();
+                        aux.ImagenPerfil.IDImagen = 0;
+                        aux.ImagenPerfil.URL = "https://www.abc.com.py/resizer/1J9J9Q1";
+                    }
+
+                    aux.Estado = (bool)Datos.Lector["Estado"];
+                }
+                return aux;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }

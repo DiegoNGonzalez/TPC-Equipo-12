@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="row">
         <div class="col-md-12">
             <h1 class="text-center">Bienvenido Estudiante</h1>
@@ -13,33 +14,45 @@
             <h2 class="text-center">Cursos Disponibles</h2>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <asp:Repeater ID="rptCursos" runat="server">
-            <ItemTemplate>
-                <div class="card ms-5 mb-5 " style="width: 18rem;">
-                    <img src='<%# Eval("Imagen.URL") %>' class="card-img-top mt-3" alt="...">
-                    <div class="card-body text-center">
-                        <h5 class="card-title"><%# Eval("Nombre") %></h5>
-                        <asp:Label runat="server" ID="lblIdCurso" Text='<%# Eval ("IdCurso") %>' CssClass="d-none" />
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-truncate" onclick="expandirDescripcion(this);">
-                            <%# Eval("Descripcion") %>
-                        </li>
-                        <li class="list-group-item">Duracion: <%# Eval("Duracion") %> hs.</li>
-                        <asp:Button Text="Inscribirse" runat="server" CssClass="btn btn-primary" ID="btnInscribirse" OnClick="btnInscribirse_Click" />
-                    </ul>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
-        <script>
-            function expandirDescripcion(element) {
-                const EstaTruncado = element.classList.contains("text-truncate");
-                if (EstaTruncado) {
-                    element.classList.remove("text-truncate");
-                } else {
-                    element.classList.add("text-truncate");
-                }
+    <asp:UpdatePanel ID="UpdatePanelCursos" runat="server">
+        <ContentTemplate>
+            <div class="row justify-content-center">
+                <asp:Repeater ID="rptCursos" runat="server">
+                    <ItemTemplate>
+                        <div class="card ms-5 mb-5" style="width: 18rem; min-height: 24rem;">
+                            <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' /> 
+                            <asp:label ID="lblIDCurso" runat="server" Text='<%# Eval("IDCurso") %>' Visible="false"></asp:label>
+                            <div class="img-container" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                                <img src='<%# Eval("Imagen.URL") %>' class="card-img-top img-fluid" alt="..." style="max-height: 100%; width: auto;">
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title"><%# Eval("Nombre") %></h5>
+                            </div>
+                            </asp:LinkButton>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-truncate" onclick="expandirDescripcion(this);">
+                                <%# Eval("Descripcion") %>
+                            </li>
+                            <li class="list-group-item">Duración: <%# Eval("Duracion") %> hs.</li>
+                            <li class="list-group-item">Categoria:
+                                <asp:Label ID="LabelCategoriaCurso" runat="server"></asp:Label>
+                            </li>
+                            <asp:Button Text="Inscribirse" runat="server" CssClass="btn btn-primary" ID="btnInscribirse" OnClick="btnInscribirse_Click" />
+                        </ul>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <script>
+        function expandirDescripcion(element) {
+            const EstaTruncado = element.classList.contains("text-truncate");
+            if (EstaTruncado) {
+                element.classList.remove("text-truncate");
+            } else {
+                element.classList.add("text-truncate");
             }
-        </script>
+        }
+    </script>
 </asp:Content>
