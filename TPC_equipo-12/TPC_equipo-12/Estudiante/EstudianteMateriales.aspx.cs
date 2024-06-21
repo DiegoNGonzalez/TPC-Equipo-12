@@ -98,13 +98,6 @@ namespace TPC_equipo_12
 
         protected void btnPreguntar_Click(object sender, EventArgs e)
         {
-            //UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-            //string comentario = txtComentarios.Text;
-            //Usuario profesor = new Usuario();
-            //profesor = usuarioNegocio.buscarProfesor();
-            //Usuario emisor = (Estudiante)Session["estudiante"];
-            //usuarioNegocio.publicarComentario(emisor, profesor, comentario, null);
-            //txtComentarios.Text = "";
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
             string comentario = txtComentario.Text;
             Usuario emisor = (Estudiante)Session["estudiante"];
@@ -139,13 +132,19 @@ namespace TPC_equipo_12
             }
             catch (Exception)
             {
-                // Manejo de excepciones
                 throw;
             }
             finally
             {
                 datos.CerrarConexion();
             }
-        }      
+        }
+
+        protected void btnRespuesta_Click(object sender, EventArgs e)
+        {
+            string idComentarioPadre = ((Button)sender).CommandArgument;
+            Session.Add("IDComentarioPadre", idComentarioPadre);
+            Response.Redirect("EstudiantePreguntas.aspx");
+        }
     }
 }
