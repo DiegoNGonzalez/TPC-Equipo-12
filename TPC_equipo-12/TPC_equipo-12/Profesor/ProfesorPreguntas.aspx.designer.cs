@@ -11,52 +11,52 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class ProfesorMateriales
+    public partial class ProfesorPreguntas
     {
 
         /// <summary>
-        /// Control ButtonBackLeccionesProf.
+        /// Control btnVolver.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonBackLeccionesProf;
+        protected global::System.Web.UI.WebControls.Button btnVolver;
 
         /// <summary>
-        /// Control ButtonCrearMaterialProf.
+        /// Control rptComentarioPadre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonCrearMaterialProf;
+        protected global::System.Web.UI.WebControls.Repeater rptComentarioPadre;
 
         /// <summary>
-        /// Control ButtonEliminarMaterialProf.
+        /// Control rptRespuestas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonEliminarMaterialProf;
+        protected global::System.Web.UI.WebControls.Repeater rptRespuestas;
 
         /// <summary>
-        /// Control rptMaterialesProf.
+        /// Control txtRespuesta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptMaterialesProf;
+        protected global::System.Web.UI.WebControls.TextBox txtRespuesta;
 
         /// <summary>
-        /// Control rptComentarios.
+        /// Control btnResponder.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptComentarios;
+        protected global::System.Web.UI.WebControls.Button btnResponder;
     }
 }

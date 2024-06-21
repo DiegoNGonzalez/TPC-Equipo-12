@@ -10,11 +10,10 @@ using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
-    public partial class EstudiantePreguntas : System.Web.UI.Page
+    public partial class ProfesorPreguntas : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
                 if (Session["IDComentarioPadre"] != null)
@@ -23,9 +22,7 @@ namespace TPC_equipo_12
                     cargarComentarioPrincipalYrespuestas(idComentarioPadre);
                 }
             }
-
         }
-
         public void cargarComentarioPrincipalYrespuestas(int idComentarioPadre)
         {
             Datos datos = new Datos();
@@ -61,7 +58,7 @@ namespace TPC_equipo_12
             catch (Exception ex)
             {
                 // Manejar la excepción
-                throw  ex;
+                throw ex;
             }
             finally
             {
@@ -74,7 +71,7 @@ namespace TPC_equipo_12
             if (Session["IDComentarioPadre"] != null)
             {
                 int idComentarioPadre = Convert.ToInt32(Session["IDComentarioPadre"]);
-                Usuario usuarioActual = Session["estudiante"] != null ? (Usuario)Session["estudiante"] : (Usuario) Session["profesor"]; // Suponiendo que tienes una función para obtener el usuario actual
+                Usuario usuarioActual = Session["estudiante"] != null ? (Usuario)Session["estudiante"] : (Usuario)Session["profesor"]; // Suponiendo que tienes una función para obtener el usuario actual
                 string cuerpoRespuesta = txtRespuesta.Text;
 
                 if (!string.IsNullOrEmpty(cuerpoRespuesta))
@@ -84,7 +81,7 @@ namespace TPC_equipo_12
                     {
                         datos.SetearConsulta("INSERT INTO Comentarios (IDComentarioPadre, IDLeccion, IDUsuarioEmisor, CuerpoComentario, FechaCreacion, Estado) VALUES (@IDComentarioPadre, @IDLeccion, @IDUsuarioEmisor, @CuerpoComentario, @FechaCreacion, @Estado)");
                         datos.SetearParametro("@IDComentarioPadre", idComentarioPadre);
-                        datos.SetearParametro("@IDLeccion", Session["IDLeccion"]); // Suponiendo que tienes una función para obtener el ID de la lección actual
+                        datos.SetearParametro("@IDLeccion", Session["IDLeccionProfesor"]); // Suponiendo que tienes una función para obtener el ID de la lección actual
                         datos.SetearParametro("@IDUsuarioEmisor", usuarioActual.IDUsuario);
                         datos.SetearParametro("@CuerpoComentario", cuerpoRespuesta);
                         datos.SetearParametro("@FechaCreacion", DateTime.Now);
@@ -107,12 +104,9 @@ namespace TPC_equipo_12
                 }
             }
         }
-
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("EstudianteMateriales.aspx", false);
+            Response.Redirect("ProfesorMateriales.aspx", false);
         }
-
-
     }
 }

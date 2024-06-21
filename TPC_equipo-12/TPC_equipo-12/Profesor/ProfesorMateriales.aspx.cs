@@ -1,4 +1,5 @@
-﻿using Dominio;
+﻿using AccesoDB;
+using Dominio;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace TPC_equipo_12
                 Session.Add("ListaMaterialesProfesor", listaMateriales);
                 rptMaterialesProf.DataSource = listaMateriales;
                 rptMaterialesProf.DataBind();
+                cargarComentarios();
             }
         }
 
@@ -107,6 +109,44 @@ namespace TPC_equipo_12
             int IdMaterial = Convert.ToInt32(e.CommandArgument);
             Session.Add("IDMaterialProfesor", IdMaterial);
             Response.Redirect("AgregarMateriales.aspx?idMaterial=" + IdMaterial);
+        }
+
+        public void cargarComentarios()
+        {
+            Datos datos = new Datos();
+            try
+            {
+                datos.SetearConsulta(@"
+                SELECT 
+                    c.IDComentario, 
+                    c.CuerpoComentario, 
+                    u.Nombre AS Nombre, 
+                    c.FechaCreacion 
+                FROM 
+                    Comentarios c 
+                INNER JOIN 
+                    Usuarios u ON c.IDUsuarioEmisor = u.IDUsuario 
+                WHERE 
+                    c.IDComentarioPadre IS NULL");
+                datos.EjecutarLectura();
+
+                rptComentarios.DataSource = datos.Lector;
+                rptComentarios.DataBind();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }
+        protected void btnRespuesta_Click(object sender, EventArgs e)
+        {
+            string idComentarioPadre = ((Button)sender).CommandArgument;
+            Session.Add("IDComentarioPadre", idComentarioPadre);
+            Response.Redirect("ProfesorPreguntas.aspx");
         }
     }
 }
