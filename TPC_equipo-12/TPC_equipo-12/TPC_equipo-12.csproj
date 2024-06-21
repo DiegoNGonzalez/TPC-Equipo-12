@@ -106,21 +106,20 @@
     <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
+
     <Compile Include="Estudiante\EstudiantePreguntas.aspx.cs">
       <DependentUpon>EstudiantePreguntas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Estudiante\EstudiantePreguntas.aspx.designer.cs">
       <DependentUpon>EstudiantePreguntas.aspx</DependentUpon>
-=======
+
     <Compile Include="Estudiante\AgregarResenia.aspx.cs">
       <DependentUpon>AgregarResenia.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Estudiante\AgregarResenia.aspx.designer.cs">
       <DependentUpon>AgregarResenia.aspx</DependentUpon>
->>>>>>> 7644b4a33a0e64d735155d96954087a5f3feb01d
     </Compile>
     <Compile Include="Estudiante\EstudianteMensajes.aspx.cs">
       <DependentUpon>EstudianteMensajes.aspx</DependentUpon>
