@@ -24,6 +24,28 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
+        <h3>Preguntas y Respuestas</h3>
+
+        <asp:Repeater ID="rptComentarios" runat="server">
+                <ItemTemplate>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
+                            <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        <!-- Formulario para Agregar Comentario -->
+        <div class="mt-5">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <asp:TextBox ID="txtComentario" CssClass="form-control mb-3" runat="server" TextMode="MultiLine" Rows="3" Placeholder="Escribe tu duda aquí..."></asp:TextBox>
+                    <asp:Button ID="btnPreguntar" CssClass="btn btn-primary" runat="server" Text="Preguntar" OnClick="btnPreguntar_Click" />
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </asp:Content>

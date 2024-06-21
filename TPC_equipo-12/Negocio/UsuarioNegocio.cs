@@ -363,5 +363,28 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+
+        public void publicarComentario(Usuario emisor, int idLecciones, string comentario)
+        {
+            Datos datos = new Datos();
+            try
+            {
+                Comentario primerComentario = new Comentario(comentario, idLecciones, emisor);
+                datos.SetearConsulta("INSERT INTO Comentarios(IDleccion, CuerpoComentario, IDUsuarioEmisor, FechaCreacion, Estado) VALUES (@idLeccion, @cuerpoComentario, @idEmisor, @fechaCreacion, @estado)");
+                datos.SetearParametro("@idLeccion", primerComentario.IDLeccion);
+                datos.SetearParametro("@cuerpoComentario", primerComentario.CuerpoComentario);
+                datos.SetearParametro("@idEmisor", primerComentario.UsuarioEmisor.IDUsuario);
+                datos.SetearParametro("@fechaCreacion", primerComentario.FechaCreacion);
+                datos.SetearParametro("@estado", primerComentario.Estado);
+                datos.EjecutarAccion();
+                datos.LimpiarParametros();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }

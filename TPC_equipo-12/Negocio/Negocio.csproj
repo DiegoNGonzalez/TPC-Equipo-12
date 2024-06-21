@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoriaNegocio.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="ComentarioNegocio.cs" />
     <Compile Include="CursoNegocio.cs" />
     <Compile Include="EstudianteNegocio.cs" />
     <Compile Include="InscripcionNegocio.cs" />

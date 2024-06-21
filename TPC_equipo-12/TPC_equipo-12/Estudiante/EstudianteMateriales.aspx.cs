@@ -1,7 +1,9 @@
-﻿using Dominio;
+﻿using AccesoDB;
+using Dominio;
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
@@ -28,6 +30,7 @@ namespace TPC_equipo_12
                 Session.Add("ListaMateriales", listaMateriales);
                 rptMateriales.DataSource = listaMateriales;
                 rptMateriales.DataBind();
+                cargarComentarios();
 
 
             }
@@ -92,5 +95,57 @@ namespace TPC_equipo_12
         {
             Response.Redirect("EstudianteLecciones.aspx", false);
         }
+
+        protected void btnPreguntar_Click(object sender, EventArgs e)
+        {
+            //UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            //string comentario = txtComentarios.Text;
+            //Usuario profesor = new Usuario();
+            //profesor = usuarioNegocio.buscarProfesor();
+            //Usuario emisor = (Estudiante)Session["estudiante"];
+            //usuarioNegocio.publicarComentario(emisor, profesor, comentario, null);
+            //txtComentarios.Text = "";
+            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            string comentario = txtComentario.Text;
+            Usuario emisor = (Estudiante)Session["estudiante"];
+            int idLeccion = Convert.ToInt32(Session["IDLeccion"]);
+            usuarioNegocio.publicarComentario(emisor, idLeccion, comentario);
+            txtComentario.Text = "";
+            cargarComentarios();
+
+        }
+
+        public void cargarComentarios()
+        {
+            Datos datos = new Datos();
+            try
+            {
+                datos.SetearConsulta(@"
+                SELECT 
+                    c.IDComentario, 
+                    c.CuerpoComentario, 
+                    u.Nombre AS Nombre, 
+                    c.FechaCreacion 
+                FROM 
+                    Comentarios c 
+                INNER JOIN 
+                    Usuarios u ON c.IDUsuarioEmisor = u.IDUsuario 
+                WHERE 
+                    c.IDComentarioPadre IS NULL");
+                datos.EjecutarLectura();
+
+                rptComentarios.DataSource = datos.Lector;
+                rptComentarios.DataBind();
+            }
+            catch (Exception)
+            {
+                // Manejo de excepciones
+                throw;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+        }      
     }
 }
