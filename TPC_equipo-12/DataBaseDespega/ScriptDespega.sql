@@ -4,7 +4,7 @@ Use DB_DESPEGAv2
 GO
 Create Table Imagenes(
 	IDImagenes int not null primary key identity(1, 1),
-	URLIMG varchar(200) not null
+	URLIMG varchar(500) not null
 )
 GO
 Create Table Usuarios(
