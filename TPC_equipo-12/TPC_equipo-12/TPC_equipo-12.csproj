@@ -113,6 +113,7 @@
     </Compile>
     <Compile Include="Estudiante\EstudiantePreguntas.aspx.designer.cs">
       <DependentUpon>EstudiantePreguntas.aspx</DependentUpon>
+</Compile>
 
     <Compile Include="Estudiante\AgregarResenia.aspx.cs">
       <DependentUpon>AgregarResenia.aspx</DependentUpon>
