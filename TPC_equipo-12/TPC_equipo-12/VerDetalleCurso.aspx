@@ -20,18 +20,37 @@
                                 <p>Descripcion: <%# Eval("Descripcion") %></p>
                                 <p>Duracion: <%# Eval("Duracion") %> hs.</p>
                                 <p>Fecha estreno: <%# Eval("Estreno") %></p>
+                                <p>Categoria: <%# Eval("Categoria.Nombre") %></p>
+                                <h5>Unidades:</h5>
+                                <asp:Label ID="LabelNoHayUnidades" runat="server" Visible="false"></asp:Label>
                                 <asp:Repeater ID="RepeaterUnidades" runat="server">
                                     <ItemTemplate>
-                                        <ul>
-                                            <li>
-                                                <p><%# Eval("Nombre") %></p>
-                                                <p><%# Eval("Descripcion") %></p>
+                                        <ol class="list-group list-group-numbered">
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                <div class="ms-2 me-auto">
+                                                    <div class="fw-bold"><%# Eval("Nombre") %></div>
+                                                    <%# Eval("Descripcion") %>
+                                                </div>
+                                            </li>
+                                        </ol>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                                <h5>Reseñas:</h5>
+                                <asp:Label ID="LabelNoHayResenias" runat="server" Visible="false"></asp:Label>
+                                <asp:Repeater ID="RepeaterResenias" runat="server">
+                                    <ItemTemplate>
+                                        <ul class="list-group mb-2">
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                            <span class="badge bg-success rounded-pill"><%# Eval("Calificacion") %></span>
+                                                <div class="ms-2 me-auto">
+                                                    <div class="fw-bold">Nombre: <%# Eval("Estudiante.NombreCompleto") %></div>
+                                                    Comentario: <%# Eval("Comentario") %>.
+                                                </div>
                                             </li>
                                         </ul>
                                     </ItemTemplate>
                                 </asp:Repeater>
-                                <p>Categoria: <%# Eval("Categoria") %></p>
-                                <img src='<%# Eval("Imagen.URL") %>'>
+                                <img class="img-fluid" src='<%# Eval("Imagen.URL") %>'>
                             </div>
                         </div>
                     </ItemTemplate>

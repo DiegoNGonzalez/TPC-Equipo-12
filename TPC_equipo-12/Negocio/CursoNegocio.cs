@@ -132,7 +132,7 @@ namespace Negocio
                 }
                 aux.Unidades = UnidadesDeCurso.ListarUnidades(aux.IDCurso);
                 aux.Categoria.Nombre = CategoriaNegocio.CategoriaNombreXIDCurso(aux.IDCurso);
-                aux.Resenias = ReseniaNegocio.
+                aux.Resenias = ReseniaNegocio.ListarReseniasXCurso(aux.IDCurso);
                 Datos.LimpiarParametros();
                 return aux;
             }

@@ -19,7 +19,7 @@ namespace TPC_equipo_12
             {
                 int idCurso = Convert.ToInt32(Request.QueryString["idCurso"]);
                 curso = cursoNegocio.BuscarCurso(idCurso);
-                List <Curso> cursos = new List<Curso>();
+                List<Curso> cursos = new List<Curso>();
                 cursos.Add(curso);
                 RepeaterVerDetalleCurso.DataSource = cursos;
                 RepeaterVerDetalleCurso.DataBind();
@@ -31,11 +31,33 @@ namespace TPC_equipo_12
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                Curso curso1 = new Curso();
-                curso1 = (Curso)e.Item.DataItem;
                 Repeater Repeaterunidades = (Repeater)e.Item.FindControl("RepeaterUnidades");
-                Repeaterunidades.DataSource = curso.Unidades;
-                Repeaterunidades.DataBind();
+                Label NoHayUnidades = (Label)e.Item.FindControl("LabelNoHayUnidades");
+                if (curso.Unidades.Count > 0)
+                {
+                    Repeaterunidades.DataSource = curso.Unidades;
+                    Repeaterunidades.DataBind();
+                }
+                else
+                {
+                    NoHayUnidades.Visible = true;
+                    NoHayUnidades.Text = "No hay unidades en este curso";
+                }
+            }
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Repeater RepeaterResenias = (Repeater)e.Item.FindControl("RepeaterResenias");
+                Label NohayResenias = (Label)e.Item.FindControl("LabelNoHayResenias");
+                if (curso.Resenias.Count > 0)
+                {
+                    RepeaterResenias.DataSource = curso.Resenias;
+                    RepeaterResenias.DataBind();
+                }
+                else
+                {
+                    NohayResenias.Visible = true;
+                    NohayResenias.Text = "No hay resenias en este curso";
+                }
             }
         }
     }
