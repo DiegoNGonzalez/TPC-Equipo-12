@@ -131,11 +131,37 @@ namespace Negocio
             catch (Exception ex)
             {
                 throw ex;
-            }finally
+            }
+            finally
             {
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
+        public bool ExisteCategoria(string nombreCategoria)
+        {
+            try
+            {
+                Datos.SetearConsulta("SELECT COUNT(*) FROM Categorias WHERE Nombre = @Nombre");
+                Datos.SetearParametro("@Nombre", nombreCategoria);
+                Datos.EjecutarLectura();
+
+                if (Datos.Lector.Read() && (int)Datos.Lector[0] > 0)
+                {
+                    return true;
+                }
+                return false; 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+
     }
 }
