@@ -16,7 +16,8 @@ Create Table Usuarios(
 	Email varchar(100) not null unique,
 	EsProfesor bit not null default 0,
 	IDImagen int null Foreign Key References Imagenes(IDImagenes),
-	Contrasenia varchar(100) not null
+	ContraseniaHash VARCHAR(255) NOT NULL, 
+    ContraseniaSalt VARCHAR(255) NOT NULL
 )
 GO
 Create Table Categorias(
