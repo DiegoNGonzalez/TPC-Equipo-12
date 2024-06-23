@@ -93,6 +93,7 @@ namespace Negocio
         }
         public void AgregarUsuario(Usuario usuario)
         {
+            EmailService envioMensaje = new EmailService();
             try
             {
                 //Datos.SetearConsulta("insert into Imagenes (URLIMG) values(@URLIMG)");
@@ -116,6 +117,7 @@ namespace Negocio
                     Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
                     //Datos.SetearParametro("@IDImagen", (object)usuario.ImagenPerfil.IDImagen?? DBNull.Value);
                     Datos.EjecutarAccion();
+                    envioMensaje.EnviarEmailRegistroExitoso(usuario.Email);
 
                 }
             }

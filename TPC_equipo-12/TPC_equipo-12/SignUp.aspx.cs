@@ -55,6 +55,7 @@ namespace TPC_equipo_12
                     usuarioNegocio.AgregarUsuario(usuario);
                     Session["usuario"] = usuario;
                     Session["MensajeExito"] = "Usuario registrado con éxito!";
+
                     Response.Redirect("LogIn.aspx", false);
                 }
 
