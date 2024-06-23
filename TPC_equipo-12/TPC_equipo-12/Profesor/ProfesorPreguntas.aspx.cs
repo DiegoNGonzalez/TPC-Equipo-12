@@ -31,8 +31,8 @@ namespace TPC_equipo_12
 
             try
             {
-                // Consulta para cargar el comentario padre
-                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
+                // Consulta para cargar el comentario padre con la imagen de perfil
+                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
                 datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
                 datos.EjecutarLectura();
                 dtPadre.Load(datos.Lector);
@@ -41,8 +41,8 @@ namespace TPC_equipo_12
                 // Limpiar parámetros antes de la siguiente consulta
                 datos.LimpiarParametros();
 
-                // Consulta para cargar las respuestas
-                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentarioPadre = @IdComentarioPadre");
+                // Consulta para cargar las respuestas con las imágenes de perfil
+                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentarioPadre = @IdComentarioPadre");
                 datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
                 datos.EjecutarLectura();
                 dtRespuestas.Load(datos.Lector);
@@ -79,12 +79,13 @@ namespace TPC_equipo_12
                     Datos datos = new Datos();
                     try
                     {
-                        datos.SetearConsulta("INSERT INTO Comentarios (IDComentarioPadre, IDLeccion, IDUsuarioEmisor, CuerpoComentario, FechaCreacion, Estado) VALUES (@IDComentarioPadre, @IDLeccion, @IDUsuarioEmisor, @CuerpoComentario, @FechaCreacion, @Estado)");
+                        datos.SetearConsulta("INSERT INTO Comentarios (IDComentarioPadre, IDLeccion, IDUsuarioEmisor, CuerpoComentario, FechaCreacion,IDImagen, Estado) VALUES (@IDComentarioPadre, @IDLeccion, @IDUsuarioEmisor, @CuerpoComentario, @FechaCreacion, @idImagen, @Estado)");
                         datos.SetearParametro("@IDComentarioPadre", idComentarioPadre);
                         datos.SetearParametro("@IDLeccion", Session["IDLeccionProfesor"]); // Suponiendo que tienes una función para obtener el ID de la lección actual
                         datos.SetearParametro("@IDUsuarioEmisor", usuarioActual.IDUsuario);
                         datos.SetearParametro("@CuerpoComentario", cuerpoRespuesta);
                         datos.SetearParametro("@FechaCreacion", DateTime.Now);
+                        datos.SetearParametro("@idImagen", usuarioActual.ImagenPerfil == null ? (object)DBNull.Value : usuarioActual.ImagenPerfil.IDImagen);
                         datos.SetearParametro("@Estado", true); // O el valor correspondiente según tu lógica de negocio
                         datos.EjecutarAccion();
                     }

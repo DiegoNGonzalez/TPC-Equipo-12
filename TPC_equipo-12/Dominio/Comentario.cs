@@ -15,6 +15,7 @@ namespace Dominio
         public DateTime FechaCreacion { get; set; }
         public bool Estado { get; set; }
         public int IDLeccion { get; set; }
+        public Imagen imagenPerfil { get; set; }
         public List<Comentario> Respuestas { get; set; } = new List<Comentario>();
 
         public Comentario()

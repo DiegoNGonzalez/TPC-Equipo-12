@@ -82,6 +82,8 @@ namespace TPC_equipo_12
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
+            lblNotificacion.Visible = false;
+            lblNotificacion.ForeColor = System.Drawing.Color.Red;
             string categoriaActual = dropCategorias.SelectedValue;
             string nuevoNombre = txtNuevaCategoria.Text.Trim();
             CategoriaNegocio categoriaNegocio  = new CategoriaNegocio();
@@ -93,6 +95,13 @@ namespace TPC_equipo_12
                     CategoriaCurso categoria = new CategoriaCurso();
                     categoria.IDCategoria = int.Parse(categoriaActual);
                     categoria.Nombre = nuevoNombre;
+                    if(categoriaNegocio.ExisteCategoria(categoria.Nombre))
+                    {
+                        lblNotificacion.Text = "Por favor, ingrese el nombre de la nueva categoría, el mismo ya existe.";
+                        lblNotificacion.Visible = true;
+                        txtNuevaCategoria.Text = "";
+                        return;
+                    }
                     categoriaNegocio.ModificarCategoria(categoria);
                     cargarCategorias();
                     lblNotificacion.Text = "Se ha modificado la categoría correctamente.";

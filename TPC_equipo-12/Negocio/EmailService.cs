@@ -51,7 +51,7 @@ namespace Negocio
         {
             using (MailMessage mail = new MailMessage())
             {
-                mail.From = new MailAddress("noresponder.Programacion3@MaxiPrograma.com", "Maxi Programa");
+                mail.From = new MailAddress("programacionIII@outlook.com", "Maxi Programa");
                 mail.To.Add(destinatario);
                 mail.Subject = "Registro Exitoso";
                 mail.Body = "Hola, tu registro ha sido exitoso. ¡Bienvenido!";

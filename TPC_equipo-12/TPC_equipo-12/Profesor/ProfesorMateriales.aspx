@@ -33,11 +33,16 @@
             <ItemTemplate>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
-                        <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
-                        <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
-                    </div>
-                </div>
+                        <div class="media">
+                            <div class="mr-3">
+                                <asp:Image ID="imgPerfil" runat="server" CssClass="mg-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/" + Eval("ImagenPerfilURL") %>' />
+                            </div>
+                            <div class="media-body">
+                                <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
+                                <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                                <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
+                            </div>
+                        </div>
             </ItemTemplate>
         </asp:Repeater>
     </div>

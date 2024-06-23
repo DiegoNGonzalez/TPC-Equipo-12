@@ -34,8 +34,8 @@ namespace TPC_equipo_12
 
             try
             {
-                // Consulta para cargar el comentario padre
-                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
+                // Consulta para cargar el comentario padre con la imagen de perfil
+                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
                 datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
                 datos.EjecutarLectura();
                 dtPadre.Load(datos.Lector);
@@ -44,8 +44,8 @@ namespace TPC_equipo_12
                 // Limpiar parámetros antes de la siguiente consulta
                 datos.LimpiarParametros();
 
-                // Consulta para cargar las respuestas
-                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentarioPadre = @IdComentarioPadre");
+                // Consulta para cargar las respuestas con las imágenes de perfil
+                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentarioPadre = @IdComentarioPadre");
                 datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
                 datos.EjecutarLectura();
                 dtRespuestas.Load(datos.Lector);
@@ -61,7 +61,7 @@ namespace TPC_equipo_12
             catch (Exception ex)
             {
                 // Manejar la excepción
-                throw  ex;
+                throw ex;
             }
             finally
             {
@@ -69,12 +69,13 @@ namespace TPC_equipo_12
             }
         }
 
+
         protected void btnResponder_Click(object sender, EventArgs e)
         {
             if (Session["IDComentarioPadre"] != null)
             {
                 int idComentarioPadre = Convert.ToInt32(Session["IDComentarioPadre"]);
-                Usuario usuarioActual = Session["estudiante"] != null ? (Usuario)Session["estudiante"] : (Usuario) Session["profesor"]; // Suponiendo que tienes una función para obtener el usuario actual
+                Usuario usuarioActual = Session["estudiante"] != null ? (Usuario)Session["estudiante"] : (Usuario)Session["profesor"]; // Suponiendo que tienes una función para obtener el usuario actual
                 string cuerpoRespuesta = txtRespuesta.Text;
 
                 if (!string.IsNullOrEmpty(cuerpoRespuesta))
@@ -82,12 +83,13 @@ namespace TPC_equipo_12
                     Datos datos = new Datos();
                     try
                     {
-                        datos.SetearConsulta("INSERT INTO Comentarios (IDComentarioPadre, IDLeccion, IDUsuarioEmisor, CuerpoComentario, FechaCreacion, Estado) VALUES (@IDComentarioPadre, @IDLeccion, @IDUsuarioEmisor, @CuerpoComentario, @FechaCreacion, @Estado)");
+                        datos.SetearConsulta("INSERT INTO Comentarios (IDComentarioPadre, IDLeccion, IDUsuarioEmisor, CuerpoComentario, FechaCreacion, IDImagen, Estado) VALUES (@IDComentarioPadre, @IDLeccion, @IDUsuarioEmisor, @CuerpoComentario, @FechaCreacion, @IdImagen, @Estado)");
                         datos.SetearParametro("@IDComentarioPadre", idComentarioPadre);
                         datos.SetearParametro("@IDLeccion", Session["IDLeccion"]); // Suponiendo que tienes una función para obtener el ID de la lección actual
                         datos.SetearParametro("@IDUsuarioEmisor", usuarioActual.IDUsuario);
                         datos.SetearParametro("@CuerpoComentario", cuerpoRespuesta);
                         datos.SetearParametro("@FechaCreacion", DateTime.Now);
+                        datos.SetearParametro("@idImagen", usuarioActual.ImagenPerfil == null ? (object)DBNull.Value : usuarioActual.ImagenPerfil.IDImagen);
                         datos.SetearParametro("@Estado", true); // O el valor correspondiente según tu lógica de negocio
                         datos.EjecutarAccion();
                     }

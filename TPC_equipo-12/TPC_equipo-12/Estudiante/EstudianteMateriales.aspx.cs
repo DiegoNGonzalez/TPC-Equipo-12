@@ -114,17 +114,20 @@ namespace TPC_equipo_12
             try
             {
                 datos.SetearConsulta(@"
-                SELECT 
-                    c.IDComentario, 
-                    c.CuerpoComentario, 
-                    u.Nombre AS Nombre, 
-                    c.FechaCreacion 
-                FROM 
-                    Comentarios c 
-                INNER JOIN 
-                    Usuarios u ON c.IDUsuarioEmisor = u.IDUsuario 
-                WHERE 
-                    c.IDComentarioPadre IS NULL");
+                    SELECT 
+                        c.IDComentario, 
+                        c.CuerpoComentario, 
+                        u.Nombre AS Nombre, 
+                        c.FechaCreacion,
+                        ISNULL(i.URLIMG, '') AS ImagenPerfilURL
+                    FROM 
+                        Comentarios c 
+                    INNER JOIN 
+                        Usuarios u ON c.IDUsuarioEmisor = u.IDUsuario
+                    LEFT JOIN
+                        Imagenes i ON u.IDImagen = i.IDImagenes
+                    WHERE 
+                        c.IDComentarioPadre IS NULL");
                 datos.EjecutarLectura();
 
                 rptComentarios.DataSource = datos.Lector;
