@@ -18,7 +18,7 @@ namespace Negocio
 
             try
             {
-                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes");
+                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.ContraseniaHash,u.ContraseniaSalt, u.EsProfesor, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes");
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
@@ -29,7 +29,7 @@ namespace Negocio
                     aux.DNI = (int)Datos.Lector["DNI"];
                     aux.Genero = (string)Datos.Lector["Genero"];
                     aux.Email = (string)Datos.Lector["Email"];
-                    aux.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    aux.ContraseniaHash = (string)Datos.Lector["ContraseniaHash"];
                     aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];
                     if (Datos.Lector["IDImagenes"] != DBNull.Value)
                     {
@@ -307,7 +307,7 @@ namespace Negocio
 
             try
             {
-                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes where e.IDEstudiante = @IDEstudiante");
+                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.EsProfesor,u.ContraseniaHash, u.ContraseniaSalt, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes where e.IDEstudiante = @IDEstudiante");
                 Datos.SetearParametro("@IDEstudiante", idEstudiante);
                 Datos.EjecutarLectura();
                 Estudiante aux = new Estudiante();
@@ -319,7 +319,8 @@ namespace Negocio
                     aux.DNI = (int)Datos.Lector["DNI"];
                     aux.Genero = (string)Datos.Lector["Genero"];
                     aux.Email = (string)Datos.Lector["Email"];
-                    aux.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    aux.ContraseniaHash = (string)Datos.Lector["ContraseniaHash"];
+                    aux.ContraseniaSalt = (string)Datos.Lector["ContraseniaSalt"];
                     aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];
                     if (Datos.Lector["IDImagenes"] != DBNull.Value)
                     {
