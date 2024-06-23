@@ -62,7 +62,7 @@ namespace TPC_equipo_12
                     }
                     else
                     {
-                        lblNotificacion.Text = "Ya existe una Categoria con ese Nombre, ingrese otro por favor..";
+                        lblNotificacion.Text = "Ya existe una categoría con ese nombre, ingrese otro por favor..";
                         lblNotificacion.Visible = true;
                     }
                     cargarCategorias();
@@ -77,6 +77,68 @@ namespace TPC_equipo_12
             {
                 lblNotificacion.Text = "Por favor, ingrese el nombre de la nueva categoría.";
                 lblNotificacion.Visible = true;
+            }
+        }
+
+        protected void btnModificar_Click(object sender, EventArgs e)
+        {
+            string categoriaActual = dropCategorias.SelectedValue;
+            string nuevoNombre = txtNuevaCategoria.Text.Trim();
+            CategoriaNegocio categoriaNegocio  = new CategoriaNegocio();
+
+            if (!string.IsNullOrEmpty(nuevoNombre))
+            {
+                try
+                {
+                    CategoriaCurso categoria = new CategoriaCurso();
+                    categoria.IDCategoria = int.Parse(categoriaActual);
+                    categoria.Nombre = nuevoNombre;
+                    categoriaNegocio.ModificarCategoria(categoria);
+                    cargarCategorias();
+                    lblNotificacion.Text = "Se ha modificado la categoría correctamente.";
+                    lblNotificacion.ForeColor = System.Drawing.Color.Green;
+                    lblNotificacion.Visible = true;
+                    txtNuevaCategoria.Text = "";
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+            {
+                lblNotificacion.Text = "Por favor, ingrese el nombre de la nueva categoría.";
+                lblNotificacion.Visible = true;
+            }
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            lblNotificacion.Visible = false;
+            lblNotificacion.ForeColor = System.Drawing.Color.Red;
+            string categoriaSeleccionada = dropCategorias.SelectedValue;
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            try
+            {
+                int idCategoria = int.Parse(categoriaSeleccionada);
+                if (categoriaNegocio.CategoriaAsociadaACurso(idCategoria))
+                {
+                    lblNotificacion.Text = "La categoría está asociada a un curso y no se puede eliminar.";
+                    lblNotificacion.Visible = true;
+                    return;
+                }
+
+                categoriaNegocio.EliminarCategoria(idCategoria);
+                cargarCategorias();
+                lblNotificacion.Text = "Se ha eliminado la categoría correctamente.";
+                lblNotificacion.ForeColor = System.Drawing.Color.Green;
+                lblNotificacion.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

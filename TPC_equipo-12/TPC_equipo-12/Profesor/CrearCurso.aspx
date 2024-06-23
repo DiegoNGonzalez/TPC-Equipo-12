@@ -21,8 +21,8 @@
                     <asp:TextBox ID="TextBoxEstrenoCurso" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                 </div>
                 <div class="mb-3">
-                    <asp:Label ID="LabelCategoriaCurso" runat="server" CssClass="form-label" Text="Categoria"></asp:Label>
-                    <asp:TextBox ID="TextBoxCategoriaCurso" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:Label ID="LabelCategoriaCurso" runat="server" CssClass="form-label" Text="Categoría"></asp:Label>
+                    <asp:DropDownList ID="DropDownListCategoriaCurso" runat="server" CssClass="form-control"></asp:DropDownList>
                 </div>
                 <div class="mb-3">
                     <asp:Label ID="LabelDuracionCurso" runat="server" CssClass="form-label" Text="Duración del curso (en hs)"></asp:Label>

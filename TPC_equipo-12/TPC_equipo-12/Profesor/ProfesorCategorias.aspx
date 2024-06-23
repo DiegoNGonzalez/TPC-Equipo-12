@@ -26,8 +26,8 @@
         <div class="row justify-content-center mt-3 w-100">
             <div class="col-md-4 text-center">
                 <asp:Button Text="Agregar" CssClass="btn btn-primary mb-2" ID="btnAgregar" runat="server" OnClick="btnAgregar_Click" />
-                <asp:Button Text="Modificar" CssClass="btn btn-secondary mb-2" ID="btnModificar" runat="server" />
-                <asp:Button Text="Eliminar" CssClass="btn btn-danger mb-2" ID="btnEliminar" runat="server" />
+                <asp:Button Text="Modificar" CssClass="btn btn-secondary mb-2" ID="btnModificar" runat="server" OnClick="btnModificar_Click" />
+                <asp:Button Text="Eliminar" CssClass="btn btn-danger mb-2" ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" />
             </div>
         </div>
     </div>

@@ -150,7 +150,7 @@ namespace Negocio
                 {
                     return true;
                 }
-                return false; 
+                return false;
             }
             catch (Exception ex)
             {
@@ -163,5 +163,67 @@ namespace Negocio
             }
         }
 
+        public void ModificarCategoria(CategoriaCurso categoria)
+        {
+            try
+            {
+                Datos.SetearConsulta("UPDATE Categorias SET Nombre = @Nombre WHERE IDCategoria = @IDCategoria");
+                Datos.SetearParametro("@Nombre", categoria.Nombre);
+                Datos.SetearParametro("@IDCategoria", categoria.IDCategoria);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+
+        public void EliminarCategoria(int idCategoria)
+        {
+            try
+            {
+                Datos.SetearConsulta("DELETE FROM Categorias WHERE IDCategoria = @IDCategoria");
+                Datos.SetearParametro("@IDCategoria", idCategoria);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public bool CategoriaAsociadaACurso(int idCategoria)
+{
+    try
+    {
+        Datos.SetearConsulta("SELECT COUNT(*) FROM CategoriasXCurso WHERE IDCategoria = @IDCategoria");
+        Datos.SetearParametro("@IDCategoria", idCategoria);
+        Datos.EjecutarLectura();
+
+        if (Datos.Lector.Read() && (int)Datos.Lector[0] > 0)
+        {
+            return true; // La categoría está asociada a un curso
+        }
+        return false; // La categoría no está asociada a ningún curso
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    finally
+    {
+        Datos.LimpiarParametros();
+        Datos.CerrarConexion();
+    }
+}
     }
 }
