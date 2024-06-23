@@ -35,13 +35,15 @@ namespace TPC_equipo_12
         {
             Usuario usuario = new Usuario();
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            CursoNegocio cursoNegocio = new CursoNegocio();
             try
             {
                 usuario.Email = InputEmailLogIn.Text;
                 usuario.Contrasenia = InputContraseñaLogIn.Text;
                 usuarioNegocio.Logueo(usuario);
                 List<Curso> listaCursos = new List<Curso>();
-                listaCursos = (List<Curso>)Session["listaCursos"];
+                listaCursos = cursoNegocio.ListarCursos();
+                //listaCursos = (List<Curso>)Session["listaCursos"];
                 if (usuario.IDUsuario != 0)
                 {
                     if (usuario.EsProfesor)
@@ -81,11 +83,13 @@ namespace TPC_equipo_12
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
             try
             {
+                CursoNegocio cursoNegocio = new CursoNegocio();
                 usuario.Email = "hola@maxiprograma.com";
                 usuario.Contrasenia = "contraseniaSegura123";
                 usuarioNegocio.Logueo(usuario);
                 List<Curso> listaCursos = new List<Curso>();
-                listaCursos = (List<Curso>)Session["listaCursos"];
+                //listaCursos = (List<Curso>)Session["listaCursos"];
+                listaCursos = cursoNegocio.ListarCursos();
                 Profesor profesor = new Profesor();
                 profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
                 profesor.Cursos = listaCursos;

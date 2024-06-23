@@ -18,7 +18,9 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                cargarCategorias();
                 ModificarCurso();
+
             }
         }
 
@@ -38,7 +40,9 @@ namespace TPC_equipo_12
                 curso.Duracion = Convert.ToInt32(TextBoxDuracionCurso.Text);
                 curso.Estreno = Convert.ToDateTime(TextBoxEstrenoCurso.Text);
                 curso.Categoria = new CategoriaCurso();
-                curso.Categoria.Nombre = TextBoxCategoriaCurso.Text;
+                curso.Categoria = new CategoriaCurso();
+                curso.Categoria.IDCategoria = int.Parse(DropDownListCategoriaCurso.SelectedValue);
+                curso.Categoria.Nombre = DropDownListCategoriaCurso.SelectedItem.Text;
                 curso.Imagen = new Imagen();
                 curso.Imagen.URL = TextBoxUrlImagen.Text;
                 curso.Unidades = new List<Unidad>();
@@ -88,7 +92,7 @@ namespace TPC_equipo_12
                 TextBoxDescripcionCurso.Text = curso.Descripcion;
                 TextBoxDuracionCurso.Text = curso.Duracion.ToString();
                 TextBoxEstrenoCurso.Text = curso.Estreno.ToString("yyyy-MM-dd");
-                TextBoxCategoriaCurso.Text = curso.Categoria.Nombre;
+                DropDownListCategoriaCurso.SelectedValue = curso.Categoria.IDCategoria.ToString();
                 TextBoxUrlImagen.Text = curso.Imagen.URL;
             }
         }
@@ -96,6 +100,22 @@ namespace TPC_equipo_12
         protected void ButtonVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorCursos.aspx", false);
+        }
+        private void cargarCategorias()
+        {
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            try
+            {
+                List<CategoriaCurso> listaCategorias = categoriaNegocio.ListarCategorias();
+                DropDownListCategoriaCurso.DataSource = listaCategorias;
+                DropDownListCategoriaCurso.DataTextField = "Nombre";
+                DropDownListCategoriaCurso.DataValueField = "IDCategoria";
+                DropDownListCategoriaCurso.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

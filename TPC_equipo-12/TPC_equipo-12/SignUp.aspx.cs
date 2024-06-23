@@ -76,21 +76,6 @@ namespace TPC_equipo_12
 
             return true;
         }
-        private void cargarCategorias()
-        {
-            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            try
-            {
-                List<CategoriaCurso> listaCategorias = categoriaNegocio.ListarCategorias();
-                dropCategorias.DataSource = listaCategorias;
-                dropCategorias.DataTextField = "Nombre";
-                dropCategorias.DataValueField = "IDCategoria";
-                dropCategorias.DataBind();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
     }
 }
