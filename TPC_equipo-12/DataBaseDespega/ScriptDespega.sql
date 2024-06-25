@@ -1,6 +1,3 @@
-use master
-go
-drop DATABASE DB_DESPEGAv2
 Create Database DB_DESPEGAv2
 GO
 Use DB_DESPEGAv2
@@ -99,7 +96,6 @@ Create Table Comentarios(
 	IDImagen INT NULL FOREIGN KEY REFERENCES Imagenes(IDImagenes),
 	Estado bit not null Default 1
  )
- 
  GO  
  
 Create Table LeccionesXEstudiantes(
@@ -189,5 +185,3 @@ Create Table NotificacionesXUsuario(
 		Primary Key (IDNotificacion, IDUsuario)
 )
 GO
-
-SELECT * from Comentarios
