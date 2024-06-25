@@ -6,8 +6,6 @@ INSERT INTO Imagenes (URLIMG) VALUES ('https://i.ytimg.com/vi/VnbKPJA2ykU/maxres
 INSERT INTO IMagenes(URLIMG) VALUES ('https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg');
 INSERT INTO Imagenes (URLIMG) VALUES ('https://i.ytimg.com/vi/7TKY-jksHRQ/maxresdefault.jpg');
 INSERT INTO Imagenes (URLIMG) VALUES ('https://cdn.goconqr.com/uploads/media/image/10324463/desktop_cb3541ed-ab38-450f-9403-e800ac7d09f5.jpg');
-
-
 go
 -- Insertar usuarios
 INSERT INTO Usuarios (Nombre, Apellido, DNI, Genero, Email, EsProfesor, IDImagen, Contrasenia)
@@ -54,17 +52,6 @@ INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 1);
 INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 2);
 INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 3);
 INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 4);
-go
--- Insertar inscripciones
-INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (2, 1, 'A');
-INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (2, 2, 'A');
-INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (3, 3, 'A');
-INSERT INTO Inscripciones (IDusuario, IDCurso, Estado) VALUES (4, 4, 'A');
-go
--- Insertar estudiantes por curso
-INSERT INTO EstudiantesXCursos (IDEstudiante, IDCurso, Completado) VALUES (2, 1, 1);
-INSERT INTO EstudiantesXCursos (IDEstudiante, IDCurso, Completado) VALUES (2, 2, 0);
-INSERT INTO EstudiantesXCursos (IDEstudiante, IDCurso, Completado) VALUES (4, 4, 0);
 go
 -- Insertar categorias por curso
 INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (1, 1);

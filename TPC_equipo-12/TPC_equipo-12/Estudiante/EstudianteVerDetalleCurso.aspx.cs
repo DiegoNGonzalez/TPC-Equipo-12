@@ -45,7 +45,7 @@ namespace TPC_equipo_12
                 else
                 {
                     NoHayUnidades.Visible = true;
-                    NoHayUnidades.Text = "No hay unidades en este curso";
+                    NoHayUnidades.Text = "No hay unidades en este curso.";
                 }
             }
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -60,7 +60,7 @@ namespace TPC_equipo_12
                 else
                 {
                     NohayResenias.Visible = true;
-                    NohayResenias.Text = "No hay resenias en este curso";
+                    NohayResenias.Text = "No hay reseñas de este curso.";
                 }
             }
         }
