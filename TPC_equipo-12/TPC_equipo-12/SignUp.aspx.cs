@@ -38,7 +38,7 @@ namespace TPC_equipo_12
                     usuario.Apellido = InputApellidos.Text;
                     usuario.DNI = Convert.ToInt32(InputDNI.Text);
                     usuario.Email = InputEmail.Text;
-                    usuario.Contrasenia = InputPassword.Text;
+                    string Contrasenia = InputPassword.Text;
                     usuario.EsProfesor = false;
                     if (dropGenero.SelectedValue == "Masculino")
                     {
@@ -52,7 +52,7 @@ namespace TPC_equipo_12
                     {
                         usuario.Genero = "x";
                     }
-                    usuarioNegocio.AgregarUsuario(usuario);
+                    usuarioNegocio.AgregarUsuario(usuario, Contrasenia);
                     Session["usuario"] = usuario;
                     Session["MensajeExito"] = "Usuario registrado con éxito!";
 

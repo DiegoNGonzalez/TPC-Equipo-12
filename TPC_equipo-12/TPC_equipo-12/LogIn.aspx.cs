@@ -39,30 +39,31 @@ namespace TPC_equipo_12
             try
             {
                 usuario.Email = InputEmailLogIn.Text;
-                usuario.Contrasenia = InputContraseñaLogIn.Text;
-                usuarioNegocio.Logueo(usuario);
-                List<Curso> listaCursos = new List<Curso>();
-                listaCursos = cursoNegocio.ListarCursos();
-                //listaCursos = (List<Curso>)Session["listaCursos"];
-                if (usuario.IDUsuario != 0)
+                string Contrasenia = InputContraseñaLogIn.Text;
+                if(usuarioNegocio.Logueo(usuario, Contrasenia))
                 {
-                    if (usuario.EsProfesor)
-                    {
-                        Profesor profesor = new Profesor();
-                        profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
-                        profesor.Cursos = listaCursos;
-                        Session["profesor"] = profesor;
-                        Session["MensajeExito"] = "Bienvenido " + profesor.Nombre + " " + profesor.Apellido + "!";
-                        Response.Redirect("/Profesor/DefaultProfesor.aspx", false);
-                    }
-                    else
-                    {
-                        Estudiante estudiante = new Estudiante();
-                        estudiante = usuarioNegocio.SetearEstudiante(usuario.IDUsuario);
-                        Session["estudiante"] = estudiante;
-                        Session["MensajeExito"] = "Bienvenido " + estudiante.Nombre + " " + estudiante.Apellido + "!";
-                        Response.Redirect("/Estudiante/DefaultEstudiante.aspx", false);
-                    }
+                    List<Curso> listaCursos = cursoNegocio.ListarCursos();
+                    //listaCursos = (List<Curso>)Session["listaCursos"];
+                    
+                        if (usuario.EsProfesor)
+                        {
+                            Profesor profesor = new Profesor();
+                            profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
+                            profesor.Cursos = listaCursos;
+                            Session["profesor"] = profesor;
+                            Session["MensajeExito"] = "Bienvenido " + profesor.Nombre + " " + profesor.Apellido + "!";
+                            Response.Redirect("/Profesor/DefaultProfesor.aspx", false);
+                        }
+                        else
+                        {
+                            Estudiante estudiante = new Estudiante();
+                            estudiante = usuarioNegocio.SetearEstudiante(usuario.IDUsuario);
+                            Session["estudiante"] = estudiante;
+                            Session["MensajeExito"] = "Bienvenido " + estudiante.Nombre + " " + estudiante.Apellido + "!";
+                            Response.Redirect("/Estudiante/DefaultEstudiante.aspx", false);
+                        }
+                    
+
                 }
                 else
                 {
@@ -79,51 +80,51 @@ namespace TPC_equipo_12
 
         protected void ButtonLogInFastProf_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
-            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-            try
-            {
-                CursoNegocio cursoNegocio = new CursoNegocio();
-                usuario.Email = "hola@maxiprograma.com";
-                usuario.Contrasenia = "contraseniaSegura123";
-                usuarioNegocio.Logueo(usuario);
-                List<Curso> listaCursos = new List<Curso>();
-                //listaCursos = (List<Curso>)Session["listaCursos"];
-                listaCursos = cursoNegocio.ListarCursos();
-                Profesor profesor = new Profesor();
-                profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
-                profesor.Cursos = listaCursos;
-                Session["profesor"] = profesor;
-                Response.Redirect("~/Profesor/DefaultProfesor.aspx", false);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-                Response.Redirect("LogIn.aspx");
-            }
+            //Usuario usuario = new Usuario();
+            //UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            //try
+            //{
+            //    CursoNegocio cursoNegocio = new CursoNegocio();
+            //    usuario.Email = "hola@maxiprograma.com";
+            //    usuario.Contrasenia = "contraseniaSegura123";
+            //    usuarioNegocio.Logueo(usuario);
+            //    List<Curso> listaCursos = new List<Curso>();
+            //    //listaCursos = (List<Curso>)Session["listaCursos"];
+            //    listaCursos = cursoNegocio.ListarCursos();
+            //    Profesor profesor = new Profesor();
+            //    profesor = usuarioNegocio.SetearProfesor(usuario.IDUsuario);
+            //    profesor.Cursos = listaCursos;
+            //    Session["profesor"] = profesor;
+            //    Response.Redirect("~/Profesor/DefaultProfesor.aspx", false);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ex.ToString();
+            //    Response.Redirect("LogIn.aspx");
+            //}
         }
 
         protected void ButtonLogInFastEst_Click(object sender, EventArgs e)
         {
-            Usuario usuario = new Usuario();
-            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-            try
-            {
-                usuario.Email = "tomas.caceres2@alumnos.frgp.utn.edu.ar";
-                usuario.Contrasenia = "contraseniaSegura789";
-                usuarioNegocio.Logueo(usuario);
-                List<Curso> listaCursos = new List<Curso>();
-                listaCursos = (List<Curso>)Session["listaCursos"];
-                Estudiante estudiante = new Estudiante();
-                estudiante = usuarioNegocio.SetearEstudiante(usuario.IDUsuario);
-                Session["estudiante"] = estudiante;
-                Response.Redirect("~/Estudiante/DefaultEstudiante.aspx", false);
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-                Response.Redirect("LogIn.aspx");
-            }
+            //Usuario usuario = new Usuario();
+            //UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            //try
+            //{
+            //    usuario.Email = "tomas.caceres2@alumnos.frgp.utn.edu.ar";
+            //    usuario.Contrasenia = "contraseniaSegura789";
+            //    usuarioNegocio.Logueo(usuario);
+            //    List<Curso> listaCursos = new List<Curso>();
+            //    listaCursos = (List<Curso>)Session["listaCursos"];
+            //    Estudiante estudiante = new Estudiante();
+            //    estudiante = usuarioNegocio.SetearEstudiante(usuario.IDUsuario);
+            //    Session["estudiante"] = estudiante;
+            //    Response.Redirect("~/Estudiante/DefaultEstudiante.aspx", false);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ex.ToString();
+            //    Response.Redirect("LogIn.aspx");
+            //}
         }
 
     }

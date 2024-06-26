@@ -21,7 +21,7 @@ namespace Negocio
             List<Usuario> lista = new List<Usuario>();
             try
             {
-                Datos.SetearConsulta("select u.IDUsuario, u.Nombre, u.Apellido, u.Email, u.Contrasenia, u.DNI, u.Genero, EsProfesor, i.IDImagenes, i.URLIMG from Usuarios u left join Imagenes i on u.IDImagen = i.IDImagenes");
+                Datos.SetearConsulta("select u.IDUsuario, u.Nombre, u.Apellido, u.Email, u.Contrasenia, u.DNI, u.Genero, u.EsProfesor,u.ContraseniaHash,u.ContraseniaSalt, i.IDImagenes, i.URLIMG from Usuarios u left join Imagenes i on u.IDImagen = i.IDImagenes");
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
@@ -30,7 +30,8 @@ namespace Negocio
                     aux.Nombre = (string)Datos.Lector["Nombre"];
                     aux.Apellido = (string)Datos.Lector["Apellido"];
                     aux.Email = (string)Datos.Lector["Email"];
-                    aux.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    aux.ContraseniaHash = (string)Datos.Lector["ContraseniaHash"];
+                    aux.ContraseniaSalt = (string)Datos.Lector["ContraseniaSalt"];
                     aux.DNI = (int)Datos.Lector["DNI"];
                     aux.Genero = (string)Datos.Lector["Genero"];
                     aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];
@@ -46,7 +47,7 @@ namespace Negocio
                         aux.ImagenPerfil.IDImagen = 0;
                         aux.ImagenPerfil.URL = "https://www.abc.com.py/resizer/1J9J9Q1";
                     }
-                    
+
 
                     lista.Add(aux);
                 }
@@ -91,9 +92,9 @@ namespace Negocio
                 throw ex;
             }
         }
-        public void AgregarUsuario(Usuario usuario)
+        public void AgregarUsuario(Usuario usuario, string contrasenia)
         {
-            EmailService envioMensaje = new EmailService();
+            //EmailService envioMensaje = new EmailService();
             try
             {
                 //Datos.SetearConsulta("insert into Imagenes (URLIMG) values(@URLIMG)");
@@ -107,17 +108,22 @@ namespace Negocio
                 }
                 else
                 {
-                    Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, Contrasenia, DNI, Genero, EsProfesor) values (@Nombre, @Apellido, @Email, @Contrasenia, @DNI, @Genero, @EsProfesor)");
+                    string salt = GenerateSalt();
+                    string hash = HashPassword(contrasenia, salt);
+                    usuario.ContraseniaHash = hash;
+                    usuario.ContraseniaSalt = salt;
+                    Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, ContraseniaHash,ContraseniaSalt, DNI, Genero, EsProfesor) values (@Nombre, @Apellido, @Email, @ContraseniaHash,@ContraseniaSalt, @DNI, @Genero, @EsProfesor)");
                     Datos.SetearParametro("@Nombre", usuario.Nombre);
                     Datos.SetearParametro("@Apellido", usuario.Apellido);
                     Datos.SetearParametro("@Email", usuario.Email);
-                    Datos.SetearParametro("@Contrasenia", usuario.Contrasenia);
+                    Datos.SetearParametro("@ContraseniaHash", usuario.ContraseniaHash);
+                    Datos.SetearParametro("@ContraseniaSalt", usuario.ContraseniaSalt);
                     Datos.SetearParametro("@DNI", usuario.DNI);
                     Datos.SetearParametro("@Genero", (object)usuario.Genero ?? DBNull.Value);
                     Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
                     //Datos.SetearParametro("@IDImagen", (object)usuario.ImagenPerfil.IDImagen?? DBNull.Value);
                     Datos.EjecutarAccion();
-                    envioMensaje.EnviarEmailRegistroExitoso(usuario.Email);
+                    //envioMensaje.EnviarEmailRegistroExitoso(usuario.Email);
 
                 }
             }
@@ -126,19 +132,33 @@ namespace Negocio
                 throw ex;
             }
         }
-        public void ModificarUsuario(Usuario usuario)
+        public void ModificarUsuario(Usuario usuario, string nuevaContrasenia = null)
         {
             try
             {
-                Datos.SetearConsulta("update Usuarios set Nombre = @Nombre, Apellido = @Apellido, Email = @Email, Clave = @Clave, DNI = @DNI, Genero = @Genero, EsProfesor = @EsProfesor where IDUsuario = @IDUsuario");
+                string consulta = "UPDATE Usuarios SET Nombre = @Nombre, Apellido = @Apellido, Email = @Email, DNI = @DNI, Genero = @Genero, EsProfesor = @EsProfesor";
+                if (nuevaContrasenia != null)
+                {
+
+                    string nuevoSalt = GenerateSalt();
+                    string nuevoHash = HashPassword(nuevaContrasenia, nuevoSalt);
+
+                    consulta += ", ContraseniaHash = @ContraseniaHash, ContraseniaSalt = @ContraseniaSalt";
+                    Datos.SetearParametro("@ContraseniaHash", nuevoHash);
+                    Datos.SetearParametro("@ContraseniaSalt", nuevoSalt);
+                }
+                consulta += " WHERE IDUsuario = @IDUsuario";
+
+                Datos.SetearConsulta(consulta);
+
                 Datos.SetearParametro("@Nombre", usuario.Nombre);
                 Datos.SetearParametro("@Apellido", usuario.Apellido);
                 Datos.SetearParametro("@Email", usuario.Email);
-                Datos.SetearParametro("@Clave", usuario.Contrasenia);
                 Datos.SetearParametro("@DNI", usuario.DNI);
                 Datos.SetearParametro("@Genero", usuario.Genero);
                 Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
                 Datos.SetearParametro("@IDUsuario", usuario.IDUsuario);
+
                 Datos.EjecutarAccion();
             }
             catch (Exception ex)
@@ -176,20 +196,28 @@ namespace Negocio
             }
         }
 
-        public bool Logueo(Usuario usuario)
+        public bool Logueo(Usuario usuario, string contrasenia)
         {
             Datos Datos = new Datos();
             try
             {
-                Datos.SetearConsulta("select IDUsuario, EsProfesor from Usuarios where Email = @Email and Contrasenia = @Contrasenia");
+
+                Datos.SetearConsulta("SELECT ContraseniaHash, ContraseniaSalt FROM Usuarios WHERE Email = @Email");
                 Datos.SetearParametro("@Email", usuario.Email);
-                Datos.SetearParametro("@Contrasenia", usuario.Contrasenia);
                 Datos.EjecutarLectura();
-                while (Datos.Lector.Read())
+
+                if (Datos.Lector.Read())
                 {
-                    usuario.IDUsuario = Datos.Lector.GetInt32(0);
-                    usuario.EsProfesor = (bool)Datos.Lector["EsProfesor"];
-                    return true;
+                    string storedHash = Datos.Lector["ContraseniaHash"].ToString();
+                    string storedSalt = Datos.Lector["ContraseniaSalt"].ToString();
+
+
+                    if (BCrypt.Net.BCrypt.Verify(contrasenia + storedSalt, storedHash))
+                    {
+
+                        return TraerEmail(usuario);
+
+                    }
                 }
                 return false;
             }
@@ -199,6 +227,39 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public bool TraerEmail(Usuario usuario)
+        {
+            Datos Datos = new Datos();
+            try
+            {
+                Datos.SetearConsulta("SELECT IDUsuario, EsProfesor FROM Usuarios WHERE Email = @Email");
+                Datos.SetearParametro("@Email", usuario.Email);
+                Datos.EjecutarLectura();
+
+                if (Datos.Lector.Read())
+                {
+                    usuario.IDUsuario = Datos.Lector.GetInt32(0);
+                    usuario.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+                    return true;
+                }
+                else
+                {
+                    return false;
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
@@ -208,7 +269,7 @@ namespace Negocio
             Profesor profesor = new Profesor();
             try
             {
-                Datos.SetearConsulta("SELECT u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, u.IDImagen, i.URLIMG " +
+                Datos.SetearConsulta("SELECT u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.ContraseniaHash,u.ContraseniaSalt, u.EsProfesor, u.IDImagen, i.URLIMG " +
                      "FROM Usuarios u " +
                      "LEFT JOIN Imagenes i ON u.IDImagen = i.IDImagenes " +
                      "WHERE u.IDUsuario = @IDProfesor");
@@ -230,7 +291,8 @@ namespace Negocio
                         profesor.Genero = "No contesta";
                     }
                     profesor.Email = (string)Datos.Lector["Email"];
-                    profesor.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    profesor.ContraseniaHash = (string)Datos.Lector["ContraseniaHash"];
+                    profesor.ContraseniaSalt = (string)Datos.Lector["ContraseniaSalt"];
                     profesor.EsProfesor = (bool)Datos.Lector["EsProfesor"];
                     profesor.ImagenPerfil = new Imagen();
                     if (Datos.Lector["IDImagen"] != DBNull.Value)
@@ -261,7 +323,7 @@ namespace Negocio
             Estudiante estudiante = new Estudiante();
             try
             {
-                Datos.SetearConsulta("SELECT u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.Contrasenia, u.EsProfesor, u.IDImagen, i.URLIMG " +
+                Datos.SetearConsulta("SELECT u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.ContraseniaHash,u.ContraseniaSalt, u.EsProfesor, u.IDImagen, i.URLIMG " +
                      "FROM Usuarios u " +
                      "LEFT JOIN Imagenes i ON u.IDImagen = i.IDImagenes " +
                      "WHERE u.IDUsuario = @IDEstudiante");
@@ -283,7 +345,8 @@ namespace Negocio
                         estudiante.Genero = "No contesta";
                     }
                     estudiante.Email = (string)Datos.Lector["Email"];
-                    estudiante.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    estudiante.ContraseniaHash = (string)Datos.Lector["ContraseniaHash"];
+                    estudiante.ContraseniaSalt = (string)Datos.Lector["ContraseniaSalt"];
                     estudiante.EsProfesor = (bool)Datos.Lector["EsProfesor"];
                     estudiante.ImagenPerfil = new Imagen();
                     if (Datos.Lector["IDImagen"] != DBNull.Value)
@@ -315,7 +378,7 @@ namespace Negocio
             Usuario usuario = new Usuario();
             try
             {
-                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, Contrasenia, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDUsuario");
+                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, ContraseniaHash, ContraseniaSalt, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDUsuario");
                 Datos.SetearParametro("@IDUsuario", idUsuario);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
@@ -326,7 +389,8 @@ namespace Negocio
                     usuario.DNI = (int)Datos.Lector["DNI"];
                     usuario.Genero = (string)Datos.Lector["Genero"];
                     usuario.Email = (string)Datos.Lector["Email"];
-                    usuario.Contrasenia = (string)Datos.Lector["Contrasenia"];
+                    usuario.ContraseniaHash = (string)Datos.Lector["ContraseniaHash"];
+                    usuario.ContraseniaSalt = (string)Datos.Lector["ContraseniaSalt"];
                     usuario.EsProfesor = (bool)Datos.Lector["EsProfesor"];
                     usuario.ImagenPerfil = new Imagen();
                     if (Datos.Lector["IDImagen"] != DBNull.Value)
@@ -398,6 +462,15 @@ namespace Negocio
                 throw ex;
             }
 
+        }
+        private string HashPassword(string password, string salt)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password + salt);
+        }
+
+        private string GenerateSalt()
+        {
+            return BCrypt.Net.BCrypt.GenerateSalt();
         }
     }
 }
