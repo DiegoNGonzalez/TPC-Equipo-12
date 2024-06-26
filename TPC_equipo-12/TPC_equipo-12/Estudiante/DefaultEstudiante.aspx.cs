@@ -123,5 +123,12 @@ namespace TPC_equipo_12
                 }
             }
         }
+
+        protected void LinkButtonEstudiante_Command(object sender, CommandEventArgs e)
+        {
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect("EstudianteVerDetalleCurso.aspx?idCurso=" + idCurso);
+
+        }
     }
 }

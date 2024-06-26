@@ -35,7 +35,7 @@
                                     </li>
                                 </ul>
                         <div class="d-flex justify-content-center align-items-center mt-2">
-                            <asp:Button ID="ButtonDesinscribirse" runat="server" Text="Desinscribirse" CssClass="btn btn-primary btn-sm mx-2 mb-4" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDesinscribirse_Command" />
+                            <asp:Button ID="ButtonDesinscribirse" runat="server" Text="Desinscribirse" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDesinscribirse_Command" />
                         </div>
                             </div>
                         </ItemTemplate>

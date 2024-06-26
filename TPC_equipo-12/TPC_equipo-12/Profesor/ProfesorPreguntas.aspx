@@ -10,9 +10,16 @@
             <ItemTemplate>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Comentario Principal</h5>
-                        <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
-                        <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                        <div class="media">
+                            <div class="mr-3">
+                                <asp:Image ID="imgPerfilPadre" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDImagen").ToString() + ".jpg" %>' />
+                            </div>
+                            <div class="media-body">
+                                <h5 class="card-title">Comentario Principal</h5>
+                                <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
+                                <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </ItemTemplate>
@@ -23,9 +30,16 @@
             <ItemTemplate>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Respuesta</h5>
-                        <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
-                        <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                        <div class="media">
+                            <div class="mr-3">
+                                <asp:Image ID="imgPerfilRespuesta" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDImagen").ToString() + ".jpg" %>' />
+                            </div>
+                            <div class="media-body">
+                                <h5 class="card-title">Respuesta</h5>
+                                <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
+                                <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </ItemTemplate>

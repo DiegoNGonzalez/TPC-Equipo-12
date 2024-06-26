@@ -20,8 +20,9 @@
                 <asp:Repeater ID="rptCursos" runat="server">
                     <ItemTemplate>
                         <div class="card ms-5 mb-5" style="width: 18rem; min-height: 24rem;">
-                            <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' /> 
-                            <asp:label ID="lblIDCurso" runat="server" Text='<%# Eval("IDCurso") %>' Visible="false"></asp:label>
+                            <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
+                            <asp:Label ID="lblIDCurso" runat="server" Text='<%# Eval("IDCurso") %>' Visible="false"></asp:Label>
+                            <asp:LinkButton ID="LinkButtonEstudiante" runat="server" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="LinkButtonEstudiante_Command" Style="text-decoration: none;">
                             <div class="img-container" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                                 <img src='<%# Eval("Imagen.URL") %>' class="card-img-top img-fluid" alt="..." style="max-height: 100%; width: auto;">
                             </div>
@@ -29,16 +30,18 @@
                                 <h5 class="card-title"><%# Eval("Nombre") %></h5>
                             </div>
                             </asp:LinkButton>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item text-truncate" onclick="expandirDescripcion(this);">
-                                <%# Eval("Descripcion") %>
-                            </li>
-                            <li class="list-group-item">Duración: <%# Eval("Duracion") %> hs.</li>
-                            <li class="list-group-item">Categoria:
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item text-truncate" onclick="expandirDescripcion(this);">
+                                    <%# Eval("Descripcion") %>
+                                </li>
+                                <li class="list-group-item">Duración: <%# Eval("Duracion") %> hs.</li>
+                                <li class="list-group-item">Categoria:
                                 <asp:Label ID="LabelCategoriaCurso" runat="server"></asp:Label>
-                            </li>
-                            <asp:Button Text="Inscribirse" runat="server" CssClass="btn btn-primary" ID="btnInscribirse" OnClick="btnInscribirse_Click" />
-                        </ul>
+                                </li>
+                            </ul>
+                            <div class="d-flex justify-content-center align-items-center mt-2">
+                                <asp:Button Text="Inscribirse" runat="server" CssClass="btn btn-success btn-sm mx-2 mb-2" ID="btnInscribirse" OnClick="btnInscribirse_Click" />
+                            </div>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>

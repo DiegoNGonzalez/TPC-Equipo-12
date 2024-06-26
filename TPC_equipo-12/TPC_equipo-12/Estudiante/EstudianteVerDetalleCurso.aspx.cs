@@ -1,20 +1,25 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dominio;
-using Negocio;
 
 namespace TPC_equipo_12
 {
-    public partial class VerDetalleCurso : System.Web.UI.Page
+    public partial class EstudianteVerDetalleCurso : System.Web.UI.Page
     {
         public Curso curso = new Curso();
         public CursoNegocio cursoNegocio = new CursoNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["estudiante"] == null)
+            {
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                Response.Redirect("../LogIn.aspx");
+            }
             if (!IsPostBack)
             {
                 int idCurso = Convert.ToInt32(Request.QueryString["idCurso"]);
@@ -26,7 +31,6 @@ namespace TPC_equipo_12
 
             }
         }
-
         protected void RepeaterVerDetalleCurso_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)

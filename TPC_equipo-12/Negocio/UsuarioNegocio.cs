@@ -446,11 +446,12 @@ namespace Negocio
             try
             {
                 Comentario primerComentario = new Comentario(comentario, idLecciones, emisor);
-                datos.SetearConsulta("INSERT INTO Comentarios(IDleccion, CuerpoComentario, IDUsuarioEmisor, FechaCreacion, Estado) VALUES (@idLeccion, @cuerpoComentario, @idEmisor, @fechaCreacion, @estado)");
+                datos.SetearConsulta("INSERT INTO Comentarios(IDleccion, CuerpoComentario, IDUsuarioEmisor, FechaCreacion, IDImagen, Estado) VALUES (@idLeccion, @cuerpoComentario, @idEmisor, @fechaCreacion, @idImagen, @estado)");
                 datos.SetearParametro("@idLeccion", primerComentario.IDLeccion);
                 datos.SetearParametro("@cuerpoComentario", primerComentario.CuerpoComentario);
                 datos.SetearParametro("@idEmisor", primerComentario.UsuarioEmisor.IDUsuario);
                 datos.SetearParametro("@fechaCreacion", primerComentario.FechaCreacion);
+                datos.SetearParametro("@idImagen", emisor.ImagenPerfil == null ? (object)DBNull.Value : emisor.ImagenPerfil.IDImagen);
                 datos.SetearParametro("@estado", primerComentario.Estado);
                 datos.EjecutarAccion();
                 datos.LimpiarParametros();

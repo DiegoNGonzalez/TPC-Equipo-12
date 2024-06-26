@@ -88,15 +88,15 @@ Create Table Lecciones(
 )
 GO
 Create Table Comentarios(
-IDComentario int not null PRIMARY KEY IDENTITY(1,1),
- IDComentarioPadre int null,
-IDLeccion int not null Foreign Key References Lecciones(IDLeccion),
- IDUsuarioEmisor int not null Foreign Key References Usuarios(IDUsuario),
- CuerpoComentario varchar(500) not null,
-FechaCreacion datetime not null,
-Estado bit not null Default 1
+	IDComentario int not null PRIMARY KEY IDENTITY(1,1),
+	IDComentarioPadre int null,
+	IDLeccion int not null Foreign Key References Lecciones(IDLeccion),
+	IDUsuarioEmisor int not null Foreign Key References Usuarios(IDUsuario),
+	CuerpoComentario varchar(500) not null,
+	FechaCreacion datetime not null,
+	IDImagen INT NULL FOREIGN KEY REFERENCES Imagenes(IDImagenes),
+	Estado bit not null Default 1
  )
- 
  GO  
  
 Create Table LeccionesXEstudiantes(
@@ -186,4 +186,3 @@ Create Table NotificacionesXUsuario(
 		Primary Key (IDNotificacion, IDUsuario)
 )
 GO
-

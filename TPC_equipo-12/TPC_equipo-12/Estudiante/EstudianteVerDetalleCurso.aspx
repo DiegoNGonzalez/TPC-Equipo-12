@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="VerDetalleCurso.aspx.cs" Inherits="TPC_equipo_12.VerDetalleCurso" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Estudiante/EstudianteMasterPage.Master" AutoEventWireup="true" CodeBehind="EstudianteVerDetalleCurso.aspx.cs" Inherits="TPC_equipo_12.EstudianteVerDetalleCurso" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -7,31 +7,37 @@
         <div class="row">
             <div class="col-md-12">
                 <asp:Repeater ID="RepeaterVerDetalleCurso" runat="server" OnItemDataBound="RepeaterVerDetalleCurso_ItemDataBound">
-                    <ItemTemplate>
+                    <itemtemplate>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="d-flex justify-content-center align-items-center">
+                                <div class="d-flex justify-content-center align-items-center mb-4">
                                     <h1><%# Eval("Nombre") %></h1>
                                 </div>
                                 <div class="d-flex align-items-center mb-4">
-                                <div class="flex-shrink-0">
-                                    <img class="img-fluid mt-4" src='<%# Eval("Imagen.URL") %>' style="width: 300px; height: auto;">
+                                    <div class="flex-shrink-0">
+                                        <img class="img-fluid" src='<%# Eval("Imagen.URL") %>' style="width: 300px; height: auto;">
+                                    </div>
+                                    <div class="ms-4">
+                                        <h5>Descripción:</h5>
+                                        <p><%# Eval("Descripcion") %></p>
+                                    </div>
                                 </div>
-                                <div class="ms-4">
-                                    <h5>Descripción:</h5>
-                                    <p><%# Eval("Descripcion") %></p>
-                                </div>
-                            </div>
-                                    <h5>Duración:</h5>
-                                    <p><%# Eval("Duracion") %> hs.</p>
+                                <p>
+                                    <h5>Duracion:</h5>
+                                    <%# Eval("Duracion") %> hs.
+                                </p>
+                                <p>
                                     <h5>Fecha estreno:</h5>
-                                    <p><%# Eval("Estreno") %></p>
-                                    <h5>Categoría:</h5>
-                                    <p><%# Eval("Categoria.Nombre") %></p>
+                                    <%# Eval("Estreno") %>
+                                </p>
+                                <p>
+                                    <h5>Categoria:</h5>
+                                    <%# Eval("Categoria.Nombre") %>
+                                </p>
                                 <h5>Unidades:</h5>
                                 <asp:Label ID="LabelNoHayUnidades" runat="server" Visible="false"></asp:Label>
                                 <asp:Repeater ID="RepeaterUnidades" runat="server">
-                                    <ItemTemplate>
+                                    <itemtemplate>
                                         <ol class="list-group list-group-numbered">
                                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                                 <div class="ms-2 me-auto">
@@ -40,13 +46,13 @@
                                                 </div>
                                             </li>
                                         </ol>
-                                    </ItemTemplate>
+                                    </itemtemplate>
                                 </asp:Repeater>
                                 <h5 class="mt-4">Reseñas:</h5>
                                 <asp:Label ID="LabelNoHayResenias" runat="server" Visible="false"></asp:Label>
                                 <asp:Repeater ID="RepeaterResenias" runat="server">
-                                    <ItemTemplate>
-                                        <ul class="list-group mb-4">
+                                    <itemtemplate>
+                                        <ul class="list-group mb-2">
                                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                                 <span class="badge bg-success rounded-pill"><%# Eval("Calificacion") %></span>
                                                 <div class="ms-2 me-auto">
@@ -55,11 +61,11 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </ItemTemplate>
+                                    </itemtemplate>
                                 </asp:Repeater>
                             </div>
                         </div>
-                    </ItemTemplate>
+                    </itemtemplate>
 
                 </asp:Repeater>
             </div>
