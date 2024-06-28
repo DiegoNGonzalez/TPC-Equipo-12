@@ -7,27 +7,6 @@ INSERT INTO IMagenes(URLIMG) VALUES ('https://www.shutterstock.com/image-vector/
 INSERT INTO Imagenes (URLIMG) VALUES ('https://i.ytimg.com/vi/7TKY-jksHRQ/maxresdefault.jpg');
 INSERT INTO Imagenes (URLIMG) VALUES ('https://cdn.goconqr.com/uploads/media/image/10324463/desktop_cb3541ed-ab38-450f-9403-e800ac7d09f5.jpg');
 go
--- Insertar usuarios
-INSERT INTO Usuarios (Nombre, Apellido, DNI, Genero, Email, EsProfesor, IDImagen, Contrasenia)
-VALUES ('Maxi', 'Programa', 12345678, 'M', 'hola@maxiprograma.com', 1, 3, 'contraseniaSegura123');
-go
-INSERT INTO Usuarios (Nombre, Apellido, DNI, Genero, Email, EsProfesor, IDImagen, Contrasenia)
-VALUES ('Diego', 'Gonzalez', 87654321, 'M', 'diego.gonzalez2@alumnos.frgp.utn.edu.ar', 0, 3, 'contraseniaSegura456');
-go
-INSERT INTO Usuarios (Nombre, Apellido, DNI, Genero, Email, EsProfesor, IDImagen, Contrasenia)
-VALUES ('Tomas', 'Caceres', 23456789, 'M', 'tomas.caceres2@alumnos.frgp.utn.edu.ar', 0, 3, 'contraseniaSegura789');
-go
-INSERT INTO Usuarios (Nombre, Apellido, DNI, Genero, Email, EsProfesor, IDImagen, Contrasenia)
-VALUES ('Sebastian', 'Scollo', 98765432, 'M', 'sebastian.scollo@alumnos.frgp.utn.edu.ar', 0, 3, 'contraseniaSegura012');
-go
--- Insertar profesor
-INSERT INTO Profesor (IDProfesor) VALUES (1);
-go
--- Insertar estudiantes
-INSERT INTO Estudiantes (IDEstudiante, Estado) VALUES (2, 1);
-INSERT INTO Estudiantes (IDEstudiante, Estado) VALUES (3, 1);
-INSERT INTO Estudiantes (IDEstudiante, Estado) VALUES (4, 1);
-go
 -- Insertar categorias
 INSERT INTO Categorias (Nombre) VALUES ('Matematicas');
 INSERT INTO Categorias (Nombre) VALUES ('Ciencia');
@@ -46,12 +25,6 @@ VALUES ('Curso de Programación', 'Un curso completo sobre programación.', 4, '
 go
 INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion)
 VALUES ('Curso de Historia', 'Un curso completo sobre historia.', 5, '2023-04-01 10:00:00', 180);
-go
--- Insertar profesor por curso
-INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 1);
-INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 2);
-INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 3);
-INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 4);
 go
 -- Insertar categorias por curso
 INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (1, 1);
@@ -103,14 +76,6 @@ go
 INSERT INTO Lecciones (NroLeccion, Nombre, Descripcion)
 VALUES (2, 'La Edad Media', 'Esta lección cubre los eventos importantes de la Edad Media.');
 go
--- Insertar lecciones por estudiantes
-INSERT INTO LeccionesXEstudiantes (IDEstudiante, IDLeccion, Completado) VALUES (2, 1, 1);
-INSERT INTO LeccionesXEstudiantes (IDEstudiante, IDLeccion, Completado) VALUES (2, 2, 0);
-INSERT INTO LeccionesXEstudiantes (IDEstudiante, IDLeccion, Completado) VALUES (3, 3, 0);
-INSERT INTO LeccionesXEstudiantes (IDEstudiante, IDLeccion, Completado) VALUES (4, 4, 0);
-INSERT INTO LeccionesXEstudiantes (IDEstudiante, IDLeccion, Completado) VALUES (3, 5, 0);
-INSERT INTO LeccionesXEstudiantes (IDEstudiante, IDLeccion, Completado) VALUES (4, 6, 0);
-go
 -- Insertar materiales por lecciones
 INSERT INTO MaterialesXLecciones (IDMaterial, IDLeccion) VALUES (1, 1);
 INSERT INTO MaterialesXLecciones (IDMaterial, IDLeccion) VALUES (2, 2);
@@ -146,3 +111,18 @@ INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (2, 2);
 INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (3, 3);
 INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (4, 4);
 go
+-- UNA VEZ CREADO EL PROFESOR CON EL SIGN UP HACER LO DE ABAJO...
+-- Insertar profesor
+--INSERT INTO Profesor (IDProfesor) VALUES (1);
+--go
+--Update en Usuarios hacer profesor
+--UPDATE Usuarios
+--SET EsProfesor = 1
+--WHERE IDUsuario = 1;
+--go
+-- Insertar profesor por curso
+--INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 1);
+--INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 2);
+--INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 3);
+--INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 4);
+--go
