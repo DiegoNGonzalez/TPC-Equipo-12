@@ -71,6 +71,7 @@
     <Content Include="Estudiante\EstudianteInscripciones.aspx" />
     <Content Include="Estudiante\MiPerfil.aspx" />
     <Content Include="Estudiante\NuevoMensaje.aspx" />
+    <Content Include="Profesor\ProfesorFabricaDeCursos.aspx" />
     <Content Include="Profesor\ProfesorCategorias.aspx" />
     <Content Include="Profesor\ProfesorPreguntas.aspx" />
     <Content Include="Profesor\ProfesorMiPerfil.aspx" />
@@ -149,6 +150,13 @@
     </Compile>
     <Compile Include="Estudiante\NuevoMensaje.aspx.designer.cs">
       <DependentUpon>NuevoMensaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\ProfesorFabricaDeCursos.aspx.cs">
+      <DependentUpon>ProfesorFabricaDeCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\ProfesorFabricaDeCursos.aspx.designer.cs">
+      <DependentUpon>ProfesorFabricaDeCursos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profesor\ProfesorCategorias.aspx.cs">
       <DependentUpon>ProfesorCategorias.aspx</DependentUpon>

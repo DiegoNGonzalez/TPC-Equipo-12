@@ -223,7 +223,7 @@ namespace Negocio
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
 
-                Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Completo, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Estreno, @IDImagen)");
+                Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Completo, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Completo, @Estreno, @IDImagen)");
                 Datos.SetearParametro("@Nombre", curso.Nombre);
                 Datos.SetearParametro("@Descripcion", curso.Descripcion);
                 Datos.SetearParametro("@Duracion", curso.Duracion);
@@ -429,6 +429,19 @@ namespace Negocio
             foreach (Curso curso in listaAValidar)
             {
                 if (curso.Completo)
+                {
+                    listaValidada.Add(curso);
+                }
+            }
+            return listaValidada;
+        }
+
+        public List<Curso> ValidarCursoIncompleto(List<Curso> listaAValidar)
+        {
+            List<Curso> listaValidada = new List<Curso>();
+            foreach (Curso curso in listaAValidar)
+            {
+                if (!curso.Completo)
                 {
                     listaValidada.Add(curso);
                 }
