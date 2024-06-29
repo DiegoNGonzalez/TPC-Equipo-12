@@ -27,8 +27,10 @@ namespace TPC_equipo_12
 
         protected void ButtonCrearLeccion_Click(object sender, EventArgs e)
         {
-            Profesor profesor = (Profesor)Session["profesor"];
-            Curso curso = profesor.Cursos.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
+            Curso curso = new Curso();
+            List<Curso> cursosAux = cursoNegocio.ListarCursos();
+            cursosAux = cursoNegocio.ValidarCursoIncompleto(cursosAux);
+            curso = cursosAux.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
             Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);
             try
             {
@@ -46,8 +48,12 @@ namespace TPC_equipo_12
                 }
                 else
                 {
-                    leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
+                    if(unidad.Lecciones == null)
+                    {
+                        unidad.Lecciones = new List<Leccion>();
+                    }
                     unidad.Lecciones.Add(leccion);
+                    leccionNegocio.CrearLeccion(leccion, unidad.IDUnidad);
                     Session["MensajeExito"] = "Leccion creada con exito!";
                     Response.Redirect("ProfesorLecciones.aspx", false);
                 }

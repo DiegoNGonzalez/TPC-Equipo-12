@@ -25,8 +25,10 @@ namespace TPC_equipo_12
 
         protected void ButtonCrearUnidades_Click(object sender, EventArgs e)
         {
-            Profesor profesor = (Profesor)Session["profesor"];
-            Curso curso = profesor.Cursos.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
+            Curso curso = new Curso();
+            List<Curso> cursosAux = cursoNegocio.ListarCursos();
+            cursosAux = cursoNegocio.ValidarCursoIncompleto(cursosAux);
+            curso = cursosAux.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
 
             try
             {
@@ -44,6 +46,10 @@ namespace TPC_equipo_12
                 }
                 else
                 {
+                    if (curso.Unidades == null)
+                    {
+                        curso.Unidades = new List<Unidad>();
+                    }
                     curso.Unidades.Add(unidad);
                     unidadNegocio.CrearUnidad(unidad, curso.IDCurso);
                     Session["MensajeExito"] = "Unidad creada con exito!";

@@ -448,5 +448,23 @@ namespace Negocio
             }
             return listaValidada;
         }
+
+        public void DarDeAltaCurso(int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("UPDATE Cursos SET Completo = 1 WHERE IDCurso = @IDCurso");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
     }
 }

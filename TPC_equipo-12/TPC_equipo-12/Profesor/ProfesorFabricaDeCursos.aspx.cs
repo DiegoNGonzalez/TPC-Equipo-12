@@ -99,5 +99,55 @@ namespace TPC_equipo_12
                 }
             }
         }
+
+        protected void ButtonAltaCurso_Command(object sender, CommandEventArgs e)
+        {
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            ValidarCurso(idCurso);
+            cursoNegocio.DarDeAltaCurso(idCurso);
+            // Una vez que doy de alta el curso, actualizo al listado de cursos que tiene el profesor.
+            Profesor profesor = (Profesor)Session["profesor"];
+            profesor.Cursos = cursoNegocio.ListarCursos();
+            profesor.Cursos = cursoNegocio.ValidarCursoCompleto(profesor.Cursos);
+
+            Session["MensajeExito"] = "Curso dado de alta con exito!";
+            Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+        }
+
+        protected void ValidarCurso(int idCurso)
+        {
+            string msj;
+            Curso curso = cursoNegocio.BuscarCurso(idCurso);
+            if (curso.Unidades.Count == 0 || curso.Unidades == null)
+            {
+                msj = "No puedes dar de alta este Curso, no tiene Unidades.";
+                Session["MensajeError"] = msj;
+                Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+            }
+            else
+            {
+                foreach (Unidad unidad in curso.Unidades)
+                {
+                    if (unidad.Lecciones.Count == 0 || unidad.Lecciones == null)
+                    {
+                        msj = "No puedes dar de alta este Curso, la Unidad" + unidad.NroUnidad + " no tiene Lecciones.";
+                        Session["MensajeError"] = msj;
+                        Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+                    }
+                    else
+                    {
+                        foreach (Leccion leccion in unidad.Lecciones)
+                        {
+                            if (leccion.Materiales.Count == 0 || leccion.Materiales == null)
+                            {
+                                msj = "La Leccion " + leccion.NroLeccion + " no tiene Materiales";
+                                Session["MensajeError"] = msj;
+                                Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
