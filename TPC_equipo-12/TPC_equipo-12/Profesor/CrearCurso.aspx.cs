@@ -38,8 +38,8 @@ namespace TPC_equipo_12
                 curso.Nombre = TextBoxNombreCurso.Text;
                 curso.Descripcion = TextBoxDescripcionCurso.Text;
                 curso.Duracion = Convert.ToInt32(TextBoxDuracionCurso.Text);
+                curso.Completo = false;
                 curso.Estreno = Convert.ToDateTime(TextBoxEstrenoCurso.Text);
-                curso.Categoria = new CategoriaCurso();
                 curso.Categoria = new CategoriaCurso();
                 curso.Categoria.IDCategoria = int.Parse(DropDownListCategoriaCurso.SelectedValue);
                 curso.Categoria.Nombre = DropDownListCategoriaCurso.SelectedItem.Text;
@@ -53,6 +53,7 @@ namespace TPC_equipo_12
                     cursoNegocio.ModificarCurso(curso);
                     Session["MensajeExito"] = "Curso modificado con exito!";
                     profesor.Cursos = cursoNegocio.ListarCursos();
+                    profesor.Cursos = cursoNegocio.ValidarCursoCompleto(profesor.Cursos);
                     Session.Add("profesor", profesor);
                     Response.Redirect("ProfesorCursos.aspx", false);
                 }

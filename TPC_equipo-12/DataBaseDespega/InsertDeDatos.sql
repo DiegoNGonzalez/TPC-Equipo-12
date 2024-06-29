@@ -14,17 +14,17 @@ INSERT INTO Categorias (Nombre) VALUES ('Programación');
 INSERT INTO Categorias (Nombre) VALUES ('Historia');
 go
 -- Insertar cursos
-INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion)
-VALUES ('Curso de Algebra', 'Un curso completo sobre algebra.', 1, '2023-01-01 10:00:00', 120);
+INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo)
+VALUES ('Curso de Algebra', 'Un curso completo sobre algebra.', 1, '2023-01-01 10:00:00', 120, 1);
 go
-INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion)
-VALUES ('Curso de Fisica', 'Un curso completo sobre fisica.', 2, '2023-02-01 10:00:00', 150);
+INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo)
+VALUES ('Curso de Fisica', 'Un curso completo sobre fisica.', 2, '2023-02-01 10:00:00', 150, 1);
 go
-INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion)
-VALUES ('Curso de Programación', 'Un curso completo sobre programación.', 4, '2023-03-01 10:00:00', 200);
+INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo)
+VALUES ('Curso de Programación', 'Un curso completo sobre programación.', 4, '2023-03-01 10:00:00', 200, 1);
 go
-INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion)
-VALUES ('Curso de Historia', 'Un curso completo sobre historia.', 5, '2023-04-01 10:00:00', 180);
+INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo)
+VALUES ('Curso de Historia', 'Un curso completo sobre historia.', 5, '2023-04-01 10:00:00', 180, 1);
 go
 -- Insertar categorias por curso
 INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (1, 1);
@@ -112,13 +112,13 @@ INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (3, 3);
 INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (4, 4);
 go
 -- UNA VEZ CREADO EL PROFESOR CON EL SIGN UP HACER LO DE ABAJO...
--- Insertar profesor
---INSERT INTO Profesor (IDProfesor) VALUES (1);
---go
 --Update en Usuarios hacer profesor
 --UPDATE Usuarios
 --SET EsProfesor = 1
 --WHERE IDUsuario = 1;
+--go
+-- Insertar profesor
+--INSERT INTO Profesor (IDProfesor) VALUES (1);
 --go
 -- Insertar profesor por curso
 --INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 1);
