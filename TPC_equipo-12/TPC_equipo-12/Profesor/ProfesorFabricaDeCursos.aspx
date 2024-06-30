@@ -7,7 +7,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h1 class="text-center">Cursos Cargados</h1>
+                <h1 class="text-center">¡Fabrica de Cursos!</h1>
+                <h4 class="text-center">Estos son los cursos que aun te faltan completar.</h4>
             </div>
         </div>
         <asp:UpdatePanel ID="UpdatePanelCursos" runat="server">

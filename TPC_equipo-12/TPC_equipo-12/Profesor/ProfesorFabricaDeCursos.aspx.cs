@@ -103,7 +103,8 @@ namespace TPC_equipo_12
         protected void ButtonAltaCurso_Command(object sender, CommandEventArgs e)
         {
             int idCurso = Convert.ToInt32(e.CommandArgument);
-            ValidarCurso(idCurso);
+            if (ValidarCurso(idCurso))
+            {
             cursoNegocio.DarDeAltaCurso(idCurso);
             // Una vez que doy de alta el curso, actualizo al listado de cursos que tiene el profesor.
             Profesor profesor = (Profesor)Session["profesor"];
@@ -112,9 +113,13 @@ namespace TPC_equipo_12
 
             Session["MensajeExito"] = "Curso dado de alta con exito!";
             Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+            } else
+            {
+            Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+            }
         }
 
-        protected void ValidarCurso(int idCurso)
+        protected bool ValidarCurso(int idCurso)
         {
             string msj;
             Curso curso = cursoNegocio.BuscarCurso(idCurso);
@@ -122,7 +127,7 @@ namespace TPC_equipo_12
             {
                 msj = "No puedes dar de alta este Curso, no tiene Unidades.";
                 Session["MensajeError"] = msj;
-                Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+                return false;
             }
             else
             {
@@ -130,9 +135,9 @@ namespace TPC_equipo_12
                 {
                     if (unidad.Lecciones.Count == 0 || unidad.Lecciones == null)
                     {
-                        msj = "No puedes dar de alta este Curso, la Unidad" + unidad.NroUnidad + " no tiene Lecciones.";
+                        msj = "No puedes dar de alta este Curso, la Unidad N°" + unidad.NroUnidad + " no tiene Lecciones.";
                         Session["MensajeError"] = msj;
-                        Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+                        return false;
                     }
                     else
                     {
@@ -140,14 +145,15 @@ namespace TPC_equipo_12
                         {
                             if (leccion.Materiales.Count == 0 || leccion.Materiales == null)
                             {
-                                msj = "La Leccion " + leccion.NroLeccion + " no tiene Materiales";
+                                msj = "No puedes dar de alta este Curso, la Leccion N°" + leccion.NroLeccion + " no tiene Materiales.";
                                 Session["MensajeError"] = msj;
-                                Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+                                return false;
                             }
                         }
                     }
                 }
             }
+            return true;
         }
     }
 }

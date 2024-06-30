@@ -29,10 +29,7 @@ namespace TPC_equipo_12
         protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
         {
 
-            Curso curso = new Curso();
-            List<Curso> cursosAux = cursoNegocio.ListarCursos();
-            cursosAux = cursoNegocio.ValidarCursoIncompleto(cursosAux);
-            curso = cursosAux.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
+            Curso curso = cursoNegocio.BuscarCurso((int)Session["IDCursoProfesor"]);
             Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);
             Leccion leccion = unidad.Lecciones.Find(x => x.IDLeccion == (int)Session["IDLeccionProfesor"]);
             try
