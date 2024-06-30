@@ -64,10 +64,16 @@ namespace TPC_equipo_12
                     {
                         urlRedireccion = $"DefaultProfesor.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Mensaje&idMensaje={notificacion.Mensaje.IDMensaje}";
                     }
-                    else
+                    else if (notificacion.Tipo == "Respuesta")
                     {
-                            urlRedireccion = $"DefaultProfesor.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Mensaje&idMensaje={notificacion.MensajeRespuesta.IDRespuesta}";
-                       
+                        urlRedireccion = $"DefaultProfesor.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Respuesta&idRespuesta={notificacion.MensajeRespuesta.IDRespuesta}";
+                    }
+                    else if (notificacion.Tipo == "Comentario")
+                    {
+                        ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
+                        notificacion.ComentarioLeccion=comentarioNegocio.buscarComentario(notificacion.ComentarioLeccion.IDComentario);
+                        
+                        urlRedireccion = $"DefaultProfesor.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Comentario&idLeccion={notificacion.ComentarioLeccion.Leccion.IDLeccion}";
                     }
                     
 
@@ -98,10 +104,14 @@ namespace TPC_equipo_12
                 int idMensaje = Convert.ToInt32(Request.QueryString["idMensaje"]);
                 Response.Redirect("ProfesorMensajes.aspx");
             }
-            else
+            else if(tipo =="Respuesta")
             {
                 int idRespuesta = Convert.ToInt32(Request.QueryString["idRespuesta"]);
                 Response.Redirect("ProfesorMensajes.aspx");
+            }else if(tipo=="Comentario")
+            {
+                int idLeccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
+                Response.Redirect($"ProfesorMateriales.aspx?idLeccion={idLeccion}");
             }
         }
 

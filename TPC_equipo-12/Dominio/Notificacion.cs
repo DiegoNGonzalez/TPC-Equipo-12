@@ -10,6 +10,7 @@ namespace Dominio
         public InscripcionACurso Inscripcion { get; set; }
         public MensajeUsuario Mensaje { get; set; }
         public MensajeRespuesta MensajeRespuesta { get; set; }
+        public Comentario ComentarioLeccion { get; set; }
         public DateTime Fecha { get; set; }
         public bool Estado { get; set; }
 

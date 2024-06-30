@@ -14,7 +14,7 @@ namespace Dominio
         public string CuerpoComentario { get; set; }
         public DateTime FechaCreacion { get; set; }
         public bool Estado { get; set; }
-        public int IDLeccion { get; set; }
+        public Leccion Leccion { get; set; }
         public Imagen imagenPerfil { get; set; }
         public List<Comentario> Respuestas { get; set; } = new List<Comentario>();
 
@@ -24,10 +24,10 @@ namespace Dominio
             Estado = true; 
         }
 
-        public Comentario(string cuerpoComentario, int idLeccion, Usuario usuarioEmisor)
+        public Comentario(string cuerpoComentario, Leccion leccion, Usuario usuarioEmisor)
         {
             CuerpoComentario = cuerpoComentario;
-            IDLeccion = idLeccion;
+            Leccion = leccion;
             UsuarioEmisor = usuarioEmisor;
             FechaCreacion = DateTime.Now;
             Estado = true; 

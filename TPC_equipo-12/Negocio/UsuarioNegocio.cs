@@ -440,14 +440,14 @@ namespace Negocio
             }
         }
 
-        public void publicarComentario(Usuario emisor, int idLecciones, string comentario)
+        public void publicarComentario(Usuario emisor, Leccion leccion, string comentario)
         {
             Datos datos = new Datos();
             try
             {
-                Comentario primerComentario = new Comentario(comentario, idLecciones, emisor);
+                Comentario primerComentario = new Comentario(comentario, leccion, emisor);
                 datos.SetearConsulta("INSERT INTO Comentarios(IDleccion, CuerpoComentario, IDUsuarioEmisor, FechaCreacion, IDImagen, Estado) VALUES (@idLeccion, @cuerpoComentario, @idEmisor, @fechaCreacion, @idImagen, @estado)");
-                datos.SetearParametro("@idLeccion", primerComentario.IDLeccion);
+                datos.SetearParametro("@idLeccion", primerComentario.Leccion.IDLeccion);
                 datos.SetearParametro("@cuerpoComentario", primerComentario.CuerpoComentario);
                 datos.SetearParametro("@idEmisor", primerComentario.UsuarioEmisor.IDUsuario);
                 datos.SetearParametro("@fechaCreacion", primerComentario.FechaCreacion);
