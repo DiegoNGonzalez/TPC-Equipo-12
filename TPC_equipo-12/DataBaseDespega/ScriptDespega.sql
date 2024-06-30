@@ -63,6 +63,7 @@ Create Table EstudiantesXCursos(
 	IDEstudiante int not null Foreign Key References Estudiantes(IDEstudiante),
 	IDCurso int not null Foreign Key References Cursos(IDCurso),
 	Completado bit not null Default 0,
+	ActivoEnCurso bit not null DEFAULT 0
 	Primary Key (IDEstudiante, IDCurso)
 )
 GO
@@ -104,6 +105,7 @@ Create Table LeccionesXEstudiantes(
 	IDEstudiante int not null Foreign Key References Estudiantes(IDEstudiante),
 	IDLeccion int not null Foreign Key References Lecciones(IDLeccion),
 	Completado bit not null Default 0,
+	ActivasParaEstudiante bit not null DEFAULT 0
 	Primary Key (IDEstudiante, IDLeccion)
 )
 GO
@@ -159,12 +161,13 @@ GO
 Create Table Notificaciones(
 	IDNotificacion int not null Primary Key Identity(1, 1),
 	Mensaje varchar(200) not null,
-	Tipo varchar(100) not null check(Tipo='INSCRIPCION' or Tipo='MENSAJE' or Tipo='RESPUESTA'),
+	Tipo varchar(100) not null check(Tipo='INSCRIPCION' or Tipo='MENSAJE' or Tipo='RESPUESTA' or Tipo='COMENTARIO'),
 	Fecha datetime not null default(getdate()),
 	Leido bit not null default 0,
 	IDInscripcion int Foreign Key References Inscripciones(IDInscripcion),
 	IDMensaje int Foreign Key References Mensajes(IDMensaje) ,
-	IDRespuesta int FOREIGN KEY REFERENCES Respuestas(IDRespuesta) 
+	IDRespuesta int FOREIGN KEY REFERENCES Respuestas(IDRespuesta),
+	IDComentario int FOREIGN KEY REFERENCES Comentarios(IDComentario)
 )
 GO
 Create Table Resenias(
