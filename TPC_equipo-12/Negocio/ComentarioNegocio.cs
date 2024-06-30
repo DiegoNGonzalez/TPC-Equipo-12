@@ -99,6 +99,64 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public List<Comentario> cargarComentarios(int idLeccion)
+        {
+            Datos datos = new Datos();
+            List<Comentario> listaComentarios = new List<Comentario>();
+            try
+            {
+                datos.SetearConsulta(@"
+                    SELECT 
+                        c.IDComentario, 
+                        c.CuerpoComentario, 
+                        u.Nombre AS Nombre, 
+                        c.FechaCreacion,
+                        ISNULL(i.URLIMG, 'perfil-1') AS ImagenPerfilURL
+                    FROM 
+                        Comentarios c 
+                    INNER JOIN 
+                        Usuarios u ON c.IDUsuarioEmisor = u.IDUsuario
+                    LEFT JOIN
+                        Imagenes i ON u.IDImagen = i.IDImagenes
+                    WHERE 
+                        c.IDComentarioPadre IS NULL and c.IDLeccion = @IDLecion");
+                datos.SetearParametro("@IDLecion", idLeccion);
+                datos.EjecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Comentario comentario = new Comentario();
+                    comentario.IDComentario = (int)datos.Lector["IDComentario"];
+                    comentario.CuerpoComentario = (string)datos.Lector["CuerpoComentario"];
+                    comentario.UsuarioEmisor = new Usuario();
+                    comentario.UsuarioEmisor.Nombre = (string)datos.Lector["Nombre"];
+                    if (datos.Lector["ImagenPerfilURL"] != DBNull.Value)
+                    {
+                        comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
+                        comentario.UsuarioEmisor.ImagenPerfil.URL = (string)datos.Lector["ImagenPerfilURL"];
+                    }
+                    else
+                    {
+                        comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
+                        comentario.UsuarioEmisor.ImagenPerfil.URL = "perfil-1";
+                    }
+                    comentario.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
+                    listaComentarios.Add(comentario);
+                }
+                return listaComentarios;
+
+
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
     }
 }
     

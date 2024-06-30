@@ -13,6 +13,8 @@ namespace TPC_equipo_12
     {
         public List<MaterialLeccion> listaMateriales = new List<MaterialLeccion>();
         public MaterialNegocio materialNegocio = new MaterialNegocio();
+        public List<Comentario> listaComentarios = new List<Comentario>();
+        public ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["profesor"] == null)
@@ -25,20 +27,26 @@ namespace TPC_equipo_12
                 ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
                 master.VerificarMensaje();
                 int idleccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
-                Session.Add("IDLeccionProfesor", idleccion);
                 if (idleccion != 0)
                 {
-                    listaMateriales = materialNegocio.ListarMateriales(idleccion);
+                    Session.Add("IDLeccionProfesor", idleccion);
                 }
                 else
                 {
-                    listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]);
-
+                    idleccion = (int)Session["IDLeccionProfesor"];
+                }
+                if (idleccion != 0)
+                {
+                    listaMateriales = materialNegocio.ListarMateriales(idleccion);
+                    listaComentarios = comentarioNegocio.cargarComentarios(idleccion);
                 }
                 Session.Add("ListaMaterialesProfesor", listaMateriales);
                 rptMaterialesProf.DataSource = listaMateriales;
                 rptMaterialesProf.DataBind();
-                cargarComentarios();
+
+                
+                rptComentarios.DataSource = listaComentarios;
+                rptComentarios.DataBind();
             }
         }
 
@@ -120,40 +128,7 @@ namespace TPC_equipo_12
             Response.Redirect("AgregarMateriales.aspx?idMaterial=" + IdMaterial);
         }
 
-        public void cargarComentarios()
-        {
-            Datos datos = new Datos();
-            try
-            {
-                datos.SetearConsulta(@"
-                    SELECT 
-                        c.IDComentario, 
-                        c.CuerpoComentario, 
-                        u.Nombre AS Nombre, 
-                        c.FechaCreacion,
-                        ISNULL(i.URLIMG, 'perfil-1') AS ImagenPerfilURL
-                    FROM 
-                        Comentarios c 
-                    INNER JOIN 
-                        Usuarios u ON c.IDUsuarioEmisor = u.IDUsuario
-                    LEFT JOIN
-                        Imagenes i ON u.IDImagen = i.IDImagenes
-                    WHERE 
-                        c.IDComentarioPadre IS NULL");
-                datos.EjecutarLectura();
-
-                rptComentarios.DataSource = datos.Lector;
-                rptComentarios.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
-        }
+        
         protected void btnRespuesta_Click(object sender, EventArgs e)
         {
             string idComentarioPadre = ((Button)sender).CommandArgument;
