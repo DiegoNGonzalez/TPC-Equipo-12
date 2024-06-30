@@ -18,12 +18,12 @@ namespace Negocio
 
             try
             {
-                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.ContraseniaHash,u.ContraseniaSalt, u.EsProfesor, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes");
+                Datos.SetearConsulta("select e.IDEstudiante, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.ContraseniaHash,u.ContraseniaSalt, u.EsProfesor, i.IDImagenes, i.URLIMG, e.Estado from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes");
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
                 {
                     Estudiante aux = new Estudiante();
-                    aux.IDUsuario = Datos.Lector.GetInt32(9);
+                    aux.IDUsuario = Datos.Lector.GetInt32(0);
                     aux.Nombre = (string)Datos.Lector["Nombre"];
                     aux.Apellido = (string)Datos.Lector["Apellido"];
                     aux.DNI = (int)Datos.Lector["DNI"];

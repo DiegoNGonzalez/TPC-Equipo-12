@@ -16,6 +16,8 @@ namespace TPC_equipo_12
         public LeccionNegocio LeccionNegocio = new LeccionNegocio();
         public ComentarioNegocio ComentarioNegocio = new ComentarioNegocio();
         public NotificacionNegocio NotificacionNegocio = new NotificacionNegocio();
+        public List<Comentario> listaComentarios = new List<Comentario>();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,20 +30,27 @@ namespace TPC_equipo_12
             {
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
-                int idleccion= Convert.ToInt32(Request.QueryString["id"]);
-                if(idleccion != 0)
+                int idleccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
+                if (idleccion != 0)
                 {
-                    listaMateriales = materialNegocio.ListarMateriales(idleccion);
+                    Session.Add("IDLeccion", idleccion);
                 }
                 else
                 {
-                    listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccion"]);
-
+                    idleccion = (int)Session["IDLeccion"];
+                }
+                if (idleccion != 0)
+                {
+                    listaMateriales = materialNegocio.ListarMateriales(idleccion);
+                    listaComentarios = ComentarioNegocio.cargarComentarios(idleccion);
                 }
                 Session.Add("ListaMateriales", listaMateriales);
                 rptMateriales.DataSource = listaMateriales;
                 rptMateriales.DataBind();
-                cargarComentarios();
+
+
+                rptComentarios.DataSource = listaComentarios;
+                rptComentarios.DataBind();
 
 
             }
@@ -122,44 +131,44 @@ namespace TPC_equipo_12
             //usuarioNegocio.publicarComentario(emisor, aux, comentario);
 
             txtComentario.Text = "";
-            cargarComentarios();
+            
 
         }
 
-        public void cargarComentarios()
-        {
-            Datos datos = new Datos();
-            try
-            {
-                datos.SetearConsulta(@"
-                    SELECT 
-                        c.IDComentario, 
-                        c.CuerpoComentario, 
-                        u.Nombre AS Nombre, 
-                        c.FechaCreacion,
-                        ISNULL(i.URLIMG, '') AS ImagenPerfilURL
-                    FROM 
-                        Comentarios c 
-                    INNER JOIN 
-                        Usuarios u ON c.IDUsuarioEmisor = u.IDUsuario
-                    LEFT JOIN
-                        Imagenes i ON u.IDImagen = i.IDImagenes
-                    WHERE 
-                        c.IDComentarioPadre IS NULL");
-                datos.EjecutarLectura();
+        //public void cargarComentarios()
+        //{
+        //    Datos datos = new Datos();
+        //    try
+        //    {
+        //        datos.SetearConsulta(@"
+        //            SELECT 
+        //                c.IDComentario, 
+        //                c.CuerpoComentario, 
+        //                u.Nombre AS Nombre, 
+        //                c.FechaCreacion,
+        //                ISNULL(i.URLIMG, '') AS ImagenPerfilURL
+        //            FROM 
+        //                Comentarios c 
+        //            INNER JOIN 
+        //                Usuarios u ON c.IDUsuarioEmisor = u.IDUsuario
+        //            LEFT JOIN
+        //                Imagenes i ON u.IDImagen = i.IDImagenes
+        //            WHERE 
+        //                c.IDComentarioPadre IS NULL");
+        //        datos.EjecutarLectura();
 
-                rptComentarios.DataSource = datos.Lector;
-                rptComentarios.DataBind();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
-        }
+        //        rptComentarios.DataSource = datos.Lector;
+        //        rptComentarios.DataBind();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        datos.CerrarConexion();
+        //    }
+        //}
 
         protected void btnRespuesta_Click(object sender, EventArgs e)
         {
