@@ -1,18 +1,19 @@
 ﻿using Dominio;
-using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace TPC_equipo_12
 {
-    public partial class ProfesorCursos : System.Web.UI.Page
+    public partial class ProfesorFabricaDeCursos : System.Web.UI.Page
     {
         public List<Curso> listaCursos = new List<Curso>();
         public CursoNegocio cursoNegocio = new CursoNegocio();
         public Profesor profesor = new Profesor();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["profesor"] == null)
@@ -25,10 +26,10 @@ namespace TPC_equipo_12
                 ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
                 master.VerificarMensaje();
 
-                profesor = (Profesor)Session["profesor"];
-                Session.Add("listaCursosProfesor", profesor.Cursos);
-                profesor.Cursos = cursoNegocio.ValidarCursoCompleto(profesor.Cursos);
-                rptProfesorCursos.DataSource = profesor.Cursos;
+                List<Curso> listaCursosAux = new List<Curso>();
+                listaCursosAux = cursoNegocio.ListarCursos();
+                listaCursosAux = cursoNegocio.ValidarCursoIncompleto(listaCursosAux);
+                rptProfesorCursos.DataSource = listaCursosAux;
                 rptProfesorCursos.DataBind();
                 MostrarCategoria();
             }
@@ -76,7 +77,6 @@ namespace TPC_equipo_12
             Session.Add("IDCursoProfesor", idCurso);
             Response.Redirect("CrearCurso.aspx?IdCurso=" + idCurso);
         }
-
         private void MostrarCategoria()
         {
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
@@ -90,10 +90,61 @@ namespace TPC_equipo_12
                     int idCurso = int.Parse(hiddenFieldIDCurso.Value);
                     if (categoriaNegocio.CategoriaNombreXIDCurso(idCurso) != "")
                     {
-                    lblCategoria.Text = categoriaNegocio.CategoriaNombreXIDCurso(idCurso);
-                    } else
+                        lblCategoria.Text = categoriaNegocio.CategoriaNombreXIDCurso(idCurso);
+                    }
+                    else
                     {
                         lblCategoria.Text = "Sin categoria";
+                    }
+                }
+            }
+        }
+
+        protected void ButtonAltaCurso_Command(object sender, CommandEventArgs e)
+        {
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            ValidarCurso(idCurso);
+            cursoNegocio.DarDeAltaCurso(idCurso);
+            // Una vez que doy de alta el curso, actualizo al listado de cursos que tiene el profesor.
+            Profesor profesor = (Profesor)Session["profesor"];
+            profesor.Cursos = cursoNegocio.ListarCursos();
+            profesor.Cursos = cursoNegocio.ValidarCursoCompleto(profesor.Cursos);
+
+            Session["MensajeExito"] = "Curso dado de alta con exito!";
+            Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+        }
+
+        protected void ValidarCurso(int idCurso)
+        {
+            string msj;
+            Curso curso = cursoNegocio.BuscarCurso(idCurso);
+            if (curso.Unidades.Count == 0 || curso.Unidades == null)
+            {
+                msj = "No puedes dar de alta este Curso, no tiene Unidades.";
+                Session["MensajeError"] = msj;
+                Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+            }
+            else
+            {
+                foreach (Unidad unidad in curso.Unidades)
+                {
+                    if (unidad.Lecciones.Count == 0 || unidad.Lecciones == null)
+                    {
+                        msj = "No puedes dar de alta este Curso, la Unidad" + unidad.NroUnidad + " no tiene Lecciones.";
+                        Session["MensajeError"] = msj;
+                        Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+                    }
+                    else
+                    {
+                        foreach (Leccion leccion in unidad.Lecciones)
+                        {
+                            if (leccion.Materiales.Count == 0 || leccion.Materiales == null)
+                            {
+                                msj = "La Leccion " + leccion.NroLeccion + " no tiene Materiales";
+                                Session["MensajeError"] = msj;
+                                Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+                            }
+                        }
                     }
                 }
             }

@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using Negocio;
 using System;
+using System.Collections.Generic;
 
 namespace TPC_equipo_12
 {
@@ -28,8 +29,10 @@ namespace TPC_equipo_12
         protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
         {
 
-            Profesor profesor = (Profesor)Session["profesor"];
-            Curso curso = profesor.Cursos.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
+            Curso curso = new Curso();
+            List<Curso> cursosAux = cursoNegocio.ListarCursos();
+            cursosAux = cursoNegocio.ValidarCursoIncompleto(cursosAux);
+            curso = cursosAux.Find(x => x.IDCurso == (int)Session["IDCursoProfesor"]);
             Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);
             Leccion leccion = unidad.Lecciones.Find(x => x.IDLeccion == (int)Session["IDLeccionProfesor"]);
             try
@@ -49,8 +52,12 @@ namespace TPC_equipo_12
                 }
                 else
                 {
-                    MaterialNegocio.CrearMaterial(material, leccion.IDLeccion);
+                    if (leccion.Materiales == null)
+                    {
+                        leccion.Materiales = new List<MaterialLeccion>();
+                    }
                     leccion.Materiales.Add(material);
+                    MaterialNegocio.CrearMaterial(material, leccion.IDLeccion);
                     Session["MensajeExito"] = "Material creado con exito!";
                     Response.Redirect("ProfesorMateriales.aspx", false);
                 }
