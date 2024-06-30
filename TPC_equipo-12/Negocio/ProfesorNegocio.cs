@@ -98,6 +98,39 @@ namespace Negocio
             }
             
         }
+        public Profesor buscarProfesorxLeccion(int idLeccion)
+        {
+            Profesor profesor = new Profesor();
+            try
+            {
+                Datos.SetearConsulta("select u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.IDImagen, i.URLIMG from Usuarios u inner join Imagenes i on u.IDImagen = i.IDImagenes inner JOIN ProfesorXCursos pc on u.IDUsuario= pc.IDProfesor inner JOIN Cursos c on c.IDCurso = pc.IDCurso INNER JOIN UnidadesXCurso uc on c.IDCurso=uc.IDCurso INNER JOIN LeccionesXUnidades lxc on lxc.IDUnidad = uc.IDUnidad INNER JOIN Lecciones l on l.IDLeccion = lxc.IDLeccion where l.IDLeccion = @IDLeccion");
+                Datos.SetearParametro("@IDLeccion", idLeccion);
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    profesor.IDUsuario = (int)Datos.Lector["IDUsuario"];
+                    profesor.Nombre = (string)Datos.Lector["Nombre"];
+                    profesor.Apellido = (string)Datos.Lector["Apellido"];
+                    profesor.DNI = (int)Datos.Lector["DNI"];
+                    profesor.Genero = (string)Datos.Lector["Genero"];
+                    profesor.Email = (string)Datos.Lector["Email"];
+                    profesor.ImagenPerfil = new Imagen();
+                    profesor.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                    profesor.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+            return profesor;
+        }
     }
     
 }

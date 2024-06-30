@@ -24,8 +24,17 @@ namespace TPC_equipo_12
             {
                 ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
                 master.VerificarMensaje();
+                int idleccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
+                Session.Add("IDLeccionProfesor", idleccion);
+                if (idleccion != 0)
+                {
+                    listaMateriales = materialNegocio.ListarMateriales(idleccion);
+                }
+                else
+                {
+                    listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]);
 
-                listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]);
+                }
                 Session.Add("ListaMaterialesProfesor", listaMateriales);
                 rptMaterialesProf.DataSource = listaMateriales;
                 rptMaterialesProf.DataBind();

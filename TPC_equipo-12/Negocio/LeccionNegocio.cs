@@ -188,5 +188,33 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+        public Leccion BuscarLeccion(int idLeccion)
+        {
+            Leccion aux = new Leccion();
+            try
+            {
+                datos.SetearConsulta("select * from Lecciones where IDLeccion = @IDLeccion");
+                datos.SetearParametro("@IDLeccion", idLeccion);
+                datos.EjecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    aux.IDLeccion = (int)datos.Lector["IDLeccion"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.NroLeccion = (int)datos.Lector["NroLeccion"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                }
+                return aux;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
     }
 }

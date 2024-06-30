@@ -13,6 +13,9 @@ namespace TPC_equipo_12
     {
         public List<MaterialLeccion> listaMateriales = new List<MaterialLeccion>();
         public MaterialNegocio materialNegocio = new MaterialNegocio();
+        public LeccionNegocio LeccionNegocio = new LeccionNegocio();
+        public ComentarioNegocio ComentarioNegocio = new ComentarioNegocio();
+        public NotificacionNegocio NotificacionNegocio = new NotificacionNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,8 +28,16 @@ namespace TPC_equipo_12
             {
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
+                int idleccion= Convert.ToInt32(Request.QueryString["id"]);
+                if(idleccion != 0)
+                {
+                    listaMateriales = materialNegocio.ListarMateriales(idleccion);
+                }
+                else
+                {
+                    listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccion"]);
 
-                listaMateriales = materialNegocio.ListarMateriales((int)Session["IDLeccion"]);
+                }
                 Session.Add("ListaMateriales", listaMateriales);
                 rptMateriales.DataSource = listaMateriales;
                 rptMateriales.DataBind();
@@ -98,11 +109,18 @@ namespace TPC_equipo_12
 
         protected void btnPreguntar_Click(object sender, EventArgs e)
         {
-            UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            //UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
             string comentario = txtComentario.Text;
             Usuario emisor = (Estudiante)Session["estudiante"];
             int idLeccion = Convert.ToInt32(Session["IDLeccion"]);
-            usuarioNegocio.publicarComentario(emisor, idLeccion, comentario);
+            Leccion aux = LeccionNegocio.BuscarLeccion(idLeccion);
+            Comentario comentario1 = new Comentario(comentario, aux, emisor);
+            ComentarioNegocio.publicarComentario(comentario1);
+            int id = ComentarioNegocio.ultimoID();
+            comentario1.IDComentario = id;
+            NotificacionNegocio.AgregarNotificacionxComentario(comentario1);
+            //usuarioNegocio.publicarComentario(emisor, aux, comentario);
+
             txtComentario.Text = "";
             cargarComentarios();
 

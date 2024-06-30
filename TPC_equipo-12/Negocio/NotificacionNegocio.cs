@@ -20,7 +20,7 @@ namespace Negocio
             {
                 if (UsuarioOInscripcion == "Usuario")
                 {
-                    datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, n.IDRespuesta, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE nxu.IDUsuario = @IDUsuario and n.Leido=0");
+                    datos.SetearConsulta("select n.IDNotificacion, n.Mensaje, n.Tipo, n.Fecha, n.Leido, n.IDInscripcion, n.IDMensaje, n.IDRespuesta,n.IDComentario, nxu.IDUsuario from Notificaciones n inner join NotificacionesXUsuario nxu on n.IDNotificacion= nxu.IDNotificacion WHERE nxu.IDUsuario = @IDUsuario and n.Leido=0");
                     datos.SetearParametro("@IDUsuario", IDUsuarioODeInscripcion);
 
                 }
@@ -48,10 +48,15 @@ namespace Negocio
                         aux.Mensaje = new MensajeUsuario();
                         aux.Mensaje.IDMensaje = (int)datos.Lector["IDMensaje"];
                     }
-                    else
+                    else if (aux.Tipo == "Respuesta")
                     {
                         aux.MensajeRespuesta = new MensajeRespuesta();
                         aux.MensajeRespuesta.IDRespuesta = (int)datos.Lector["IDRespuesta"];
+                    }
+                    else
+                    {
+                        aux.ComentarioLeccion = new Comentario();
+                        aux.ComentarioLeccion.IDComentario = (int)datos.Lector["IDComentario"];
                     }
                     lista.Add(aux);
                 }
@@ -291,6 +296,50 @@ namespace Negocio
                 datos.CerrarConexion();
             }
 
+        }
+        public void AgregarNotificacionxComentario(Comentario ComentarioLeccion)
+        {
+            try
+            {
+                datos.SetearConsulta("insert into notificaciones (Mensaje, Tipo, Fecha, IDComentario) VALUES (@Mensaje, @Tipo, @Fecha, @IDComentario); SELECT SCOPE_IDENTITY();");
+                datos.SetearParametro("@Mensaje", "Nuevo comentario");
+                datos.SetearParametro("@Tipo", "Comentario");
+                datos.SetearParametro("@Fecha", DateTime.Now);
+                datos.SetearParametro("@IDComentario", ComentarioLeccion.IDComentario);
+                datos.EjecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+            ProfesorNegocio aux = new ProfesorNegocio();
+            Profesor aux2 = aux.buscarProfesorxLeccion(ComentarioLeccion.Leccion.IDLeccion);
+            
+            try
+            {
+                int idNotificacion = UltimoID();
+                datos.LimpiarParametros();
+                datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
+                datos.SetearParametro("@IDNotificacion", idNotificacion);
+                datos.SetearParametro("@IDUsuario", aux2.IDUsuario);
+                datos.EjecutarAccion();
+                datos.LimpiarParametros();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
         }
         public void BorrarNotificacionXUsuario(int iDNotificacion)
         {
