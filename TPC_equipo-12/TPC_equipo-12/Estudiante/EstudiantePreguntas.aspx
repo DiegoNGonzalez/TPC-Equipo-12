@@ -13,7 +13,7 @@
                         <h5 class="card-title">Comentario Principal</h5>
                         <div class="media">
                             <div class="mr-3">
-                                <asp:Image ID="imgPerfil" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDImagen").ToString() + ".jpg" %>' /> 
+                                <asp:Image ID="imgPerfil" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDUsuarioEmisor").ToString() + ".jpg" %>' /> 
                             </div>
                             <div class="media-body">
                                 <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
