@@ -55,7 +55,7 @@ namespace TPC_equipo_12
                     profesor.Cursos = cursoNegocio.ListarCursos();
                     profesor.Cursos = cursoNegocio.ValidarCursoCompleto(profesor.Cursos);
                     Session.Add("profesor", profesor);
-                    Response.Redirect("ProfesorCursos.aspx", false);
+                    Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
                 }
                 else
                 {
@@ -63,7 +63,7 @@ namespace TPC_equipo_12
                     profesor.Cursos.Add(curso);
                     Session.Add("profesor", profesor);
                     Session["MensajeExito"] = "Curso creado con exito!";
-                    Response.Redirect("ProfesorCursos.aspx", false);
+                    Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
                 }
 
             }

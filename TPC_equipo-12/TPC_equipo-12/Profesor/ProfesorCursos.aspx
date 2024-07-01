@@ -34,9 +34,8 @@
                                         <asp:Label ID="LabelCategoriaCurso" runat="server"></asp:Label>
                                     </li>
                                 </ul>
-                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                <div class="d-flex justify-content-center align-items-center mt-2">
                                     <asp:Button ID="ButtonEliminarCurso" runat="server" Text="Eliminar Curso" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonEliminarCurso_Command" />
-                                    <asp:Button ID="ButtonModificarCurso" runat="server" Text="Modificar Curso" CssClass="btn btn-secondary btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonModificarCurso_Command" />
                                 </div>
                             </div>
                         </ItemTemplate>

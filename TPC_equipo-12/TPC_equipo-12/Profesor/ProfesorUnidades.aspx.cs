@@ -40,7 +40,7 @@ namespace TPC_equipo_12
 
         protected void ButtonBackCursosProf_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ProfesorCursos.aspx");
+            Response.Redirect("ProfesorFabricaDeCursos.aspx");
         }
 
         protected void ButtonCrearUnidadProf_Click(object sender, EventArgs e)
