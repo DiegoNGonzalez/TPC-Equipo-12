@@ -424,5 +424,24 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public void reinscribir(int idInscripcion)
+        {
+            try
+            {
+                Datos.SetearConsulta("update Inscripciones set Estado= 'P' where IdInscripcion= @IDInscripcion");
+                Datos.SetearParametro("@IDInscripcion", idInscripcion);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
 }

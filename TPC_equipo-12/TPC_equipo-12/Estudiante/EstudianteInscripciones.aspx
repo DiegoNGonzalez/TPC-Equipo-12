@@ -20,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <asp:Repeater ID="rptInscripciones" runat="server">
+                        <asp:Repeater ID="rptInscripciones" runat="server" OnItemDataBound="rptInscripciones_ItemDataBound">
                             <ItemTemplate>
 
                                 <tr>
@@ -30,11 +30,15 @@
                                     <td><%# Eval("FechaInscripcion") %></td>
                                     <td><%# Eval("Curso.Nombre") %></td>
                                     <td><%# 
-                                            ((char)Eval("Estado")) == 'A' ? "Aceptada" : 
-                                            ((char)Eval("Estado")) == 'P' ? "Pendiente" : "Rechazado"
-                                             %>
+                                            ((char)Eval("Estado")) == 'R' ? "Rechazada" : 
+                                            ((char)Eval("Estado")) == 'P' ? "Pendiente" : "Aceptada"
+                                    %>
 
                                     </td>
+                                    <td>
+                                         <asp:Button ID="btnReinscribir" runat="server" Text="Reinscribir" OnClick="btnReinscribir_Click" Visible="false" CommandArgument='<%# Eval("IdInscripcion") + "," + Eval("Curso.IDCurso") %>' />
+                                    </td>
+                                   
                                 </tr>
                             </ItemTemplate>
                         </asp:Repeater>
