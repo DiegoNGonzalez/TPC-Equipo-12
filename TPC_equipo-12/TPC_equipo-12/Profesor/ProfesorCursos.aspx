@@ -35,7 +35,8 @@
                                     </li>
                                 </ul>
                                 <div class="d-flex justify-content-center align-items-center mt-2">
-                                    <asp:Button ID="ButtonDeshabilitarCurso" runat="server" Text="Desabilitar Curso" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDeshabilitarCurso_Command" />
+                                    <asp:Button ID="ButtonDeshabilitarCurso" runat="server" Text="Deshabilitar Curso" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDeshabilitarCurso_Command" />
+                                    <asp:Button ID="ButtonFabrica" runat="server" Text="Volver a la Fabrica" CssClass="btn btn-primary btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonFabrica_Command" />
                                 </div>
                             </div>
                         </ItemTemplate>
@@ -48,7 +49,7 @@
      <div class="container">
      <div class="row">
          <div class="col-md-12 text-center">
-             <h1 class="text-center">Cursos Desabilitados</h1>
+             <h1 class="text-center">Cursos Deshabilitados</h1>
          </div>
      </div>
      <asp:UpdatePanel ID="UpdatePanelCursosInactivos" runat="server">
@@ -77,6 +78,7 @@
                              </ul>
                              <div class="d-flex justify-content-center align-items-center mt-2">
                                  <asp:Button ID="ButtonHabilitar" runat="server" Text="Habilitar Curso" CssClass="btn btn-success btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonHabilitar_Command" />
+                                 <asp:Button ID="ButtonFabrica" runat="server" Text="Volver a la Fabrica" CssClass="btn btn-primary btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonFabrica_Command" />
                              </div>
                          </div>
                      </ItemTemplate>

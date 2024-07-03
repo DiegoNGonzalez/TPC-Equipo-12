@@ -30,6 +30,7 @@ namespace TPC_equipo_12
                 master.VerificarMensaje();
                 listaCursos = cursoNegocio.ListarCursos();
                 listaCursos = cursoNegocio.ValidarCursoCompleto(listaCursos);
+                listaCursos = cursoNegocio.ValidarCursosActivos(listaCursos);
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
                 EstaInscripto();
                 EstudianteLogeado.Cursos = listaCursosInscriptos;

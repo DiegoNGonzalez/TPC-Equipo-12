@@ -47,8 +47,7 @@ namespace TPC_equipo_12
         protected void LinkButtonCursoProf_Command(object sender, CommandEventArgs e)
         {
             int idCurso = Convert.ToInt32(e.CommandArgument);
-            Session.Add("IDCursoProfesor", idCurso);
-            Response.Redirect("ProfesorUnidades.aspx");
+            Response.Redirect("../VerDetalleCurso.aspx?idCurso=" + idCurso);
         }
 
         protected void ButtonDeshabilitarCurso_Command(object sender, CommandEventArgs e)
@@ -106,6 +105,23 @@ namespace TPC_equipo_12
             catch (Exception ex)
             {
                 Session["MensajeError"] = "Ocurrio un error al intentar Habilitar el curso.";
+                Response.Redirect("ProfesorCursos.aspx", false);
+            }
+        }
+
+        protected void ButtonFabrica_Command(object sender, CommandEventArgs e)
+        {
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            try
+            {
+                cursoNegocio.MarcarIncompletoCurso(idCurso);
+                Session["MensajeExito"] = "Curso enviado a la fabrica de cursos!";
+                Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+
+            }
+            catch (Exception ex)
+            {
+                Session["MensajeError"] = "Ocurrio un error al intentar enviar el curso a la fabrica.";
                 Response.Redirect("ProfesorCursos.aspx", false);
             }
         }

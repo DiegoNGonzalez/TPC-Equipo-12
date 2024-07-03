@@ -20,6 +20,7 @@ namespace TPC_equipo_12
             {
                 listaCursos = cursoNegocio.ListarCursos();
                 listaCursos = cursoNegocio.ValidarCursoCompleto(listaCursos);
+                listaCursos = cursoNegocio.ValidarCursosActivos(listaCursos);
                 Session.Add("listaCursos", listaCursos);
                 rptCursos.DataSource = listaCursos;
                 rptCursos.DataBind();
