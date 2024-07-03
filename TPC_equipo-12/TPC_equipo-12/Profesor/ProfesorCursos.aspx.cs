@@ -43,13 +43,6 @@ namespace TPC_equipo_12
                 MostrarCategoria();
             }
         }
-
-        protected void LinkButtonCursoProf_Command(object sender, CommandEventArgs e)
-        {
-            int idCurso = Convert.ToInt32(e.CommandArgument);
-            Response.Redirect("../VerDetalleCurso.aspx?idCurso=" + idCurso);
-        }
-
         protected void ButtonDeshabilitarCurso_Command(object sender, CommandEventArgs e)
         {
             int idCursoADeshabilitar = Convert.ToInt32(e.CommandArgument);

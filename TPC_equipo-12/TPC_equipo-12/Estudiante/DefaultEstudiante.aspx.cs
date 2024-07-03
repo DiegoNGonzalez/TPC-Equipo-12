@@ -19,37 +19,37 @@ namespace TPC_equipo_12
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["estudiante"] == null)
-            {
-                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
-                Response.Redirect("../LogIn.aspx");
-            }
             if (!IsPostBack)
             {
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
                 listaCursos = cursoNegocio.ListarCursos();
                 listaCursos = cursoNegocio.ValidarCursoCompleto(listaCursos);
-                listaCursos = cursoNegocio.ValidarCursosActivos(listaCursos);
+
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
                 EstaInscripto();
                 EstudianteLogeado.Cursos = listaCursosInscriptos;
+
+                List<Curso> cursosActivos = cursoNegocio.ValidarCursosActivos(listaCursos);
+                NoEstaInscripto(cursosActivos);
+
                 Session["estudiante"] = EstudianteLogeado;
                 Session.Add("listaCursosInscriptos", listaCursosInscriptos);
-                NoEstaInscripto();
+
                 rptCursos.DataSource = cursosNoInscriptos;
                 rptCursos.DataBind();
                 MostrarCategoria();
-
             }
         }
+
         protected void EstaInscripto()
         {
             Estudiante EstudianteEnSession = (Estudiante)Session["estudiante"];
             List<int> auxIds = cursoNegocio.IDCursosXEstudiante(EstudianteEnSession.IDUsuario);
+            List<Curso> auxCursos = cursoNegocio.ListarCursos();
             foreach (int id in auxIds)
             {
-                foreach (Curso curso in listaCursos)
+                foreach (Curso curso in auxCursos)
                 {
                     if (curso.IDCurso == id)
                     {
@@ -57,14 +57,14 @@ namespace TPC_equipo_12
                     }
                 }
             }
-
-
         }
-        protected void NoEstaInscripto()
+
+        protected void NoEstaInscripto(List<Curso> cursosActivos)
         {
             Estudiante EstudianteEnSession = (Estudiante)Session["estudiante"];
             List<int> auxIds = cursoNegocio.IDCursosXEstudiante(EstudianteEnSession.IDUsuario);
-            foreach (Curso curso in listaCursos)
+
+            foreach (Curso curso in cursosActivos)
             {
                 if (!auxIds.Contains(curso.IDCurso))
                 {
@@ -72,6 +72,7 @@ namespace TPC_equipo_12
                 }
             }
         }
+
 
         protected void btnInscribirse_Click(object sender, EventArgs e)
         {

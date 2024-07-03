@@ -35,10 +35,9 @@
                                     <asp:Label ID="LabelCategoriaCurso" runat="server"></asp:Label>
                                     </li>
                                 </ul>
-                                <div class="mt-2">
-                                    <asp:Button ID="ButtonAltaCurso" runat="server" Text="Alta Curso" CssClass="btn btn-success btn-sm mb-2 w-100" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonAltaCurso_Command" />
-                                    <asp:Button ID="ButtonModificarCurso" runat="server" Text="Modificar Curso" CssClass="btn btn-secondary btn-sm mb-2 w-100" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonModificarCurso_Command" />
-                                    <asp:Button ID="ButtonEliminarCurso" runat="server" Text="Eliminar Curso" CssClass="btn btn-danger btn-sm mb-2 w-100" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonEliminarCurso_Command" />
+                                <div class="d-flex justify-content-center align-items-center mt-2">
+                                    <asp:Button ID="ButtonAltaCurso" runat="server" Text="Alta Curso" CssClass="btn btn-success btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonAltaCurso_Command" />
+                                    <asp:Button ID="ButtonModificarCurso" runat="server" Text="Modificar Curso" CssClass="btn btn-secondary btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonModificarCurso_Command" />
                                 </div>
                             </div>
                         </ItemTemplate>

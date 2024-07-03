@@ -42,35 +42,6 @@ namespace TPC_equipo_12
             Response.Redirect("ProfesorUnidades.aspx");
         }
 
-        protected void ButtonEliminarCurso_Command(object sender, CommandEventArgs e)
-        {
-            Profesor profesor = (Profesor)Session["profesor"];
-            int idCursoAEliminar = Convert.ToInt32(e.CommandArgument);
-            Curso cursoAEliminar = profesor.Cursos.Find(curso => curso.IDCurso == idCursoAEliminar);
-
-            if (cursoAEliminar != null)
-            {
-                try
-                {
-                    profesor.Cursos.Remove(cursoAEliminar);
-                    Session["profesor"] = profesor;
-                    cursoNegocio.EliminarCurso(idCursoAEliminar);
-                    Session["MensajeExito"] = "Curso eliminado con exito!";
-                    Response.Redirect("ProfesorCursos.aspx", false);
-                }
-                catch (Exception ex)
-                {
-                    Session.Add("Error", ex.ToString());
-                    Response.Redirect("../Error.aspx");
-                }
-            }
-            else
-            {
-                Session.Add("Error", "El curso no se encontró en la lista de cursos del profesor.");
-                Response.Redirect("../Error.aspx");
-            }
-        }
-
         protected void ButtonModificarCurso_Command(object sender, CommandEventArgs e)
         {
             int idCurso = Convert.ToInt32(e.CommandArgument);
@@ -106,15 +77,13 @@ namespace TPC_equipo_12
             if (ValidarCurso(idCurso))
             {
             cursoNegocio.DarDeAltaCurso(idCurso);
-            // Una vez que doy de alta el curso, actualizo al listado de cursos que tiene el profesor.
-            Profesor profesor = (Profesor)Session["profesor"];
-            profesor.Cursos = cursoNegocio.ListarCursos();
-            profesor.Cursos = cursoNegocio.ValidarCursoCompleto(profesor.Cursos);
 
             Session["MensajeExito"] = "Curso dado de alta con exito!";
-            Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
-            } else
+            Response.Redirect("ProfesorCursos.aspx", false);
+            }
+            else
             {
+            Session["MensajeError"] = "Ocurrio  un error al dar de alta el curso.";
             Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
             }
         }
