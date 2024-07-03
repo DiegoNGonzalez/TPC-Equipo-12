@@ -49,10 +49,11 @@ namespace TPC_equipo_12
 
         protected void ButtonEstadoLeccion_Click(object sender, EventArgs e)
         {
+            string estadoLeccion;
             try
             {
-                leccionNegocio.visibilidadLeccion(Convert.ToInt32(DropDownListNombreLeccion.SelectedValue));
-                Session["MensajeExito"] = "Accion realizada con éxito.";
+                estadoLeccion = leccionNegocio.visibilidadLeccion(Convert.ToInt32(DropDownListNombreLeccion.SelectedValue));
+                Session["MensajeExito"] = "La leccion se ha " + estadoLeccion + " con exito";
                 Response.Redirect("ProfesorLecciones.aspx", false);
             }
             catch (Exception ex)

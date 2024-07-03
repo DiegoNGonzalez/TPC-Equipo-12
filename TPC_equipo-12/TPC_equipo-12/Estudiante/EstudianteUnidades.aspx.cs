@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
@@ -22,9 +23,13 @@ namespace TPC_equipo_12
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
                 listaUnidades = unidadNegocio.ListarUnidades((int)Session["IDCurso"]);
+                listaUnidades = listaUnidades.FindAll(m => m.Estado);
                 Session.Add("ListaUnidades", listaUnidades);
                 rptUnidades.DataSource = listaUnidades;
                 rptUnidades.DataBind();
+
+                bool hayUnidadesActivas = listaUnidades.Any(m => m.Estado);
+                lblMensajeInactivo.Visible = !hayUnidadesActivas;
             }
         }
 

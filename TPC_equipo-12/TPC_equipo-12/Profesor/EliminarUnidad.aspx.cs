@@ -46,5 +46,21 @@ namespace TPC_equipo_12
         {
             Response.Redirect("ProfesorUnidades.aspx", false);
         }
+
+        protected void ButtonEstadoUnidad_Click(object sender, EventArgs e)
+        {
+            string estadoUnidad;
+            try
+            {
+                estadoUnidad = unidadNegocio.visibilidadUnidad(Convert.ToInt32(DropDownListNombreUnidad.SelectedValue));
+                Session["MensajeExito"] = "La unidad se ha " + estadoUnidad + " con exito.";
+                Response.Redirect("ProfesorUnidades.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorUnidades.aspx", false);
+            }
+        }
     }
 }

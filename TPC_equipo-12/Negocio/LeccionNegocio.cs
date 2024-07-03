@@ -218,9 +218,10 @@ namespace Negocio
             }
         }
 
-        public void visibilidadLeccion(int IDLeccion)
+        public string visibilidadLeccion(int IDLeccion)
         {
             LeccionNegocio leccionNegocio = new LeccionNegocio();
+            string estadoLeccion;
             try
             {
                 if (leccionNegocio.estadoLeccion(IDLeccion))
@@ -230,6 +231,7 @@ namespace Negocio
                     datos.EjecutarAccion();
                     datos.LimpiarParametros();
                     datos.CerrarConexion();
+                    estadoLeccion = "Deshabilitado";
                 }
                 else
                 {
@@ -238,8 +240,9 @@ namespace Negocio
                     datos.EjecutarAccion();
                     datos.LimpiarParametros();
                     datos.CerrarConexion();
+                    estadoLeccion = "Habilitado";
                 }
-
+                return estadoLeccion;
 
             }
             catch (Exception ex)

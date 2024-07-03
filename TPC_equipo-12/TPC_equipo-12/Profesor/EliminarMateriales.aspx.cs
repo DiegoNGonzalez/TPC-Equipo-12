@@ -29,10 +29,11 @@ namespace TPC_equipo_12
 
         protected void ButtonEstadoMaterial_Click(object sender, EventArgs e)
         {
+            string estadoMaterial;
             try
             {
-                materialNegocio.visibilidadMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
-                Session["MensajeExito"] = "Se realiazo la accion con éxito.";
+                estadoMaterial = materialNegocio.visibilidadMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
+                Session["MensajeExito"] = "Se ha " + estadoMaterial + " con exito.";
                 Response.Redirect("ProfesorMateriales.aspx", false);
             }
             catch (Exception ex)

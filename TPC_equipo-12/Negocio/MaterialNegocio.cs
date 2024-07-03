@@ -131,9 +131,10 @@ namespace Negocio
             }
         }
 
-        public void visibilidadMaterial(int idMaterial)
+        public string visibilidadMaterial(int idMaterial)
         {
             MaterialNegocio materialNegocio = new MaterialNegocio();
+            string estadoMaterial;
             try
             {
                 if (materialNegocio.estadoMaterial(idMaterial))
@@ -143,6 +144,7 @@ namespace Negocio
                     Datos.EjecutarAccion();
                     Datos.LimpiarParametros();
                     Datos.CerrarConexion();
+                    estadoMaterial = "Deshabilitado";
                 }else
                 {
                     Datos.SetearConsulta("UPDATE MaterialesXLecciones set Estado = 1 WHERE IDMaterial = @IDMaterial");
@@ -150,8 +152,10 @@ namespace Negocio
                     Datos.EjecutarAccion();
                     Datos.LimpiarParametros();
                     Datos.CerrarConexion();
+                    estadoMaterial = "Habilitado";
                 }
-                
+                return estadoMaterial;
+
 
             }
             catch (Exception ex)

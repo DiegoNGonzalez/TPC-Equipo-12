@@ -10,7 +10,7 @@ namespace Dominio
         public string Descripcion { get; set; }
         public List<Leccion> Lecciones { get; set; }
         public bool Completada { get; set; }
-
+        public bool Estado { get; set; }    
 
     }
 }

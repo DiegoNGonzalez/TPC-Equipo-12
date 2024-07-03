@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
@@ -66,6 +67,25 @@ namespace TPC_equipo_12
             Response.Redirect("AgregarUnidades.aspx?IdUnidad=" + IdUnidad);
 
         }
+        public string GetEstadoText(object estado)
+        {
+            bool estadoBool = (bool)estado;
+            return estadoBool ? "Habilitado" : "Deshabilitado";
+        }
 
+        protected void rptUnidadesProf_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                bool estado = (bool)DataBinder.Eval(e.Item.DataItem, "Estado");
+
+                HtmlTableRow row = (HtmlTableRow)e.Item.FindControl("trUnidad");
+
+                if (!estado)
+                {
+                    row.Attributes["class"] = "table-secondary";
+                }
+            }
+        }
     }
 }

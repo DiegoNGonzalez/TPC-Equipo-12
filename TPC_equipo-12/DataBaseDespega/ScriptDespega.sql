@@ -133,6 +133,7 @@ GO
 Create Table UnidadesXCurso(
 	IDUnidad int not null Foreign Key References Unidades(IDUnidad),
 	IDCurso int not null Foreign Key References Cursos(IDCurso),
+	Estado bit not null DEFAULT 1,
 	Primary Key (IDUnidad, IDCurso)
 )
 GO
