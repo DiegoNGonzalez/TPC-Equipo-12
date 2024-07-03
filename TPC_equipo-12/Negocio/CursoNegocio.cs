@@ -70,7 +70,7 @@ namespace Negocio
             try
             {
                 Datos.SetearConsulta(@"
-                        SELECT c.IDCurso, c.Nombre, c.Descripcion, c.Estreno, c.Duracion, c.Completo, 
+                        SELECT c.IDCurso, c.Nombre, c.Descripcion, c.Estreno, c.Duracion, c.Completo, c.Estado, 
                                c.IDImagen, i.IDImagenes, i.URLIMG, cx.IDCategoria, cat.Nombre as CategoriaNombre
                         FROM cursos c
                         INNER JOIN Imagenes i ON c.IDImagen = i.IDImagenes
@@ -87,6 +87,7 @@ namespace Negocio
                     aux.Estreno = (DateTime)Datos.Lector["Estreno"];
                     aux.Duracion = (int)Datos.Lector["Duracion"];
                     aux.Completo = (bool)Datos.Lector["Completo"];
+                    aux.Estado = (bool)Datos.Lector["Estado"];
                     aux.Imagen = new Imagen
                     {
                         IDImagen = (int)Datos.Lector["IDImagen"],
@@ -141,7 +142,7 @@ namespace Negocio
             Curso aux = new Curso();
             try
             {
-                Datos.SetearConsulta("select c.IDCurso, c.Nombre, c.Descripcion, c.Estreno, c.Duracion, C.Completo, c.IDImagen, i.IDImagenes, i.URLIMG from cursos c inner join Imagenes i on c.IDImagen= i.IDImagenes where c.IDCurso=@IDCurso");
+                Datos.SetearConsulta("select c.IDCurso, c.Nombre, c.Descripcion, c.Estreno, c.Duracion, C.Completo, c.Estado, c.IDImagen, i.IDImagenes, i.URLIMG from cursos c inner join Imagenes i on c.IDImagen= i.IDImagenes where c.IDCurso=@IDCurso");
                 Datos.SetearParametro("@IDCurso", idCurso);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
@@ -152,6 +153,7 @@ namespace Negocio
                     aux.Estreno = (DateTime)Datos.Lector["Estreno"];
                     aux.Duracion = (int)Datos.Lector["Duracion"];
                     aux.Completo = (bool)Datos.Lector["Completo"];
+                    aux.Estado = (bool)Datos.Lector["Estado"];
                     aux.Unidades = new List<Unidad>();
                     aux.Categoria = new CategoriaCurso();
                     aux.Resenias = new List<Resenia>();
@@ -209,11 +211,12 @@ namespace Negocio
                 }
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
-                Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Completo, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Completo, @Estreno, @IDImagen)");
+                Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Completo, Estado, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Completo, @Estreno, @IDImagen)");
                 Datos.SetearParametro("@Nombre", curso.Nombre);
                 Datos.SetearParametro("@Descripcion", curso.Descripcion);
                 Datos.SetearParametro("@Duracion", curso.Duracion);
                 Datos.SetearParametro("@Completo", curso.Completo);
+                Datos.SetearParametro("@Estado", curso.Estado);
                 Datos.SetearParametro("@Estreno", curso.Estreno);
                 Datos.SetearParametro("@IDImagen", curso.Imagen.IDImagen);
                 Datos.EjecutarAccion();
@@ -362,11 +365,12 @@ namespace Negocio
                     Datos.CerrarConexion();
                 }
                 // Actualizar el curso
-                Datos.SetearConsulta("UPDATE Cursos SET Nombre = @Nombre, Descripcion = @Descripcion, Duracion = @Duracion, Completo = @Completo, Estreno = @Estreno WHERE IDCurso = @IDCurso");
+                Datos.SetearConsulta("UPDATE Cursos SET Nombre = @Nombre, Descripcion = @Descripcion, Duracion = @Duracion, Completo = @Completo, Estado = @Estado, Estreno = @Estreno WHERE IDCurso = @IDCurso");
                 Datos.SetearParametro("@Nombre", curso.Nombre);
                 Datos.SetearParametro("@Descripcion", curso.Descripcion);
                 Datos.SetearParametro("@Duracion", curso.Duracion);
                 Datos.SetearParametro("@Completo", curso.Completo);
+                Datos.SetearParametro("@Estado", curso.Estado);
                 Datos.SetearParametro("@Estreno", curso.Estreno);
                 Datos.SetearParametro("@IDCurso", curso.IDCurso);
                 Datos.EjecutarAccion();
@@ -421,6 +425,50 @@ namespace Negocio
                 Datos.SetearConsulta("UPDATE Cursos SET Completo = 1 WHERE IDCurso = @IDCurso");
                 Datos.SetearParametro("@IDCurso", idCurso);
                 Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
+        public List<Curso> ValidarCursosActivos(List<Curso> ListaAValidar)
+        {
+            List<Curso> ListaValidada = new List<Curso>();
+            foreach (Curso curso in ListaAValidar)
+            {
+                if (curso.Estado)
+                {
+                    ListaValidada.Add(curso);
+                }
+            }
+            return ListaValidada;
+        }
+
+        public List<Curso> ValidarCursosInactivos(List<Curso> ListaAValidar)
+        {
+            List<Curso> ListaValidada = new List<Curso>();
+            foreach (Curso curso in ListaAValidar)
+            {
+                if (!curso.Estado)
+                {
+                    ListaValidada.Add(curso);
+                }
+            }
+            return ListaValidada;
+        }
+
+        public void DesabilitarCurso(int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("Update Cursos Set Estado = 0 Where IDCurso = @idCurso");
+                Datos.SetearParametro("@idCurso", idCurso);
+                Datos.EjecutarLectura();
             }
             catch (Exception ex)
             {

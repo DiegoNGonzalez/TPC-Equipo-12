@@ -32,7 +32,8 @@ Create Table Cursos(
 	IDImagen int null Foreign Key References Imagenes(IDImagenes),
 	Estreno DateTime not null,
 	Duracion int not null,
-	Completo bit not null default 0
+	Completo bit not null default 0,
+	Estado bit not null default 0
 )
 GO
 Create Table Inscripciones(

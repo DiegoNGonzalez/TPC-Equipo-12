@@ -14,17 +14,17 @@ INSERT INTO Categorias (Nombre) VALUES ('Programación');
 INSERT INTO Categorias (Nombre) VALUES ('Historia');
 go
 -- Insertar cursos
-INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo)
-VALUES ('Curso de Algebra', 'Un curso completo sobre algebra.', 1, '2023-01-01 10:00:00', 120, 1);
+INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo, Estado)
+VALUES ('Curso de Algebra', 'Un curso completo sobre algebra.', 1, '2023-01-01 10:00:00', 120, 1, 1);
 go
-INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo)
-VALUES ('Curso de Fisica', 'Un curso completo sobre fisica.', 2, '2023-02-01 10:00:00', 150, 1);
+INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo, Estado)
+VALUES ('Curso de Fisica', 'Un curso completo sobre fisica.', 2, '2023-02-01 10:00:00', 150, 1, 1);
 go
-INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo)
-VALUES ('Curso de Programación', 'Un curso completo sobre programación.', 4, '2023-03-01 10:00:00', 200, 1);
+INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo, Estado)
+VALUES ('Curso de Programación', 'Un curso completo sobre programación.', 4, '2023-03-01 10:00:00', 200, 1, 1);
 go
-INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo)
-VALUES ('Curso de Historia', 'Un curso completo sobre historia.', 5, '2023-04-01 10:00:00', 180, 1);
+INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo, Estado)
+VALUES ('Curso de Historia', 'Un curso completo sobre historia.', 5, '2023-04-01 10:00:00', 180, 1, 1);
 go
 -- Insertar categorias por curso
 INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (1, 1);

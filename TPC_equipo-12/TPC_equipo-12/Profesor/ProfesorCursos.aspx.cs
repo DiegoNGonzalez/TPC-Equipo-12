@@ -25,11 +25,21 @@ namespace TPC_equipo_12
                 ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
                 master.VerificarMensaje();
 
-                profesor = (Profesor)Session["profesor"];
-                Session.Add("listaCursosProfesor", profesor.Cursos);
-                profesor.Cursos = cursoNegocio.ValidarCursoCompleto(profesor.Cursos);
-                rptProfesorCursos.DataSource = profesor.Cursos;
+                //profesor = (Profesor)Session["profesor"];
+                //Session.Add("listaCursosProfesor", profesor.Cursos);
+                listaCursos = cursoNegocio.ListarCursos();
+                listaCursos = cursoNegocio.ValidarCursoCompleto(listaCursos);
+                listaCursos = cursoNegocio.ValidarCursosActivos(listaCursos);
+                rptProfesorCursos.DataSource = listaCursos;
                 rptProfesorCursos.DataBind();
+                MostrarCategoria();
+
+                List<Curso> cursosInactivos = new List<Curso>();
+                cursosInactivos = cursoNegocio.ListarCursos();
+                cursosInactivos = cursoNegocio.ValidarCursoCompleto(cursosInactivos);
+                cursosInactivos = cursoNegocio.ValidarCursosInactivos(cursosInactivos);
+                RepeaterCursosInactivos.DataSource = cursosInactivos;
+                RepeaterCursosInactivos.DataBind();
                 MostrarCategoria();
             }
         }
@@ -41,40 +51,25 @@ namespace TPC_equipo_12
             Response.Redirect("ProfesorUnidades.aspx");
         }
 
-        protected void ButtonEliminarCurso_Command(object sender, CommandEventArgs e)
+        protected void ButtonDesabilitarCurso_Command(object sender, CommandEventArgs e)
         {
             Profesor profesor = (Profesor)Session["profesor"];
-            int idCursoAEliminar = Convert.ToInt32(e.CommandArgument);
-            Curso cursoAEliminar = profesor.Cursos.Find(curso => curso.IDCurso == idCursoAEliminar);
+            int idCursoADesabilitar = Convert.ToInt32(e.CommandArgument);
 
-            if (cursoAEliminar != null)
+            if (idCursoADesabilitar != 0)
             {
                 try
                 {
-                    profesor.Cursos.Remove(cursoAEliminar);
-                    Session["profesor"] = profesor;
-                    cursoNegocio.EliminarCurso(idCursoAEliminar);
-                    Session["MensajeExito"] = "Curso eliminado con exito!";
+                    cursoNegocio.DesabilitarCurso(idCursoADesabilitar);
+                    Session["Mensaje"] = "Curso desabilitado correctamente.";
                     Response.Redirect("ProfesorCursos.aspx", false);
                 }
                 catch (Exception ex)
                 {
-                    Session.Add("Error", ex.ToString());
-                    Response.Redirect("../Error.aspx");
+                    Session["MensajeError"] = "Ocurrio un error al intentar Desabilitar el curso.";
+                    Response.Redirect("ProfesorCursos.aspx", false);
                 }
             }
-            else
-            {
-                Session.Add("Error", "El curso no se encontró en la lista de cursos del profesor.");
-                Response.Redirect("../Error.aspx");
-            }
-        }
-
-        protected void ButtonModificarCurso_Command(object sender, CommandEventArgs e)
-        {
-            int idCurso = Convert.ToInt32(e.CommandArgument);
-            Session.Add("IDCursoProfesor", idCurso);
-            Response.Redirect("CrearCurso.aspx?IdCurso=" + idCurso);
         }
 
         private void MostrarCategoria()

@@ -18,7 +18,7 @@ namespace Dominio
         public CategoriaCurso Categoria { get; set; }
         public Imagen Imagen { get; set; }
 
-
+        public bool Estado { get; set; }
 
     }
 }

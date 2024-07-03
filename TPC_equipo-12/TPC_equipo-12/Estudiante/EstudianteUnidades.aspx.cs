@@ -29,7 +29,7 @@ namespace TPC_equipo_12
                 rptUnidades.DataBind();
 
                 bool hayUnidadesActivas = listaUnidades.Any(m => m.Estado);
-                lblMensajeInactivo.Visible = !hayUnidadesActivas;
+                //lblMensajeInactivo.Visible = !hayUnidadesActivas;
             }
         }
 
