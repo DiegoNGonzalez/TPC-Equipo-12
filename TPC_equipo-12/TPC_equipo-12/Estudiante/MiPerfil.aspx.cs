@@ -81,7 +81,11 @@ namespace TPC_equipo_12
             estudianteNegocio.actualizar(estudiante);
 
             Image img = (Image)Master.FindControl("imgPerfil");
-            img.ImageUrl = "~/Images/" + estudiante.ImagenPerfil.URL;
+            if (!string.IsNullOrEmpty(estudiante.ImagenPerfil.URL))
+                img.ImageUrl = "~/Images/" + estudiante.ImagenPerfil.URL;
+            else
+                img.ImageUrl = "~/Images/perfil-0.jpg";
+            
             
 
 

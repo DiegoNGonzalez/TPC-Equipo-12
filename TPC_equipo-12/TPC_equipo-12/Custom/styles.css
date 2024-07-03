@@ -6,3 +6,6 @@
 .table-secondary {
     background-color: #f8f9fa; /* Color de fondo gris */
 }
+.text-danger {
+    color: #dc3545; /* Color de Bootstrap para errores */
+}
