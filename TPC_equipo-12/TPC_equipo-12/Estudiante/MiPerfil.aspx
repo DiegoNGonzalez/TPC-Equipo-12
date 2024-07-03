@@ -17,14 +17,20 @@
                 <div class="mb-3">
                     <label class="form-label">Nombre/s</label>
                     <asp:TextBox runat="server" CssClass="form-control" ID="txtNombre" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtNombre" ErrorMessage="El Nombre es obligatorio." CssClass="text-danger" />
+                    <asp:RegularExpressionValidator runat="server" ControlToValidate="txtNombre" ErrorMessage="El Nombre solo debe contener letras." CssClass="text-danger" ValidationExpression="^[a-zA-Z\s]+$" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Apellido</label>
                     <asp:TextBox runat="server" CssClass="form-control" ID="txtApellido" />
+                    <asp:RegularExpressionValidator runat="server" ControlToValidate="txtApellido" ErrorMessage="El Apellido solo debe contener letras." CssClass="text-danger" ValidationExpression="^[a-zA-Z\s]+$" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="txtApellido" ErrorMessage="El Apellido es obligatorio." CssClass="text-danger" />
                 </div>
                 <div class="mb-3">
                     <asp:Label Text="DNI" runat="server" />
                     <asp:TextBox type="number" ID="InputDNI" class="form-control" runat="server" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="InputDNI" ErrorMessage="El DNI es obligatorio." CssClass="text-danger" />
+                    <asp:RegularExpressionValidator runat="server" ControlToValidate="InputDNI" ErrorMessage="El DNI debe ser un número entre 7 y 9 dígitos." CssClass="text-danger" ValidationExpression="^\d{7,9}$" />
 
                 </div>
                 <div class="mb-3">

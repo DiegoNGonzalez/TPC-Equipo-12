@@ -52,6 +52,11 @@ namespace TPC_equipo_12
         {
             ProfesorNegocio profesorNegocio = new ProfesorNegocio();
             Profesor profesor = (Profesor)Session["profesor"];
+            Page.Validate();
+            if (!Page.IsValid)
+            {
+                return;
+            }
 
             if (txtImagen.PostedFile.FileName != "")
             {
