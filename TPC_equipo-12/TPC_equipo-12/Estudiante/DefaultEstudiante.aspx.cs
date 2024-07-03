@@ -24,17 +24,19 @@ namespace TPC_equipo_12
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
                 listaCursos = cursoNegocio.ListarCursos();
-                listaCursos = cursoNegocio.ValidarCursoCompleto(listaCursos);
 
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
-                EstaInscripto();
+
+                EstaInscripto(listaCursos);
+
                 EstudianteLogeado.Cursos = listaCursosInscriptos;
-
-                List<Curso> cursosActivos = cursoNegocio.ValidarCursosActivos(listaCursos);
-                NoEstaInscripto(cursosActivos);
-
                 Session["estudiante"] = EstudianteLogeado;
                 Session.Add("listaCursosInscriptos", listaCursosInscriptos);
+
+                listaCursos = cursoNegocio.ValidarCursoCompleto(listaCursos);
+                listaCursos = cursoNegocio.ValidarCursosActivos(listaCursos);
+                NoEstaInscripto(listaCursos);
+
 
                 rptCursos.DataSource = cursosNoInscriptos;
                 rptCursos.DataBind();
@@ -42,14 +44,13 @@ namespace TPC_equipo_12
             }
         }
 
-        protected void EstaInscripto()
+        protected void EstaInscripto(List<Curso> listCursos)
         {
             Estudiante EstudianteEnSession = (Estudiante)Session["estudiante"];
             List<int> auxIds = cursoNegocio.IDCursosXEstudiante(EstudianteEnSession.IDUsuario);
-            List<Curso> auxCursos = cursoNegocio.ListarCursos();
             foreach (int id in auxIds)
             {
-                foreach (Curso curso in auxCursos)
+                foreach (Curso curso in listCursos)
                 {
                     if (curso.IDCurso == id)
                     {

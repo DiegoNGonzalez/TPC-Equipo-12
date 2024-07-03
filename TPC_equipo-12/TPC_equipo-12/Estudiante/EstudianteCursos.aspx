@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="../Custom/styles.css" rel="stylesheet" />
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="container">
         <div class="row">
@@ -15,7 +16,7 @@
                 <div class="row justify-content-center">
                     <asp:Repeater ID="rptCursos" runat="server">
                         <ItemTemplate>
-                            <div class="card ms-5 mb-5" style="width: 18rem; min-height: 24rem;">
+                            <div class="card ms-5 mb-5 <%# Eval("Completo") != null && !(bool)Eval("Completo") ? "curso-incompleto" : "" %>" style="width: 18rem; min-height: 24rem;">
                                 <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
                                 <asp:LinkButton ID="LinkButtonCurso" runat="server" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="LinkButtonCurso_Command" Style="text-decoration: none;">
                                     <div class="img-container" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
@@ -34,9 +35,12 @@
                                         <asp:Label ID="LabelCategoriaCurso" runat="server"></asp:Label>
                                     </li>
                                 </ul>
-                        <div class="d-flex justify-content-center align-items-center mt-2">
-                            <asp:Button ID="ButtonDesinscribirse" runat="server" Text="Desinscribirse" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDesinscribirse_Command" />
-                        </div>
+                                <div class="overlay-text <%# Eval("Completo") != null && !(bool)Eval("Completo") ? "" : "d-none" %>">
+                                    Por el momento este curso no esta completo.<br /> Consultar al profesor por mensaje.
+                                </div>
+                                <div class="d-flex justify-content-center align-items-center mt-2">
+                                    <asp:Button ID="ButtonDesinscribirse" runat="server" Text="Desinscribirse" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDesinscribirse_Command" />
+                                </div>
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
