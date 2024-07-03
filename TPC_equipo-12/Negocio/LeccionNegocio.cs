@@ -19,7 +19,7 @@ namespace Negocio
             List<Leccion> lista = new List<Leccion>();
             try
             {
-                datos.SetearConsulta("select l.Idleccion, l.nombre, l.nroLeccion, l.Descripcion from Lecciones l inner JOIN LeccionesXUnidades lxu on lxu.IDLeccion = l.IDLeccion inner join Unidades u on u.IDUnidad = lxu.IDUnidad Where u.IDUnidad = @IDUnidad");
+                datos.SetearConsulta("select l.Idleccion, l.nombre, l.nroLeccion, l.Descripcion, lxu.Estado from Lecciones l inner JOIN LeccionesXUnidades lxu on lxu.IDLeccion = l.IDLeccion inner join Unidades u on u.IDUnidad = lxu.IDUnidad Where u.IDUnidad = @IDUnidad");
                 datos.SetearParametro("@IDUnidad", IDUnidad);
                 datos.EjecutarLectura();
                 while (datos.Lector.Read())
@@ -29,6 +29,7 @@ namespace Negocio
                     aux.NroLeccion = (int)datos.Lector["nroLeccion"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Estado = (bool)datos.Lector["Estado"];
                     lista.Add(aux);
                 }
                 foreach (var item in lista)
@@ -213,6 +214,68 @@ namespace Negocio
             finally
             {
                 datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+
+        public void visibilidadLeccion(int IDLeccion)
+        {
+            LeccionNegocio leccionNegocio = new LeccionNegocio();
+            try
+            {
+                if (leccionNegocio.estadoLeccion(IDLeccion))
+                {
+                    datos.SetearConsulta("UPDATE LeccionesXUnidades set Estado = 0 WHERE IDLeccion = @IDLeccion");
+                    datos.SetearParametro("@IDLeccion", IDLeccion);
+                    datos.EjecutarAccion();
+                    datos.LimpiarParametros();
+                    datos.CerrarConexion();
+                }
+                else
+                {
+                    datos.SetearConsulta("UPDATE LeccionesXUnidades set Estado = 1 WHERE IDLeccion = @IDLeccion");
+                    datos.SetearParametro("@IDLeccion", IDLeccion);
+                    datos.EjecutarAccion();
+                    datos.LimpiarParametros();
+                    datos.CerrarConexion();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+
+        private bool estadoLeccion(int iDLeccion)
+        {
+            try
+            {
+                datos.SetearConsulta("SELECT Estado FROM LeccionesXUnidades WHERE IDLeccion = @iDLeccion");
+                datos.SetearParametro("@iDLeccion", iDLeccion);
+                datos.EjecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    return Convert.ToBoolean(datos.Lector["Estado"]);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
                 datos.CerrarConexion();
             }
         }

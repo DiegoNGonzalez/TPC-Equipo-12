@@ -42,13 +42,13 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.DropDownList DropDownListNombreLeccion;
 
         /// <summary>
-        /// Control ButtonEliminarLeccion.
+        /// Control ButtonEstadoLeccion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonEliminarLeccion;
+        protected global::System.Web.UI.WebControls.Button ButtonEstadoLeccion;
 
         /// <summary>
         /// Control ButtonVolver.

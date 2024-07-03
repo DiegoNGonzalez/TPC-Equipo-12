@@ -126,6 +126,7 @@ GO
 Create Table LeccionesXUnidades(
 	IDUnidad int not null Foreign Key References Unidades(IDUnidad),
 	IDLeccion int not null Foreign Key References Lecciones(IDLeccion),
+	Estado bit not null DEFAULT 1,
 	Primary Key (IDUnidad, IDLeccion)
 )
 GO

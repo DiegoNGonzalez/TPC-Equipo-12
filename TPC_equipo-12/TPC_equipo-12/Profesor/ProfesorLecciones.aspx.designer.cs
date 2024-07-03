@@ -33,13 +33,13 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Button ButtonCrearLeccionProf;
 
         /// <summary>
-        /// Control ButtonEliminarLeccionProf.
+        /// Control ButtonEstadoLeccionProf.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonEliminarLeccionProf;
+        protected global::System.Web.UI.WebControls.Button ButtonEstadoLeccionProf;
 
         /// <summary>
         /// Control rptLeccionesProf.

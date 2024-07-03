@@ -46,5 +46,20 @@ namespace TPC_equipo_12
         {
             Response.Redirect("ProfesorLecciones.aspx", false);
         }
+
+        protected void ButtonEstadoLeccion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                leccionNegocio.visibilidadLeccion(Convert.ToInt32(DropDownListNombreLeccion.SelectedValue));
+                Session["MensajeExito"] = "Accion realizada con éxito.";
+                Response.Redirect("ProfesorLecciones.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session["MensajeError"] = ex.ToString();
+                Response.Redirect("ProfesorLecciones.aspx", false);
+            }
+        }
     }
 }

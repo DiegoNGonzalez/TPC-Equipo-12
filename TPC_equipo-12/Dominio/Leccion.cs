@@ -9,6 +9,7 @@ namespace Dominio
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public List<MaterialLeccion> Materiales { get; set; }
+        public bool Estado { get; set; }
         public bool Completada { get; set; }
     }
 }

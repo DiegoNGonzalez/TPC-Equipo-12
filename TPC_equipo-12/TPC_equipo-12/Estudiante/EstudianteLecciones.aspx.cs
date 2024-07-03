@@ -23,6 +23,7 @@ namespace TPC_equipo_12
                 master.VerificarMensaje();
 
                 listaLecciones = leccionNegocio.ListarLecciones((int)Session["IDUnidad"]);
+                listaLecciones = listaLecciones.FindAll(m => m.Estado);
                 Session.Add("ListaLecciones", listaLecciones);
                 rptLecciones.DataSource = listaLecciones;
                 rptLecciones.DataBind();

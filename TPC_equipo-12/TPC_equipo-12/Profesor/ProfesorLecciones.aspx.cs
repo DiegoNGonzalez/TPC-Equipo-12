@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
@@ -57,6 +58,26 @@ namespace TPC_equipo_12
             int IdLeccion = Convert.ToInt32(e.CommandArgument);
             Session.Add("IDLeccionProfesor", IdLeccion);
             Response.Redirect("AgregarLecciones.aspx?IdLeccion=" + IdLeccion);
+        }
+        public string GetEstadoText(object estado)
+        {
+            bool estadoBool = (bool)estado;
+            return estadoBool ? "Habilitado" : "Deshabilitado";
+        }
+
+        protected void rptLeccionesProf_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                bool estado = (bool)DataBinder.Eval(e.Item.DataItem, "Estado");
+
+                HtmlTableRow row = (HtmlTableRow)e.Item.FindControl("trLeccion");
+
+                if (!estado)
+                {
+                    row.Attributes["class"] = "table-secondary";
+                }
+            }
         }
     }
 }
