@@ -51,7 +51,11 @@ namespace TPC_equipo_12
         {
             EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
             Estudiante estudiante = (Estudiante)Session["estudiante"];
-
+            Page.Validate();
+            if (!Page.IsValid)
+            {
+                return;
+            }
             if (txtImagen.PostedFile.FileName != "")
             {
                 string ruta = Server.MapPath("~/Images/");
