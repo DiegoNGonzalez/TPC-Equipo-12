@@ -55,16 +55,20 @@ namespace Negocio
                 {
                     // Insertar una nueva imagen y obtener el nuevo ID
                     datos.LimpiarParametros();
-                    datos.SetearConsulta("INSERT INTO Imagenes (URLIMG) OUTPUT INSERTED.IDImagenes VALUES (@imagen)");
-                    datos.SetearParametro("@imagen", profesor.ImagenPerfil.URL);
-                    int nuevoIDImagen = datos.ejecutarAccionScalar();
-                    datos.CerrarConexion();
-                    // Actualizar el IDImagen del usuario con el nuevo IDImagen de la imagen insertada
-                    datos.LimpiarParametros();
-                    datos.SetearConsulta("UPDATE Usuarios SET IDImagen = @IDImagen WHERE IDUsuario = @IDUsuario");
-                    datos.SetearParametro("@IDImagen", nuevoIDImagen);
-                    datos.SetearParametro("@IDUsuario", profesor.IDUsuario);
-                    datos.EjecutarAccion();
+                    if (!string.IsNullOrEmpty(profesor.ImagenPerfil.URL))
+                    {
+                        datos.SetearConsulta("INSERT INTO Imagenes (URLIMG) OUTPUT INSERTED.IDImagenes VALUES (@imagen)");
+                        datos.SetearParametro("@imagen", profesor.ImagenPerfil.URL);
+                        int nuevoIDImagen = datos.ejecutarAccionScalar();
+                        datos.CerrarConexion();
+                        // Actualizar el IDImagen del usuario con el nuevo IDImagen de la imagen insertada
+                        datos.LimpiarParametros();
+                        datos.SetearConsulta("UPDATE Usuarios SET IDImagen = @IDImagen WHERE IDUsuario = @IDUsuario");
+                        datos.SetearParametro("@IDImagen", nuevoIDImagen);
+                        datos.SetearParametro("@IDUsuario", profesor.IDUsuario);
+                        datos.EjecutarAccion();
+                    }
+                    
                 }
 
             }
