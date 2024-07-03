@@ -83,7 +83,11 @@ namespace TPC_equipo_12
             profesorNegocio.actualizar(profesor);
 
             Image img = (Image)Master.FindControl("imgPerfil");
-            img.ImageUrl = "~/Images/" + profesor.ImagenPerfil.URL;
+            if (!string.IsNullOrEmpty(profesor.ImagenPerfil.URL))
+            
+                img.ImageUrl = "~/Images/" + profesor.ImagenPerfil.URL;
+            else
+                img.ImageUrl = "~/Images/perfil-0.jpg";
             
         }
     }

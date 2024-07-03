@@ -95,7 +95,7 @@ namespace Negocio
                     Datos.SetearParametro("@IDEstudiante", idUsuario);
                     Datos.SetearParametro("@IDCurso", idCurso);
                     Datos.EjecutarAccion();
-                    
+
 
 
                 }
@@ -232,16 +232,20 @@ namespace Negocio
                 {
                     // Insertar una nueva imagen y obtener el nuevo ID
                     datos.LimpiarParametros();
-                    datos.SetearConsulta("INSERT INTO Imagenes (URLIMG) OUTPUT INSERTED.IDImagenes VALUES (@imagen)");
-                    datos.SetearParametro("@imagen", estudiante.ImagenPerfil.URL);
-                    int nuevoIDImagen = datos.ejecutarAccionScalar();
-                    datos.CerrarConexion();
-                    // Actualizar el IDImagen del usuario con el nuevo IDImagen de la imagen insertada
-                    datos.LimpiarParametros();
-                    datos.SetearConsulta("UPDATE Usuarios SET IDImagen = @IDImagen WHERE IDUsuario = @IDUsuario");
-                    datos.SetearParametro("@IDImagen", nuevoIDImagen);
-                    datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
-                    datos.EjecutarAccion();
+                    if (!string.IsNullOrEmpty(estudiante.ImagenPerfil.URL))
+                    {
+                        datos.SetearConsulta("INSERT INTO Imagenes (URLIMG) OUTPUT INSERTED.IDImagenes VALUES (@imagen)");
+                        datos.SetearParametro("@imagen", estudiante.ImagenPerfil.URL);
+                        int nuevoIDImagen = datos.ejecutarAccionScalar();
+                        datos.CerrarConexion();
+                        // Actualizar el IDImagen del usuario con el nuevo IDImagen de la imagen insertada
+                        datos.LimpiarParametros();
+                        datos.SetearConsulta("UPDATE Usuarios SET IDImagen = @IDImagen WHERE IDUsuario = @IDUsuario");
+                        datos.SetearParametro("@IDImagen", nuevoIDImagen);
+                        datos.SetearParametro("@IDUsuario", estudiante.IDUsuario);
+                        datos.EjecutarAccion();
+                    }
+
                 }
 
             }
@@ -298,7 +302,7 @@ namespace Negocio
             }
             finally
             {
-                   Datos.LimpiarParametros();
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
