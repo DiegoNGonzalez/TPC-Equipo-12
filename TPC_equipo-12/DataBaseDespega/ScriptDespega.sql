@@ -112,6 +112,7 @@ GO
 Create Table MaterialesXLecciones(
 	IDMaterial int not null Foreign Key References Materiales(IDMaterial),
 	IDLeccion int not null Foreign Key References Lecciones(IDLeccion),
+	Estado bit not null DEFAULT 1,
 	Primary Key (IDMaterial, IDLeccion)
 )
 GO

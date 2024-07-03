@@ -4,6 +4,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
@@ -42,7 +43,9 @@ namespace TPC_equipo_12
                 if (idleccion != 0)
                 {
                     listaMateriales = materialNegocio.ListarMateriales(idleccion);
+                    listaMateriales = listaMateriales.FindAll(m => m.Estado);
                     listaComentarios = ComentarioNegocio.cargarComentarios(idleccion);
+                    
                 }
                 Session.Add("ListaMateriales", listaMateriales);
                 rptMateriales.DataSource = listaMateriales;
@@ -52,7 +55,9 @@ namespace TPC_equipo_12
                 rptComentarios.DataSource = listaComentarios;
                 rptComentarios.DataBind();
 
-
+                bool hayMaterialesActivos = listaMateriales.Any(m => m.Estado);
+                pnlPreguntasRespuestas.Visible = hayMaterialesActivos;
+                lblMensajeInactivo.Visible = !hayMaterialesActivos;
             }
         }
         private string ExtractVideoId(string youtubeLink)
@@ -95,18 +100,25 @@ namespace TPC_equipo_12
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 MaterialLeccion material = e.Item.DataItem as MaterialLeccion;
-                if (material.TipoMaterial == "Video")
+                if (material != null && material.Estado)
                 {
-                    Literal ltlYoutubeVideo = (Literal)e.Item.FindControl("ltlYoutubeVideo");
-                    ltlYoutubeVideo.Text = CargarIframe(material);
+                    if (material.TipoMaterial == "Video")
+                    {
+                        Literal ltlYoutubeVideo = (Literal)e.Item.FindControl("ltlYoutubeVideo");
+                        ltlYoutubeVideo.Text = CargarIframe(material);
+                    }
+                    else if (material.TipoMaterial == "Documento")
+                    {
+                        Literal ltlDocumento = (Literal)e.Item.FindControl("ltlDocumento");
+                        ltlDocumento.Text = $@"
+                        <a href='{material.URL}' target='_blank' class='border p-2 m-2 d-inline-block mb-4'>
+                            {material.Nombre}
+                        </a>";
+                    }
                 }
-                else if (material.TipoMaterial == "Documento")
+                else
                 {
-                    Literal ltlDocumento = (Literal)e.Item.FindControl("ltlDocumento");
-                    ltlDocumento.Text = $@"
-                    <a href='{material.URL}' target='_blank' class='border p-2 m-2 d-inline-block mb-4'>
-                        {material.Nombre}
-                    </a>";
+                    e.Item.Visible = false;
                 }
             }
         }

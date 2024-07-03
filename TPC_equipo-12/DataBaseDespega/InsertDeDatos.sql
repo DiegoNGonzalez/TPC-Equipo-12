@@ -113,16 +113,16 @@ INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (4, 4);
 go
 -- UNA VEZ CREADO EL PROFESOR CON EL SIGN UP HACER LO DE ABAJO...
 --Update en Usuarios hacer profesor
---UPDATE Usuarios
---SET EsProfesor = 1
---WHERE IDUsuario = 1;
---go
+-- UPDATE Usuarios
+-- SET EsProfesor = 1
+-- WHERE IDUsuario = 1;
+-- go
 -- Insertar profesor
---INSERT INTO Profesor (IDProfesor) VALUES (1);
---go
+-- INSERT INTO Profesor (IDProfesor) VALUES (1);
+-- go
 -- Insertar profesor por curso
---INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 1);
---INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 2);
---INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 3);
---INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 4);
---go
+-- INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 1);
+-- INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 2);
+-- INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 3);
+-- INSERT INTO ProfesorXCursos (IDProfesor, IDCurso) VALUES (1, 4);
+-- go

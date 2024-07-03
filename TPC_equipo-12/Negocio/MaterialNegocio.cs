@@ -2,6 +2,7 @@
 using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 namespace Negocio
 {
     public class MaterialNegocio
@@ -16,7 +17,8 @@ namespace Negocio
             List<MaterialLeccion> lista = new List<MaterialLeccion>();
             try
             {
-                Datos.SetearConsulta("select m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial, m.Descripcion, m.NroMaterial from Materiales m inner join materialesxlecciones mxl on mxl.IDMaterial = m.IDmaterial inner join lecciones l on mxl.Idleccion = l.IDLeccion Where l.IDLeccion = @idLeccion");
+                //Datos.SetearConsulta("select m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial, m.Descripcion, m.NroMaterial from Materiales m inner join materialesxlecciones mxl on mxl.IDMaterial = m.IDmaterial inner join lecciones l on mxl.Idleccion = l.IDLeccion Where l.IDLeccion = @idLeccion");
+                Datos.SetearConsulta("SELECT m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial, m.Descripcion, m.NroMaterial, mxl.Estado FROM Materiales m INNER JOIN MaterialesXLecciones mxl ON mxl.IDMaterial = m.IDMaterial INNER JOIN Lecciones l ON mxl.IDLeccion = l.IDLeccion WHERE l.IDLeccion = @idLeccion");
                 Datos.SetearParametro("@idLeccion", idLeccion);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
@@ -28,6 +30,7 @@ namespace Negocio
                     aux.URL = (string)Datos.Lector["URLMaterial"];
                     aux.Descripcion = (string)Datos.Lector["Descripcion"];
                     aux.NroMaterial = (int)Datos.Lector["NroMaterial"];
+                    aux.Estado = (bool)Datos.Lector["Estado"];
                     lista.Add(aux);
                 }
                 Datos.LimpiarParametros();
@@ -117,6 +120,66 @@ namespace Negocio
                 Datos.SetearParametro("@Descripcion", material.Descripcion);
                 Datos.SetearParametro("@NroMaterial", material.NroMaterial);
                 Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
+        public void visibilidadMaterial(int idMaterial)
+        {
+            MaterialNegocio materialNegocio = new MaterialNegocio();
+            try
+            {
+                if (materialNegocio.estadoMaterial(idMaterial))
+                {
+                    Datos.SetearConsulta("UPDATE MaterialesXLecciones set Estado = 0 WHERE IDMaterial = @IDMaterial");
+                    Datos.SetearParametro("@IDMaterial", idMaterial);
+                    Datos.EjecutarAccion();
+                    Datos.LimpiarParametros();
+                    Datos.CerrarConexion();
+                }else
+                {
+                    Datos.SetearConsulta("UPDATE MaterialesXLecciones set Estado = 1 WHERE IDMaterial = @IDMaterial");
+                    Datos.SetearParametro("@IDMaterial", idMaterial);
+                    Datos.EjecutarAccion();
+                    Datos.LimpiarParametros();
+                    Datos.CerrarConexion();
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public bool estadoMaterial(int idMaterial)
+        {
+            try
+            {
+                Datos.SetearConsulta("SELECT Estado FROM MaterialesXLecciones WHERE IDMaterial = @idMaterial");
+                Datos.SetearParametro("@idMaterial", idMaterial);
+                Datos.EjecutarLectura();
+
+                if (Datos.Lector.Read())
+                {
+                    return Convert.ToBoolean(Datos.Lector["Estado"]);
+                }
+                else
+                {
+                    return false; 
+                }
             }
             catch (Exception ex)
             {

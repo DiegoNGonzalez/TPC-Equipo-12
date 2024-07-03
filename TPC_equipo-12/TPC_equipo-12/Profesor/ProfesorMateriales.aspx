@@ -6,7 +6,7 @@
     <div class="container">
         <asp:Button ID="ButtonBackLeccionesProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Lecciones" OnClick="ButtonBackLeccionesProf_Click" />
         <asp:Button ID="ButtonCrearMaterialProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Crear un Material" OnClick="ButtonCrearMaterialProf_Click" />
-        <asp:Button ID="ButtonEliminarMaterialProf" CssClass="btn btn-danger mb-3 mt-3" runat="server" Text="Eliminar un Material" OnClick="ButtonEliminarMaterialProf_Click" />
+        <asp:Button ID="ButtonEliminarMaterialProf" CssClass="btn btn-warning mb-3 mt-3" runat="server" Text="Ocultar/Mostrar Material" OnClick="ButtonEliminarMaterialProf_Click" />
         <h1 class="text-center">Materiales de la Lección</h1>
         <asp:Repeater ID="rptMaterialesProf" runat="server" OnItemDataBound="rptMaterialesProf_ItemDataBound">
             <ItemTemplate>
@@ -21,6 +21,7 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <p class="card-text"><strong>Descripción:</strong> <%# Eval("Descripcion") %></p>
+                                <p class="card-text"><strong>Estado:</strong> <%# GetEstadoText(Eval("Estado")) %></p>
                             </div>
                         </div>
                     </div>

@@ -16,7 +16,8 @@
                             </asp:DropDownList>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
-                            <asp:Button ID="ButtonEliminarMaterial" runat="server" Text="Eliminar Material" CssClass="btn btn-danger" OnClick="ButtonEliminarMaterial_Click" />
+                            <%--<asp:Button ID="ButtonEliminarMaterial" runat="server" Text="Eliminar Material" CssClass="btn btn-danger" OnClick="ButtonEliminarMaterial_Click" />--%>
+                            <asp:Button ID="ButtonEstadoMaterial" runat="server" Text="Habilitar/Deshabilitar" CssClass="btn btn-warning" OnClick="ButtonEstadoMaterial_Click" />
                             <asp:Button ID="ButtonVolver" runat="server" Text="Volver" CssClass="btn btn-secondary" OnClick="ButtonVolver_Click" />
                         </div>
                     </div>

@@ -24,37 +24,38 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-        <h3>Preguntas y Respuestas</h3>
-
-        <asp:Repeater ID="rptComentarios" runat="server">
-            <ItemTemplate>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="media">
-                            <div class="mr-3">
-                                <asp:Image ID="imgPerfil" runat="server" CssClass="mg-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/" + Eval("UsuarioEmisor.ImagenPerfil.URL") %>'  />
-                            </div>
-                            <div class="media-body">
-                                <h5 class="mt-0"><%# Eval("UsuarioEmisor.Nombre") %></h5>
-                                <p class="card-text"><%# Eval("CuerpoComentario") %></p>
-                                <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
-                                <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
+        <asp:Panel ID="pnlPreguntasRespuestas" runat="server" Visible="false">
+            <h3>Preguntas y Respuestas</h3>
+            <asp:Repeater ID="rptComentarios" runat="server">
+                <ItemTemplate>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="media">
+                                <div class="mr-3">
+                                    <asp:Image ID="imgPerfil" runat="server" CssClass="mg-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/" + Eval("UsuarioEmisor.ImagenPerfil.URL") %>' />
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="mt-0"><%# Eval("UsuarioEmisor.Nombre") %></h5>
+                                    <p class="card-text"><%# Eval("CuerpoComentario") %></p>
+                                    <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                                    <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
-        <!-- Formulario para Agregar Comentario -->
-        <div class="mt-5">
-            <div class="card mt-3">
-                <div class="card-body">
-                    <asp:TextBox ID="txtComentario" CssClass="form-control mb-3" runat="server" TextMode="MultiLine" Rows="3" Placeholder="Escribe tu duda aquí..."></asp:TextBox>
-                    <asp:Button ID="btnPreguntar" CssClass="btn btn-primary" runat="server" Text="Preguntar" OnClick="btnPreguntar_Click" />
+                </ItemTemplate>
+            </asp:Repeater>
+            <div class="mt-5">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <asp:TextBox ID="txtComentario" CssClass="form-control mb-3" runat="server" TextMode="MultiLine" Rows="3" Placeholder="Escribe tu duda aquí..."></asp:TextBox>
+                        <asp:Button ID="btnPreguntar" CssClass="btn btn-primary" runat="server" Text="Preguntar" OnClick="btnPreguntar_Click" />
+                    </div>
                 </div>
             </div>
-        </div>
-
+            
+        </asp:Panel>
+        <br /> <asp:Label ID="lblMensajeInactivo" runat="server" CssClass="text-muted mt-3" Text="El contenido se encuentra deshabilitado." Visible="false"></asp:Label>
     </div>
 
 </asp:Content>

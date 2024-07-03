@@ -33,6 +33,15 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Repeater rptMateriales;
 
         /// <summary>
+        /// Control pnlPreguntasRespuestas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlPreguntasRespuestas;
+
+        /// <summary>
         /// Control rptComentarios.
         /// </summary>
         /// <remarks>
@@ -58,5 +67,14 @@ namespace TPC_equipo_12
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPreguntar;
+
+        /// <summary>
+        /// Control lblMensajeInactivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensajeInactivo;
     }
 }

@@ -27,12 +27,12 @@ namespace TPC_equipo_12
             }
         }
 
-        protected void ButtonEliminarMaterial_Click(object sender, EventArgs e)
+        protected void ButtonEstadoMaterial_Click(object sender, EventArgs e)
         {
             try
             {
-                materialNegocio.EliminarMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
-                Session["MensajeExito"] = "Material eliminado con éxito.";
+                materialNegocio.visibilidadMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
+                Session["MensajeExito"] = "Se realiazo la accion con éxito.";
                 Response.Redirect("ProfesorMateriales.aspx", false);
             }
             catch (Exception ex)
@@ -41,10 +41,25 @@ namespace TPC_equipo_12
                 Response.Redirect("ProfesorMateriales.aspx", false);
             }
         }
+        //protected void ButtonEliminarMaterial_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        materialNegocio.EliminarMaterial(Convert.ToInt32(DropDownListNombreMaterial.SelectedValue));
+        //        Session["MensajeExito"] = "Material eliminado con éxito.";
+        //        Response.Redirect("ProfesorMateriales.aspx", false);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Session["MensajeError"] = ex.ToString();
+        //        Response.Redirect("ProfesorMateriales.aspx", false);
+        //    }
+        //}
 
         protected void ButtonVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorMateriales.aspx", false);
         }
+
     }
 }

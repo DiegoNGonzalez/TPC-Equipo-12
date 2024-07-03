@@ -135,5 +135,11 @@ namespace TPC_equipo_12
             Session.Add("IDComentarioPadre", idComentarioPadre);
             Response.Redirect("ProfesorPreguntas.aspx");
         }
+
+        public string GetEstadoText(object estado)
+        {
+            bool estadoBool = (bool)estado;
+            return estadoBool ? "Habilitado" : "Deshabilitado";
+        }
     }
 }
