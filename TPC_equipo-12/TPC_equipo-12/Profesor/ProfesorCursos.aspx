@@ -35,7 +35,7 @@
                                     </li>
                                 </ul>
                                 <div class="d-flex justify-content-center align-items-center mt-2">
-                                    <asp:Button ID="ButtonDesabilitarCurso" runat="server" Text="Desabilitar Curso" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDesabilitarCurso_Command" />
+                                    <asp:Button ID="ButtonDeshabilitarCurso" runat="server" Text="Desabilitar Curso" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDeshabilitarCurso_Command" />
                                 </div>
                             </div>
                         </ItemTemplate>
@@ -56,7 +56,7 @@
              <div class="row justify-content-center">
                  <asp:Repeater ID="RepeaterCursosInactivos" runat="server">
                      <ItemTemplate>
-                         <div class="card ms-5 mb-5" style="width: 18rem; min-height: 24rem;">
+                         <div class="card ms-5 mb-5 " style="width: 18rem; min-height: 24rem; opacity: 0.5;">
                              <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
                              <asp:LinkButton ID="LinkButtonCursoProf" runat="server" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="LinkButtonCursoProf_Command" Style="text-decoration: none;">
                                  <div class="img-container" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
@@ -75,6 +75,9 @@
                                      <asp:Label ID="LabelCategoriaCurso" runat="server"></asp:Label>
                                  </li>
                              </ul>
+                             <div class="d-flex justify-content-center align-items-center mt-2">
+                                 <asp:Button ID="ButtonHabilitar" runat="server" Text="Habilitar Curso" CssClass="btn btn-success btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonHabilitar_Command" />
+                             </div>
                          </div>
                      </ItemTemplate>
                  </asp:Repeater>

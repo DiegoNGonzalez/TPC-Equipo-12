@@ -462,11 +462,29 @@ namespace Negocio
             return ListaValidada;
         }
 
-        public void DesabilitarCurso(int idCurso)
+        public void DeshabilitarCurso(int idCurso)
         {
             try
             {
                 Datos.SetearConsulta("Update Cursos Set Estado = 0 Where IDCurso = @idCurso");
+                Datos.SetearParametro("@idCurso", idCurso);
+                Datos.EjecutarLectura();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.CerrarConexion();
+            }
+        }
+
+        public void HabilitarCurso(int idCurso)
+        {
+            try
+            {
+                Datos.SetearConsulta("Update Cursos Set Estado = 1 Where IDCurso = @idCurso");
                 Datos.SetearParametro("@idCurso", idCurso);
                 Datos.EjecutarLectura();
             }

@@ -51,22 +51,21 @@ namespace TPC_equipo_12
             Response.Redirect("ProfesorUnidades.aspx");
         }
 
-        protected void ButtonDesabilitarCurso_Command(object sender, CommandEventArgs e)
+        protected void ButtonDeshabilitarCurso_Command(object sender, CommandEventArgs e)
         {
-            Profesor profesor = (Profesor)Session["profesor"];
-            int idCursoADesabilitar = Convert.ToInt32(e.CommandArgument);
+            int idCursoADeshabilitar = Convert.ToInt32(e.CommandArgument);
 
-            if (idCursoADesabilitar != 0)
+            if (idCursoADeshabilitar != 0)
             {
                 try
                 {
-                    cursoNegocio.DesabilitarCurso(idCursoADesabilitar);
-                    Session["Mensaje"] = "Curso desabilitado correctamente.";
+                    cursoNegocio.DeshabilitarCurso(idCursoADeshabilitar);
+                    Session["MensajeExito"] = "Curso deshabilitado correctamente.";
                     Response.Redirect("ProfesorCursos.aspx", false);
                 }
                 catch (Exception ex)
                 {
-                    Session["MensajeError"] = "Ocurrio un error al intentar Desabilitar el curso.";
+                    Session["MensajeError"] = "Ocurrio un error al intentar Deshabilitar el curso.";
                     Response.Redirect("ProfesorCursos.aspx", false);
                 }
             }
@@ -91,6 +90,23 @@ namespace TPC_equipo_12
                         lblCategoria.Text = "Sin categoria";
                     }
                 }
+            }
+        }
+
+        protected void ButtonHabilitar_Command(object sender, CommandEventArgs e)
+        {
+            int idCursoAHabilitar = Convert.ToInt32(e.CommandArgument);
+
+            try
+            {
+                cursoNegocio.HabilitarCurso(idCursoAHabilitar);
+                Session["MensajeExito"] = "Curso Habilitado correctamente.";
+                Response.Redirect("ProfesorCursos.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session["MensajeError"] = "Ocurrio un error al intentar Habilitar el curso.";
+                Response.Redirect("ProfesorCursos.aspx", false);
             }
         }
     }
