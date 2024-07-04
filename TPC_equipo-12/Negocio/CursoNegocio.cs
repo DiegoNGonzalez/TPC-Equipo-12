@@ -211,7 +211,7 @@ namespace Negocio
                 }
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
-                Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Completo, Estado, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Completo, @Estreno, @IDImagen)");
+                Datos.SetearConsulta("insert into Cursos (Nombre, Descripcion, Duracion, Completo, Estado, Estreno, IDImagen) values (@Nombre, @Descripcion, @Duracion, @Completo, @Estado,@Estreno, @IDImagen)");
                 Datos.SetearParametro("@Nombre", curso.Nombre);
                 Datos.SetearParametro("@Descripcion", curso.Descripcion);
                 Datos.SetearParametro("@Duracion", curso.Duracion);
