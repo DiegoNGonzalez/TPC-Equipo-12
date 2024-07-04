@@ -440,29 +440,7 @@ namespace Negocio
             }
         }
 
-        public void publicarComentario(Usuario emisor, Leccion leccion, string comentario)
-        {
-            Datos datos = new Datos();
-            try
-            {
-                Comentario primerComentario = new Comentario(comentario, leccion, emisor);
-                datos.SetearConsulta("INSERT INTO Comentarios(IDleccion, CuerpoComentario, IDUsuarioEmisor, FechaCreacion, IDImagen, Estado) VALUES (@idLeccion, @cuerpoComentario, @idEmisor, @fechaCreacion, @idImagen, @estado)");
-                datos.SetearParametro("@idLeccion", primerComentario.Leccion.IDLeccion);
-                datos.SetearParametro("@cuerpoComentario", primerComentario.CuerpoComentario);
-                datos.SetearParametro("@idEmisor", primerComentario.UsuarioEmisor.IDUsuario);
-                datos.SetearParametro("@fechaCreacion", primerComentario.FechaCreacion);
-                datos.SetearParametro("@idImagen", emisor.ImagenPerfil == null ? (object)DBNull.Value : emisor.ImagenPerfil.IDImagen);
-                datos.SetearParametro("@estado", primerComentario.Estado);
-                datos.EjecutarAccion();
-                datos.LimpiarParametros();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-        }
+        
         private string HashPassword(string password, string salt)
         {
             return BCrypt.Net.BCrypt.HashPassword(password + salt);
