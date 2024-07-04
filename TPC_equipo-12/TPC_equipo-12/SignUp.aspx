@@ -35,6 +35,10 @@
                     <asp:Label Text="Contraseña" runat="server" />
                     <asp:TextBox type="password" ID="InputPassword" class="form-control" runat="server" />
                 </div>
+                <div class="mb-3">
+                    <asp:Label Text="¿Eres Profesor? Ingresa tu Licencia!" runat="server" />
+                    <asp:TextBox type="password" ID="InputLicencia" class="form-control" runat="server" />
+                </div>
                 <asp:Button ID="btnSignUp" runat="server" class="btn btn-primary" Text="Registrarse" OnClick="btnSignUp_Click" />
 
             </div>

@@ -66,30 +66,49 @@ namespace Negocio
         }
         public int UltimoIdUsuario()
         {
+            int IDUsuario = 0;
             try
             {
                 Datos.SetearConsulta("select top 1 IDUsuario from Usuarios order by IDUsuario desc");
                 Datos.EjecutarLectura();
-                Datos.Lector.Read();
-                return Datos.Lector.GetInt32(0);
+                while(Datos.Lector.Read())
+                {
+                    IDUsuario = (int)Datos.Lector["IDUsuario"];
+
+                }
+                return IDUsuario;
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
             }
         }
         public int UltimoIdImagen()
         {
+            int IDImagen = 0;
             try
             {
                 Datos.SetearConsulta("select top 1 IDImagenes from Imagenes order by IDImagenes desc");
                 Datos.EjecutarLectura();
-                Datos.Lector.Read();
-                return Datos.Lector.GetInt32(0);
+                while (Datos.Lector.Read())
+                {
+                    IDImagen = (int)Datos.Lector["IDImagenes"];
+                }
+                return IDImagen;
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
             }
         }
         public void AgregarUsuario(Usuario usuario, string contrasenia)
@@ -131,6 +150,11 @@ namespace Negocio
             {
                 throw ex;
             }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
         }
         public void ModificarUsuario(Usuario usuario, string nuevaContrasenia = null)
         {
@@ -165,6 +189,11 @@ namespace Negocio
             {
                 throw ex;
             }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
         }
         public void EliminarUsuario(Usuario usuario)
         {
@@ -193,6 +222,11 @@ namespace Negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
             }
         }
 
@@ -313,6 +347,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
         }
@@ -368,6 +403,7 @@ namespace Negocio
             }
             finally
             {
+                Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
 

@@ -111,6 +111,10 @@ INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (2, 2);
 INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (3, 3);
 INSERT INTO UnidadesXCurso (IDUnidad, IDCurso) VALUES (4, 4);
 go
+-- Insertar Licencia
+INSERT INTO LicenciaProfesor (Licencia) VALUES (123);
+
+
 -- UNA VEZ CREADO EL PROFESOR CON EL SIGN UP HACER LO DE ABAJO...
 --Update en Usuarios hacer profesor
 -- UPDATE Usuarios

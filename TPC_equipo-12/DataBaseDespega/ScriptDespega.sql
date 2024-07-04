@@ -194,3 +194,7 @@ Create Table NotificacionesXUsuario(
 		Primary Key (IDNotificacion, IDUsuario)
 )
 GO
+Create Table LicenciaProfesor(
+	Licencia int not null
+)
+GO

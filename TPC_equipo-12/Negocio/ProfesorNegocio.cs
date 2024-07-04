@@ -144,6 +144,107 @@ namespace Negocio
             }
             return profesor;
         }
+
+        public int ObtenerLicencia()
+        {
+            int licencia = 0;
+            try
+            {
+                Datos.SetearConsulta("Select * From LicenciaProfesor");
+                Datos.EjecutarLectura();
+                while(Datos.Lector.Read())
+                {
+                    licencia = (int)Datos.Lector["Licencia"];
+                }
+                return licencia;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+
+        public bool VerificarLicencia(int licencia)
+        {
+            try
+            {
+                Datos.SetearConsulta("Select * From LicenciaProfesor");
+                Datos.EjecutarLectura();
+                while (Datos.Lector.Read())
+                {
+                    if (licencia == (int)Datos.Lector["Licencia"])
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+
+        public void InsertarProfesor(int IdUsuario)
+        {
+            try
+            {
+                Datos.SetearConsulta("insert into Profesor (IDProfesor) values (@IDUsuario)");
+                Datos.SetearParametro("@IDUsuario", IdUsuario);
+                Datos.EjecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+
+        public void InsertarCursosProfesorDEMO()
+        {
+            try
+            {
+                Datos.SetearConsulta("INSERT INTO ProfesorXCursos(IDProfesor, IDCurso) VALUES(1, 1)");
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("INSERT INTO ProfesorXCursos(IDProfesor, IDCurso) VALUES(1, 2)");
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("INSERT INTO ProfesorXCursos(IDProfesor, IDCurso) VALUES(1, 3)");
+                Datos.EjecutarAccion();
+                Datos.CerrarConexion();
+
+                Datos.SetearConsulta("INSERT INTO ProfesorXCursos(IDProfesor, IDCurso) VALUES(1, 4)");
+                Datos.EjecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
     }
     
 }

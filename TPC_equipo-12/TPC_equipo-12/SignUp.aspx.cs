@@ -16,16 +16,18 @@ namespace TPC_equipo_12
                 Master master = (Master)Page.Master;
                 master.VerificarMensaje();
 
-                dropGenero.Items.Add("Masculino");
                 dropGenero.Items.Add("Femenino");
+                dropGenero.Items.Add("Masculino");
                 dropGenero.Items.Add("No binario");
-                dropGenero.Items.Add("No contesta");
             }
         }
         protected void btnSignUp_Click(object sender, EventArgs e)
         {
             Usuario usuario = new Usuario();
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+            Profesor profesor = new Profesor();
+            ProfesorNegocio auxNegocioProfesor = new ProfesorNegocio();
+            int Licencia, UltimoID;
             try
             {
                 if (!ValidarFormulario())
@@ -39,24 +41,55 @@ namespace TPC_equipo_12
                     usuario.DNI = Convert.ToInt32(InputDNI.Text);
                     usuario.Email = InputEmail.Text;
                     string Contrasenia = InputPassword.Text;
-                    usuario.EsProfesor = false;
-                    if (dropGenero.SelectedValue == "Masculino")
+                    Licencia = Convert.ToInt32(InputLicencia.Text);
+                    if (auxNegocioProfesor.VerificarLicencia(Licencia))
                     {
-                        usuario.Genero = "M";
-                    }
-                    else if (dropGenero.SelectedValue == "Femenino")
-                    {
-                        usuario.Genero = "F";
-                    }
-                    else if (dropGenero.SelectedValue == "No binario")
-                    {
-                        usuario.Genero = "x";
-                    }
-                    usuarioNegocio.AgregarUsuario(usuario, Contrasenia);
-                    Session["usuario"] = usuario;
-                    Session["MensajeExito"] = "Usuario registrado con éxito!";
+                        usuario.EsProfesor = true;
 
-                    Response.Redirect("LogIn.aspx", false);
+                        if (dropGenero.SelectedValue == "Masculino")
+                        {
+                            usuario.Genero = "M";
+                        }
+                        else if (dropGenero.SelectedValue == "Femenino")
+                        {
+                            usuario.Genero = "F";
+                        }
+                        else if (dropGenero.SelectedValue == "No binario")
+                        {
+                            usuario.Genero = "x";
+                        }
+                        usuarioNegocio.AgregarUsuario(usuario, Contrasenia);
+                        UltimoID = usuarioNegocio.UltimoIdUsuario();
+                        //profesor = usuarioNegocio.SetearProfesor(UltimoID);
+                        auxNegocioProfesor.InsertarProfesor(UltimoID);
+                        auxNegocioProfesor.InsertarCursosProfesorDEMO();
+                        Session["usuario"] = usuario;
+                        Session["MensajeExito"] = "Profesor registrado con éxito!";
+
+                        Response.Redirect("LogIn.aspx", false);
+                    }
+                    else
+                    {
+                        usuario.EsProfesor = false;
+
+                        if (dropGenero.SelectedValue == "Masculino")
+                        {
+                            usuario.Genero = "M";
+                        }
+                        else if (dropGenero.SelectedValue == "Femenino")
+                        {
+                            usuario.Genero = "F";
+                        }
+                        else if (dropGenero.SelectedValue == "No binario")
+                        {
+                            usuario.Genero = "x";
+                        }
+                        usuarioNegocio.AgregarUsuario(usuario, Contrasenia);
+                        Session["usuario"] = usuario;
+                        Session["MensajeExito"] = "Usuario registrado con éxito!";
+
+                        Response.Redirect("LogIn.aspx", false);
+                    }
                 }
 
 
@@ -77,6 +110,6 @@ namespace TPC_equipo_12
 
             return true;
         }
-        
+
     }
 }
