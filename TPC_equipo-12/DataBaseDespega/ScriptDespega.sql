@@ -40,7 +40,7 @@ Create Table Inscripciones(
 	IDInscripcion int not null unique Identity(1, 1),
 	IDusuario int not null Foreign Key References Usuarios(IDUsuario),
 	IDCurso int not null Foreign Key References Cursos(IDCurso),
-	Estado char(1) not null Default 'P' check (Estado= 'A' or Estado='P' or Estado = 'R'),
+	Estado char(1) not null Default 'P' check (Estado= 'A' or Estado='P' or Estado = 'R' or Estado='C'),
 	FechaInscripcion DATETIME not null default getdate(),
 	Primary Key (IDUsuario, IDCurso)
 )

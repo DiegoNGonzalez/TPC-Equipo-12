@@ -9,11 +9,13 @@ namespace Negocio
     {
         private Datos Datos;
         private CursoNegocio Cursos;
+        private EmailService envioMensaje;
 
         public UsuarioNegocio()
         {
             Datos = new Datos();
             Cursos = new CursoNegocio();
+            envioMensaje = new EmailService();
 
         }
         public List<Usuario> ListarUsuarios()
@@ -113,7 +115,7 @@ namespace Negocio
         }
         public void AgregarUsuario(Usuario usuario, string contrasenia)
         {
-            //EmailService envioMensaje = new EmailService();
+            
             try
             {
                 //Datos.SetearConsulta("insert into Imagenes (URLIMG) values(@URLIMG)");
@@ -142,7 +144,15 @@ namespace Negocio
                     Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
                     //Datos.SetearParametro("@IDImagen", (object)usuario.ImagenPerfil.IDImagen?? DBNull.Value);
                     Datos.EjecutarAccion();
-                    //envioMensaje.EnviarEmailRegistroExitoso(usuario.Email);
+                    if (usuario.EsProfesor)
+                    {
+                        envioMensaje.EnviarEmail(usuario.Email, "Bienvenido a la plataforma de cursos", "<h1>Su registro como profesor fue realizado con exito</h1>");
+                    }
+                    else
+                    {
+
+                        envioMensaje.EnviarEmail(usuario.Email, "Bienvenido a la plataforma de cursos", "<h1>Registro en la plataforma exitoso</h1>");
+                    }
 
                 }
             }
