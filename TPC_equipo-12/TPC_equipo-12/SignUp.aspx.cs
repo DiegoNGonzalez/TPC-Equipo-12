@@ -41,7 +41,15 @@ namespace TPC_equipo_12
                     usuario.DNI = Convert.ToInt32(InputDNI.Text);
                     usuario.Email = InputEmail.Text;
                     string Contrasenia = InputPassword.Text;
-                    Licencia = Convert.ToInt32(InputLicencia.Text);
+                    if (InputLicencia.Text == "")
+                    {
+                        Licencia = 0;
+                    }
+                    else
+                    {
+
+                        Licencia = Convert.ToInt32(InputLicencia.Text);
+                    }
                     if (auxNegocioProfesor.VerificarLicencia(Licencia))
                     {
                         usuario.EsProfesor = true;
