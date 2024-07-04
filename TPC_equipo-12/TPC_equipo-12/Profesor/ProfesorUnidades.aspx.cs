@@ -28,6 +28,14 @@ namespace TPC_equipo_12
                 Session.Add("ListaUnidadesProfesor", listaUnidades);
                 rptUnidadesProf.DataSource = listaUnidades;
                 rptUnidadesProf.DataBind();
+
+                if (Session["Home"] != null && (bool)Session["Home"])
+                {
+                    ButtonBackCursosProf.Text = "Volver a Cursos";
+
+                    ButtonCrearUnidadProf.Visible = false;
+                    ButtonEliminarUnidadProf.Visible = false;
+                }
             }
 
         }
@@ -41,7 +49,15 @@ namespace TPC_equipo_12
 
         protected void ButtonBackCursosProf_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ProfesorFabricaDeCursos.aspx");
+            if (Session["Home"] != null && (bool)Session["Home"])
+            {
+                Session["Home"] = false;
+                Response.Redirect("ProfesorCursos.aspx");
+            }
+            else
+            {
+                Response.Redirect("ProfesorFabricaDeCursos.aspx");
+            }
         }
 
         protected void ButtonCrearUnidadProf_Click(object sender, EventArgs e)
@@ -62,9 +78,9 @@ namespace TPC_equipo_12
 
         protected void ButtonModificarUnidadProf_Command(object sender, CommandEventArgs e)
         {
-            int IdUnidad = Convert.ToInt32(e.CommandArgument);
-            Session.Add("IDUnidadProfesor", IdUnidad);
-            Response.Redirect("AgregarUnidades.aspx?IdUnidad=" + IdUnidad);
+                int IdUnidad = Convert.ToInt32(e.CommandArgument);
+                Session.Add("IDUnidadProfesor", IdUnidad);
+                Response.Redirect("AgregarUnidades.aspx?IdUnidad=" + IdUnidad);
 
         }
         public string GetEstadoText(object estado)
@@ -85,6 +101,13 @@ namespace TPC_equipo_12
                 {
                     row.Attributes["class"] = "table-secondary";
                 }
+            }
+
+            Button btnModificar = (Button)e.Item.FindControl("ButtonModificarUnidadProf");
+
+            if (Session["Home"]!= null && (bool)Session["Home"])
+            {
+                btnModificar.Visible = false;
             }
         }
     }

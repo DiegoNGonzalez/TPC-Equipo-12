@@ -28,6 +28,12 @@ namespace TPC_equipo_12
                 Session.Add("ListaLeccionesProfesor", listaLecciones);
                 rptLeccionesProf.DataSource = listaLecciones;
                 rptLeccionesProf.DataBind();
+
+                if (Session["Home"] != null && (bool)Session["Home"])
+                {
+                    ButtonCrearLeccionProf.Visible = false;
+                    ButtonEstadoLeccionProf.Visible = false;
+                }
             }
         }
 
@@ -77,6 +83,13 @@ namespace TPC_equipo_12
                 {
                     row.Attributes["class"] = "table-secondary";
                 }
+            }
+
+            Button btnModificar = (Button)e.Item.FindControl("ButtonModificarLeccionProf");
+
+            if (Session["Home"] != null && (bool)Session["Home"])
+            {
+                btnModificar.Visible = false;
             }
         }
     }

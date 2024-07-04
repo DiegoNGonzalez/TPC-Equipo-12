@@ -31,27 +31,5 @@
             </div>
         </div>
 
-
-        <div class="card ms-5" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title d-flex justify-content-center align-items-center">Profesor (Desarrollo)</h5>
-                <p class="text-center">Inicias sesion como: hola@maxiprograma.com </p>
-                <div class="d-flex justify-content-center align-items-center">
-                <asp:Button ID="ButtonLogInFastProf" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary" OnClick="ButtonLogInFastProf_Click" />
-                    </div>
-            </div>
-        </div>
-
-
-        <div class="card ms-5" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title d-flex justify-content-center align-items-center">Estudiante (Desarrollo)</h5>
-                <p class="text-center">Inicias sesion como: tomas.caceres2@alumnos.frgp.utn.edu.ar </p>
-                <div class="d-flex justify-content-center align-items-center">
-                <asp:Button ID="ButtonLogInFastEst" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary" OnClick="ButtonLogInFastEst_Click" />
-                    </div>
-            </div>
-        </div>
-
     </div>
 </asp:Content>

@@ -47,6 +47,12 @@ namespace TPC_equipo_12
                 
                 rptComentarios.DataSource = listaComentarios;
                 rptComentarios.DataBind();
+
+                if (Session["Home"] != null && (bool)Session["Home"])
+                {
+                    ButtonCrearMaterialProf.Visible = false;
+                    ButtonEliminarMaterialProf.Visible = false;
+                }
             }
         }
 
@@ -108,6 +114,13 @@ namespace TPC_equipo_12
                         {material.Nombre}
                     </a>";
                 }
+            }
+
+            Button btnModificar = (Button)e.Item.FindControl("ButtonModificarMaterialesProf");
+
+            if (Session["Home"] != null && (bool)Session["Home"])
+            {
+                btnModificar.Visible = false;
             }
         }
 

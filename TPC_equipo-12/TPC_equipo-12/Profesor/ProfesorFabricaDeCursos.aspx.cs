@@ -21,6 +21,7 @@ namespace TPC_equipo_12
                 Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
                 Response.Redirect("../LogIn.aspx");
             }
+            Session["Home"] = false;
             if (!IsPostBack)
             {
                 ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
