@@ -107,7 +107,7 @@ namespace Negocio
             Profesor profesor = new Profesor();
             try
             {
-                Datos.SetearConsulta("select u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.IDImagen, i.URLIMG from Usuarios u inner join Imagenes i on u.IDImagen = i.IDImagenes inner JOIN ProfesorXCursos pc on u.IDUsuario= pc.IDProfesor inner JOIN Cursos c on c.IDCurso = pc.IDCurso INNER JOIN UnidadesXCurso uc on c.IDCurso=uc.IDCurso INNER JOIN LeccionesXUnidades lxc on lxc.IDUnidad = uc.IDUnidad INNER JOIN Lecciones l on l.IDLeccion = lxc.IDLeccion where l.IDLeccion = @IDLeccion");
+                Datos.SetearConsulta("select u.IDUsuario, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.IDImagen, i.URLIMG from Usuarios u inner JOIN ProfesorXCursos pc on u.IDUsuario= pc.IDProfesor inner JOIN Cursos c on c.IDCurso = pc.IDCurso INNER JOIN UnidadesXCurso uc on c.IDCurso=uc.IDCurso INNER JOIN LeccionesXUnidades lxc on lxc.IDUnidad = uc.IDUnidad INNER JOIN Lecciones l on l.IDLeccion = lxc.IDLeccion left join Imagenes i on u.IDImagen = i.IDImagenes where l.IDLeccion = @IDLeccion");
                 Datos.SetearParametro("@IDLeccion", idLeccion);
                 Datos.EjecutarLectura();
                 if (Datos.Lector.Read())
@@ -119,8 +119,17 @@ namespace Negocio
                     profesor.Genero = (string)Datos.Lector["Genero"];
                     profesor.Email = (string)Datos.Lector["Email"];
                     profesor.ImagenPerfil = new Imagen();
-                    profesor.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
-                    profesor.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+                    if (Datos.Lector["IDImagen"] != DBNull.Value)
+                    {
+                        profesor.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                        profesor.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
+
+                    }
+                    else
+                    {
+                        profesor.ImagenPerfil.IDImagen = 0;
+                        profesor.ImagenPerfil.URL = "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+                    }
                 }
             }
             catch (Exception)

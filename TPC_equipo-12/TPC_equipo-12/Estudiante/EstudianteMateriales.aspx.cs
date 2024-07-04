@@ -140,6 +140,7 @@ namespace TPC_equipo_12
             int id = ComentarioNegocio.ultimoID();
             comentario1.IDComentario = id;
             NotificacionNegocio.AgregarNotificacionxComentario(comentario1);
+            Response.Redirect("EstudianteMateriales.aspx", false);
             //usuarioNegocio.publicarComentario(emisor, aux, comentario);
 
             txtComentario.Text = "";
