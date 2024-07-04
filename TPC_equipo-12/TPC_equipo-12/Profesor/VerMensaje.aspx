@@ -13,23 +13,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label>De:</label>
                 <asp:Label ID="lblDe" runat="server"></asp:Label>
             </div>
             <div class="form-group">
-                <label>Asunto:</label>
                 <asp:Label ID="lblAsunto" runat="server"></asp:Label>
             </div>
             <div class="form-group">
-                <label>Fecha:</label> 
-                <asp:Label ID="lblFecha" runat="server"></asp:Label> 
-            </div>
-            <div class="form-group">
-                <label>Mensaje:</label>
                 <asp:Label ID="lblMensaje" runat="server"></asp:Label>
             </div>
-
-            <h2>Respuestas:</h2>
+            <hr />
             <div id="respuestasContainer"> 
                 <asp:Literal ID="ltlRespuestas" runat="server"></asp:Literal>
             </div>
