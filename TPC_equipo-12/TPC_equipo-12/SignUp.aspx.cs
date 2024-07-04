@@ -19,6 +19,12 @@ namespace TPC_equipo_12
                 dropGenero.Items.Add("Femenino");
                 dropGenero.Items.Add("Masculino");
                 dropGenero.Items.Add("No binario");
+
+                if(chkProfesor.Checked)
+                {
+                    LblLicencia.Visible = true;
+                    InputLicencia.Visible = true;
+                }
             }
         }
         protected void btnSignUp_Click(object sender, EventArgs e)
@@ -119,5 +125,19 @@ namespace TPC_equipo_12
             return true;
         }
 
+        protected void chkProfesor_CheckedChanged(object sender, EventArgs e)
+        {
+            bool Check = chkProfesor.Checked;
+            if (Check)
+            {
+                LblLicencia.Visible = true;
+                InputLicencia.Visible = true;
+            }
+            else
+            {
+                LblLicencia.Visible = false;
+                InputLicencia.Visible = false;
+            }
+        }
     }
 }
