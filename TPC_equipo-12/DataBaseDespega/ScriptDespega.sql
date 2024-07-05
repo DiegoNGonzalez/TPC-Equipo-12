@@ -165,7 +165,7 @@ GO
 Create Table Notificaciones(
 	IDNotificacion int not null Primary Key Identity(1, 1),
 	Mensaje varchar(200) not null,
-	Tipo varchar(100) not null check(Tipo='INSCRIPCION' or Tipo='MENSAJE' or Tipo='RESPUESTA' or Tipo='COMENTARIO'),
+	Tipo varchar(100) not null check(Tipo='INSCRIPCION' or Tipo='MENSAJE' or Tipo='RESPUESTA' or Tipo='COMENTARIO' or Tipo='DESHABILITADO'),
 	Fecha datetime not null default(getdate()),
 	Leido bit not null default 0,
 	IDInscripcion int Foreign Key References Inscripciones(IDInscripcion),

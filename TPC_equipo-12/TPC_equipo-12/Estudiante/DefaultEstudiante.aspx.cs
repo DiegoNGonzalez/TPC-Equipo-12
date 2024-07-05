@@ -80,17 +80,31 @@ namespace TPC_equipo_12
             Button button = (Button)sender;
             Control lblControl = button.NamingContainer.FindControl("lblIDCurso");
             Label label = (Label)lblControl;
+            Estudiante estudianteAux = (Estudiante)Session["estudiante"];
             int idCurso = Convert.ToInt32(label.Text);
             Curso aux = cursoNegocio.BuscarCurso(idCurso);
+            InscripcionACurso inscripcionAuxiliar = new InscripcionACurso();
+            inscripcionAuxiliar = inscripcionNegocio.BuscarInscripcionXCursoYEstudiante(idCurso, estudianteAux.IDUsuario);
             try
             {
-                bool seInscribio = inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
-                if (seInscribio)
+                if (inscripcionAuxiliar != null)
                 {
-                    int idInscripcion = inscripcionNegocio.UltimoIDInscripcion();
-                    notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion,idCurso);
+                    inscripcionNegocio.reinscribir(inscripcionAuxiliar.IDInscripcion);
+                    notificacionNegocio.reactivarNotificacionXInscripcion(inscripcionAuxiliar.IDInscripcion);
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
+                    
+                }
+                else
+                {
 
+                    bool seInscribio = inscripcionNegocio.Incripcion(estudianteAux, aux);
+                    if (seInscribio)
+                    {
+                        int idInscripcion = inscripcionNegocio.UltimoIDInscripcion();
+                        notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion, idCurso);
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
+
+                    }
                 }
 
             }

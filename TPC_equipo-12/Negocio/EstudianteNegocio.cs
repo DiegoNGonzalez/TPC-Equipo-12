@@ -263,15 +263,7 @@ namespace Negocio
         {
             try
             {
-                //falta validar que unicamente elimine las lecciones de ese curso.
-
-                Datos.SetearConsulta("delete from LeccionesXEstudiantes where IDEstudiante = @IdEstudiante");
-                Datos.SetearParametro("@IdEstudiante", idEstudiante);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-
-
+                
                 Datos.SetearConsulta("delete from EstudiantesXCursos where IDEstudiante = @IdEstudiante and IDCurso = @IdCurso");
                 Datos.SetearParametro("@IdEstudiante", idEstudiante);
                 Datos.SetearParametro("@IdCurso", idCurso);

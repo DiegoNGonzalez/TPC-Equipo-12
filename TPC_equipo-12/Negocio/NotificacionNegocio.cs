@@ -38,7 +38,7 @@ namespace Negocio
                     aux.Tipo = (string)datos.Lector["Tipo"];
                     aux.Fecha = (DateTime)datos.Lector["Fecha"];
                     aux.Estado = (bool)datos.Lector["Leido"];
-                    if (aux.Tipo == "Inscripcion")
+                    if (aux.Tipo == "Inscripcion" || aux.Tipo=="Deshabilitado")
                     {
                         aux.Inscripcion = new InscripcionACurso();
                         aux.Inscripcion.IDInscripcion = (int)datos.Lector["IDInscripcion"];
@@ -399,6 +399,71 @@ namespace Negocio
             {
 
                 throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public void notificacionXCursoDeshabilitado(int idCurso)
+        {
+            List <InscripcionACurso> estudiantes = new List<InscripcionACurso>();
+            InscripcionNegocio aux = new InscripcionNegocio(false);
+            estudiantes = aux.listarInscripcionesXCurso(idCurso);
+            foreach (InscripcionACurso item in estudiantes)
+            {
+                try
+                {
+                    datos.SetearConsulta("INSERT INTO Notificaciones (Mensaje, Tipo, Fecha, IDInscripcion) VALUES (@Mensaje, @Tipo, @Fecha, @IDInscripcion); SELECT SCOPE_IDENTITY();");
+                    datos.SetearParametro("@Mensaje", "Curso deshabilitado");
+                    datos.SetearParametro("@Tipo", "Deshabilitado");
+                    datos.SetearParametro("@Fecha", DateTime.Now);
+                    datos.SetearParametro("@IDInscripcion", item.IDInscripcion);
+                    datos.EjecutarAccion();
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                finally
+                {
+                    datos.CerrarConexion();
+                }
+                try
+                {
+                    int idNotificacion = UltimoID();
+                    datos.LimpiarParametros();
+                    datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
+                    datos.SetearParametro("@IDNotificacion", idNotificacion);
+                    datos.SetearParametro("@IDUsuario", item.Usuario.IDUsuario);
+                    datos.EjecutarAccion();
+                    datos.LimpiarParametros();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    datos.CerrarConexion();
+                }
+            }
+        }
+        public void reactivarNotificacionXInscripcion(int idInscripcion)
+        {
+            try
+            {
+                datos.SetearConsulta("UPDATE Notificaciones SET Leido = 0 WHERE IDInscripcion = @IDInscripcion");
+                datos.SetearParametro("@IDInscripcion", idInscripcion);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             finally
             {

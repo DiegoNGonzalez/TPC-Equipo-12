@@ -31,7 +31,7 @@
                                     <td><%# Eval("Curso.Nombre") %></td>
                                     <td><%# 
                                             ((char)Eval("Estado")) == 'R' ? "Rechazada" : 
-                                            ((char)Eval("Estado")) == 'P' ? "Pendiente" : "Aceptada"
+                                            ((char)Eval("Estado")) == 'P' ? "Pendiente" : ((char)Eval("Estado")=='C'? "Desuscripto": "Aceptada")
                                     %>
 
                                     </td>
