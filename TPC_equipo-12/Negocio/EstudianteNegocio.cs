@@ -283,13 +283,13 @@ namespace Negocio
 
             try
             {
-                Datos.SetearConsulta("select u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.EsProfesor,u.ContraseniaHash, u.ContraseniaSalt, i.IDImagenes, i.URLIMG,  e.IDEstudiante, e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes where e.IDEstudiante = @IDEstudiante");
+                Datos.SetearConsulta("select e.IDEstudiante, u.Nombre, u.Apellido, u.DNI, u.Genero, u.Email, u.EsProfesor,u.ContraseniaHash, u.ContraseniaSalt, i.IDImagenes, i.URLIMG,  e.Estado  from usuarios u inner join Estudiantes e on u.IDUsuario=e.IDEstudiante left JOIN Imagenes i on u.IDImagen= i.IDImagenes where e.IDEstudiante = @IDEstudiante");
                 Datos.SetearParametro("@IDEstudiante", idEstudiante);
                 Datos.EjecutarLectura();
                 Estudiante aux = new Estudiante();
                 if (Datos.Lector.Read())
                 {
-                    aux.IDUsuario = Datos.Lector.GetInt32(9);
+                    aux.IDUsuario = Datos.Lector.GetInt32(0);
                     aux.Nombre = (string)Datos.Lector["Nombre"];
                     aux.Apellido = (string)Datos.Lector["Apellido"];
                     aux.DNI = (int)Datos.Lector["DNI"];

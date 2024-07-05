@@ -88,15 +88,23 @@ namespace TPC_equipo_12
             profesor = profesorNegocio.buscarProfesorXCurso(aux.IDCurso);
             InscripcionACurso inscripcionAuxiliar = new InscripcionACurso();
             inscripcionAuxiliar = inscripcionNegocio.BuscarInscripcionXCursoYEstudiante(idCurso, estudianteAux.IDUsuario);
-            int idNotificacion= notificacionNegocio.buscarNotificacionXInscripcionXUsuario(inscripcionAuxiliar.IDInscripcion,profesor.IDUsuario );
+            int idNotificacion = notificacionNegocio.buscarNotificacionXInscripcionXUsuario(inscripcionAuxiliar.IDInscripcion, profesor.IDUsuario);
             try
             {
                 if (inscripcionAuxiliar.IDInscripcion != 0)
                 {
-                    inscripcionNegocio.reinscribir(inscripcionAuxiliar.IDInscripcion);
-                    notificacionNegocio.marcarComoNoLeida(idNotificacion);
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
-                    
+                    if (inscripcionAuxiliar.Estado == 'P')
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", "<script>showMessage('Ya existe una inscripcion pendiente de aprobación!', 'error');</script>", false);
+                    }
+                    else
+                    {
+                        inscripcionNegocio.reinscribir(inscripcionAuxiliar.IDInscripcion);
+                        notificacionNegocio.marcarComoNoLeida(idNotificacion);
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
+
+                    }
+
                 }
                 else
                 {
