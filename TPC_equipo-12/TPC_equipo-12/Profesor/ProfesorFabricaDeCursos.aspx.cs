@@ -92,6 +92,8 @@ namespace TPC_equipo_12
         {
             string msj;
             Curso curso = cursoNegocio.BuscarCurso(idCurso);
+            List<Unidad> listaUnidadesHabilitadas = new List<Unidad>();
+            List<Leccion> listaLeccionesHabilitadas = new List<Leccion>();
             if (curso.Unidades.Count == 0 || curso.Unidades == null)
             {
                 msj = "No puedes dar de alta este Curso, no tiene Unidades.";
@@ -100,11 +102,12 @@ namespace TPC_equipo_12
             }
             else
             {
-                if(!ValidarUnidades(curso.Unidades))
+                if (!ValidarUnidades(curso.Unidades, listaUnidadesHabilitadas))
                 {
                     return false;
                 }
-                foreach (Unidad unidad in curso.Unidades)
+
+                foreach (Unidad unidad in listaUnidadesHabilitadas)
                 {
                     if (unidad.Lecciones.Count == 0 || unidad.Lecciones == null)
                     {
@@ -114,13 +117,24 @@ namespace TPC_equipo_12
                     }
                     else
                     {
-                        foreach (Leccion leccion in unidad.Lecciones)
+                        if (!ValidarLecciones(unidad.Lecciones, unidad.NroUnidad, listaLeccionesHabilitadas))
+                        {
+                            return false; 
+                        }
+                        foreach (Leccion leccion in listaLeccionesHabilitadas)
                         {
                             if (leccion.Materiales.Count == 0 || leccion.Materiales == null)
                             {
                                 msj = "No puedes dar de alta este Curso, la Leccion N°" + leccion.NroLeccion + " no tiene Materiales.";
                                 Session["MensajeError"] = msj;
                                 return false;
+                            }
+                            else
+                            {
+                                if(!ValidarMateriales(leccion.Materiales, leccion.NroLeccion))
+                                {
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -129,7 +143,7 @@ namespace TPC_equipo_12
             return true;
         }
 
-        protected bool ValidarUnidades(List<Unidad> listaAValidar)
+        protected bool ValidarUnidades(List<Unidad> listaAValidar, List<Unidad> listaACargar)
         {
             int ContadorUnidadInhabilitado = 0;
             string msj;
@@ -138,6 +152,10 @@ namespace TPC_equipo_12
                 if (unidad.Estado == false)
                 {
                     ContadorUnidadInhabilitado++;
+                }
+                else
+                {
+                    listaACargar.Add(unidad);
                 }
             }
             if (listaAValidar.Count == ContadorUnidadInhabilitado)
@@ -149,7 +167,7 @@ namespace TPC_equipo_12
             return true;
         }
 
-        protected bool ValidarLecciones(List<Leccion> listaAValidar)
+        protected bool ValidarLecciones(List<Leccion> listaAValidar, int NroUnidad, List<Leccion> ListaACargar)
         {
             int ContadorLeccionInhabilitado = 0;
             string msj;
@@ -159,14 +177,35 @@ namespace TPC_equipo_12
                 if (leccion.Estado == false)
                 {
                     ContadorLeccionInhabilitado++;
-                } else
+                }
+                else
                 {
-                    AuxLeccionesHabilitadas.Add(leccion);
+                    ListaACargar.Add(leccion);
                 }
             }
             if (listaAValidar.Count == ContadorLeccionInhabilitado)
             {
-                msj = "No puedes dar de alta este Curso, todas las Lecciones estan Deshabilitadas.";
+                msj = "No puedes dar de alta este Curso, todas las Lecciones de la Unidad N°" + NroUnidad +" estan Deshabilitadas.";
+                Session["MensajeError"] = msj;
+                return false;
+            }
+            return true;
+        }
+
+        protected bool ValidarMateriales(List<MaterialLeccion> listaAValidar, int NroLeccion)
+        {
+            int ContadorMaterialInhabilitado = 0;
+            string msj;
+            foreach (MaterialLeccion material in listaAValidar)
+            {
+                if (material.Estado == false)
+                {
+                    ContadorMaterialInhabilitado++;
+                }
+            }
+            if (listaAValidar.Count == ContadorMaterialInhabilitado)
+            {
+                msj = "No puedes dar de alta este Curso, todos los Materiales de la Leccion N°" + NroLeccion + " estan Deshabilitados.";
                 Session["MensajeError"] = msj;
                 return false;
             }
