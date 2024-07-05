@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Estudiante/EstudianteMasterPage.Master" AutoEventWireup="true" CodeBehind="EstudianteLecciones.aspx.cs" Inherits="TPC_equipo_12.EstudianteLecciones" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -18,14 +19,16 @@
                     <ItemTemplate>
                         <tr>
                             <td><%# Eval("NroLeccion") %></td>
-                            <td><%# Eval("Nombre") %></td>
-                            <td><%# Eval("Descripcion") %></td>
-                            <td> <asp:Button ID="ButtonVerMateriales" runat="server" Text="Materiales" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDLeccion") %>' OnCommand="ButtonVerMateriales_Command"/> </td>
+                            <td class="curso-name"><%# Eval("Nombre") %></td>
+                            <td class="descripcion-larga"><%# Eval("Descripcion") %></td>
+                            <td>
+                                <asp:Button ID="ButtonVerMateriales" runat="server" Text="Materiales" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDLeccion") %>' OnCommand="ButtonVerMateriales_Command" />
+                            </td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
             </tbody>
         </table>
-        
+
     </div>
 </asp:Content>

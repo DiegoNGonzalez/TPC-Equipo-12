@@ -17,7 +17,6 @@ namespace Negocio
             List<MaterialLeccion> lista = new List<MaterialLeccion>();
             try
             {
-                //Datos.SetearConsulta("select m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial, m.Descripcion, m.NroMaterial from Materiales m inner join materialesxlecciones mxl on mxl.IDMaterial = m.IDmaterial inner join lecciones l on mxl.Idleccion = l.IDLeccion Where l.IDLeccion = @idLeccion");
                 Datos.SetearConsulta("SELECT m.IDMaterial, m.Nombre, m.TipoMaterial, m.URLMaterial, m.Descripcion, m.NroMaterial, mxl.Estado FROM Materiales m INNER JOIN MaterialesXLecciones mxl ON mxl.IDMaterial = m.IDMaterial INNER JOIN Lecciones l ON mxl.IDLeccion = l.IDLeccion WHERE l.IDLeccion = @idLeccion");
                 Datos.SetearParametro("@idLeccion", idLeccion);
                 Datos.EjecutarLectura();
@@ -81,33 +80,6 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
-
-        public void EliminarMaterial(int idMaterial)
-        {
-            try
-            {
-                Datos.SetearConsulta("delete from MaterialesXLecciones where IDMaterial = @IDMaterial");
-                Datos.SetearParametro("@IDMaterial", idMaterial);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-
-
-                Datos.SetearConsulta("delete from Materiales where IDMaterial = @IDMaterial");
-                Datos.SetearParametro("@IDMaterial", idMaterial);
-                Datos.EjecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-            }
-        }
-
         public void ModificarMaterial(MaterialLeccion material)
         {
             try

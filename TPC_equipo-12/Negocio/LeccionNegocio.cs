@@ -86,45 +86,6 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
-
-        public void EliminarLeccion(int IDLeccion)
-        {
-            int idMaterial = 0;
-            try
-            {
-                datos.SetearConsulta("delete from LeccionesXUnidades where IDLeccion = @IDLeccion");
-                datos.SetearParametro("@IDLeccion", IDLeccion);
-                datos.EjecutarAccion();
-                datos.LimpiarParametros();
-                datos.CerrarConexion();
-
-                datos.SetearConsulta("Select IDMaterial from MaterialesXLecciones where IDLeccion = @IDLeccion");
-                datos.SetearParametro("@IDLeccion", IDLeccion);
-                datos.EjecutarLectura();
-                if (datos.Lector.Read())
-                {
-                    idMaterial = (int)datos.Lector["IDMaterial"];
-                    MaterialesDeLeccion.EliminarMaterial(idMaterial);
-                }
-                datos.LimpiarParametros();
-                datos.CerrarConexion();
-
-                datos.SetearConsulta("delete from Lecciones where IDLeccion = @IDLeccion");
-                datos.SetearParametro("@IDLeccion", IDLeccion);
-                datos.EjecutarAccion();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                datos.LimpiarParametros();
-                datos.CerrarConexion();
-            }
-        }
-
         public void ModificarLeccion(Leccion leccion)
         {
             try
@@ -160,25 +121,6 @@ namespace Negocio
                     lista.Add((int)datos.Lector["IDLeccion"]);
                 }
                 return lista;
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                datos.LimpiarParametros();
-                datos.CerrarConexion();
-            }
-        }
-        public void BorrarLeccionesXEstudiante(int idLeccion)
-        {
-            try
-            {
-                datos.SetearConsulta("delete from LeccionesXEstudiantes where IDLeccion = @IDLeccion");
-                datos.SetearParametro("@IDLeccion", idLeccion);
-                datos.EjecutarAccion();
             }
             catch (Exception)
             {

@@ -26,22 +26,6 @@ namespace TPC_equipo_12
                 DropDownListNombreLeccion.DataBind();
             }
         }
-
-        protected void ButtonEliminarLeccion_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                leccionNegocio.EliminarLeccion(Convert.ToInt32(DropDownListNombreLeccion.SelectedValue));
-                Session["MensajeExito"] = "Lección eliminada con éxito.";
-                Response.Redirect("ProfesorLecciones.aspx", false);
-            }
-            catch (Exception ex)
-            {
-                Session["MensajeError"] = ex.ToString();
-                Response.Redirect("ProfesorLecciones.aspx", false);
-            }
-        }
-
         protected void ButtonVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorLecciones.aspx", false);

@@ -114,26 +114,6 @@ namespace Negocio
             }
 
         }
-        public void ModificarEstado(Estudiante estudiante)
-        {
-            try
-            {
-                Datos.SetearConsulta("update Estudiantes set Estado = @Estado where IDEstudiante = @IdEstudiante");
-                Datos.SetearParametro("@IdEstudiante", estudiante.IDUsuario);
-                Datos.SetearParametro("@Estado", estudiante.Estado);
-                Datos.EjecutarAccion();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                Datos.CerrarConexion();
-            }
-        }
-
         public bool EsEstudiante(int idEstudiante)
         {
             try

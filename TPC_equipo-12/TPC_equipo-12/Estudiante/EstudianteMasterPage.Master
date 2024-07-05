@@ -58,13 +58,6 @@
                                 <a class="nav-link" href="EstudianteInscripciones.aspx">Mis Inscripciones</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Foros</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Tareas</a>
-                            </li>
-                            <li class="nav-item">
-
                                 <a class="nav-link" href="EstudianteMensajes.aspx">Mensajes</a>
                             </li>
                             <li class="nav-item dropdown">

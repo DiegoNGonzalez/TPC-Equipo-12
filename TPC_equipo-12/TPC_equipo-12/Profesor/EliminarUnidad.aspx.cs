@@ -26,22 +26,6 @@ namespace TPC_equipo_12
                 DropDownListNombreUnidad.DataBind();
             }
         }
-
-        protected void ButtonEliminarUnidad_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                unidadNegocio.EliminarUnidad(Convert.ToInt32(DropDownListNombreUnidad.SelectedValue));
-                Session["MensajeExito"] = "Unidad eliminada con éxito.";
-                Response.Redirect("ProfesorUnidades.aspx", false);
-            }
-            catch (Exception ex)
-            {
-                Session["MensajeError"] = ex.ToString();
-                Response.Redirect("ProfesorUnidades.aspx", false);
-            }
-        }
-
         protected void ButtonVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorUnidades.aspx", false);

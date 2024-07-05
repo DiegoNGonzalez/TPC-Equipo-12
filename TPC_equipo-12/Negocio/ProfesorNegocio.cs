@@ -82,26 +82,6 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
-        public void BorrarProfesorXCurso(int idCurso)
-        {
-            try
-            {
-                Datos.SetearConsulta("delete from ProfesorXCursos where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-            }
-            
-        }
 
         public Profesor buscarProfesorXCurso(int iDCurso)
         {

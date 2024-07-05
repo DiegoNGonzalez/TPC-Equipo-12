@@ -120,24 +120,6 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
-        public void BorrarCategoriaXCurso(int idCurso)
-        {
-            try
-            {
-                Datos.SetearConsulta("delete from CategoriasXCurso where IDCurso = @IDCurso");
-                Datos.SetearParametro("@IDCurso", idCurso);
-                Datos.EjecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-            }
-        }
         public bool ExisteCategoria(string nombreCategoria)
         {
             try
@@ -211,9 +193,9 @@ namespace Negocio
 
         if (Datos.Lector.Read() && (int)Datos.Lector[0] > 0)
         {
-            return true; // La categoría está asociada a un curso
+            return true; 
         }
-        return false; // La categoría no está asociada a ningún curso
+        return false; 
     }
     catch (Exception ex)
     {

@@ -88,44 +88,6 @@ namespace Negocio
             }
         }
 
-        public void EliminarUnidad(int idUnidad)
-        {
-            int IDLeccion = 0;
-            try
-            {
-                Datos.SetearConsulta("delete from UnidadesXCurso where IDUnidad = @IDUnidad");
-                Datos.SetearParametro("@IDUnidad", idUnidad);
-                Datos.EjecutarAccion();
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-
-                Datos.SetearConsulta("select IDLeccion from LeccionesXUnidades where IDUnidad = @IDUnidad");
-                Datos.SetearParametro("@IDUnidad", idUnidad);
-                Datos.EjecutarLectura();
-                while (Datos.Lector.Read())
-                {
-                    IDLeccion = (int)Datos.Lector["IDLeccion"];
-                    LeccionesDeUnidad.EliminarLeccion(IDLeccion);
-                }
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-
-                Datos.SetearConsulta("delete from Unidades where IDUnidad = @IDUnidad");
-                Datos.SetearParametro("@IDUnidad", idUnidad);
-                Datos.EjecutarAccion();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-            }
-        }
-
         public void ModificarUnidad(Unidad unidad)
         {
             try
