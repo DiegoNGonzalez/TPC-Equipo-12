@@ -3,6 +3,7 @@ using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI;
 
 namespace TPC_equipo_12
 {
@@ -26,6 +27,10 @@ namespace TPC_equipo_12
 
         protected void ButtonCrearUnidades_Click(object sender, EventArgs e)
         {
+            if (!ValidarFormulario())
+            {
+                return;
+            }
             Curso curso = new Curso();
             List<Curso> cursosAux = cursoNegocio.ListarCursos();
             cursosAux = cursoNegocio.ValidarCursoIncompleto(cursosAux);
@@ -102,6 +107,16 @@ namespace TPC_equipo_12
                 }
             }
             
+        }
+        protected bool ValidarFormulario()
+        {
+            if (TextBoxNombreUnidad.Text == "" || TextBoxDescripcionUnidad.Text == "" || TextBoxNumeroUnidad.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Faltan campos por completar!', 'info');</script>", false);
+                return false;
+            }
+
+            return true;
         }
     }
 }

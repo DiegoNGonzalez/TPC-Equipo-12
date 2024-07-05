@@ -2,6 +2,8 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
 
 namespace TPC_equipo_12
 {
@@ -28,7 +30,10 @@ namespace TPC_equipo_12
 
         protected void ButtonCrearMaterial_Click(object sender, EventArgs e)
         {
-
+            if (!ValidarFormulario())
+            {
+                return;
+            }
             Curso curso = cursoNegocio.BuscarCurso((int)Session["IDCursoProfesor"]);
             Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);
             Leccion leccion = unidad.Lecciones.Find(x => x.IDLeccion == (int)Session["IDLeccionProfesor"]);
@@ -68,6 +73,8 @@ namespace TPC_equipo_12
 
         protected void ModificarMaterial()
         {
+            MaterialLeccion ultimoMaterial = new MaterialLeccion();
+            ultimoMaterial = MaterialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]).Count != 0 ? MaterialNegocio.ListarMateriales((int)Session["IDLeccionProfesor"]).Last() : null;
             if (Request.QueryString["idMaterial"] != null)
             {
                 LabelAgregarMaterial.Text = "Modificar Material";
@@ -83,11 +90,34 @@ namespace TPC_equipo_12
                 material.IDMaterial = idMaterial;
 
             }
+            else
+            {
+                if (ultimoMaterial != null)
+                {
+                    TextBoxNumeroMaterial.Text = (ultimoMaterial.NroMaterial + 1).ToString();
+                    TextBoxNumeroMaterial.Enabled = false;
+                }
+                else
+                {
+                    TextBoxNumeroMaterial.Text = "1";
+                    TextBoxNumeroMaterial.Enabled = false;
+                }
+            }
         }
 
         protected void ButtonVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorMateriales.aspx", false);
+        }
+        protected bool ValidarFormulario()
+        {
+            if (TextBoxNombreMaterial.Text == "" || TextBoxDescripcionMaterial.Text == "" || TextBoxNumeroMaterial.Text == "" || TextBoxURLMaterial.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Faltan campos por completar!', 'info');</script>", false);
+                return false;
+            }
+
+            return true;
         }
     }
 }
