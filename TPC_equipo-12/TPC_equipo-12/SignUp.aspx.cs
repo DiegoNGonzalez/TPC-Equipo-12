@@ -34,8 +34,14 @@ namespace TPC_equipo_12
             Profesor profesor = new Profesor();
             ProfesorNegocio auxNegocioProfesor = new ProfesorNegocio();
             int Licencia, UltimoID;
+            
             try
             {
+                Page.Validate();
+                if (!Page.IsValid)
+                {
+                    return;
+                }
                 if (!ValidarFormulario())
                 {
                     return;

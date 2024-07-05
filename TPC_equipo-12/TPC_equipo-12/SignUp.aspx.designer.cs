@@ -87,6 +87,15 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.TextBox InputPassword;
 
         /// <summary>
+        /// Control InputConfirmPassword.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox InputConfirmPassword;
+
+        /// <summary>
         /// Control chkProfesor.
         /// </summary>
         /// <remarks>

@@ -108,7 +108,8 @@ namespace Negocio
                 datos.SetearConsulta(@"
                     SELECT 
                         c.IDComentario, 
-                        c.CuerpoComentario, 
+                        c.CuerpoComentario,
+                        c.IDUsuarioEmisor,
                         u.Nombre AS Nombre,
                         c.FechaCreacion,
                         ISNULL(i.URLIMG, 'perfil-1.jpg') AS ImagenPerfilURL
@@ -128,6 +129,7 @@ namespace Negocio
                     comentario.IDComentario = (int)datos.Lector["IDComentario"];
                     comentario.CuerpoComentario = (string)datos.Lector["CuerpoComentario"];
                     comentario.UsuarioEmisor = new Usuario();
+                    comentario.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDUsuarioEmisor"];
                     comentario.UsuarioEmisor.Nombre = (string)datos.Lector["Nombre"];
                     if (datos.Lector["ImagenPerfilURL"] != DBNull.Value)
                     {
@@ -137,7 +139,7 @@ namespace Negocio
                     else
                     {
                         comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
-                        comentario.UsuarioEmisor.ImagenPerfil.URL = "perfil-1.jpg";
+                        comentario.UsuarioEmisor.ImagenPerfil.URL = "perfil-0.jpg";
                     }
                     comentario.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];
                     listaComentarios.Add(comentario);
