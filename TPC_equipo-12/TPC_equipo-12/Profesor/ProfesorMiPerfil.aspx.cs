@@ -52,6 +52,10 @@ namespace TPC_equipo_12
         {
             ProfesorNegocio profesorNegocio = new ProfesorNegocio();
             Profesor profesor = (Profesor)Session["profesor"];
+            if (!ValidarFormulario())
+            {
+                return;
+            }
             Page.Validate();
             if (!Page.IsValid)
             {
@@ -94,6 +98,16 @@ namespace TPC_equipo_12
             else
                 img.ImageUrl = "~/Images/perfil-0.jpg";
             
+        }
+        protected bool ValidarFormulario()
+        {
+            if (txtNombre.Text == "" || txtApellido.Text == "" || InputDNI.Text == "" || txtEmail.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Faltan campos por completar!', 'info');</script>", false);
+                return false;
+            }
+
+            return true;
         }
     }
 }

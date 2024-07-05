@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using Negocio;
 using System;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
@@ -51,6 +52,10 @@ namespace TPC_equipo_12
         {
             EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
             Estudiante estudiante = (Estudiante)Session["estudiante"];
+            if (!ValidarFormulario())
+            {
+                return;
+            }
             Page.Validate();
             if (!Page.IsValid)
             {
@@ -89,10 +94,16 @@ namespace TPC_equipo_12
                 img.ImageUrl = "~/Images/" + estudiante.ImagenPerfil.URL;
             else
                 img.ImageUrl = "~/Images/perfil-0.jpg";
-            
-            
+        }
+        protected bool ValidarFormulario()
+        {
+            if (txtNombre.Text == "" || txtApellido.Text == "" || InputDNI.Text == "" || txtEmail.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Faltan campos por completar!', 'info');</script>", false);
+                return false;
+            }
 
-
+            return true;
         }
     }
 }
