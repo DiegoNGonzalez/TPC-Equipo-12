@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="../Custom/styles.css" rel="stylesheet" />
     <div class="container">
         <asp:Button ID="ButtonBackUnidadProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Unidades" OnClick="ButtonBackUnidadProf_Click" />
         <asp:Button ID="ButtonCrearLeccionProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Crear Lección" OnClick="ButtonCrearLeccionProf_Click" />
@@ -22,14 +23,14 @@
                     <ItemTemplate>
                         <tr id="trLeccion" runat="server">
                             <td><%# Eval("NroLeccion") %></td>
-                            <td><%# Eval("Nombre") %></td>
-                            <td><%# Eval("Descripcion") %></td>
+                            <td class="curso-name"><%# Eval("Nombre") %></td>
+                            <td class="descripcion-larga"><%# Eval("Descripcion") %></td>
                             <td><%# GetEstadoText(Eval("Estado")) %></td>
                             <td>
                                 <asp:Button ID="ButtonVerMaterialesProf" runat="server" Text="Materiales" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDLeccion") %>' OnCommand="ButtonVerMaterialesProf_Command" />
                             </td>
                             <td>
-                                <asp:Button ID="ButtonModificarLeccionProf" runat="server" Text="Modificar" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDLeccion") %>' OnCommand="ButtonModificarLeccionProf_Command"/>
+                                <asp:Button ID="ButtonModificarLeccionProf" runat="server" Text="Modificar" CssClass="btn btn-primary" CommandArgument='<%# Eval("IDLeccion") %>' OnCommand="ButtonModificarLeccionProf_Command" />
                             </td>
                         </tr>
                     </ItemTemplate>

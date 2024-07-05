@@ -77,15 +77,14 @@ namespace TPC_equipo_12
             int idCurso = Convert.ToInt32(e.CommandArgument);
             if (ValidarCurso(idCurso))
             {
-            cursoNegocio.DarDeAltaCurso(idCurso);
+                cursoNegocio.DarDeAltaCurso(idCurso);
 
-            Session["MensajeExito"] = "Curso dado de alta con exito!";
-            Response.Redirect("ProfesorCursos.aspx", false);
+                Session["MensajeExito"] = "Curso dado de alta con exito!";
+                Response.Redirect("ProfesorCursos.aspx", false);
             }
             else
             {
-            Session["MensajeError"] = "Ocurrio  un error al dar de alta el curso.";
-            Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
+                Response.Redirect("ProfesorFabricaDeCursos.aspx", false);
             }
         }
 
@@ -101,6 +100,10 @@ namespace TPC_equipo_12
             }
             else
             {
+                if(!ValidarUnidades(curso.Unidades))
+                {
+                    return false;
+                }
                 foreach (Unidad unidad in curso.Unidades)
                 {
                     if (unidad.Lecciones.Count == 0 || unidad.Lecciones == null)
@@ -122,6 +125,50 @@ namespace TPC_equipo_12
                         }
                     }
                 }
+            }
+            return true;
+        }
+
+        protected bool ValidarUnidades(List<Unidad> listaAValidar)
+        {
+            int ContadorUnidadInhabilitado = 0;
+            string msj;
+            foreach (Unidad unidad in listaAValidar)
+            {
+                if (unidad.Estado == false)
+                {
+                    ContadorUnidadInhabilitado++;
+                }
+            }
+            if (listaAValidar.Count == ContadorUnidadInhabilitado)
+            {
+                msj = "No puedes dar de alta este Curso, todas las Unidades estan Deshabilitadas.";
+                Session["MensajeError"] = msj;
+                return false;
+            }
+            return true;
+        }
+
+        protected bool ValidarLecciones(List<Leccion> listaAValidar)
+        {
+            int ContadorLeccionInhabilitado = 0;
+            string msj;
+            List<Leccion> AuxLeccionesHabilitadas = new List<Leccion>();
+            foreach (Leccion leccion in listaAValidar)
+            {
+                if (leccion.Estado == false)
+                {
+                    ContadorLeccionInhabilitado++;
+                } else
+                {
+                    AuxLeccionesHabilitadas.Add(leccion);
+                }
+            }
+            if (listaAValidar.Count == ContadorLeccionInhabilitado)
+            {
+                msj = "No puedes dar de alta este Curso, todas las Lecciones estan Deshabilitadas.";
+                Session["MensajeError"] = msj;
+                return false;
             }
             return true;
         }

@@ -32,3 +32,17 @@
 .d-none {
     display: none !important;
 }
+
+.descripcion-larga {
+    max-width: 300px; 
+    word-wrap: break-word; 
+    overflow-y: auto; 
+    white-space: normal; 
+}
+
+.curso-name {
+    max-width: 70px;
+    word-wrap: break-word;
+    overflow-y: auto;
+    white-space: normal;
+}
