@@ -73,7 +73,7 @@ namespace Negocio
             {
                 Datos.SetearConsulta("select top 1 IDUsuario from Usuarios order by IDUsuario desc");
                 Datos.EjecutarLectura();
-                while(Datos.Lector.Read())
+                while (Datos.Lector.Read())
                 {
                     IDUsuario = (int)Datos.Lector["IDUsuario"];
 
@@ -115,10 +115,10 @@ namespace Negocio
         }
         public void AgregarUsuario(Usuario usuario, string contrasenia)
         {
-            
+
             try
             {
-                
+
                 if (ExisteUsuario(usuario))
                 {
                     throw new Exception("El usuario ya existe");
@@ -448,8 +448,31 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
+        public int ObtenerIDporEmail(string email)
+        {
+            try
+            {
+                Datos.SetearConsulta("select IDUsuario from Usuarios where Email = @Email");
+                Datos.SetearParametro("@Email", email);
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    return Convert.ToInt32(Datos.Lector["IDUsuario"]);
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
 
-        
+
         private string HashPassword(string password, string salt)
         {
             return BCrypt.Net.BCrypt.HashPassword(password + salt);
@@ -458,6 +481,33 @@ namespace Negocio
         private string GenerateSalt()
         {
             return BCrypt.Net.BCrypt.GenerateSalt();
+        }
+       
+        public bool CambiarContraseñaEnBaseDeDatos(int idusuario, string nuevaContrasenia)
+        {
+
+            string salt = GenerateSalt();
+            string hash = HashPassword(nuevaContrasenia, salt);
+            try
+            {
+                Datos.SetearConsulta("UPDATE Usuarios SET ContraseniaSalt = @ContraseniaSalt, ContraseniaHash = @ContraseniaHash WHERE IDUsuario = @IDUsuario");
+                Datos.SetearParametro("@ContraseniaSalt", salt);
+                Datos.SetearParametro("@ContraseniaHash", hash);
+                Datos.SetearParametro("@IDUsuario", idusuario);
+                Datos.EjecutarAccion();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Manejar excepción
+                throw ex;
+            }
+            finally
+            {
+                // Limpiar parámetros y cerrar conexión
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
         }
     }
 }

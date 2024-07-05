@@ -21,6 +21,9 @@
 
                     <asp:Button ID="ButtonLogIn" runat="server" Text="Iniciar Sesion" CssClass="btn btn-primary " OnClick="ButtonLogIn_Click" />
                 </div>
+                <div class="d-flex justify-content-center align-items-center mb-3">
+                    <asp:LinkButton ID="lnkReestablecerContraseña" runat="server" CssClass="text-decoration-none text-danger" OnClick="lnkReestablecerContraseña_Click">¿Olvidó su contraseña?</asp:LinkButton>
+                </div>
                 <div class="d-flex justify-content-center align-items-center">
                     <asp:Label ID="LabelErrorRegistro" runat="server" Text=""></asp:Label>
                 </div>

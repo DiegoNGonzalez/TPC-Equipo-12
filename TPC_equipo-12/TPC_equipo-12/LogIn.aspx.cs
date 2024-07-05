@@ -77,5 +77,9 @@ namespace TPC_equipo_12
             }
         }
 
+        protected void lnkReestablecerContraseña_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("RecuperarContrasenia.aspx");
+        }
     }
 }

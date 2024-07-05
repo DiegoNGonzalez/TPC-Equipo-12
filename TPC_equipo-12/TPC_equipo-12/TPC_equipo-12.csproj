@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CambioContrasenia.aspx" />
     <Content Include="Estudiante\AgregarResenia.aspx" />
     <Content Include="Custom\styles.css" />
     <Content Include="Estudiante\EstudiantePreguntas.aspx" />
@@ -100,6 +101,7 @@
     <Content Include="Profesor\ProfesorCursos.aspx" />
     <Content Include="Profesor\VerMensaje.aspx" />
     <Content Include="Estudiante\VerMensaje.aspx" />
+    <Content Include="RecuperarContrasenia.aspx" />
     <Content Include="VerDetalleCurso.aspx" />
     <Content Include="Estudiante\EstudianteVerDetalleCurso.aspx" />
     <Content Include="Web.config" />
@@ -109,6 +111,13 @@
     <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CambioContrasenia.aspx.cs">
+      <DependentUpon>CambioContrasenia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CambioContrasenia.aspx.designer.cs">
+      <DependentUpon>CambioContrasenia.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Estudiante\EstudiantePreguntas.aspx.cs">
       <DependentUpon>EstudiantePreguntas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -351,6 +360,13 @@
       <DependentUpon>ProfesorMasterPage.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecuperarContrasenia.aspx.cs">
+      <DependentUpon>RecuperarContrasenia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecuperarContrasenia.aspx.designer.cs">
+      <DependentUpon>RecuperarContrasenia.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SignUp.aspx.cs">
       <DependentUpon>SignUp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

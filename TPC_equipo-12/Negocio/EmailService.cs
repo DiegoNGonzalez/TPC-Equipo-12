@@ -39,7 +39,13 @@ namespace Negocio
                 throw ex;
             }
         }
-        
+        public void EnviarEmailConToken(string destinatario, string token)
+        {
+            string asunto = "Restablecer Contraseña";
+            string mensaje = $"Haga clic aquí para restablecer su contraseña: <a href='http://localhost:44344/CambioContrasenia.aspx?token={token}'>Cambio de contraseña</a> <br> Si no puede hacer click copie apartir de 'CambioContrasenia' hasta el final del token y peguelo en la url de su navegador";
+            //string mensaje = $"Haga clic aquí para restablecer su contraseña: <a href='CambioContrasenia.aspx?token={token}'>CambioContrasenia.aspx?token={token}</a> <br> Si no puede hacer click copie apartir de 'CambioContrasenia' hasta el final del token y peguelo en la url de su navegador";
+            EnviarEmail(destinatario, asunto, mensaje);
+        }
     }
     
 }

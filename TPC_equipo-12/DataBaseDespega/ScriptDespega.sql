@@ -198,3 +198,9 @@ Create Table LicenciaProfesor(
 	Licencia int not null
 )
 GO
+CREATE TABLE ReiniciosContrasenias(
+	IDReinicioContrasenia int not null Primary Key Identity(1, 1),
+	IDUsuario int not null FOREIGN KEY REFERENCES Usuarios (IDUsuario),
+	Token VARCHAR(128) not NULL,
+	FechaExpiracion DATETIME NOT NULL
+)
