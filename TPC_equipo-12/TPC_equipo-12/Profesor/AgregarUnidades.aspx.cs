@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TPC_equipo_12
 {
@@ -70,6 +71,11 @@ namespace TPC_equipo_12
 
         protected void ModificarUnidad()
         {
+            Unidad ultimaUnidad = new Unidad();
+            List<Unidad> unidades = new List<Unidad>();
+            unidades = unidadNegocio.ListarUnidades((int)Session["IDCursoProfesor"]);
+            if (unidades.Count != 0)
+                ultimaUnidad = unidades.Last();
             if (Request.QueryString["IdUnidad"] != null)
             {
                 LabelAgregarUnidad.Text = "Modificar Unidad";
@@ -82,6 +88,20 @@ namespace TPC_equipo_12
                 TextBoxNumeroUnidad.Enabled = false;
                 unidad.IDUnidad = idUnidad;
             }
+            else
+            {
+                if (ultimaUnidad.IDUnidad != 0)
+                {
+                    TextBoxNumeroUnidad.Text = (ultimaUnidad.NroUnidad + 1).ToString();
+                    TextBoxNumeroUnidad.Enabled = false;
+                }
+                else
+                {
+                    TextBoxNumeroUnidad.Text = "1";
+                    TextBoxNumeroUnidad.Enabled = false;
+                }
+            }
+            
         }
     }
 }

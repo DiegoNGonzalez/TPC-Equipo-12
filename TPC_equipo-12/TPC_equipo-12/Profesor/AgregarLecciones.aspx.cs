@@ -75,7 +75,7 @@ namespace TPC_equipo_12
             Leccion ultimaLeccion = new Leccion();
             Curso curso = cursoNegocio.BuscarCurso((int)Session["IDCursoProfesor"]);
             Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);
-            ultimaLeccion = leccionNegocio.ListarLecciones(unidad.IDUnidad).Last();
+            ultimaLeccion = leccionNegocio.ListarLecciones(unidad.IDUnidad).Count != 0 ? leccionNegocio.ListarLecciones(unidad.IDUnidad).Last() : null;
             if (Request.QueryString["idLeccion"] != null)
             {
                 LabelNombreLeccion.Text = "Modificar Leccion";
@@ -90,8 +90,17 @@ namespace TPC_equipo_12
             }
             else
             {
-                TextBoxNumeroLeccion.Text = (ultimaLeccion.NroLeccion+1).ToString();
-                TextBoxNumeroLeccion.Enabled = false;
+                if(ultimaLeccion != null)
+                {
+                    TextBoxNumeroLeccion.Text = (ultimaLeccion.NroLeccion + 1).ToString();
+                    TextBoxNumeroLeccion.Enabled = false;
+                }
+                else
+                {
+                    TextBoxNumeroLeccion.Text = "1";
+                    TextBoxNumeroLeccion.Enabled = false;
+                }
+                
             }
         }
         protected void ButtonVolver_Click(object sender, EventArgs e)
