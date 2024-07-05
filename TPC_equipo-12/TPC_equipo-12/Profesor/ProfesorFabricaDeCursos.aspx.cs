@@ -125,13 +125,13 @@ namespace TPC_equipo_12
                         {
                             if (leccion.Materiales.Count == 0 || leccion.Materiales == null)
                             {
-                                msj = "No puedes dar de alta este Curso, la Leccion N°" + leccion.NroLeccion + " no tiene Materiales.";
+                                msj = "No puedes dar de alta este Curso, la Leccion N°" + leccion.NroLeccion + " de la Unidad N°"+unidad.NroUnidad+" no tiene Materiales.";
                                 Session["MensajeError"] = msj;
                                 return false;
                             }
                             else
                             {
-                                if(!ValidarMateriales(leccion.Materiales, leccion.NroLeccion))
+                                if(!ValidarMateriales(leccion.Materiales, leccion.NroLeccion, unidad.NroUnidad))
                                 {
                                     return false;
                                 }
@@ -192,7 +192,7 @@ namespace TPC_equipo_12
             return true;
         }
 
-        protected bool ValidarMateriales(List<MaterialLeccion> listaAValidar, int NroLeccion)
+        protected bool ValidarMateriales(List<MaterialLeccion> listaAValidar, int NroLeccion, int NroUnidad)
         {
             int ContadorMaterialInhabilitado = 0;
             string msj;
@@ -205,7 +205,7 @@ namespace TPC_equipo_12
             }
             if (listaAValidar.Count == ContadorMaterialInhabilitado)
             {
-                msj = "No puedes dar de alta este Curso, todos los Materiales de la Leccion N°" + NroLeccion + " estan Deshabilitados.";
+                msj = "No puedes dar de alta este Curso, todos los Materiales de la Leccion N°" + NroLeccion + " de la Unidad N°"+NroUnidad+" estan Deshabilitados.";
                 Session["MensajeError"] = msj;
                 return false;
             }

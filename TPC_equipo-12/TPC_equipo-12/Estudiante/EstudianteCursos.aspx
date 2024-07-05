@@ -34,7 +34,7 @@
                                     <li class="list-group-item">Categoria:
                                         <asp:Label ID="LabelCategoriaCurso" runat="server"></asp:Label>
                                     </li>
-                                    <%# Eval("Estado") != null && !(bool)Eval("Estado") ? "<li class='list-group-item text-truncate' onclick=\"expandirDescripcion(this);\">Este curso ya no esta disponible. Si te desuscribes, no podras volver a inscribirte.</li>" : "" %>
+                                    <%# Eval("Estado") != null && !(bool)Eval("Estado") ? "<li class='list-group-item text-truncate' onclick=\"expandirDescripcion(this);\"><strong>Este curso ya no está disponible. Si te desuscribes, no podrás volver a inscribirte.</strong></li>" : "" %>
                                 </ul>
                                 <div class="overlay-text <%# Eval("Completo") != null && !(bool)Eval("Completo") ? "" : "d-none" %>">
                                     Por el momento este curso no esta completo.<br /> Consultar al profesor por mensaje.
