@@ -69,6 +69,7 @@ namespace Negocio
             {
                 if (EstaInscripto(usuario.IDUsuario, curso.IDCurso))
                 {
+                    return false;
                     throw new Exception("El estudiante ya esta inscripto en el curso");
                 }
                 else
@@ -94,7 +95,7 @@ namespace Negocio
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
-            return false;
+            
         }
         public void EliminarInscripcion(int IdEstudiante, int idCurso)
         {
@@ -123,25 +124,17 @@ namespace Negocio
                         IDNotificaciones.Add((int)Datos.Lector["IDNotificacion"]);
                     }
                     Datos.CerrarConexion();
-                    foreach (int idNotificacion in IDNotificaciones)
-                    {
-                        Datos.SetearConsulta("delete from NotificacionesXUsuario where IDNotificacion = @IDNotificacion");
-                        Datos.SetearParametro("@IDNotificacion", idNotificacion);
-                        Datos.EjecutarAccion();
-                        Datos.LimpiarParametros();
-                        Datos.CerrarConexion();
-                    }
                     
                    foreach (int idNotificacion in IDNotificaciones)
                     {
-                        Datos.SetearConsulta("delete from Notificaciones where IDNotificacion = @IDNotificacion");
+                        Datos.SetearConsulta("update Notificaciones set Leido=1 where IDNotificacion = @IDNotificacion");
                         Datos.SetearParametro("@IDNotificacion", idNotificacion);
                         Datos.EjecutarAccion();
                         Datos.LimpiarParametros();
                         Datos.CerrarConexion();
                     }
                 }
-                Datos.SetearConsulta("delete from Inscripciones where IDCurso = @IDCurso and IDUsuario = @IDUsuario");
+                Datos.SetearConsulta("update Inscripciones set Estado='C' where IDCurso = @IDCurso and IDUsuario = @IDUsuario");
                 Datos.SetearParametro("@IDCurso", idCurso);
                 Datos.SetearParametro("@IDUsuario", IdEstudiante);
                 Datos.EjecutarAccion();
@@ -431,6 +424,40 @@ namespace Negocio
                 Datos.SetearConsulta("update Inscripciones set Estado= 'P' where IdInscripcion= @IDInscripcion");
                 Datos.SetearParametro("@IDInscripcion", idInscripcion);
                 Datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+        public InscripcionACurso BuscarInscripcionXCursoYEstudiante(int idCurso, int idEstudiante)
+        {
+            try
+            {
+                Datos.SetearConsulta("select * from Inscripciones where IDCurso = @IDCurso and IDUsuario = @IDUsuario");
+                Datos.SetearParametro("@IDCurso", idCurso);
+                Datos.SetearParametro("@IDUsuario", idEstudiante);
+                Datos.EjecutarLectura();
+                InscripcionACurso aux = new InscripcionACurso();
+                while (Datos.Lector.Read())
+                {
+                    aux.IDInscripcion = Datos.Lector.GetInt32(0);
+                    aux.Curso = new Curso();
+                    aux.Curso = cursoNegocio.BuscarCurso((int)Datos.Lector["IdCurso"]);
+                    aux.Usuario = new Usuario();
+                    aux.Usuario = usuarioNegocio.buscarUsuario((int)Datos.Lector["IdUsuario"]);
+                    aux.Estado = Convert.ToChar(Datos.Lector["Estado"]);
+                    aux.FechaInscripcion = (DateTime)Datos.Lector["FechaInscripcion"];
+                }
+                return aux;
+
+                
             }
             catch (Exception ex)
             {

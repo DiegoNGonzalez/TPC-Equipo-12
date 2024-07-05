@@ -48,8 +48,16 @@ namespace TPC_equipo_12
             int idInscripcion = Convert.ToInt32(btn.CommandArgument);
             InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
             inscripcionNegocio.ConfirmarInscripcion(aux);
+            int existeNotif=notificacionNegocio.buscarNotificacionXInscripcionXUsuario(aux.IDInscripcion, aux.Usuario.IDUsuario);
+            if (existeNotif!=0)
+            {
+                notificacionNegocio.marcarComoNoLeida(existeNotif);
+            }
+            else
+            {
+                notificacionNegocio.NotificacionRespuestaInscripcion(aux, true);
 
-            notificacionNegocio.NotificacionRespuestaInscripcion(aux, true);
+            }
 
             inscripciones = inscripcionNegocio.listarInscripciones();
             Session.Add("inscripciones", inscripciones);

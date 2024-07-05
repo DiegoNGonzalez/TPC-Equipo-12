@@ -102,6 +102,33 @@ namespace Negocio
             }
             
         }
+
+        public Profesor buscarProfesorXCurso(int iDCurso)
+        {
+            Profesor aux = new Profesor();
+            try
+            {
+                Datos.SetearConsulta("select p.IDProfesor from ProfesorXCursos p where IDCurso=@iDCurso");
+                Datos.SetearParametro("@iDCurso", iDCurso);
+                Datos.EjecutarLectura();
+                if (Datos.Lector.Read())
+                {
+                    aux.IDUsuario = (int)Datos.Lector["IDProfesor"];
+                }
+                return aux;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                Datos.LimpiarParametros();
+                Datos.CerrarConexion();
+            }
+        }
+
         public Profesor buscarProfesorxLeccion(int idLeccion)
         {
             Profesor profesor = new Profesor();

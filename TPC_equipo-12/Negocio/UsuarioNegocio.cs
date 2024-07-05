@@ -9,11 +9,13 @@ namespace Negocio
     {
         private Datos Datos;
         private CursoNegocio Cursos;
+        private EmailService envioMensaje;
 
         public UsuarioNegocio()
         {
             Datos = new Datos();
             Cursos = new CursoNegocio();
+            envioMensaje = new EmailService();
 
         }
         public List<Usuario> ListarUsuarios()
@@ -113,14 +115,10 @@ namespace Negocio
         }
         public void AgregarUsuario(Usuario usuario, string contrasenia)
         {
-            //EmailService envioMensaje = new EmailService();
+            
             try
             {
-                //Datos.SetearConsulta("insert into Imagenes (URLIMG) values(@URLIMG)");
-                //Datos.SetearParametro("@URLIMG", usuario.ImagenPerfil.URL);
-                //Datos.EjecutarAccion();
-                //int aux = UltimoIdImagen();
-                //Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, Clave, DNI, Genero, EsProfesor, IDImagen) values (@Nombre, @Apellido, @Email, @Clave, @DNI, @Genero, @EsProfesor, @IDImagen)");
+                
                 if (ExisteUsuario(usuario))
                 {
                     throw new Exception("El usuario ya existe");
@@ -142,7 +140,15 @@ namespace Negocio
                     Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
                     //Datos.SetearParametro("@IDImagen", (object)usuario.ImagenPerfil.IDImagen?? DBNull.Value);
                     Datos.EjecutarAccion();
-                    //envioMensaje.EnviarEmailRegistroExitoso(usuario.Email);
+                    if (usuario.EsProfesor)
+                    {
+                        envioMensaje.EnviarEmail(usuario.Email, "Bienvenido a la plataforma de cursos", "<h1>Su registro como profesor fue realizado con exito</h1>");
+                    }
+                    else
+                    {
+
+                        envioMensaje.EnviarEmail(usuario.Email, "Bienvenido a la plataforma de cursos", "<h1>Registro en la plataforma exitoso</h1>");
+                    }
 
                 }
             }
@@ -195,40 +201,7 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
-        public void EliminarUsuario(Usuario usuario)
-        {
-            try
-            {
-                Datos.SetearConsulta("delete from Imagenes where IDImagenes = @IDImagenes");
-                Datos.SetearParametro("@IDImagenes", usuario.ImagenPerfil.IDImagen);
-                Datos.EjecutarAccion();
-                if (usuario.EsProfesor)
-                {
-                    Datos.SetearConsulta("delete from Profesores where IDProfesor = @IDProfesor");
-                    Datos.SetearParametro("@IDProfesor", usuario.IDUsuario);
-                    Datos.EjecutarAccion();
-                }
-                else
-                {
-                    Datos.SetearConsulta("delete from Estudiantes where IDEstudiante = @IDEstudiante");
-                    Datos.SetearParametro("@IDEstudiante", usuario.IDUsuario);
-                    Datos.EjecutarAccion();
-                }
 
-                Datos.SetearConsulta("delete from Usuarios where IDUsuario = @IDUsuario");
-                Datos.SetearParametro("@IDUsuario", usuario.IDUsuario);
-                Datos.EjecutarAccion();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                Datos.LimpiarParametros();
-                Datos.CerrarConexion();
-            }
-        }
 
         public bool Logueo(Usuario usuario, string contrasenia)
         {

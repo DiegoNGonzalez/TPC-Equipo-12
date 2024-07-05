@@ -12,6 +12,7 @@ namespace TPC_equipo_12
         public List<Curso> listaCursos = new List<Curso>();
         public CursoNegocio cursoNegocio = new CursoNegocio();
         public Profesor profesor = new Profesor();
+        public NotificacionNegocio notif = new NotificacionNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,6 +60,7 @@ namespace TPC_equipo_12
                 try
                 {
                     cursoNegocio.DeshabilitarCurso(idCursoADeshabilitar);
+                    notif.notificacionXCursoDeshabilitado(idCursoADeshabilitar);
                     Session["MensajeExito"] = "Curso deshabilitado correctamente.";
                     Response.Redirect("ProfesorCursos.aspx", false);
                 }

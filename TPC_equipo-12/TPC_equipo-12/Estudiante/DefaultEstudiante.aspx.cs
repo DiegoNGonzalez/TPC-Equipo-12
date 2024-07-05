@@ -16,6 +16,7 @@ namespace TPC_equipo_12
         public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio(false);
         public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
         public List<Curso> cursosNoInscriptos = new List<Curso>();
+        public ProfesorNegocio profesorNegocio = new ProfesorNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -80,17 +81,34 @@ namespace TPC_equipo_12
             Button button = (Button)sender;
             Control lblControl = button.NamingContainer.FindControl("lblIDCurso");
             Label label = (Label)lblControl;
+            Estudiante estudianteAux = (Estudiante)Session["estudiante"];
             int idCurso = Convert.ToInt32(label.Text);
             Curso aux = cursoNegocio.BuscarCurso(idCurso);
+            Profesor profesor = new Profesor();
+            profesor = profesorNegocio.buscarProfesorXCurso(aux.IDCurso);
+            InscripcionACurso inscripcionAuxiliar = new InscripcionACurso();
+            inscripcionAuxiliar = inscripcionNegocio.BuscarInscripcionXCursoYEstudiante(idCurso, estudianteAux.IDUsuario);
+            int idNotificacion= notificacionNegocio.buscarNotificacionXInscripcionXUsuario(inscripcionAuxiliar.IDInscripcion,profesor.IDUsuario );
             try
             {
-                bool seInscribio = inscripcionNegocio.Incripcion((Usuario)Session["estudiante"], aux);
-                if (seInscribio)
+                if (inscripcionAuxiliar.IDInscripcion != 0)
                 {
-                    int idInscripcion = inscripcionNegocio.UltimoIDInscripcion();
-                    notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion,idCurso);
+                    inscripcionNegocio.reinscribir(inscripcionAuxiliar.IDInscripcion);
+                    notificacionNegocio.marcarComoNoLeida(idNotificacion);
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
+                    
+                }
+                else
+                {
 
+                    bool seInscribio = inscripcionNegocio.Incripcion(estudianteAux, aux);
+                    if (seInscribio)
+                    {
+                        int idInscripcion = inscripcionNegocio.UltimoIDInscripcion();
+                        notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion, idCurso);
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
+
+                    }
                 }
 
             }

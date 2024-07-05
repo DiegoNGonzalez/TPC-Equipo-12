@@ -10,59 +10,36 @@ namespace Negocio
 {
     public class EmailService
     {
-        private readonly string emailRemitente;
-        private readonly string contrasenia;
+        private SmtpClient server;
+        private MailMessage email;
+        
         public EmailService()
         {
-            emailRemitente = "programacionIII@outlook.com";
-            contrasenia = "contraseniasegura123";
+            server = new SmtpClient();
+            server.Credentials = new NetworkCredential("diegonzalezdev@gmail.com", "qsxdogtxdkkselps");
+            server.EnableSsl = true;
+            server.Port = 587;
+            server.Host = "smtp.gmail.com";
         }
-
-        public async Task<bool> EnviarMail(string destinatario, string asunto, string mensaje)
+        public void EnviarEmail(string destinatario, string asunto, string mensaje)
         {
+            email = new MailMessage();
+            email.From = new MailAddress("noresponder@cursosdiegonzalezdev.com");
+            email.To.Add(destinatario);
+            email.Subject = asunto;
+            email.IsBodyHtml = true;
+            email.Body = mensaje;
             try
             {
-                var smtpClient = new SmtpClient("smtp-mail.outlook.com")
-                {
-                    Port = 587,
-                    Credentials = new NetworkCredential(emailRemitente, contrasenia),
-                    EnableSsl = true,
-                };
-
-                var mensajeEmail = new MailMessage
-                {
-                    From = new MailAddress(emailRemitente),
-                    Subject = asunto,
-                    Body = mensaje,
-                    IsBodyHtml = true
-                };
-                mensajeEmail.To.Add(destinatario);
-
-                await smtpClient.SendMailAsync(mensajeEmail);
-                return true;
+                server.Send(email);
             }
             catch (Exception ex)
             {
-                throw ex;
-                
-            }
-        }
-        public void EnviarEmailRegistroExitoso(string destinatario)
-        {
-            using (MailMessage mail = new MailMessage())
-            {
-                mail.From = new MailAddress("programacionIII@outlook.com", "Maxi Programa");
-                mail.To.Add(destinatario);
-                mail.Subject = "Registro Exitoso";
-                mail.Body = "Hola, tu registro ha sido exitoso. ¡Bienvenido!";
 
-                using (SmtpClient smtp = new SmtpClient("smtp-mail.outlook.com", 587))
-                {
-                    smtp.Credentials = new NetworkCredential(emailRemitente, contrasenia);
-                    smtp.EnableSsl = true;
-                    smtp.Send(mail);
-                }
+                throw ex;
             }
         }
+        
     }
+    
 }
