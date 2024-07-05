@@ -38,10 +38,20 @@ namespace TPC_equipo_12
                     }
                 }
                 Session.Add("usuarios", usuarios);
-                ddlDestinatario.DataSource = usuarios;
-                ddlDestinatario.DataTextField = "NombreCompleto";
-                ddlDestinatario.DataValueField = "IDUsuario";
-                ddlDestinatario.DataBind();
+                if (usuarios.Count == 0)
+                {
+                    Session["MensajeError"] = "No hay usuarios disponibles para enviar mensajes.";
+                    Response.Redirect("EstudianteMensajes.aspx");
+                }
+                else
+                {
+
+                    ddlDestinatario.DataSource = usuarios;
+                    ddlDestinatario.DataTextField = "NombreCompleto";
+                    ddlDestinatario.DataValueField = "IDUsuario";
+                    ddlDestinatario.DataBind();
+                }
+                
             }
         }
 
