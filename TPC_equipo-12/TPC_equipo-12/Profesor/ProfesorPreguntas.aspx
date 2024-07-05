@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <div class="media">
                             <div class="mr-3">
-                                <asp:Image ID="imgPerfilPadre" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDImagen").ToString() + ".jpg" %>' />
+                                <asp:Image ID="imgPerfilPadre" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDUsuarioEmisor").ToString() + ".jpg" %>' />
                             </div>
                             <div class="media-body">
                                 <h5 class="card-title">Comentario Principal</h5>
@@ -32,7 +32,7 @@
                     <div class="card-body">
                         <div class="media">
                             <div class="mr-3">
-                                <asp:Image ID="imgPerfilRespuesta" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDImagen").ToString() + ".jpg" %>' />
+                                <asp:Image ID="imgPerfilRespuesta" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDUsuarioEmisor").ToString() + ".jpg" %>' />
                             </div>
                             <div class="media-body">
                                 <h5 class="card-title">Respuesta</h5>

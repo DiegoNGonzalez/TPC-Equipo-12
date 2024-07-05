@@ -90,7 +90,7 @@ namespace TPC_equipo_12
                         datos.SetearParametro("@CuerpoComentario", cuerpoRespuesta);
                         datos.SetearParametro("@FechaCreacion", DateTime.Now);
                         datos.SetearParametro("@idImagen", usuarioActual.ImagenPerfil == null ? (object)DBNull.Value : usuarioActual.ImagenPerfil.IDImagen);
-                        datos.SetearParametro("@Estado", true); // O el valor correspondiente según tu lógica de negocio
+                        datos.SetearParametro("@Estado", true);
                         datos.EjecutarAccion();
                     }
                     catch (Exception ex)
