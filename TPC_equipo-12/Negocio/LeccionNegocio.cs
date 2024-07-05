@@ -2,6 +2,7 @@
 using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Negocio
 {
@@ -52,6 +53,7 @@ namespace Negocio
 
         public void CrearLeccion(Leccion leccion, int IDUnidad)
         {
+            Leccion ultimaLeccion = new Leccion();
             try
             {
                 datos.SetearConsulta("insert into Lecciones (Nombre, NroLeccion, Descripcion) values (@Nombre, @NroLeccion, @Descripcion)");

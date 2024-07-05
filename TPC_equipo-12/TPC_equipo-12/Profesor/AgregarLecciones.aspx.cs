@@ -2,6 +2,10 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using static System.Collections.Specialized.BitVector32;
 
 namespace TPC_equipo_12
 {
@@ -29,6 +33,10 @@ namespace TPC_equipo_12
         {
             Curso curso = cursoNegocio.BuscarCurso((int)Session["IDCursoProfesor"]);
             Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);
+            if  (!ValidarFormulario())
+            {
+                return;
+            }
             try
             {
                 Leccion leccion = new Leccion();
@@ -64,6 +72,10 @@ namespace TPC_equipo_12
 
         protected void ModificarLeccion()
         {
+            Leccion ultimaLeccion = new Leccion();
+            Curso curso = cursoNegocio.BuscarCurso((int)Session["IDCursoProfesor"]);
+            Unidad unidad = curso.Unidades.Find(x => x.IDUnidad == (int)Session["IDUnidadProfesor"]);
+            ultimaLeccion = leccionNegocio.ListarLecciones(unidad.IDUnidad).Last();
             if (Request.QueryString["idLeccion"] != null)
             {
                 LabelNombreLeccion.Text = "Modificar Leccion";
@@ -76,10 +88,25 @@ namespace TPC_equipo_12
                 TextBoxNumeroLeccion.Enabled = false;
                 leccion.IDLeccion = idLeccion;
             }
+            else
+            {
+                TextBoxNumeroLeccion.Text = (ultimaLeccion.NroLeccion+1).ToString();
+                TextBoxNumeroLeccion.Enabled = false;
+            }
         }
         protected void ButtonVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorLecciones.aspx", false);
+        }
+        protected bool ValidarFormulario()
+        {
+            if (TextBoxNombreLeccion.Text == "" || TextBoxDescripcionLeccion.Text == "" || TextBoxNumeroLeccion.Text == "" )
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Faltan campos por completar!', 'info');</script>", false);
+                return false;
+            }
+
+            return true;
         }
     }
 }
