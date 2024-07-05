@@ -2,6 +2,7 @@
 using Dominio;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Negocio
 {
@@ -38,7 +39,7 @@ namespace Negocio
                     aux.Tipo = (string)datos.Lector["Tipo"];
                     aux.Fecha = (DateTime)datos.Lector["Fecha"];
                     aux.Estado = (bool)datos.Lector["Leido"];
-                    if (aux.Tipo == "Inscripcion" || aux.Tipo=="Deshabilitado")
+                    if (aux.Tipo == "Inscripcion" || aux.Tipo == "Deshabilitado")
                     {
                         aux.Inscripcion = new InscripcionACurso();
                         aux.Inscripcion.IDInscripcion = (int)datos.Lector["IDInscripcion"];
@@ -165,53 +166,56 @@ namespace Negocio
         }
         public void NotificacionRespuestaInscripcion(InscripcionACurso inscripcion, bool estado)
         {
-            string mensaje = "Pendiente";
-            try
-            {
-                if (estado)
+            
+
+                string mensaje = "Pendiente";
+                try
                 {
-                    mensaje = "Inscripción aceptada";
+                    if (estado)
+                    {
+                        mensaje = "Inscripción aceptada";
+                    }
+                    else
+                    {
+                        mensaje = "Inscripción rechazada";
+                    }
+                    datos.SetearConsulta("INSERT INTO Notificaciones (Mensaje, Tipo, Fecha, IDInscripcion) VALUES (@Mensaje, @Tipo, @Fecha, @IDInscripcion); SELECT SCOPE_IDENTITY();");
+                    datos.SetearParametro("@Mensaje", mensaje);
+                    datos.SetearParametro("@Tipo", "Inscripcion");
+                    datos.SetearParametro("@Fecha", DateTime.Now);
+                    datos.SetearParametro("@IDInscripcion", inscripcion.IDInscripcion);
+                    datos.EjecutarAccion();
+
                 }
-                else
+                catch (Exception)
                 {
-                    mensaje = "Inscripción rechazada";
+
+                    throw;
                 }
-                datos.SetearConsulta("INSERT INTO Notificaciones (Mensaje, Tipo, Fecha, IDInscripcion) VALUES (@Mensaje, @Tipo, @Fecha, @IDInscripcion); SELECT SCOPE_IDENTITY();");
-                datos.SetearParametro("@Mensaje", mensaje);
-                datos.SetearParametro("@Tipo", "Inscripcion");
-                datos.SetearParametro("@Fecha", DateTime.Now);
-                datos.SetearParametro("@IDInscripcion", inscripcion.IDInscripcion);
-                datos.EjecutarAccion();
+                finally
+                {
+                    datos.CerrarConexion();
+                }
+                try
+                {
+                    int idNotificacion = UltimoID();
+                    datos.LimpiarParametros();
+                    datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
+                    datos.SetearParametro("@IDNotificacion", idNotificacion);
+                    datos.SetearParametro("@IDUsuario", inscripcion.Usuario.IDUsuario);
+                    datos.EjecutarAccion();
+                    datos.LimpiarParametros();
+                }
+                catch (Exception ex)
+                {
 
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
-            try
-            {
-                int idNotificacion = UltimoID();
-                datos.LimpiarParametros();
-                datos.SetearConsulta("insert into NotificacionesXUsuario(IDNotificacion, IDUsuario) VALUES(@IDNotificacion, @IDUsuario)");
-                datos.SetearParametro("@IDNotificacion", idNotificacion);
-                datos.SetearParametro("@IDUsuario", inscripcion.Usuario.IDUsuario);
-                datos.EjecutarAccion();
-                datos.LimpiarParametros();
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
+                    throw ex;
+                }
+                finally
+                {
+                    datos.CerrarConexion();
+                }
+            
         }
         public void AgregarNotificacionXMensaje(MensajeUsuario mensaje)
         {
@@ -320,7 +324,7 @@ namespace Negocio
             }
             ProfesorNegocio aux = new ProfesorNegocio();
             Profesor aux2 = aux.buscarProfesorxLeccion(ComentarioLeccion.Leccion.IDLeccion);
-            
+
             try
             {
                 int idNotificacion = UltimoID();
@@ -408,7 +412,7 @@ namespace Negocio
         }
         public void notificacionXCursoDeshabilitado(int idCurso)
         {
-            List <InscripcionACurso> estudiantes = new List<InscripcionACurso>();
+            List<InscripcionACurso> estudiantes = new List<InscripcionACurso>();
             InscripcionNegocio aux = new InscripcionNegocio(false);
             estudiantes = aux.listarInscripcionesXCurso(idCurso);
             foreach (InscripcionACurso item in estudiantes)
@@ -459,6 +463,49 @@ namespace Negocio
             {
                 datos.SetearConsulta("UPDATE Notificaciones SET Leido = 0 WHERE IDInscripcion = @IDInscripcion");
                 datos.SetearParametro("@IDInscripcion", idInscripcion);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public int buscarNotificacionXInscripcionXUsuario(int idInscripcion, int idUsuario)
+        {
+            int idNotificacion = 0;
+            try
+            {
+                datos.SetearConsulta("select * from Notificaciones n inner join notificacionesXusuario nxu on n.IdNotificacion= nxu.IDNotificacion where IDInscripcion = @IDInscripcion and nxu.IDUsuario=@idUsuario");
+                datos.SetearParametro("@IDInscripcion", idInscripcion);
+                datos.SetearParametro("@idUsuario", idUsuario);
+                datos.EjecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    idNotificacion = (int)datos.Lector["IDNotificacion"];
+                }
+                return idNotificacion;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public void marcarComoNoLeida(int idNotificacion)
+        {
+            try
+            {
+                datos.SetearConsulta("UPDATE Notificaciones SET Leido = 0 WHERE IDNotificacion = @IDNotificacion");
+                datos.SetearParametro("@IDNotificacion", idNotificacion);
                 datos.EjecutarAccion();
             }
             catch (Exception ex)

@@ -16,6 +16,7 @@ namespace TPC_equipo_12
         public InscripcionNegocio inscripcionNegocio = new InscripcionNegocio(false);
         public NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
         public List<Curso> cursosNoInscriptos = new List<Curso>();
+        public ProfesorNegocio profesorNegocio = new ProfesorNegocio();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -83,14 +84,17 @@ namespace TPC_equipo_12
             Estudiante estudianteAux = (Estudiante)Session["estudiante"];
             int idCurso = Convert.ToInt32(label.Text);
             Curso aux = cursoNegocio.BuscarCurso(idCurso);
+            Profesor profesor = new Profesor();
+            profesor = profesorNegocio.buscarProfesorXCurso(aux.IDCurso);
             InscripcionACurso inscripcionAuxiliar = new InscripcionACurso();
             inscripcionAuxiliar = inscripcionNegocio.BuscarInscripcionXCursoYEstudiante(idCurso, estudianteAux.IDUsuario);
+            int idNotificacion= notificacionNegocio.buscarNotificacionXInscripcionXUsuario(inscripcionAuxiliar.IDInscripcion,profesor.IDUsuario );
             try
             {
-                if (inscripcionAuxiliar != null)
+                if (inscripcionAuxiliar.IDInscripcion != 0)
                 {
                     inscripcionNegocio.reinscribir(inscripcionAuxiliar.IDInscripcion);
-                    notificacionNegocio.reactivarNotificacionXInscripcion(inscripcionAuxiliar.IDInscripcion);
+                    notificacionNegocio.marcarComoNoLeida(idNotificacion);
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
                     
                 }

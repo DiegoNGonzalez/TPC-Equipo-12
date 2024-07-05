@@ -69,6 +69,7 @@ namespace Negocio
             {
                 if (EstaInscripto(usuario.IDUsuario, curso.IDCurso))
                 {
+                    return false;
                     throw new Exception("El estudiante ya esta inscripto en el curso");
                 }
                 else
@@ -94,7 +95,7 @@ namespace Negocio
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }
-            return false;
+            
         }
         public void EliminarInscripcion(int IdEstudiante, int idCurso)
         {
@@ -123,18 +124,10 @@ namespace Negocio
                         IDNotificaciones.Add((int)Datos.Lector["IDNotificacion"]);
                     }
                     Datos.CerrarConexion();
-                    foreach (int idNotificacion in IDNotificaciones)
-                    {
-                        Datos.SetearConsulta("delete from NotificacionesXUsuario where IDNotificacion = @IDNotificacion");
-                        Datos.SetearParametro("@IDNotificacion", idNotificacion);
-                        Datos.EjecutarAccion();
-                        Datos.LimpiarParametros();
-                        Datos.CerrarConexion();
-                    }
                     
                    foreach (int idNotificacion in IDNotificaciones)
                     {
-                        Datos.SetearConsulta("delete from Notificaciones where IDNotificacion = @IDNotificacion");
+                        Datos.SetearConsulta("update Notificaciones set Leido=1 where IDNotificacion = @IDNotificacion");
                         Datos.SetearParametro("@IDNotificacion", idNotificacion);
                         Datos.EjecutarAccion();
                         Datos.LimpiarParametros();
