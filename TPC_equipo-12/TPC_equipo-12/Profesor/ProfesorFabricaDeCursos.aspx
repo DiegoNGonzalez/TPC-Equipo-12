@@ -31,8 +31,8 @@
                                         <%# Eval("Descripcion") %>
                                     </li>
                                     <li class="list-group-item">Duración: <%# Eval("Duracion") %> hs.</li>
-                                    <li class="list-group-item">Categoria:
-                                    <asp:Label ID="LabelCategoriaCurso" runat="server"></asp:Label>
+                                    <li class="list-group-item">Categoria:  <%# Eval("Categoria.Nombre") %>
+                                
                                     </li>
                                 </ul>
                                 <div class="d-flex justify-content-center align-items-center mt-2">

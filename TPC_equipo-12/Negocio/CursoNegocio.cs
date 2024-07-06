@@ -82,8 +82,8 @@ namespace Negocio
                 {
                     Curso aux = new Curso();
                     aux.IDCurso = (int)Datos.Lector["IDCurso"];
-                    aux.Nombre = (String)Datos.Lector["Nombre"];
-                    aux.Descripcion = (String)Datos.Lector["Descripcion"];
+                    aux.Nombre = (string)Datos.Lector["Nombre"];
+                    aux.Descripcion = (string)Datos.Lector["Descripcion"];
                     aux.Estreno = (DateTime)Datos.Lector["Estreno"];
                     aux.Duracion = (int)Datos.Lector["Duracion"];
                     aux.Completo = (bool)Datos.Lector["Completo"];
@@ -91,13 +91,20 @@ namespace Negocio
                     aux.Imagen = new Imagen
                     {
                         IDImagen = (int)Datos.Lector["IDImagen"],
-                        URL = (String)Datos.Lector["URLIMG"]
+                        URL = (string)Datos.Lector["URLIMG"]
                     };
-                    aux.Categoria = new CategoriaCurso
+                    aux.Categoria = new CategoriaCurso();
+                    if (Datos.Lector["IDCategoria"] != DBNull.Value)
                     {
-                        IDCategoria = (int)Datos.Lector["IDCategoria"],
-                        Nombre = (String)Datos.Lector["Nombre"]
-                    };
+                        aux.Categoria.IDCategoria = (int)Datos.Lector["IDCategoria"];
+                        aux.Categoria.Nombre = (string)Datos.Lector["CategoriaNombre"];
+                    }
+                    else
+                    {
+                        aux.Categoria.IDCategoria = 0;
+                        aux.Categoria.Nombre = "Sin categoría";
+                    }
+                   
                     lista.Add(aux);
                 }
                 Datos.LimpiarParametros();

@@ -29,7 +29,7 @@ namespace TPC_equipo_12
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
                 rptCursos.DataSource = estudiante.Cursos;
                 rptCursos.DataBind();
-                MostrarCategoria();
+                
             }
 
         }
@@ -63,34 +63,38 @@ namespace TPC_equipo_12
                 ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", "<script>showMessage('Ocurrió un error al Desinscribirse.', 'error');</script>", false);
             }
         }
-        private void MostrarCategoria()
-        {
-            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            foreach (RepeaterItem item in rptCursos.Items)
-            {
-                HiddenField hiddenFieldIDCurso = (HiddenField)item.FindControl("HiddenFieldIDCurso");
-                Label lblCategoria = (Label)item.FindControl("LabelCategoriaCurso");
-
-                if (hiddenFieldIDCurso != null && lblCategoria != null)
-                {
-                    int idCurso = int.Parse(hiddenFieldIDCurso.Value);
-                    if (categoriaNegocio.CategoriaNombreXIDCurso(idCurso) != "")
-                    {
-                        lblCategoria.Text = categoriaNegocio.CategoriaNombreXIDCurso(idCurso);
-                    }
-                    else
-                    {
-                        lblCategoria.Text = "Sin categoria";
-                    }
-                }
-            }
-        }
+       
 
         protected void VerDetalleCurso_Command(object sender, CommandEventArgs e)
         {
             bool home = false;
             int idCurso = Convert.ToInt32(e.CommandArgument);
             Response.Redirect("EstudianteVerDetalleCurso.aspx?idCurso=" + idCurso+"&home="+home);
+        }
+
+        protected void btnLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void chkFiltrar_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
