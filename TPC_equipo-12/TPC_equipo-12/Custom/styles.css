@@ -46,3 +46,8 @@
     overflow-y: auto;
     white-space: normal;
 }
+
+.tm-grande {
+    font-size: 3rem !important;
+    padding: 0.75em 1em !important;
+}
