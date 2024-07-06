@@ -6,7 +6,7 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center mb-5">
                 <h1 class="text-center">Cursos Cargados</h1>
             </div>
         </div>
@@ -15,10 +15,10 @@
                 <div class="row justify-content-center">
                     <asp:Repeater ID="rptProfesorCursos" runat="server">
                         <ItemTemplate>
-                            <div class="card ms-5 mb-5" style="width: 18rem; min-height: 24rem;">
+                            <div class="card ms-5 mb-5" style="width: 24rem; min-height: 28rem;">
                                 <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
                                 <asp:LinkButton ID="LinkButtonCursoProf" runat="server" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="LinkButtonCursoProf_Command" Style="text-decoration: none;">
-                                    <div class="img-container" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                                    <div class="img-container mt-2" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                                         <img src='<%# Eval("Imagen.URL") %>' class="card-img-top img-fluid" alt="..." style="max-height: 100%; width: auto;">
                                     </div>
                                     <div class="card-body text-center">
@@ -37,6 +37,7 @@
                                 <div class="d-flex justify-content-center align-items-center mt-2">
                                     <asp:Button ID="ButtonDeshabilitarCurso" runat="server" Text="Deshabilitar Curso" CssClass="btn btn-danger btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonDeshabilitarCurso_Command" />
                                     <asp:Button ID="ButtonFabrica" runat="server" Text="Volver a la Fabrica" CssClass="btn btn-primary btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonFabrica_Command" />
+                                    <asp:Button ID="ButtonResenias" runat="server" Text="Reseñas" CssClass="btn btn-secondary btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonResenias_Command" />
                                 </div>
                             </div>
                         </ItemTemplate>

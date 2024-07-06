@@ -64,5 +64,20 @@ namespace TPC_equipo_12
                 }
             }
         }
+
+        protected void volverCursos_Click(object sender, EventArgs e)
+        {
+            bool banderaVolver = (bool)Session["BanderaVolver"];
+            if (banderaVolver)
+            {
+                Session.Add("BanderaVolver", false);
+                Response.Redirect("DefaultEstudiante.aspx", false);
+            }
+            else
+            {
+                Response.Redirect("EstudianteCursos.aspx", false);
+
+            }
+        }
     }
 }

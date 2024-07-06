@@ -4,8 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
+            <asp:Button ID="ButtonVolver" runat="server" Text="Volver" CssClass="btn btn-primary mt-3 mb-3" OnClick="ButtonVolver_Click" />
         <div class="row">
-            <asp:Button ID="ButtonVolver" runat="server" Text="Volver" CssClass="btn btn-primary btn-sm mx-2 mb-2" OnClick="ButtonVolver_Click" />
             <div class="col-md-12">
                 <asp:Repeater ID="RepeaterVerDetalleCurso" runat="server" OnItemDataBound="RepeaterVerDetalleCurso_ItemDataBound">
                     <ItemTemplate>

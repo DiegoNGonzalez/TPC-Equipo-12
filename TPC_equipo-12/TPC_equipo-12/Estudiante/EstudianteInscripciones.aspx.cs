@@ -55,7 +55,7 @@ namespace TPC_equipo_12
             
             inscripcionNegocio.reinscribir(idInscripcion);
             notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion, idCurso);
-            Session["MensajeError"] = "Reinscripción enviada.";
+            Session["MensajeExito"] = "Reinscripción enviada.";
             Response.Redirect("EstudianteInscripciones.aspx");
         }
        
