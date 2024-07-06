@@ -4,7 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-        <div class="row">
+            <asp:Button ID="volverCursos" runat="server" Text="Volver a cursos" CssClass="btn btn-primary mb-3 mt-3" OnClick="volverCursos_Click" />
+        <div class="row">            
             <div class="col-md-12">
                 <asp:Repeater ID="RepeaterVerDetalleCurso" runat="server" OnItemDataBound="RepeaterVerDetalleCurso_ItemDataBound">
                     <itemtemplate>

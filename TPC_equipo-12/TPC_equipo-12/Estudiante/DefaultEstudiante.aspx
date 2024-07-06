@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 mb-5">
             <h2 class="text-center">Cursos Disponibles</h2>
         </div>
     </div>
@@ -19,11 +19,11 @@
             <div class="row justify-content-center">
                 <asp:Repeater ID="rptCursos" runat="server">
                     <ItemTemplate>
-                        <div class="card ms-5 mb-5" style="width: 18rem; min-height: 24rem;">
+                        <div class="card ms-5 mb-5" style="width: 24rem; min-height: 28rem;">
                             <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
                             <asp:Label ID="lblIDCurso" runat="server" Text='<%# Eval("IDCurso") %>' Visible="false"></asp:Label>
                             <asp:LinkButton ID="LinkButtonEstudiante" runat="server" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="LinkButtonEstudiante_Command" Style="text-decoration: none;">
-                            <div class="img-container" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            <div class="img-container mt-2" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                                 <img src='<%# Eval("Imagen.URL") %>' class="card-img-top img-fluid" alt="..." style="max-height: 100%; width: auto;">
                             </div>
                             <div class="card-body text-center">

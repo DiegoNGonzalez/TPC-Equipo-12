@@ -104,6 +104,7 @@
     <Content Include="RecuperarContrasenia.aspx" />
     <Content Include="VerDetalleCurso.aspx" />
     <Content Include="Estudiante\EstudianteVerDetalleCurso.aspx" />
+    <Content Include="Profesor\VerResenias.aspx" />
     <Content Include="Web.config" />
     <Content Include="SignUp.aspx" />
     <Content Include="LogIn.aspx" />
@@ -429,6 +430,13 @@
     </Compile>
     <Compile Include="Estudiante\EstudianteVerDetalleCurso.aspx.designer.cs">
       <DependentUpon>EstudianteVerDetalleCurso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\VerResenias.aspx.cs">
+      <DependentUpon>VerResenias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\VerResenias.aspx.designer.cs">
+      <DependentUpon>VerResenias.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

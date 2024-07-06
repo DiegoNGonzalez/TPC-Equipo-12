@@ -11,52 +11,43 @@ namespace TPC_equipo_12
 {
 
 
-    public partial class ProfesorUnidades
+    public partial class VerResenias
     {
 
         /// <summary>
-        /// ButtonBackCursosProf control.
+        /// btnVolver control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonBackCursosProf;
+        protected global::System.Web.UI.WebControls.Button btnVolver;
 
         /// <summary>
-        /// ButtonCrearUnidadProf control.
+        /// lblResenia control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonCrearUnidadProf;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblResenia;
 
         /// <summary>
-        /// ButtonEliminarUnidadProf control.
+        /// LabelNoHayResenias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonEliminarUnidadProf;
+        protected global::System.Web.UI.WebControls.Label LabelNoHayResenias;
 
         /// <summary>
-        /// btnEstudiantesXCurso control.
+        /// RepeaterResenias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEstudiantesXCurso;
-
-        /// <summary>
-        /// rptUnidadesProf control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptUnidadesProf;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterResenias;
     }
 }

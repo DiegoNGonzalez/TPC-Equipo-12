@@ -10,6 +10,7 @@
         <asp:Button ID="ButtonEliminarUnidadProf" CssClass="btn btn-warning mb-3 mt-3" runat="server" Text="Habilitar/Deshabilitar Unidad" OnClick="ButtonEliminarUnidadProf_Click" />
 
         <asp:Button ID="btnEstudiantesXCurso" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Estudiantes" OnClick="btnEstudiantesXCurso_Click"/>
+        
 
         <h2>Lista de Unidades</h2>
         <div class="card-body">

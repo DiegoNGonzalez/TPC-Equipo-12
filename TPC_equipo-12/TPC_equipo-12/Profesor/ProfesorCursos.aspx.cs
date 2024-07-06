@@ -127,5 +127,11 @@ namespace TPC_equipo_12
                 Response.Redirect("ProfesorCursos.aspx", false);
             }
         }
+
+        protected void ButtonResenias_Command(object sender, CommandEventArgs e)
+        {
+            int idCurso = Convert.ToInt32(e.CommandArgument);
+            Response.Redirect("VerResenias.aspx?idCurso=" + idCurso,false);
+        }
     }
 }
