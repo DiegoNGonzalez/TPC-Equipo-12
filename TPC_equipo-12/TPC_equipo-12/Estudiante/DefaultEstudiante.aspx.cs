@@ -105,7 +105,7 @@ namespace TPC_equipo_12
                     else
                     {
                         inscripcionNegocio.reinscribir(inscripcionAuxiliar.IDInscripcion);
-                        notificacionNegocio.marcarComoNoLeida(idNotificacion);
+                        notificacionNegocio.marcarComoNoLeidaYMensaje(idNotificacion, "Nueva Reinscripción");
                         ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
 
                     }

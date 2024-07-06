@@ -300,12 +300,13 @@ namespace Negocio
                 Datos.CerrarConexion();
             }
         }
-        public void RechazarInscripcion(int idInscripcion)
+        public void RechazarInscripcion(int idInscripcion, char estado)
         {
             try
             {
-                Datos.SetearConsulta("update Inscripciones set Estado= 'R' where IdInscripcion= @IDInscripcion");
+                Datos.SetearConsulta("update Inscripciones set Estado= @Estado where IdInscripcion= @IDInscripcion");
                 Datos.SetearParametro("@IDInscripcion", idInscripcion);
+                Datos.SetearParametro("@Estado", estado);
                 Datos.EjecutarAccion();
             }
             catch (Exception ex)

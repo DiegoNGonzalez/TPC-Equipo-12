@@ -500,12 +500,13 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
-        public void marcarComoNoLeida(int idNotificacion)
+        public void marcarComoNoLeidaYMensaje(int idNotificacion, string mensaje)
         {
             try
             {
-                datos.SetearConsulta("UPDATE Notificaciones SET Leido = 0 WHERE IDNotificacion = @IDNotificacion");
+                datos.SetearConsulta("UPDATE Notificaciones SET Leido = 0, mensaje=@Mensaje WHERE IDNotificacion = @IDNotificacion");
                 datos.SetearParametro("@IDNotificacion", idNotificacion);
+                datos.SetearParametro("@Mensaje", mensaje);
                 datos.EjecutarAccion();
             }
             catch (Exception ex)
