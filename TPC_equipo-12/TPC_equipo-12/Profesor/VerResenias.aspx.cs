@@ -24,9 +24,6 @@ namespace TPC_equipo_12
                 resenias = reseniaNegocio.ListarReseniasXCurso(idCurso);
                 if (resenias.Count == 0)
                 {
-                    
-                    lblResenia.Style.Add("display", "none");
-
                     LabelNoHayResenias.Visible = true;
                     LabelNoHayResenias.Text = "No hay reseñas de este curso.";
                 }

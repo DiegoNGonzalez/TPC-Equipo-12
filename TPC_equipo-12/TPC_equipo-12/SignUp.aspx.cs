@@ -82,7 +82,7 @@ namespace TPC_equipo_12
                         UltimoID = usuarioNegocio.UltimoIdUsuario();
                         //profesor = usuarioNegocio.SetearProfesor(UltimoID);
                         auxNegocioProfesor.InsertarProfesor(UltimoID);
-                        //auxNegocioProfesor.InsertarCursosProfesorDEMO();
+                        auxNegocioProfesor.InsertarCursosProfesorDEMO();
                         Session["usuario"] = usuario;
                         Session["MensajeExito"] = "Profesor registrado con éxito!";
 

@@ -4,27 +4,30 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-        <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary" OnClick="btnVolver_Click" />
-        <div class="row">
-            <div class="col-12">
-                <h5 class="mt-4" id="lblResenia" runat="server">Reseñas:</h5>
-                <asp:Label ID="LabelNoHayResenias" runat="server" Visible="false"></asp:Label>
-                <asp:Repeater ID="RepeaterResenias" runat="server">
-                    <ItemTemplate>
-                        <ul class="list-group mb-4">
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <span class="badge bg-success rounded-pill"><%# Eval("Calificacion") %></span>
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold"><%# Eval("Estudiante.NombreCompleto") %></div>
-                                    <%# Eval("Comentario") %>.
-                                </div>
-                            </li>
-                        </ul>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </div>
+        <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary mt-2" OnClick="btnVolver_Click" />
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <asp:Label ID="LabelNoHayResenias" runat="server" Visible="false"></asp:Label>
+            <asp:Repeater ID="RepeaterResenias" runat="server">
+                <ItemTemplate>
+                    <div class="col">
+                        <div class="card h-100 text-center mt-3">
+                            <img src="https://e0.pxfuel.com/wallpapers/540/475/desktop-wallpaper-goku-instinct-ultra.jpg"
+                                class="card-img-top img-fluid w-50 rounded-circle mx-auto mt-2"
+                                alt="ImgPerfilEstudiante">
+                            <div class="card-body">
+                                <h5 class="card-title"><%# Eval("Estudiante.NombreCompleto") %></h5>
+                                <hr />
+                                <p class="card-text"><b>Calificacion: </b><%# Eval("Calificacion") %></p>
+                                <hr />
+                                <p class="card-text"><b>Reseña: </b><%# Eval("Comentario") %>.</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-body-secondary"><%# Eval("FechaCreacion") %></small>
+                            </div>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
-
-
     </div>
 </asp:Content>
