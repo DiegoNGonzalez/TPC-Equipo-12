@@ -67,10 +67,10 @@ namespace TPC_equipo_12
 
         protected void volverCursos_Click(object sender, EventArgs e)
         {
-            bool banderaVolver = (bool)Session["BanderaVolver"];
-            if (banderaVolver)
+            bool home = Convert.ToBoolean(Request.QueryString["home"]);
+            if (home)
             {
-                Session.Add("BanderaVolver", false);
+                
                 Response.Redirect("DefaultEstudiante.aspx", false);
             }
             else

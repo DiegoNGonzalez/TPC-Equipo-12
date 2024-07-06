@@ -156,9 +156,9 @@ namespace TPC_equipo_12
 
         protected void LinkButtonEstudiante_Command(object sender, CommandEventArgs e)
         {
-            Session.Add("BanderaVolver", true);
+            bool home= true;
             int idCurso = Convert.ToInt32(e.CommandArgument);
-            Response.Redirect("EstudianteVerDetalleCurso.aspx?idCurso=" + idCurso);
+            Response.Redirect("EstudianteVerDetalleCurso.aspx?idCurso=" + idCurso +"&home="+home);
 
         }
     }
