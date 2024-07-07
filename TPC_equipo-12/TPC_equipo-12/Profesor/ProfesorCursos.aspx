@@ -108,9 +108,9 @@
             <div class="row justify-content-center mt-5">
                 <asp:Repeater ID="RepeaterCursosInactivos" runat="server">
                     <ItemTemplate>
-                        <div class="card ms-5 mb-5 " style="width: 18rem; min-height: 24rem; opacity: 0.5;">
+                        <div class="card ms-5 mb-5 " style="width: 24rem; min-height: 28rem; opacity: 0.5;">
                             <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
-                            <div class="img-container" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            <div class="img-container mt-2" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
                                 <img src='<%# Eval("Imagen.URL") %>' class="card-img-top img-fluid" alt="..." style="max-height: 100%; width: auto;">
                             </div>
                             <div class="card-body text-center">
@@ -128,6 +128,7 @@
                             <div class="d-flex justify-content-center align-items-center mt-2">
                                 <asp:Button ID="ButtonHabilitar" runat="server" Text="Habilitar Curso" CssClass="btn btn-success btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonHabilitar_Command" />
                                 <asp:Button ID="ButtonFabrica" runat="server" Text="Volver a la Fabrica" CssClass="btn btn-primary btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonFabrica_Command" />
+                                <asp:Button ID="ButtonResenias" runat="server" Text="Reseñas" CssClass="btn btn-secondary btn-sm mx-2 mb-2" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="ButtonResenias_Command" />
                             </div>
                         </div>
                     </ItemTemplate>
