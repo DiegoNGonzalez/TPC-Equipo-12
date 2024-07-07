@@ -31,17 +31,16 @@ namespace Negocio
                     aux.Email = (string)Datos.Lector["Email"];
                     aux.ContraseniaHash = (string)Datos.Lector["ContraseniaHash"];
                     aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+                        aux.ImagenPerfil = new Imagen();
                     if (Datos.Lector["IDImagenes"] != DBNull.Value)
                     {
-                        aux.ImagenPerfil = new Imagen();
                         aux.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagenes"];
                         aux.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
                     }
                     else
                     {
-                        aux.ImagenPerfil = new Imagen();
                         aux.ImagenPerfil.IDImagen = 0;
-                        aux.ImagenPerfil.URL = "https://www.abc.com.py/resizer/1J9J9Q1";
+                        aux.ImagenPerfil.URL = "perfil-0.jpg";
                     }
 
                     aux.Estado = (bool)Datos.Lector["Estado"];
@@ -298,17 +297,16 @@ namespace Negocio
                     aux.ContraseniaHash = (string)Datos.Lector["ContraseniaHash"];
                     aux.ContraseniaSalt = (string)Datos.Lector["ContraseniaSalt"];
                     aux.EsProfesor = (bool)Datos.Lector["EsProfesor"];
+                        aux.ImagenPerfil = new Imagen();
                     if (Datos.Lector["IDImagenes"] != DBNull.Value)
                     {
-                        aux.ImagenPerfil = new Imagen();
                         aux.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagenes"];
                         aux.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
                     }
                     else
                     {
-                        aux.ImagenPerfil = new Imagen();
                         aux.ImagenPerfil.IDImagen = 0;
-                        aux.ImagenPerfil.URL = "https://www.abc.com.py/resizer/1J9J9Q1";
+                        aux.ImagenPerfil.URL = "perfil-0.jpg";
                     }
 
                     aux.Estado = (bool)Datos.Lector["Estado"];

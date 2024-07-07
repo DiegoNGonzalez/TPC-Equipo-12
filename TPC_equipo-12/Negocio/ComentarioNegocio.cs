@@ -238,7 +238,8 @@ namespace Negocio
                         c.IDUsuarioEmisor,
                         u.Nombre AS Nombre,
                         c.FechaCreacion,
-                        ISNULL(i.URLIMG, 'perfil-0.jpg') AS ImagenPerfilURL
+                        i.URLIMG,
+                        i.IDImagenes
                     FROM 
                         Comentarios c 
                     INNER JOIN 
@@ -257,14 +258,15 @@ namespace Negocio
                     comentario.UsuarioEmisor = new Usuario();
                     comentario.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDUsuarioEmisor"];
                     comentario.UsuarioEmisor.Nombre = (string)datos.Lector["Nombre"];
+                    comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
                     if (datos.Lector["ImagenPerfilURL"] != DBNull.Value)
                     {
-                        comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
+                        comentario.UsuarioEmisor.ImagenPerfil.IDImagen = (int)datos.Lector["IDImagenes"];
                         comentario.UsuarioEmisor.ImagenPerfil.URL = (string)datos.Lector["ImagenPerfilURL"];
                     }
                     else
                     {
-                        comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
+                        comentario.UsuarioEmisor.ImagenPerfil.IDImagen = 0;
                         comentario.UsuarioEmisor.ImagenPerfil.URL = "perfil-0.jpg";
                     }
                     comentario.FechaCreacion = (DateTime)datos.Lector["FechaCreacion"];

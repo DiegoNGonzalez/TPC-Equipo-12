@@ -97,7 +97,7 @@ namespace TPC_equipo_12
                 img.ImageUrl = "~/Images/" + profesor.ImagenPerfil.URL;
             else
                 img.ImageUrl = "~/Images/perfil-0.jpg";
-            
+            Response.Redirect("ProfesorMiPerfil.aspx", false);
         }
         protected bool ValidarFormulario()
         {

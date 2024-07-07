@@ -82,12 +82,6 @@ namespace TPC_equipo_12
                     Session.Add("Error", ex.ToString());
                     Response.Redirect("../Error.aspx");
                     throw ex;
-                    //ScriptManager.RegisterStartupScript(this, typeof(Page), "Info", @"<script>
-                    //        showMessage('Verifique su información, El usuario ya esta registrado!', 'info');
-                    //        setTimeout(function() {
-                    //        window.location.href = 'LogIn.aspx'; 
-                    //        }, 4000); 
-                    //        </script>", false); falta implementar validacion y luego hacer funcionar este script
                 }
             }
             
