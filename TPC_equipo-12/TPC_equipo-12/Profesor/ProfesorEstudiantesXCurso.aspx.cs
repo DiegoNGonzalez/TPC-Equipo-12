@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace TPC_equipo_12
 {
@@ -13,12 +14,13 @@ namespace TPC_equipo_12
         {
             if (!IsPostBack)
             {
-
+                ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
+                master.VerificarMensaje();
                 inscripciones = inscripcionNegocio.listarInscripcionesXCurso((int)Session["IDCursoProfesor"]);
                 if (inscripciones.Count == 0)
                 {
-                    Session["MensajeInfo"] = "No hay inscripciones en este curso.";
-                    Response.Redirect("ProfesorUnidades.aspx");
+                    lblNoInscripciones.Visible = true;
+                    pnlTablaInscripciones.Visible = false;
                 }
                 else
                 {
@@ -33,6 +35,30 @@ namespace TPC_equipo_12
         protected void btnVolver_Click(object sender, EventArgs e)
         {
             Response.Redirect("ProfesorUnidades.aspx");
+        }
+
+        protected void btnCancelarInscripcion_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idInscripcion = Convert.ToInt32(btn.CommandArgument);
+            InscripcionACurso aux = inscripcionNegocio.BuscarInscripcion(idInscripcion);
+            inscripcionNegocio.RechazarInscripcion(aux.IDInscripcion, 'C');
+            Usuario usuario = aux.Usuario;
+            NotificacionNegocio notificacionNegocio = new NotificacionNegocio();
+            int existeNotif = notificacionNegocio.buscarNotificacionXInscripcionXUsuario(aux.IDInscripcion, aux.Usuario.IDUsuario);
+            if (existeNotif != 0)
+            {
+                notificacionNegocio.marcarComoNoLeidaYMensaje(existeNotif, "Inscripción cancelada x Profesor, contactelo o reinscribase");
+                EstudianteNegocio estudianteNegocio = new EstudianteNegocio();
+
+                estudianteNegocio.Desuscribirse(usuario.IDUsuario, aux.Curso.IDCurso);
+                Session["MensajeInfo"] = "Inscripción cancelada.";
+                Response.Redirect("ProfesorEstudiantesXCurso.aspx", false);
+            }
+            //inscripciones = inscripcionNegocio.listarInscripcionesXCurso((int)Session["IDCursoProfesor"]);
+            //rptInscripciones.DataSource = inscripciones;
+            //rptInscripciones.DataBind();
+
         }
     }
 }

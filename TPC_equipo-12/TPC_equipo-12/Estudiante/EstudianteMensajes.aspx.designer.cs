@@ -49,5 +49,32 @@ namespace TPC_equipo_12
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelNoHayMensajes;
+
+        /// <summary>
+        /// PanelMensajesEnviados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelMensajesEnviados;
+
+        /// <summary>
+        /// rptMensajesEnviados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptMensajesEnviados;
+
+        /// <summary>
+        /// LabelNoHayMensajesEnviados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelNoHayMensajesEnviados;
     }
 }

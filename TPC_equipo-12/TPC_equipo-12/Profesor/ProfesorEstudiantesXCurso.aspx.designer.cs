@@ -24,6 +24,24 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Button btnVolver;
 
         /// <summary>
+        /// lblNoInscripciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoInscripciones;
+
+        /// <summary>
+        /// pnlTablaInscripciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTablaInscripciones;
+
+        /// <summary>
         /// rptInscripciones control.
         /// </summary>
         /// <remarks>

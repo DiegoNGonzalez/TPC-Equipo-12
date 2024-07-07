@@ -33,7 +33,7 @@ namespace TPC_equipo_12
                 listaCursos = cursoNegocio.ValidarCursosActivos(listaCursos);
                 rptProfesorCursos.DataSource = listaCursos;
                 rptProfesorCursos.DataBind();
-                MostrarCategoria();
+                
 
                 List<Curso> cursosInactivos = new List<Curso>();
                 cursosInactivos = cursoNegocio.ListarCursos();
@@ -41,7 +41,7 @@ namespace TPC_equipo_12
                 cursosInactivos = cursoNegocio.ValidarCursosInactivos(cursosInactivos);
                 RepeaterCursosInactivos.DataSource = cursosInactivos;
                 RepeaterCursosInactivos.DataBind();
-                MostrarCategoria();
+                
             }
         }
         protected void LinkButtonCursoProf_Command(object sender, CommandEventArgs e)
@@ -72,27 +72,7 @@ namespace TPC_equipo_12
             }
         }
 
-        private void MostrarCategoria()
-        {
-            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            foreach (RepeaterItem item in rptProfesorCursos.Items)
-            {
-                HiddenField hiddenFieldIDCurso = (HiddenField)item.FindControl("HiddenFieldIDCurso");
-                Label lblCategoria = (Label)item.FindControl("LabelCategoriaCurso");
-
-                if (hiddenFieldIDCurso != null && lblCategoria != null)
-                {
-                    int idCurso = int.Parse(hiddenFieldIDCurso.Value);
-                    if (categoriaNegocio.CategoriaNombreXIDCurso(idCurso) != "")
-                    {
-                    lblCategoria.Text = categoriaNegocio.CategoriaNombreXIDCurso(idCurso);
-                    } else
-                    {
-                        lblCategoria.Text = "Sin categoria";
-                    }
-                }
-            }
-        }
+       
 
         protected void ButtonHabilitar_Command(object sender, CommandEventArgs e)
         {

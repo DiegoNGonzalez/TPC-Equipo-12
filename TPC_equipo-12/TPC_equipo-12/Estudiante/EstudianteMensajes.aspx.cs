@@ -11,6 +11,7 @@ namespace TPC_equipo_12
     {
         public List<MensajeUsuario> mensajes = new List<MensajeUsuario>();
         public MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
+        public List<MensajeUsuario> mensajesEnviados = new List<MensajeUsuario>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["estudiante"] == null)
@@ -24,16 +25,29 @@ namespace TPC_equipo_12
                 master.VerificarMensaje();
 
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
-                mensajes = mensajeUsuarioNegocio.listarMensajes("recibidos",estudiante.IDUsuario);
+                mensajes = mensajeUsuarioNegocio.listarMensajes("recibidos", estudiante.IDUsuario);
                 if (mensajes.Count == 0)
                 {
                     PnlMensaje.Visible = false;
                     LabelNoHayMensajes.Visible = true;
-                }else
+                }
+                else
                 {
-                Session.Add("mensajes", mensajes);
-                rptMensajes.DataSource = mensajes;
-                rptMensajes.DataBind();
+                    Session.Add("mensajes", mensajes);
+                    rptMensajes.DataSource = mensajes;
+                    rptMensajes.DataBind();
+                }
+                mensajesEnviados = mensajeUsuarioNegocio.listarMensajes("enviados", estudiante.IDUsuario);
+                if (mensajesEnviados.Count == 0)
+                {
+                    PanelMensajesEnviados.Visible = false;
+                    LabelNoHayMensajesEnviados.Visible = true;
+                }
+                else
+                {
+                    Session.Add("mensajesEnviados", mensajesEnviados);
+                    rptMensajesEnviados.DataSource = mensajesEnviados;
+                    rptMensajesEnviados.DataBind();
                 }
             }
         }
@@ -64,5 +78,43 @@ namespace TPC_equipo_12
         {
             Response.Redirect("NuevoMensaje.aspx");
         }
+        protected void btnVerMensajeEnviado_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
+            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
+            Session.Add("mensaje", mensaje);
+            Response.Redirect("VerMensaje.aspx");
+        }
+
+        protected void btnVerMensajeEnviado_Command(object sender, CommandEventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
+            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
+            Session.Add("mensaje", mensaje);
+        }
+
+        protected void btnBorrarMensajeEnviado_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            mensajeUsuarioNegocio.BorrarMensaje(idMensaje);
+            Session["MensajeExito"] = "Mensaje eliminado con éxito.";
+            Response.Redirect("ProfesorMensajes.aspx");
+
+        }
+
+        protected void btnBorrarMensaje_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idMensaje = Convert.ToInt32(btn.CommandArgument);
+            mensajeUsuarioNegocio.BorrarMensaje(idMensaje);
+            Session["MensajeExito"] = "Mensaje eliminado con éxito.";
+            Response.Redirect("ProfesorMensajes.aspx");
+        }
+
     }
 }

@@ -109,7 +109,6 @@
     <Content Include="SignUp.aspx" />
     <Content Include="LogIn.aspx" />
     <Content Include="Profesor\DefaultProfesor.aspx" />
-    <Content Include="Profesor\ProfesorEstudiantes.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CambioContrasenia.aspx.cs">
@@ -395,13 +394,6 @@
     </Compile>
     <Compile Include="Estudiante\EstudianteMasterPage.Master.designer.cs">
       <DependentUpon>EstudianteMasterPage.Master</DependentUpon>
-    </Compile>
-    <Compile Include="Profesor\ProfesorEstudiantes.aspx.cs">
-      <DependentUpon>ProfesorEstudiantes.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Profesor\ProfesorEstudiantes.aspx.designer.cs">
-      <DependentUpon>ProfesorEstudiantes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profesor\VerMensaje.aspx.cs">
       <DependentUpon>VerMensaje.aspx</DependentUpon>
