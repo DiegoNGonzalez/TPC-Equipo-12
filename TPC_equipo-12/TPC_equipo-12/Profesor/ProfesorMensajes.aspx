@@ -43,7 +43,7 @@
                                             </td>
                                             <td>
                                                 <asp:Button ID="btnVerMensaje" runat="server" Text="Ver" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-primary" OnClick="btnVerMensaje_Click" OnCommand="btnVerMensaje_Command" />
-                                                <asp:Button ID="btnBorrarMensaje" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-danger" OnClick="btnBorrarMensaje_Click" />
+                                                
                                             </td>
                                         </tr>
                                     </ItemTemplate>
@@ -94,7 +94,7 @@
                                             </td>
                                             <td>
                                                 <asp:Button ID="btnVerMensajeEnviado" runat="server" Text="Ver" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-primary" OnClick="btnVerMensajeEnviado_Click" OnCommand="btnVerMensajeEnviado_Command" />
-                                                <asp:Button ID="btnBorrarMensajeEnviado" runat="server" Text="Eliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdMensaje") %>' CssClass="btn btn-danger" OnClick="btnBorrarMensajeEnviado_Click" />
+                                                
                                             </td>
                                         </tr>
                                     </ItemTemplate>

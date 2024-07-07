@@ -9,10 +9,11 @@ namespace Negocio
     public class MensajeUsuarioNegocio
     {
         private Datos datos;
+        private UsuarioNegocio UsuarioNegocio = new UsuarioNegocio();
         public MensajeUsuarioNegocio()
         {
             datos = new Datos();
-
+            UsuarioNegocio = new UsuarioNegocio();
         }
 
         public List<MensajeUsuario> listarMensajes(string consulta, int IDUsuario)
@@ -22,12 +23,12 @@ namespace Negocio
             {
                 if (consulta == "recibidos")
                 {
-                    datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto, m.Leido from Mensajes m WHERE m.IDReceptor = @IDUsuario");
+                    datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto, m.Leido from Mensajes m WHERE m.IDReceptor = @IDUsuario order by m.FechaHora desc");
                     datos.SetearParametro("@IDUsuario", IDUsuario);
                 }
                 else if (consulta == "enviados")
                 {
-                    datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto, m.Leido from Mensajes m WHERE m.IDEmisor = @IDUsuario");
+                    datos.SetearConsulta("select m.IDMensaje, m.Mensaje, m.FechaHora, m.IDEmisor, m.IDReceptor, m.Asunto, m.Leido from Mensajes m WHERE m.IDEmisor = @IDUsuario order by m.FechaHora desc");
                     datos.SetearParametro("@IDUsuario", IDUsuario);
                 }
                 datos.EjecutarLectura();
@@ -270,6 +271,60 @@ namespace Negocio
             {
 
                 throw;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public MensajeRespuesta buscarRespuesta(int idRespuesta)
+        {
+            if (idRespuesta == 0)
+            {
+                return null;
+            }
+            try
+            {
+                MensajeRespuesta aux = new MensajeRespuesta();
+                datos.SetearConsulta("select r.IDRespuesta, r.IDMensaje, r.Respuesta, r.FechaHora, r.IDEmisor from Respuestas r WHERE r.IDRespuesta = @IDRespuesta");
+                datos.SetearParametro("@IDRespuesta", idRespuesta);
+                datos.EjecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    aux.IDRespuesta = (int)datos.Lector["IDRespuesta"];
+                    aux.IDMensajeOriginal = (int)datos.Lector["IDMensaje"];
+                    aux.Texto = (string)datos.Lector["Respuesta"];
+                    aux.FechaHora = (DateTime)datos.Lector["FechaHora"];
+                    aux.UsuarioEmisor = new Usuario();
+                    aux.UsuarioEmisor= UsuarioNegocio.buscarUsuario((int)datos.Lector["IDEmisor"]);
+                }
+                return aux;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public void MarcarComoLeido(int idMensaje)
+        {
+            try
+            {
+                datos.SetearConsulta("update Mensajes set Leido = 1 where IDMensaje = @IDMensaje");
+                datos.SetearParametro("@IDMensaje", idMensaje);
+                datos.EjecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
             finally
             {

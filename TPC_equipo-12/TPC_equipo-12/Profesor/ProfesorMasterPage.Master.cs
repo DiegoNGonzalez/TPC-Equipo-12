@@ -63,11 +63,17 @@ namespace TPC_equipo_12
                     }
                     else if (notificacion.Tipo == "Mensaje")
                     {
+                        MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
+                        notificacion.Mensaje = mensajeUsuarioNegocio.BuscarMensaje(notificacion.Mensaje.IDMensaje);
+
                         urlRedireccion = $"DefaultProfesor.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Mensaje&idMensaje={notificacion.Mensaje.IDMensaje}";
                     }
                     else if (notificacion.Tipo == "Respuesta")
                     {
-                        urlRedireccion = $"DefaultProfesor.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Respuesta&idRespuesta={notificacion.MensajeRespuesta.IDRespuesta}";
+                        MensajeUsuarioNegocio mensajeUsuarioNegocio = new MensajeUsuarioNegocio();
+                        notificacion.MensajeRespuesta= mensajeUsuarioNegocio.buscarRespuesta(notificacion.MensajeRespuesta.IDRespuesta);
+
+                        urlRedireccion = $"DefaultProfesor.aspx?accion=redirigir&id={notificacion.IDNotificacion}&tipo=Respuesta&idRespuesta={notificacion.MensajeRespuesta.IDRespuesta}&idMensaje={notificacion.MensajeRespuesta.IDMensajeOriginal}";
                     }
                     else if (notificacion.Tipo == "Comentario")
                     {
@@ -103,12 +109,13 @@ namespace TPC_equipo_12
             else if (tipo == "Mensaje")
             {
                 int idMensaje = Convert.ToInt32(Request.QueryString["idMensaje"]);
-                Response.Redirect("ProfesorMensajes.aspx");
+                Response.Redirect($"VerMensaje.aspx?idMensaje={idMensaje}");
             }
             else if(tipo =="Respuesta")
             {
                 int idRespuesta = Convert.ToInt32(Request.QueryString["idRespuesta"]);
-                Response.Redirect("ProfesorMensajes.aspx");
+                int idMensaje = Convert.ToInt32(Request.QueryString["idMensaje"]);
+                Response.Redirect($"VerMensaje.aspx?idRespuesta={idRespuesta}&idMensaje={idMensaje}");
             }else if(tipo=="Comentario")
             {
                 int idLeccion = Convert.ToInt32(Request.QueryString["idLeccion"]);
