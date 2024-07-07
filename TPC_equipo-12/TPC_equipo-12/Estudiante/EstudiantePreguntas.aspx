@@ -5,7 +5,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <<div class="container">
         <asp:Button ID="btnVolver" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver" OnClick="btnVolver_Click" />
-        <!-- Repeater para mostrar el comentario padre -->
         <asp:Repeater ID="rptComentarioPadre" runat="server">
             <ItemTemplate>
                 <div class="card mb-3">
@@ -43,7 +42,6 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-        <!-- Formulario para agregar respuesta -->
         <div class="mt-5">
             <div class="card mt-3">
                 <div class="card-body">

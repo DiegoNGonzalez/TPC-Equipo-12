@@ -34,24 +34,20 @@ namespace TPC_equipo_12
 
             try
             {
-                // Consulta para cargar el comentario padre con la imagen de perfil
                 datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
                 datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
                 datos.EjecutarLectura();
                 dtPadre.Load(datos.Lector);
                 datos.CerrarConexion();
 
-                // Limpiar parámetros antes de la siguiente consulta
                 datos.LimpiarParametros();
 
-                // Consulta para cargar las respuestas con las imágenes de perfil
                 datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentarioPadre = @IdComentarioPadre");
                 datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
                 datos.EjecutarLectura();
                 dtRespuestas.Load(datos.Lector);
                 datos.CerrarConexion();
 
-                // Asignar datos al Repeater
                 rptComentarioPadre.DataSource = dtPadre;
                 rptComentarioPadre.DataBind();
 
@@ -60,7 +56,6 @@ namespace TPC_equipo_12
             }
             catch (Exception ex)
             {
-                // Manejar la excepción
                 throw ex;
             }
             finally
@@ -85,7 +80,7 @@ namespace TPC_equipo_12
                     {
                         datos.SetearConsulta("INSERT INTO Comentarios (IDComentarioPadre, IDLeccion, IDUsuarioEmisor, CuerpoComentario, FechaCreacion, IDImagen, Estado) VALUES (@IDComentarioPadre, @IDLeccion, @IDUsuarioEmisor, @CuerpoComentario, @FechaCreacion, @IdImagen, @Estado)");
                         datos.SetearParametro("@IDComentarioPadre", idComentarioPadre);
-                        datos.SetearParametro("@IDLeccion", Session["IDLeccion"]); // Suponiendo que tienes una función para obtener el ID de la lección actual
+                        datos.SetearParametro("@IDLeccion", Session["IDLeccion"]); 
                         datos.SetearParametro("@IDUsuarioEmisor", usuarioActual.IDUsuario);
                         datos.SetearParametro("@CuerpoComentario", cuerpoRespuesta);
                         datos.SetearParametro("@FechaCreacion", DateTime.Now);
@@ -95,15 +90,13 @@ namespace TPC_equipo_12
                     }
                     catch (Exception ex)
                     {
-                        // Manejar la excepción
-                        throw new Exception("Error al guardar la respuesta", ex);
+                        throw ex;
                     }
                     finally
                     {
                         datos.CerrarConexion();
                     }
 
-                    // Recargar los comentarios después de insertar la respuesta
                     txtRespuesta.Text = "";
                     cargarComentarioPrincipalYrespuestas(idComentarioPadre);
                 }

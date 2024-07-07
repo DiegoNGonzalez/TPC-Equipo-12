@@ -16,23 +16,20 @@ namespace TPC_equipo_12
             
             if (!IsPostBack)
             {
-                // Verificar si existe el parámetro 'token' en la URL
                 if (Request.QueryString["token"] != null)
                 {
                     string token = Request.QueryString["token"];
 
-                    // Aquí deberías implementar la lógica para validar el token
                     bool tokenValido = seguridad.ValidarToken(token);
 
                     if (!tokenValido)
                     {
-                        Session["MensajeError"] = "Token invalido para cambiar contraseña!";
+                        Session["MensajeError"] = "Link invalido!";
                         Response.Redirect("LogIn.aspx");
                     }
                 }
                 else
                 {
-                    // Si no se proporciona el token en la URL, manejar el escenario correspondiente
                     
                     Response.Redirect("LogIn.aspx");
                 }
@@ -52,7 +49,6 @@ namespace TPC_equipo_12
                 string nuevaContrasenia = txtNuevaContraseña.Text.Trim();
                 string confirmarContrasenia = txtConfirmarContraseña.Text.Trim();
 
-                // Actualizar la contraseña en la base de datos
                 int IDusuario = seguridad.ObtenerIdUsuarioPorToken(token);
                 if (IDusuario != 0)
                 {

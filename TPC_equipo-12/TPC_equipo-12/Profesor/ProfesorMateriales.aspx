@@ -33,10 +33,10 @@
         <asp:Repeater ID="rptComentarios" runat="server">
             <ItemTemplate>
                 <div class="card mb-3">
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <div class="media">
                             <div class="mr-3">
-                                <asp:Image ID="imgPerfil" runat="server" CssClass="mg-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("UsuarioEmisor.IDUsuario") + ".jpg" %>' />
+                                <asp:Image ID="imgPerfil" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("UsuarioEmisor.IDUsuario") + ".jpg" %>' />
                             </div>
                             <div class="media-body">
                                 <p class="card-text"><strong><%# Eval("UsuarioEmisor.NombreCompleto") %>:</strong> <%# Eval("CuerpoComentario") %></p>
@@ -44,6 +44,8 @@
                                 <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
                             </div>
                         </div>
+                    </div>
+                </div>
             </ItemTemplate>
         </asp:Repeater>
     </div>

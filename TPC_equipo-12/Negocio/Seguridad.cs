@@ -26,7 +26,6 @@ namespace Negocio
                 datos.CerrarConexion();
                 if (tokenExiste > 0)
                 {
-                    // Si ya existe un token para este usuario, actualiza el token y la fecha de expiración
                     datos.SetearConsulta("UPDATE ReiniciosContrasenias SET Token = @Token, FechaExpiracion = DATEADD(MINUTE, 30, GETDATE()) WHERE IDUsuario = @IDUsuario");
                     datos.SetearParametro("@Token", token);
                     datos.SetearParametro("@IDUsuario", IDUsuario);
@@ -34,7 +33,6 @@ namespace Negocio
                 }
                 else
                 {
-                    // Si no existe un token para este usuario, inserta uno nuevo
                     datos.SetearConsulta("INSERT INTO ReiniciosContrasenias (IDUsuario, Token, FechaExpiracion) VALUES (@IDUsuario, @Token, DATEADD(MINUTE, 30, GETDATE()))");
                     datos.SetearParametro("@IDUsuario", IDUsuario);
                     datos.SetearParametro("@Token", token);

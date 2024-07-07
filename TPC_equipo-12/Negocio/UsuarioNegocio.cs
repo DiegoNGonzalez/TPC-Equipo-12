@@ -499,12 +499,10 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-                // Manejar excepción
                 throw ex;
             }
             finally
             {
-                // Limpiar parámetros y cerrar conexión
                 Datos.LimpiarParametros();
                 Datos.CerrarConexion();
             }

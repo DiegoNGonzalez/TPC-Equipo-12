@@ -6,7 +6,7 @@
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title text-center">Cambiar Contraseña</h5>
+                <h5 class="card-title text-center">Recuperar Contraseña</h5>
                 <div class="mb-3">
                     <asp:Label ID="lblEmail" runat="server" Text="Email" CssClass="form-label" />
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" />
