@@ -47,7 +47,7 @@
                     <div class="card-body">
                         <div class="media">
                             <div class="mr-3">
-                                <asp:Image ID="imgPerfilRespuesta" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("UsuarioEmisor.IDUsuario").ToString() + ".jpg" %>' />
+                                <asp:Image ID="imgPerfilRespuesta" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "UsuarioEmisor.Imagen.URL" %>' />
                             </div>
                             <div class="media-body">
                                 <h5 class="card-title">Respuesta</h5>

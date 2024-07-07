@@ -80,7 +80,6 @@ namespace TPC_equipo_12
                         }
                         usuarioNegocio.AgregarUsuario(usuario, Contrasenia);
                         UltimoID = usuarioNegocio.UltimoIdUsuario();
-                        //profesor = usuarioNegocio.SetearProfesor(UltimoID);
                         auxNegocioProfesor.InsertarProfesor(UltimoID);
                         auxNegocioProfesor.InsertarCursosProfesorDEMO();
                         Session["usuario"] = usuario;

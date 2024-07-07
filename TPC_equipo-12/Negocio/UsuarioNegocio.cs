@@ -47,7 +47,7 @@ namespace Negocio
                     {
                         aux.ImagenPerfil = new Imagen();
                         aux.ImagenPerfil.IDImagen = 0;
-                        aux.ImagenPerfil.URL = "https://www.abc.com.py/resizer/1J9J9Q1";
+                        aux.ImagenPerfil.URL = "perfil-0.jpg";
                     }
 
 
@@ -288,7 +288,6 @@ namespace Negocio
                     profesor.Nombre = (string)Datos.Lector["Nombre"];
                     profesor.Apellido = (string)Datos.Lector["Apellido"];
                     profesor.DNI = (int)Datos.Lector["DNI"];
-                    //profesor.Genero = (string)Datos.Lector["Genero"];
                     if (Datos.Lector["Genero"] != DBNull.Value)
                     {
                         profesor.Genero = (string)Datos.Lector["Genero"];
@@ -310,6 +309,7 @@ namespace Negocio
                     else
                     {
                         profesor.ImagenPerfil.IDImagen = 0;
+                        profesor.ImagenPerfil.URL = "perfil - 0.jpg";
                     }
                 }
                 return profesor;
@@ -343,7 +343,6 @@ namespace Negocio
                     estudiante.Nombre = (string)Datos.Lector["Nombre"];
                     estudiante.Apellido = (string)Datos.Lector["Apellido"];
                     estudiante.DNI = (int)Datos.Lector["DNI"];
-                    //estudiante.Genero = (string)Datos.Lector["Genero"];
                     if (Datos.Lector["Genero"] != DBNull.Value)
                     {
                         estudiante.Genero = (string)Datos.Lector["Genero"];
@@ -365,6 +364,7 @@ namespace Negocio
                     else
                     {
                         estudiante.ImagenPerfil.IDImagen = 0;
+                        estudiante.ImagenPerfil.URL = "perfil - 0.jpg";
                     }
                 }
                 return estudiante;
@@ -387,7 +387,7 @@ namespace Negocio
             Usuario usuario = new Usuario();
             try
             {
-                Datos.SetearConsulta("select IDUsuario, Nombre, Apellido, DNI, Genero, Email, ContraseniaHash, ContraseniaSalt, EsProfesor, IDImagen from Usuarios where IDUsuario = @IDUsuario");
+                Datos.SetearConsulta("select U.IDUsuario, U.Nombre, U.Apellido, U.DNI, U.Genero, U.Email, U.ContraseniaHash, U.ContraseniaSalt, U.EsProfesor, U.IDImagen, I.URLIMG from Usuarios U Left Join Imagenes I On I.IDImagenes = U.IDImagen where IDUsuario = @IDUsuario");
                 Datos.SetearParametro("@IDUsuario", idUsuario);
                 Datos.EjecutarLectura();
                 while (Datos.Lector.Read())
@@ -405,10 +405,12 @@ namespace Negocio
                     if (Datos.Lector["IDImagen"] != DBNull.Value)
                     {
                         usuario.ImagenPerfil.IDImagen = (int)Datos.Lector["IDImagen"];
+                        usuario.ImagenPerfil.URL = (string)Datos.Lector["URLIMG"];
                     }
                     else
                     {
                         usuario.ImagenPerfil.IDImagen = 0;
+                        usuario.ImagenPerfil.URL = "perfil-0.jpg";
                     }
 
 
