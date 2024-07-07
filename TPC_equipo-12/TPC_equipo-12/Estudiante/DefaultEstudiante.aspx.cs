@@ -150,10 +150,11 @@ namespace TPC_equipo_12
         {
             string busqueda = txtBuscar.Text;
             List<Curso> cursosNoInscriptos = (List<Curso>)Session["cursosNoInscriptos"];
-            List<Curso> listaFiltrada = cursosNoInscriptos.FindAll(x => x.Nombre.ToUpper().Contains(busqueda.ToUpper()) || x.Descripcion.ToUpper().Contains(busqueda.ToUpper()) || x.Categoria.Nombre.Contains(busqueda.ToUpper()));
+            List<Curso> listaFiltrada = cursosNoInscriptos.FindAll(x => x.Nombre.ToUpper().Contains(busqueda.ToUpper()) || x.Descripcion.ToUpper().Contains(busqueda.ToUpper()) || x.Categoria.Nombre.ToUpper().Contains(busqueda.ToUpper()));
             if (listaFiltrada.Count == 0)
             {
                 lblMensaje.Text = "No se encontraron resultados";
+                UpdatePanelCursos.Visible = false;
             }
             else
             {
@@ -171,6 +172,7 @@ namespace TPC_equipo_12
             rptCursos.DataSource = lista;
             rptCursos.DataBind();
             lblMensaje.Text = "";
+            UpdatePanelCursos.Visible = true;
         }
 
         protected void chkFiltrar_CheckedChanged(object sender, EventArgs e)
@@ -206,6 +208,7 @@ namespace TPC_equipo_12
                 if (listaFiltrada.Count == 0)
                 {
                     lblMensaje.Text = "No se encontraron resultados";
+                    UpdatePanelCursos.Visible = false;
                 }
                 else
                 {
@@ -229,6 +232,7 @@ namespace TPC_equipo_12
             rptCursos.DataSource = lista;
             rptCursos.DataBind();
             lblMensaje.Text = "";
+            UpdatePanelCursos.Visible = true;
         }
     }
 }

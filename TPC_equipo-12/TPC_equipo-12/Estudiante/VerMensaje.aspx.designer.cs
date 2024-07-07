@@ -33,15 +33,6 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Label lblAsunto;
 
         /// <summary>
-        /// lblFecha control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFecha;
-
-        /// <summary>
         /// lblMensaje control.
         /// </summary>
         /// <remarks>

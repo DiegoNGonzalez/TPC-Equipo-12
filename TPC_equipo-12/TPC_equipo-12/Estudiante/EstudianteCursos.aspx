@@ -13,7 +13,7 @@
         </div>
         <div class="row mb-5 text-center justify-content-center">
             <div class="col-md-3">
-                <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" Placeholder="Busqueda de cursos..." />
+                <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" Placeholder="Busqueda de cursos..." onkeydown="return handleEnter(event);"/>
             </div>
             <div class="col-md-2">
                 <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
@@ -85,6 +85,17 @@
             } else {
                 element.classList.add("text-truncate");
             }
+        }
+        function handleEnter(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+
+
+                __doPostBack('<%= btnBuscar.UniqueID %>', '');
+
+                return false;
+            }
+            return true;
         }
     </script>
 </asp:Content>

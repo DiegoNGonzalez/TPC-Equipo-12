@@ -40,11 +40,10 @@ namespace TPC_equipo_12
                 
                 ltlRespuestas.Text = htmlRespuestas;
 
-                
-                lblAsunto.Text = mensaje.Asunto;
-                lblFecha.Text = mensaje.FechaHora.ToString();
-                lblDe.Text = mensaje.UsuarioEmisor.Nombre + " " + mensaje.UsuarioEmisor.Apellido;
-                lblMensaje.Text = mensaje.Mensaje;
+
+                lblAsunto.Text = $"<b>Asunto: {mensaje.Asunto}</b><br/>";
+                lblDe.Text = $"<b>{mensaje.UsuarioEmisor.Nombre} {mensaje.UsuarioEmisor.Apellido} ({mensaje.FechaHora.ToString()})</b><br/>";
+                lblMensaje.Text = $"<b>Mensaje: </b>{mensaje.Mensaje}<br/>";
 
 
 

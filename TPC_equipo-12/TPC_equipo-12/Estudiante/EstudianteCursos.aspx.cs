@@ -13,6 +13,8 @@ namespace TPC_equipo_12
     {
 
         public List<Curso> listaCursosInscriptos = new List<Curso>();
+        public CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+        public List<CategoriaCurso> categorias = new List<CategoriaCurso>();
         protected void Page_Load(object sender, EventArgs e)
         {
             List<InscripcionACurso> listaInscripciones = new List<InscripcionACurso>();
@@ -26,10 +28,12 @@ namespace TPC_equipo_12
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
 
+                Filtrado.Visible = false;
+
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
                 rptCursos.DataSource = estudiante.Cursos;
                 rptCursos.DataBind();
-                
+                cargarDropdownCategoria();
             }
 
         }
@@ -74,27 +78,96 @@ namespace TPC_equipo_12
 
         protected void btnLimpiarFiltro_Click(object sender, EventArgs e)
         {
-
+            ddlCategorias.SelectedIndex = 0;
+            Estudiante estudiante = (Estudiante)Session["estudiante"];
+            List<Curso> lista = estudiante.Cursos;
+            rptCursos.DataSource = lista;
+            rptCursos.DataBind();
+            lblMensaje.Text = "";
+            UpdatePanelCursos.Visible = true;
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-
+            Estudiante estudiante = (Estudiante)Session["estudiante"];
+            List<Curso> cursos = estudiante.Cursos;
+            int idCategoria = Convert.ToInt32(ddlCategorias.SelectedValue);
+            if (idCategoria != 0)
+            {
+                List<Curso> listaFiltrada = cursos.FindAll(x => x.Categoria.IDCategoria == idCategoria);
+                if (listaFiltrada.Count == 0)
+                {
+                    lblMensaje.Text = "No se encontraron resultados";
+                    UpdatePanelCursos.Visible = false;
+                }
+                else
+                {
+                    rptCursos.DataSource = listaFiltrada;
+                    rptCursos.DataBind();
+                    lblMensaje.Text = "";
+                }
+            }
+            else
+            {
+                rptCursos.DataSource = cursos;
+                rptCursos.DataBind();
+                lblMensaje.Text = "";
+            }
         }
 
         protected void chkFiltrar_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (chkFiltrar.Checked == true)
+            {
+                Filtrado.Visible = true;
+            }
+            else
+            {
+                Estudiante estudiante = (Estudiante)Session["estudiante"];
+                Filtrado.Visible = false;
+                rptCursos.DataSource = estudiante.Cursos;
+                rptCursos.DataBind();
+            }
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
-
+            txtBuscar.Text = "";
+            Estudiante estudiante = (Estudiante)Session["estudiante"];
+            rptCursos.DataSource = estudiante.Cursos;
+            rptCursos.DataBind();
+            lblMensaje.Text = "";
+            UpdatePanelCursos.Visible = true;
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
+            string busqueda = txtBuscar.Text;
+            Estudiante estudiante = (Estudiante)Session["estudiante"];
+            List<Curso> cursos = estudiante.Cursos;
+            List<Curso> listaFiltrada = cursos.FindAll(x => x.Nombre.ToUpper().Contains(busqueda.ToUpper()) || x.Descripcion.ToUpper().Contains(busqueda.ToUpper()) || x.Categoria.Nombre.ToUpper().Contains(busqueda.ToUpper()));
+            if (listaFiltrada.Count == 0)
+            {
+                lblMensaje.Text = "No se encontraron resultados";
+                UpdatePanelCursos.Visible = false;
+            }
+            else
+            {
+                rptCursos.DataSource = listaFiltrada;
+                rptCursos.DataBind();
+                lblMensaje.Text = "";
 
+            }
+        }
+        protected void cargarDropdownCategoria()
+        {
+            categoriaNegocio = new CategoriaNegocio();
+            categorias = categoriaNegocio.ListarCategorias();
+            ddlCategorias.DataSource = categorias;
+            ddlCategorias.DataTextField = "Nombre";
+            ddlCategorias.DataValueField = "IDCategoria";
+            ddlCategorias.DataBind();
+            ddlCategorias.Items.Insert(0, new ListItem("Todas las categorias", "0"));
         }
     }
 }
