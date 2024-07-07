@@ -28,9 +28,6 @@ namespace TPC_equipo_12
                 master.VerificarMensaje();
                 listaCursos = cursoNegocio.ListarCursos();
 
-                cargarDropdownCategoria();
-                Filtrado.Visible = false;
-
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
 
                 EstaInscripto(listaCursos);
@@ -47,6 +44,7 @@ namespace TPC_equipo_12
                 rptCursos.DataSource = cursosNoInscriptos;
                 rptCursos.DataBind();
                 
+                cargarDropdownCategoria();
             }
         }
 
@@ -136,8 +134,54 @@ namespace TPC_equipo_12
 
             }
         }
-     
 
+        protected void btnLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+            ddlCategorias.SelectedIndex = 0;
+            List<Curso> lista = (List<Curso>)Session["cursosNoInscriptos"];
+            rptCursos.DataSource = lista;
+            rptCursos.DataBind();
+            lblMensaje.Text = "";
+            UpdatePanelCursos.Visible = true;
+        }
+        protected void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            List<Curso> cursos = (List<Curso>)Session["cursosNoInscriptos"];
+            int idCategoria = Convert.ToInt32(ddlCategorias.SelectedValue);
+            if (idCategoria != 0)
+            {
+                List<Curso> listaFiltrada = cursos.FindAll(x => x.Categoria.IDCategoria == idCategoria);
+                if (listaFiltrada.Count == 0)
+                {
+                    lblMensaje.Text = "No se encontraron resultados";
+                    UpdatePanelCursos.Visible = false;
+                }
+                else
+                {
+                    UpdatePanelCursos.Visible = true;
+                    rptCursos.DataSource = listaFiltrada;
+                    rptCursos.DataBind();
+                    lblMensaje.Text = "";
+                }
+            }
+            else
+            {
+                rptCursos.DataSource = cursos;
+                rptCursos.DataBind();
+                lblMensaje.Text = "";
+                UpdatePanelCursos.Visible = true;
+            }
+        }
+        protected void cargarDropdownCategoria()
+        {
+            categoriaNegocio = new CategoriaNegocio();
+            categorias = categoriaNegocio.ListarCategorias();
+            ddlCategorias.DataSource = categorias;
+            ddlCategorias.DataTextField = "Nombre";
+            ddlCategorias.DataValueField = "IDCategoria";
+            ddlCategorias.DataBind();
+            ddlCategorias.Items.Insert(0, new ListItem("Todas las categorias", "0"));
+        }
         protected void LinkButtonEstudiante_Command(object sender, CommandEventArgs e)
         {
             bool home= true;
@@ -161,6 +205,7 @@ namespace TPC_equipo_12
                 rptCursos.DataSource = listaFiltrada;
                 rptCursos.DataBind();
                 lblMensaje.Text = "";
+                UpdatePanelCursos.Visible = true;
 
             }
         }
@@ -168,66 +213,6 @@ namespace TPC_equipo_12
         protected void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtBuscar.Text = "";
-            List<Curso> lista = (List<Curso>)Session["cursosNoInscriptos"];
-            rptCursos.DataSource = lista;
-            rptCursos.DataBind();
-            lblMensaje.Text = "";
-            UpdatePanelCursos.Visible = true;
-        }
-
-        protected void chkFiltrar_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkFiltrar.Checked == true)
-            {
-                Filtrado.Visible = true;
-            }
-            else
-            {
-                Filtrado.Visible = false;
-                rptCursos.DataSource = (List<Curso>)Session["cursosNoInscriptos"];
-                rptCursos.DataBind();
-            }
-        }
-        protected void cargarDropdownCategoria()
-        {
-            categorias = categoriaNegocio.ListarCategorias();
-            ddlCategorias.DataSource = categorias;
-            ddlCategorias.DataTextField = "Nombre";
-            ddlCategorias.DataValueField = "IDCategoria";
-            ddlCategorias.DataBind();
-            ddlCategorias.Items.Insert(0, new ListItem("Todas las categorias", "0"));
-        }
-
-        protected void btnFiltrar_Click(object sender, EventArgs e)
-        {
-            List <Curso> cursos = (List<Curso>)Session["cursosNoInscriptos"];
-            int idCategoria = Convert.ToInt32(ddlCategorias.SelectedValue);
-            if (idCategoria != 0)
-            {
-                List<Curso> listaFiltrada = cursos.FindAll(x => x.Categoria.IDCategoria == idCategoria);
-                if (listaFiltrada.Count == 0)
-                {
-                    lblMensaje.Text = "No se encontraron resultados";
-                    UpdatePanelCursos.Visible = false;
-                }
-                else
-                {
-                    rptCursos.DataSource = listaFiltrada;
-                    rptCursos.DataBind();
-                    lblMensaje.Text = "";
-                }
-            }
-            else
-            {
-                rptCursos.DataSource = cursos;
-                rptCursos.DataBind();
-                lblMensaje.Text = "";
-            }
-        }
-
-        protected void btnLimpiarFiltro_Click(object sender, EventArgs e)
-        {
-            ddlCategorias.SelectedIndex = 0;
             List<Curso> lista = (List<Curso>)Session["cursosNoInscriptos"];
             rptCursos.DataSource = lista;
             rptCursos.DataBind();

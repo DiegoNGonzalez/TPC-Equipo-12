@@ -5,41 +5,40 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <link href="../Custom/styles.css" rel="stylesheet" />
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center mb-5">
-                <h1 class="text-center">Mis Cursos</h1>
-            </div>
-        </div>
-        <div class="row mb-5 text-center justify-content-center">
-            <div class="col-md-3">
-                <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control" Placeholder="Busqueda de cursos..." onkeydown="return handleEnter(event);"/>
-            </div>
-            <div class="col-md-2">
-                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="btnBuscar_Click" />
+<div class="container position-relative">
+    <div class="row position-relative">
+        <div class="col-md-12 mb-1 text-center mt-2">
+            <h2 class="d-inline">Cursos Disponibles</h2>
+            <div class="position-absolute top-0 end-0 d-flex mt-3">
+                <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control me-2" Placeholder="Busqueda de cursos..." onkeydown="return handleEnter(event);" />
+                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary me-2" OnClick="btnBuscar_Click" />
                 <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-primary" OnClick="btnLimpiar_Click" />
             </div>
-
-            <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger"></asp:Label>
+            <div class="mt-3">
+                <asp:Label ID="Label1" runat="server" CssClass="text-danger"></asp:Label>
+            </div>
         </div>
-        <div class="bg-primary rounded mb-5" style="width: 80px;">
-            <asp:CheckBox ID="chkFiltrar" runat="server" CssClass="px-1 ms-1" OnCheckedChanged="chkFiltrar_CheckedChanged" AutoPostBack="True" />
-            <asp:Label class="form-check-label text-white" runat="server" for="chkFiltrar">Filtrar</asp:Label>
-        </div>
-        <div class="row mb-5 text-center justify-content-center" id="Filtrado" runat="server">
-
-            <div class="col-md-4">
-                <asp:Label ID="lblCategoria" runat="server" Text="Categoria" CssClass="text-white text-decoration-underline"></asp:Label>
-                <asp:DropDownList ID="ddlCategorias" runat="server" CssClass="form-select mb-1">
+    </div>
+    <div class="row position-relative">
+        <div class="col-md-12">
+            <div class="position-absolute top-0 end-0 d-flex">
+                <asp:DropDownList ID="ddlCategorias" runat="server" CssClass="form-select me-2">
                     <asp:ListItem Text="Todas" Value="0" />
                 </asp:DropDownList>
-                <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary" OnClick="btnFiltrar_Click" />
+                <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary me-2" OnClick="btnFiltrar_Click" />
                 <asp:Button ID="btnLimpiarFiltro" runat="server" Text="Limpiar" CssClass="btn btn-primary" OnClick="btnLimpiarFiltro_Click" />
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="row">
+            <div class="col-md-12">
+                <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger"></asp:Label>
             </div>
         </div>
         <asp:UpdatePanel ID="UpdatePanelCursos" runat="server">
             <ContentTemplate>
-                <div class="row justify-content-center">
+                <div class="row justify-content-center mt-5">
                     <asp:Repeater ID="rptCursos" runat="server">
                         <ItemTemplate>
                             <div class="card ms-5 mb-5 <%# Eval("Completo") != null && !(bool)Eval("Completo") ? "curso-incompleto" : "" %>" style="width: 24rem; min-height: 28rem;">
