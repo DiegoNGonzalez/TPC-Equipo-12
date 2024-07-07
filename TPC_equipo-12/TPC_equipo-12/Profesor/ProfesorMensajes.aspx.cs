@@ -59,7 +59,7 @@ namespace TPC_equipo_12
             Button btn = (Button)sender;
             int idMensaje = Convert.ToInt32(btn.CommandArgument);
             MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
-            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
+            mensajeUsuarioNegocio.MarcarComoLeido(mensaje.IDMensaje);
             Session.Add("mensaje", mensaje);
 
             Response.Redirect("VerMensaje.aspx");
@@ -70,7 +70,7 @@ namespace TPC_equipo_12
             Button btn = (Button)sender;
             int idMensaje = Convert.ToInt32(btn.CommandArgument);
             MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
-            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
+            mensajeUsuarioNegocio.MarcarComoLeido(mensaje.IDMensaje);
             Session.Add("mensaje", mensaje);
         }
 
@@ -84,7 +84,7 @@ namespace TPC_equipo_12
             Button btn = (Button)sender;
             int idMensaje = Convert.ToInt32(btn.CommandArgument);
             MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
-            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
+            mensajeUsuarioNegocio.MarcarComoLeido(mensaje.IDMensaje);
             Session.Add("mensaje", mensaje);
             Response.Redirect("VerMensaje.aspx");
         }
@@ -94,27 +94,10 @@ namespace TPC_equipo_12
             Button btn = (Button)sender;
             int idMensaje = Convert.ToInt32(btn.CommandArgument);
             MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
-            //mensajeUsuarioNegocio.MarcarComoLeido(mensaje);
+            mensajeUsuarioNegocio.MarcarComoLeido(mensaje.IDMensaje);
             Session.Add("mensaje", mensaje);
         }
 
-        protected void btnBorrarMensajeEnviado_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            int idMensaje = Convert.ToInt32(btn.CommandArgument);
-            mensajeUsuarioNegocio.BorrarMensaje(idMensaje);
-            Session["MensajeExito"] = "Mensaje eliminado con éxito.";
-            Response.Redirect("ProfesorMensajes.aspx");
-
-        }
-
-        protected void btnBorrarMensaje_Click(object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            int idMensaje = Convert.ToInt32(btn.CommandArgument);
-            mensajeUsuarioNegocio.BorrarMensaje(idMensaje);
-            Session["MensajeExito"] = "Mensaje eliminado con éxito.";
-            Response.Redirect("ProfesorMensajes.aspx");
-        }
+       
     }
 }

@@ -8,8 +8,8 @@
         <div class="row position-relative">
             <div class="col-md-12 mb-1 text-center mt-2">
                 <h2 class="d-inline">Cursos Disponibles</h2>
-                <div class="position-absolute top-0 end-0 d-flex mt-3">
-                    <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control me-2" Placeholder="Busqueda de cursos..." onkeydown="return handleEnter(event);" />
+                <div class="position-absolute top-0 end-0 d-flex mt-3 ">
+                    <asp:TextBox ID="txtBuscar" runat="server" CssClass="form-control me-2" Placeholder="Buscar cursos..." onkeydown="return handleEnter(event);" />
                     <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary me-2" OnClick="btnBuscar_Click" />
                     <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-primary" OnClick="btnLimpiar_Click" />
                 </div>

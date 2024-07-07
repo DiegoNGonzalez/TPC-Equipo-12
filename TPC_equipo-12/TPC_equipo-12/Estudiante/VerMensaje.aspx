@@ -3,9 +3,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
          <div class="container">
+             <asp:Button ID="btnVolver" runat="server" Text="Volver" CssClass="btn btn-primary" OnClick="btnVolver_Click" />
     <div class="row">
         <div class="col-md-12">
-            <h2>Ver Mensaje</h2>
+            <h3>Ver Mensaje</h3>
             <hr />
         </div>
     </div>

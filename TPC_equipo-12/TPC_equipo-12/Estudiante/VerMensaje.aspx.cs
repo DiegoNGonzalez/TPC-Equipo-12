@@ -19,11 +19,30 @@ namespace TPC_equipo_12
             }
             if (!IsPostBack)
             {
+                int idMensaje= Convert.ToInt32(Request.QueryString["idMensaje"]);
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
+                if (idMensaje != 0)
+                {
+                    MensajeUsuario mensaje = mensajeUsuarioNegocio.BuscarMensaje(idMensaje);
+                    Session.Add("mensaje", mensaje);
 
-                MensajeUsuario mensaje = (MensajeUsuario)Session["mensaje"];
-                int idMensaje = mensaje.IDMensaje;
+                    lblAsunto.Text = $"<b>Asunto: {mensaje.Asunto}</b><br/>";
+                    lblDe.Text = $"<b>{mensaje.UsuarioEmisor.Nombre} {mensaje.UsuarioEmisor.Apellido} ({mensaje.FechaHora.ToString()})</b><br/>";
+                    lblMensaje.Text = $"<b>Mensaje: </b>{mensaje.Mensaje}<br/>";
+
+                }
+                else
+                {
+                    MensajeUsuario mensaje = (MensajeUsuario)Session["mensaje"];
+                    idMensaje = mensaje.IDMensaje;
+
+                    lblAsunto.Text = $"<b>Asunto: {mensaje.Asunto}</b><br/>";
+                    lblDe.Text = $"<b>{mensaje.UsuarioEmisor.Nombre} {mensaje.UsuarioEmisor.Apellido} ({mensaje.FechaHora.ToString()})</b><br/>";
+                    lblMensaje.Text = $"<b>Mensaje: </b>{mensaje.Mensaje}<br/>";
+                }
+
+                
                 List<MensajeRespuesta> respuestas = mensajeUsuarioNegocio.ObtenerRespuestas(idMensaje);
 
                 
@@ -40,10 +59,8 @@ namespace TPC_equipo_12
                 
                 ltlRespuestas.Text = htmlRespuestas;
 
-
-                lblAsunto.Text = $"<b>Asunto: {mensaje.Asunto}</b><br/>";
-                lblDe.Text = $"<b>{mensaje.UsuarioEmisor.Nombre} {mensaje.UsuarioEmisor.Apellido} ({mensaje.FechaHora.ToString()})</b><br/>";
-                lblMensaje.Text = $"<b>Mensaje: </b>{mensaje.Mensaje}<br/>";
+                mensajeUsuarioNegocio.MarcarComoLeido(idMensaje);
+                
 
 
 
@@ -58,10 +75,16 @@ namespace TPC_equipo_12
 
         protected void btnEnviarRespuesta_Click(object sender, EventArgs e)
         {
+            int idRespuesta = Request.QueryString["idRespuesta"] != null ? Convert.ToInt32(Request.QueryString["idRespuesta"]) : 0;
+            MensajeRespuesta mensajeRespuesta = mensajeUsuarioNegocio.buscarRespuesta(idRespuesta);
             MensajeRespuesta mensaje = new MensajeRespuesta();
             MensajeUsuario aux = (MensajeUsuario)Session["mensaje"];
             Estudiante estudiante = (Estudiante)Session["estudiante"];
-            MensajeUsuarioNegocio mensajeNegocio = new MensajeUsuarioNegocio();
+         
+            if(estudiante.IDUsuario== aux.UsuarioEmisor.IDUsuario)
+            {
+                aux.UsuarioEmisor = aux.UsuarioReceptor;
+            }
             if (ValidarCampos())
             {
                 mensaje.IDMensajeOriginal = aux.IDMensaje;
@@ -69,8 +92,8 @@ namespace TPC_equipo_12
                 mensaje.UsuarioReceptor = aux.UsuarioEmisor;
                 mensaje.Texto = txtRespuesta.Text;
                 mensaje.FechaHora = DateTime.Now;
-                mensajeNegocio.GuardarRespuesta(mensaje);
-                int id = mensajeNegocio.UltimoIDRespuesta();
+                mensajeUsuarioNegocio.GuardarRespuesta(mensaje);
+                int id = mensajeUsuarioNegocio.UltimoIDRespuesta();
                 mensaje.IDRespuesta = id;
                 notificacionNegocio.AgregarNotificacionXRespuesta(mensaje);
                 Session["MensajeExito"] = "Mensaje enviado con éxito.";
@@ -90,6 +113,11 @@ namespace TPC_equipo_12
                 return false;
             }
             return true;
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EstudianteMensajes.aspx",false);
         }
     }
 }
