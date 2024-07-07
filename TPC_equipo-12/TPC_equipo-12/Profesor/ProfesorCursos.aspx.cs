@@ -15,6 +15,8 @@ namespace TPC_equipo_12
         public NotificacionNegocio notif = new NotificacionNegocio();
         public CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
         public List<CategoriaCurso> categorias = new List<CategoriaCurso>();
+        public List<CategoriaCurso> categoriasInactivo = new List<CategoriaCurso>();
+        public List<Curso> cursosInactivos = new List<Curso>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,7 +39,6 @@ namespace TPC_equipo_12
                 rptProfesorCursos.DataBind();
                 
 
-                List<Curso> cursosInactivos = new List<Curso>();
                 cursosInactivos = cursoNegocio.ListarCursos();
                 cursosInactivos = cursoNegocio.ValidarCursoCompleto(cursosInactivos);
                 cursosInactivos = cursoNegocio.ValidarCursosInactivos(cursosInactivos);
@@ -45,6 +46,7 @@ namespace TPC_equipo_12
                 RepeaterCursosInactivos.DataBind();
                 
                 cargarDropdownCategoria();
+                cargarDropdownCategoriaInactivo();
             }
         }
         protected void LinkButtonCursoProf_Command(object sender, CommandEventArgs e)
@@ -200,6 +202,92 @@ namespace TPC_equipo_12
             rptProfesorCursos.DataSource = listaCursos;
             rptProfesorCursos.DataBind();
             lblMensaje.Text = "";
+        }
+        //EMPIEZAN BUSCADORES INACTIVOS.
+
+        protected void cargarDropdownCategoriaInactivo()
+        {
+            categoriaNegocio = new CategoriaNegocio();
+            categoriasInactivo = categoriaNegocio.ListarCategorias();
+            ddlInactivo.DataSource = categoriasInactivo;
+            ddlInactivo.DataTextField = "Nombre";
+            ddlInactivo.DataValueField = "IDCategoria";
+            ddlInactivo.DataBind();
+            ddlInactivo.Items.Insert(0, new ListItem("Todas las categorias", "0"));
+        }
+        protected void btnLimpiarFiltroInactivo_Click(object sender, EventArgs e)
+        {
+            ddlInactivo.SelectedIndex = 0;
+            cursosInactivos = cursoNegocio.ListarCursos();
+            cursosInactivos = cursoNegocio.ValidarCursoCompleto(cursosInactivos);
+            cursosInactivos = cursoNegocio.ValidarCursosInactivos(cursosInactivos);
+            RepeaterCursosInactivos.DataSource = cursosInactivos;
+            RepeaterCursosInactivos.DataBind();
+            lblMensajeInactivo.Text = "";
+            UpdatePanelCursosInactivos.Visible = true;
+        }
+        protected void btnFiltrarInactivo_Click(object sender, EventArgs e)
+        {
+            cursosInactivos = cursoNegocio.ListarCursos();
+            cursosInactivos = cursoNegocio.ValidarCursoCompleto(cursosInactivos);
+            cursosInactivos = cursoNegocio.ValidarCursosInactivos(cursosInactivos);
+            int idCategoria = Convert.ToInt32(ddlInactivo.SelectedValue);
+            if (idCategoria != 0)
+            {
+                List<Curso> listaFiltrada = cursosInactivos.FindAll(x => x.Categoria.IDCategoria == idCategoria);
+                if (listaFiltrada.Count == 0)
+                {
+                    lblMensajeInactivo.Text = "No se encontraron resultados";
+                    UpdatePanelCursosInactivos.Visible = false;
+                }
+                else
+                {
+                    UpdatePanelCursosInactivos.Visible = true;
+                    RepeaterCursosInactivos.DataSource = listaFiltrada;
+                    RepeaterCursosInactivos.DataBind();
+                    lblMensajeInactivo.Text = "";
+                }
+            }
+            else
+            {
+                RepeaterCursosInactivos.DataSource = cursosInactivos;
+                RepeaterCursosInactivos.DataBind();
+                lblMensajeInactivo.Text = "";
+                UpdatePanelCursosInactivos.Visible = true;
+            }
+        }
+        protected void btnBuscarInactivo_Click(object sender, EventArgs e)
+        {
+            string busqueda = TextBoxInactivo.Text;
+            cursosInactivos = cursoNegocio.ListarCursos();
+            cursosInactivos = cursoNegocio.ValidarCursoCompleto(cursosInactivos);
+            cursosInactivos = cursoNegocio.ValidarCursosInactivos(cursosInactivos);
+            List<Curso> listaFiltrada = cursosInactivos.FindAll(x => x.Nombre.ToUpper().Contains(busqueda.ToUpper()) || x.Descripcion.ToUpper().Contains(busqueda.ToUpper()) || x.Categoria.Nombre.ToUpper().Contains(busqueda.ToUpper()));
+            if (listaFiltrada.Count == 0)
+            {
+                lblMensajeInactivo.Text = "No se encontraron resultados";
+                UpdatePanelCursosInactivos.Visible = false;
+            }
+            else
+            {
+                UpdatePanelCursosInactivos.Visible = true;
+                RepeaterCursosInactivos.DataSource = listaFiltrada;
+                RepeaterCursosInactivos.DataBind();
+                lblMensajeInactivo.Text = "";
+
+            }
+        }
+
+        protected void btnLimpiarInactivo_Click(object sender, EventArgs e)
+        {
+            UpdatePanelCursosInactivos.Visible = true;
+            TextBoxInactivo.Text = "";
+            cursosInactivos = cursoNegocio.ListarCursos();
+            cursosInactivos = cursoNegocio.ValidarCursoCompleto(cursosInactivos);
+            cursosInactivos = cursoNegocio.ValidarCursosInactivos(cursosInactivos);
+            RepeaterCursosInactivos.DataSource = cursosInactivos;
+            RepeaterCursosInactivos.DataBind();
+            lblMensajeInactivo.Text = "";
         }
     }
 }
