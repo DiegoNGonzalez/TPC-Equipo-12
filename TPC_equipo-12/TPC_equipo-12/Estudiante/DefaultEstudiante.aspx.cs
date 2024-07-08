@@ -98,7 +98,8 @@ namespace TPC_equipo_12
                 {
                     if (inscripcionAuxiliar.Estado == 'P')
                     {
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Error", "<script>showMessage('Ya existe una inscripcion pendiente de aprobación!', 'error');</script>", false);
+                        Session["MensajeError"]= "Ya existe una inscripcion pendiente de aprobación!";
+                        Response.Redirect("DefaultEstudiante.aspx", false);
                     }
                     else
                     {
@@ -118,7 +119,8 @@ namespace TPC_equipo_12
                     {
                         int idInscripcion = inscripcionNegocio.UltimoIDInscripcion();
                         notificacionNegocio.AgregarNotificacionXInscripcion(idInscripcion, idCurso);
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
+                        Session["MensajeExito"] = "La inscripción enviada correctamente!";
+                        Response.Redirect("DefaultEstudiante.aspx", false);
 
                     }
                 }
@@ -134,6 +136,7 @@ namespace TPC_equipo_12
 
 
             }
+            UpdatePanelCursos.Update();
         }
 
         protected void btnLimpiarFiltro_Click(object sender, EventArgs e)

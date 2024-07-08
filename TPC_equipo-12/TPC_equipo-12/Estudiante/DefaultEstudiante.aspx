@@ -35,7 +35,7 @@
                 <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger"></asp:Label>
             </div>
         </div>
-        <asp:UpdatePanel ID="UpdatePanelCursos" runat="server">
+        <asp:UpdatePanel ID="UpdatePanelCursos" runat="server" UpdateMode="Conditional">
             <ContentTemplate>
                 <div class="row justify-content-center mt-5">
                     <asp:Repeater ID="rptCursos" runat="server" OnItemDataBound="rptCursos_ItemDataBound">
