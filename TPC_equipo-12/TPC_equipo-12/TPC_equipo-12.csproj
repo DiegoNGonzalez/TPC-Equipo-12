@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CambioContrasenia.aspx" />
+    <Content Include="Estudiante\EstudianteCambiarContrasenia.aspx" />
     <Content Include="Estudiante\AgregarResenia.aspx" />
     <Content Include="Custom\styles.css" />
     <Content Include="Estudiante\EstudiantePreguntas.aspx" />
@@ -72,6 +73,7 @@
     <Content Include="Estudiante\EstudianteInscripciones.aspx" />
     <Content Include="Estudiante\MiPerfil.aspx" />
     <Content Include="Estudiante\NuevoMensaje.aspx" />
+    <Content Include="Profesor\ProfesorCambiarContrasenia.aspx" />
     <Content Include="Profesor\ProfesorFabricaDeCursos.aspx" />
     <Content Include="Profesor\ProfesorCategorias.aspx" />
     <Content Include="Profesor\ProfesorPreguntas.aspx" />
@@ -118,6 +120,13 @@
     <Compile Include="CambioContrasenia.aspx.designer.cs">
       <DependentUpon>CambioContrasenia.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Estudiante\EstudianteCambiarContrasenia.aspx.cs">
+      <DependentUpon>EstudianteCambiarContrasenia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estudiante\EstudianteCambiarContrasenia.aspx.designer.cs">
+      <DependentUpon>EstudianteCambiarContrasenia.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Estudiante\EstudiantePreguntas.aspx.cs">
       <DependentUpon>EstudiantePreguntas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -159,6 +168,13 @@
     </Compile>
     <Compile Include="Estudiante\NuevoMensaje.aspx.designer.cs">
       <DependentUpon>NuevoMensaje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profesor\ProfesorCambiarContrasenia.aspx.cs">
+      <DependentUpon>ProfesorCambiarContrasenia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profesor\ProfesorCambiarContrasenia.aspx.designer.cs">
+      <DependentUpon>ProfesorCambiarContrasenia.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profesor\ProfesorFabricaDeCursos.aspx.cs">
       <DependentUpon>ProfesorFabricaDeCursos.aspx</DependentUpon>
