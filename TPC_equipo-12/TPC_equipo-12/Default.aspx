@@ -44,7 +44,7 @@
                                 <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
                                 <asp:LinkButton ID="LinkButtonDefault" runat="server" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="LinkButtonDefault_Command" Style="text-decoration: none;">
                                     <div class="img-container mt-2" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                                        <img src='<%# Eval("Imagen.URL") %>' class="card-img-top img-fluid" alt="..." style="max-height: 100%; width: auto;">
+                                    <asp:Image ID="ImagenCurso" runat="server" CssClass="card-img-top img-fluid" ImageUrl='<%# "~/Images/" + Eval("Imagen.URL") %>' />
                                     </div>
                                     <div class="card-body text-center">
                                         <h5 class="card-title"><%# Eval("Nombre") %></h5>

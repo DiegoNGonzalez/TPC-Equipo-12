@@ -104,7 +104,8 @@ namespace TPC_equipo_12
                     {
                         inscripcionNegocio.reinscribir(inscripcionAuxiliar.IDInscripcion);
                         notificacionNegocio.marcarComoNoLeidaYMensaje(idNotificacion, "Nueva Reinscripción");
-                        ScriptManager.RegisterStartupScript(this, typeof(Page), "Success", "<script>showMessage('La inscripción se envió correctamente!', 'success');</script>", false);
+                        Session["MensajeExito"] = "La inscripción enviada correctamente!";
+                        Response.Redirect("DefaultEstudiante.aspx", false);
 
                     }
 
@@ -218,6 +219,20 @@ namespace TPC_equipo_12
             rptCursos.DataBind();
             lblMensaje.Text = "";
             UpdatePanelCursos.Visible = true;
+        }
+
+        protected void rptCursos_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Image imgCurso = (Image)e.Item.FindControl("ImagenCurso");
+                var dataItem = (Curso)e.Item.DataItem;
+
+                if (imgCurso != null && dataItem != null && dataItem.Imagen != null)
+                {
+                    imgCurso.ImageUrl = "~/Images/" + dataItem.Imagen.URL;
+                }
+            }
         }
     }
 }

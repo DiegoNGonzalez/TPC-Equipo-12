@@ -1,11 +1,10 @@
 USE DB_DESPEGAv2
 go
 -- Insertar imagenes
-INSERT INTO Imagenes (URLIMG) VALUES ('https://i.ytimg.com/vi/p73DM4ueE7s/maxresdefault.jpg');
-INSERT INTO Imagenes (URLIMG) VALUES ('https://i.ytimg.com/vi/VnbKPJA2ykU/maxresdefault.jpg');
-INSERT INTO IMagenes(URLIMG) VALUES ('https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg');
-INSERT INTO Imagenes (URLIMG) VALUES ('https://i.ytimg.com/vi/7TKY-jksHRQ/maxresdefault.jpg');
-INSERT INTO Imagenes (URLIMG) VALUES ('https://cdn.goconqr.com/uploads/media/image/10324463/desktop_cb3541ed-ab38-450f-9403-e800ac7d09f5.jpg');
+INSERT INTO Imagenes (URLIMG) VALUES ('curso-1.jpg');
+INSERT INTO Imagenes (URLIMG) VALUES ('curso-2.jpg');
+INSERT INTO Imagenes (URLIMG) VALUES ('curso-3.jpg');
+INSERT INTO Imagenes (URLIMG) VALUES ('curso-4.jpg');
 go
 -- Insertar categorias
 INSERT INTO Categorias (Nombre) VALUES ('Matematicas');
@@ -21,10 +20,10 @@ INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo, 
 VALUES ('Curso de Fisica', 'Un curso completo sobre fisica.', 2, '2023-02-01 10:00:00', 150, 1, 1);
 go
 INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo, Estado)
-VALUES ('Curso de Programación', 'Un curso completo sobre programación.', 4, '2023-03-01 10:00:00', 200, 1, 1);
+VALUES ('Curso de Programación', 'Un curso completo sobre programación.', 3, '2023-03-01 10:00:00', 200, 1, 1);
 go
 INSERT INTO Cursos (Nombre, Descripcion, IDImagen, Estreno, Duracion, Completo, Estado)
-VALUES ('Curso de Historia', 'Un curso completo sobre historia.', 5, '2023-04-01 10:00:00', 180, 1, 1);
+VALUES ('Curso de Historia', 'Un curso completo sobre historia.', 4, '2023-04-01 10:00:00', 180, 1, 1);
 go
 -- Insertar categorias por curso
 INSERT INTO CategoriasXCurso (IDCurso, IDCategoria) VALUES (1, 1);

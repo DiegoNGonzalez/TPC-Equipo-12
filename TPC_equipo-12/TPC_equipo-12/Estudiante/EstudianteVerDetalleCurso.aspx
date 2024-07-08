@@ -4,11 +4,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-            <asp:Button ID="volverCursos" runat="server" Text="Volver a cursos" CssClass="btn btn-primary mb-3 mt-3" OnClick="volverCursos_Click" />
-        <div class="row">            
+        <asp:Button ID="volverCursos" runat="server" Text="Volver a cursos" CssClass="btn btn-primary mb-3 mt-3" OnClick="volverCursos_Click" />
+        <div class="row">
             <div class="col-md-12">
                 <asp:Repeater ID="RepeaterVerDetalleCurso" runat="server" OnItemDataBound="RepeaterVerDetalleCurso_ItemDataBound">
-                    <itemtemplate>
+                    <ItemTemplate>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="d-flex justify-content-center align-items-center mb-4">
@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="d-flex align-items-center mb-4">
                                     <div class="flex-shrink-0">
-                                        <img class="img-fluid" src='<%# Eval("Imagen.URL") %>' style="width: 300px; height: auto;">
+                                        <asp:Image ID="ImagenCurso" runat="server" CssClass="img-fluid" Style="width: 300px; height: auto;" ImageUrl='<%# "~/Images/" + Eval("Imagen.URL") %>' />
                                     </div>
                                     <div class="ms-4">
                                         <h5>Descripción:</h5>
@@ -38,7 +38,7 @@
                                 <h5>Unidades:</h5>
                                 <asp:Label ID="LabelNoHayUnidades" runat="server" Visible="false"></asp:Label>
                                 <asp:Repeater ID="RepeaterUnidades" runat="server">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <ol class="list-group list-group-numbered">
                                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                                 <div class="ms-2 me-auto">
@@ -47,12 +47,12 @@
                                                 </div>
                                             </li>
                                         </ol>
-                                    </itemtemplate>
+                                    </ItemTemplate>
                                 </asp:Repeater>
                                 <h5 class="mt-4">Reseñas:</h5>
                                 <asp:Label ID="LabelNoHayResenias" runat="server" Visible="false"></asp:Label>
                                 <asp:Repeater ID="RepeaterResenias" runat="server">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <ul class="list-group mb-2">
                                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                                 <span class="badge bg-success rounded-pill"><%# Eval("Calificacion") %></span>
@@ -62,11 +62,11 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                    </itemtemplate>
+                                    </ItemTemplate>
                                 </asp:Repeater>
                             </div>
                         </div>
-                    </itemtemplate>
+                    </ItemTemplate>
 
                 </asp:Repeater>
             </div>

@@ -44,25 +44,25 @@ namespace TPC_equipo_12
                     lblDe.Text = $"<b>{mensaje.UsuarioEmisor.Nombre} {mensaje.UsuarioEmisor.Apellido} ({mensaje.FechaHora.ToString()})</b><br/>";
                     lblMensaje.Text = $"<b>Mensaje: </b>{mensaje.Mensaje}<br/>";
                 }
-               
-                
+
+
                 List<MensajeRespuesta> respuestas = mensajeUsuarioNegocio.ObtenerRespuestas(idMensaje);
 
                 string htmlRespuestas = "";
                 foreach (MensajeRespuesta respuesta in respuestas)
                 {
-                    
-                    htmlRespuestas += $"<div class='respuesta'>";
+                    htmlRespuestas += "<div class='card mb-3'>";
+                    htmlRespuestas += "<div class='card-body'>";
                     htmlRespuestas += $"<b>{respuesta.UsuarioEmisor.Nombre} {respuesta.UsuarioEmisor.Apellido} ({respuesta.FechaHora}):</b><br/>";
                     htmlRespuestas += $"{respuesta.Texto}<br/>";
                     htmlRespuestas += "</div>";
+                    htmlRespuestas += "</div>";
                 }
 
-                
                 ltlRespuestas.Text = htmlRespuestas;
 
 
-                
+
 
 
 
@@ -101,12 +101,12 @@ namespace TPC_equipo_12
                 mensaje.IDRespuesta = id;
                 notificacionNegocio.AgregarNotificacionXRespuesta(mensaje);
                 Session["MensajeExito"] = "Mensaje enviado con éxito.";
-                Response.Redirect("ProfesorMensajes.aspx");
+                Response.Redirect(Request.RawUrl, false);
             }
             else
             {
                 Session["MensajeError"] = "Debe completar todos los campos.";
-                Response.Redirect("ProfesorMensajes.aspx");
+                Response.Redirect(Request.RawUrl, false);
             }
 
         }

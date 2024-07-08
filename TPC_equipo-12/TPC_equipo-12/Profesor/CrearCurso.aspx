@@ -31,11 +31,11 @@
                 <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <div class="mb-3">
-                            <asp:Label ID="LabelImagenCurso" runat="server" CssClass="form-label" Text=""><b>URL Imagen</b></asp:Label>
-                            <asp:TextBox runat="server" ID="TextBoxUrlImagen" CssClass="form-control" AutoPostBack="true" OnTextChanged="TextBoxUrlImagen_TextChanged" />
+                            <asp:Label ID="LabelImagenCurso" runat="server" CssClass="form-label" Text=""><b>Imagen del curso</b></asp:Label>
+                            <input type="file" id="fileImagenCurso" runat="server" class="form-control" />
                         </div>
                         <div class="mb-3 d-flex justify-content-center align-items-center">
-                            <asp:Image ImageUrl="https://vilmanunez.com/wp-content/uploads/2016/04/VN-Como-crear-el-mejor-temario-de-tu-curso-online-Incluye-plantillas.png" ID="urlImagenCurso" Width="60%" runat="server" />
+                            <asp:Image ID="urlImagenCurso" runat="server" CssClass="img-fluid" Width="60%" />
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>

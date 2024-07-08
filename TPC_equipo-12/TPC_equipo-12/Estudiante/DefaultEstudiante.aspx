@@ -38,14 +38,14 @@
         <asp:UpdatePanel ID="UpdatePanelCursos" runat="server">
             <ContentTemplate>
                 <div class="row justify-content-center mt-5">
-                    <asp:Repeater ID="rptCursos" runat="server">
+                    <asp:Repeater ID="rptCursos" runat="server" OnItemDataBound="rptCursos_ItemDataBound">
                         <ItemTemplate>
                             <div class="card ms-5 mb-5" style="width: 24rem; min-height: 28rem;">
                                 <asp:HiddenField ID="HiddenFieldIDCurso" runat="server" Value='<%# Eval("IDCurso") %>' />
                                 <asp:Label ID="lblIDCurso" runat="server" Text='<%# Eval("IDCurso") %>' Visible="false"></asp:Label>
                                 <asp:LinkButton ID="LinkButtonEstudiante" runat="server" CommandArgument='<%# Eval("IDCurso") %>' OnCommand="LinkButtonEstudiante_Command" Style="text-decoration: none;">
                                 <div class="img-container mt-2" style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                                    <img src='<%# Eval("Imagen.URL") %>' class="card-img-top img-fluid" alt="..." style="max-height: 100%; width: auto;">
+                                    <asp:Image ID="ImagenCurso" runat="server" CssClass="card-img-top img-fluid" ImageUrl='<%# "~/Images/" + Eval("Imagen.URL") %>' />
                                 </div>
                                 <div class="card-body text-center">
                                     <h5 class="card-title"><%# Eval("Nombre") %></h5>

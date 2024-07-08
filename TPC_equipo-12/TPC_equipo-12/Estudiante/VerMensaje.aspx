@@ -23,11 +23,7 @@
                 </div>
             </div>
             <div id="respuestasContainer" class="mb-3">
-                <div class="card rounded">
-                    <div class="card-body">
                         <asp:Literal ID="ltlRespuestas" runat="server"></asp:Literal>
-                    </div>
-                </div>
             </div>
 
             <asp:Panel ID="pnlResponder" runat="server" Visible="false">
