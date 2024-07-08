@@ -5,24 +5,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <<div class="container">
         <asp:Button ID="btnVolver" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver" OnClick="btnVolver_Click" />
-        <%--<asp:Repeater ID="rptComentarioPadre" runat="server">
-            <ItemTemplate>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="media">
-                            <div class="mr-3">
-                                <asp:Image ID="imgPerfilPadre" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("IDUsuarioEmisor").ToString() + ".jpg" %>' />
-                            </div>
-                            <div class="media-body">
-                                <h5 class="card-title">Comentario Principal</h5>
-                                <p class="card-text"><strong><%# Eval("Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
-                                <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>--%>
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">Comentario Principal</h5>
@@ -47,10 +29,10 @@
                     <div class="card-body">
                         <div class="media">
                             <div class="mr-3">
-                                <asp:Image ID="imgPerfilRespuesta" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "UsuarioEmisor.Imagen.URL" %>' />
+                                <asp:Image ID="imgPerfilRespuesta" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/" + Eval("UsuarioEmisor.ImagenPerfil.URL") %>' />
                             </div>
                             <div class="media-body">
-                                <h5 class="card-title">Respuesta</h5>
+                                <h5 class="card-title"></h5>
                                 <p class="card-text"><strong><%# Eval("UsuarioEmisor.Nombre") %>:</strong> <%# Eval("CuerpoComentario") %></p>
                                 <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
                             </div>

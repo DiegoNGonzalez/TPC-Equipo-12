@@ -1,9 +1,11 @@
 ﻿using AccesoDB;
 using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -14,91 +16,58 @@ namespace TPC_equipo_12
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
+            Comentario comentarioPrincipal = new Comentario();
+            List<Comentario> respuestas = new List<Comentario>();
             if (!IsPostBack)
             {
+                if (Session["estudiante"] == null)
+                {
+                    Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                    Response.Redirect("../LogIn.aspx");
+                }
                 if (Session["IDComentarioPadre"] != null)
                 {
                     int idComentarioPadre = Convert.ToInt32(Session["IDComentarioPadre"]);
-                    cargarComentarioPrincipalYrespuestas(idComentarioPadre);
+                    comentarioPrincipal = comentarioNegocio.CargarComentarioPrincipal(idComentarioPadre);
+                    if (comentarioPrincipal.UsuarioEmisor.ImagenPerfil.IDImagen != 0)
+                        imgPerfilPadre.ImageUrl = "~/Images/perfil-" + comentarioPrincipal.UsuarioEmisor.IDUsuario.ToString() + ".jpg";
+                    else
+                        imgPerfilPadre.ImageUrl = "~/Images/perfil-0.jpg";
+
+                    lblNombre.Text = comentarioPrincipal.UsuarioEmisor.Nombre;
+                    lblCuerpoComentario.Text = comentarioPrincipal.CuerpoComentario;
+                    lblFechaCreacion.Text = comentarioPrincipal.FechaCreacion.ToString("dd/MM/yyyy HH:mm");
+                    respuestas = comentarioNegocio.cargarRespuestas(idComentarioPadre);
+
+                    rptRespuestas.DataSource = respuestas;
+                    rptRespuestas.DataBind();
                 }
             }
-
         }
 
-        public void cargarComentarioPrincipalYrespuestas(int idComentarioPadre)
-        {
-            Datos datos = new Datos();
-            DataTable dtPadre = new DataTable();
-            DataTable dtRespuestas = new DataTable();
-
-            try
-            {
-                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
-                datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
-                datos.EjecutarLectura();
-                dtPadre.Load(datos.Lector);
-                datos.CerrarConexion();
-
-                datos.LimpiarParametros();
-
-                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentarioPadre = @IdComentarioPadre");
-                datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
-                datos.EjecutarLectura();
-                dtRespuestas.Load(datos.Lector);
-                datos.CerrarConexion();
-
-                rptComentarioPadre.DataSource = dtPadre;
-                rptComentarioPadre.DataBind();
-
-                rptRespuestas.DataSource = dtRespuestas;
-                rptRespuestas.DataBind();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.CerrarConexion();
-            }
-        }
-
-
+    
         protected void btnResponder_Click(object sender, EventArgs e)
         {
             if (Session["IDComentarioPadre"] != null)
             {
                 int idComentarioPadre = Convert.ToInt32(Session["IDComentarioPadre"]);
-                Usuario usuarioActual = Session["estudiante"] != null ? (Usuario)Session["estudiante"] : (Usuario)Session["profesor"]; // Suponiendo que tienes una función para obtener el usuario actual
+                ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
+                int idLeccion = comentarioNegocio.BuscarIDLeccion(idComentarioPadre);
+                Usuario usuarioActual = Session["estudiante"] != null ? (Usuario)Session["estudiante"] : (Usuario)Session["profesor"];
                 string cuerpoRespuesta = txtRespuesta.Text;
-
                 if (!string.IsNullOrEmpty(cuerpoRespuesta))
                 {
-                    Datos datos = new Datos();
-                    try
-                    {
-                        datos.SetearConsulta("INSERT INTO Comentarios (IDComentarioPadre, IDLeccion, IDUsuarioEmisor, CuerpoComentario, FechaCreacion, IDImagen, Estado) VALUES (@IDComentarioPadre, @IDLeccion, @IDUsuarioEmisor, @CuerpoComentario, @FechaCreacion, @IdImagen, @Estado)");
-                        datos.SetearParametro("@IDComentarioPadre", idComentarioPadre);
-                        datos.SetearParametro("@IDLeccion", Session["IDLeccion"]); 
-                        datos.SetearParametro("@IDUsuarioEmisor", usuarioActual.IDUsuario);
-                        datos.SetearParametro("@CuerpoComentario", cuerpoRespuesta);
-                        datos.SetearParametro("@FechaCreacion", DateTime.Now);
-                        datos.SetearParametro("@idImagen", usuarioActual.ImagenPerfil == null ? (object)DBNull.Value : usuarioActual.ImagenPerfil.IDImagen);
-                        datos.SetearParametro("@Estado", true);
-                        datos.EjecutarAccion();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                    finally
-                    {
-                        datos.CerrarConexion();
-                    }
-
+                    comentarioNegocio.publicarComentario(idComentarioPadre, idLeccion, cuerpoRespuesta, usuarioActual.IDUsuario, DateTime.Now);
+                    List<Comentario> respuestas = new List<Comentario>();
+                    respuestas = comentarioNegocio.cargarRespuestas(idComentarioPadre);
+                    rptRespuestas.DataSource = respuestas;
+                    rptRespuestas.DataBind();
                     txtRespuesta.Text = "";
-                    cargarComentarioPrincipalYrespuestas(idComentarioPadre);
+                }
+                else
+                {
+                    return;
                 }
             }
         }

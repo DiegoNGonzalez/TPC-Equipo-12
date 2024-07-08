@@ -13,6 +13,11 @@ namespace TPC_equipo_12
             if (!IsPostBack)
             {
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
+                if (estudiante== null)
+                {
+                    Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                    Response.Redirect("../LogIn.aspx");
+                }
 
                 if (Request.QueryString["accion"] == "redirigir")
                 {
@@ -29,7 +34,7 @@ namespace TPC_equipo_12
                 else
                 {
                     lblNombreEstudiante.Text = estudiante.Nombre;
-                    imgPerfil.ImageUrl = "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+                    imgPerfil.ImageUrl = "~/Images/perfil-0.jpg";
                 }
             }
         }

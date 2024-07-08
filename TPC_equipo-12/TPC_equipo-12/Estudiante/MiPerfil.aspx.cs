@@ -17,6 +17,11 @@ namespace TPC_equipo_12
                 master.VerificarMensaje();
 
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
+                if (estudiante == null)
+                {
+                    Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                    Response.Redirect("../LogIn.aspx");
+                }
                 txtEmail.Text = estudiante.Email;
                 txtEmail.Enabled = false;
                 txtNombre.Text = estudiante.Nombre;
@@ -26,9 +31,8 @@ namespace TPC_equipo_12
                 dropGenero.Items.Add(new ListItem("Masculino", "M"));
                 dropGenero.Items.Add(new ListItem("Femenino", "F"));
                 dropGenero.Items.Add(new ListItem("No binario", "x"));
-                dropGenero.Items.Add(new ListItem("No contesta", null));
 
-                string genero = !string.IsNullOrEmpty(estudiante.Genero) ? estudiante.Genero : "No contesta";
+                string genero = estudiante.Genero;
                 ListItem item = dropGenero.Items.FindByValue(genero);
                 if (item != null)
                 {
@@ -41,7 +45,7 @@ namespace TPC_equipo_12
                 }
                 else
                 {
-                    imgAvatar.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s";
+                    imgAvatar.ImageUrl = "~/Images/perfil-0.jpg";
                 }
                 
 
@@ -82,11 +86,6 @@ namespace TPC_equipo_12
             {
                 estudiante.Genero = "x";
             }
-            else
-            {
-                estudiante.Genero = null;
-            }
-            //Guardar datos de perfil
             estudianteNegocio.actualizar(estudiante);
 
             Image img = (Image)Master.FindControl("imgPerfil");

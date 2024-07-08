@@ -27,9 +27,8 @@ namespace TPC_equipo_12
                 dropGenero.Items.Add(new ListItem("Masculino", "M"));
                 dropGenero.Items.Add(new ListItem("Femenino", "F"));
                 dropGenero.Items.Add(new ListItem("No binario", "x"));
-                dropGenero.Items.Add(new ListItem("No contesta", null));
 
-                string genero = !string.IsNullOrEmpty(profesor.Genero) ? profesor.Genero : "No contesta";
+                string genero = profesor.Genero;
                 ListItem item = dropGenero.Items.FindByValue(genero);
                 if (item != null)
                 {
@@ -42,7 +41,7 @@ namespace TPC_equipo_12
                 }
                 else
                 {
-                    imgAvatar.ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ432ju-gdS2nl6CEobTaFXEe6_gRmK5DkWuQ&s";
+                    imgAvatar.ImageUrl = "~/Images/perfil-0.jpg";
                 }
 
             }
@@ -83,12 +82,7 @@ namespace TPC_equipo_12
             {
                profesor.Genero = "x";
             }
-            else
-            {
-                profesor.Genero = null;
-            }
-
-            //Guardar datos de perfil
+            
             profesorNegocio.actualizar(profesor);
 
             Image img = (Image)Master.FindControl("imgPerfil");

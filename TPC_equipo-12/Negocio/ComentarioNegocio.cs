@@ -3,6 +3,7 @@ using Dominio;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
@@ -259,10 +260,10 @@ namespace Negocio
                     comentario.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDUsuarioEmisor"];
                     comentario.UsuarioEmisor.Nombre = (string)datos.Lector["Nombre"];
                     comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
-                    if (datos.Lector["ImagenPerfilURL"] != DBNull.Value)
+                    if (datos.Lector["IDImagenes"] != DBNull.Value)
                     {
                         comentario.UsuarioEmisor.ImagenPerfil.IDImagen = (int)datos.Lector["IDImagenes"];
-                        comentario.UsuarioEmisor.ImagenPerfil.URL = (string)datos.Lector["ImagenPerfilURL"];
+                        comentario.UsuarioEmisor.ImagenPerfil.URL = (string)datos.Lector["URLIMG"];
                     }
                     else
                     {
@@ -285,42 +286,36 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
-        //public void cargarComentarioPrincipalYrespuestas(int idComentarioPadre)
-        //{
-        //    Datos datos = new Datos();
-        //    DataTable dtPadre = new DataTable();
-        //    DataTable dtRespuestas = new DataTable();
+        public int BuscarIDLeccion(int IDComentario)
+        {
+            try
+            {
+                int IDLeccion;
+                datos.SetearConsulta("select IDLeccion from Comentarios where IDComentario = @IDComentario");
+                datos.SetearParametro("@IDComentario", IDComentario);
+                datos.EjecutarLectura();
+                datos.Lector.Read();
+                if (datos.Lector["IDLeccion"] != DBNull.Value)
+                {
+                    IDLeccion = (int)datos.Lector["IDLeccion"];
+                    return IDLeccion;
+                }
+                else
+                    return 0;
+            }
+            catch (Exception ex)
+            {
 
-        //    try
-        //    {
-        //        datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
-        //        datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
-        //        datos.EjecutarLectura();
-        //        dtPadre.Load(datos.Lector);
-        //        datos.CerrarConexion();
-        //        datos.LimpiarParametros();
+                throw ex;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
 
-                //datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentarioPadre = @IdComentarioPadre");
-                //datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
-                //datos.EjecutarLectura();
-                //dtRespuestas.Load(datos.Lector);
-                //datos.CerrarConexion();
 
-        //        rptComentarioPadre.DataSource = dtPadre;
-        //        rptComentarioPadre.DataBind();
-
-        //        rptRespuestas.DataSource = dtRespuestas;
-        //        rptRespuestas.DataBind();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //    finally
-        //    {
-        //        datos.CerrarConexion();
-        //    }
-        //}
+        }
     }
 }
 

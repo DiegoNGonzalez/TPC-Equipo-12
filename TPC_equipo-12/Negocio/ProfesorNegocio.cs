@@ -44,7 +44,6 @@ namespace Negocio
 
                 if (idImagen != 0)
                 {
-                    // Actualizar la URL de la imagen existente
                     datos.LimpiarParametros();
                     datos.SetearConsulta("UPDATE Imagenes SET URLIMG = @imagen WHERE IDImagenes = @IDImagenes");
                     datos.SetearParametro("@imagen", profesor.ImagenPerfil.URL);
@@ -53,7 +52,6 @@ namespace Negocio
                 }
                 else
                 {
-                    // Insertar una nueva imagen y obtener el nuevo ID
                     datos.LimpiarParametros();
                     if (!string.IsNullOrEmpty(profesor.ImagenPerfil.URL))
                     {
@@ -61,7 +59,6 @@ namespace Negocio
                         datos.SetearParametro("@imagen", profesor.ImagenPerfil.URL);
                         int nuevoIDImagen = datos.ejecutarAccionScalar();
                         datos.CerrarConexion();
-                        // Actualizar el IDImagen del usuario con el nuevo IDImagen de la imagen insertada
                         datos.LimpiarParametros();
                         datos.SetearConsulta("UPDATE Usuarios SET IDImagen = @IDImagen WHERE IDUsuario = @IDUsuario");
                         datos.SetearParametro("@IDImagen", nuevoIDImagen);

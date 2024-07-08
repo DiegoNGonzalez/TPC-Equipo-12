@@ -129,7 +129,7 @@ namespace Negocio
                     string hash = HashPassword(contrasenia, salt);
                     usuario.ContraseniaHash = hash;
                     usuario.ContraseniaSalt = salt;
-                    Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, ContraseniaHash,ContraseniaSalt, DNI, Genero, EsProfesor, IDImagen) values (@Nombre, @Apellido, @Email, @ContraseniaHash,@ContraseniaSalt, @DNI, @Genero, @EsProfesor)");
+                    Datos.SetearConsulta("insert into Usuarios (Nombre, Apellido, Email, ContraseniaHash,ContraseniaSalt, DNI, Genero, EsProfesor) values (@Nombre, @Apellido, @Email, @ContraseniaHash,@ContraseniaSalt, @DNI, @Genero, @EsProfesor)");
                     Datos.SetearParametro("@Nombre", usuario.Nombre);
                     Datos.SetearParametro("@Apellido", usuario.Apellido);
                     Datos.SetearParametro("@Email", usuario.Email);
@@ -138,7 +138,6 @@ namespace Negocio
                     Datos.SetearParametro("@DNI", usuario.DNI);
                     Datos.SetearParametro("@Genero", (object)usuario.Genero ?? DBNull.Value);
                     Datos.SetearParametro("@EsProfesor", usuario.EsProfesor);
-                    Datos.SetearParametro("@IDImagen", usuario.ImagenPerfil.IDImagen);
                     Datos.EjecutarAccion();
                     if (usuario.EsProfesor)
                     {

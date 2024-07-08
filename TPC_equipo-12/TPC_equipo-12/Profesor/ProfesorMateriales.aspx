@@ -36,7 +36,7 @@
                     <div class="card-body d-flex flex-column">
                         <div class="media">
                             <div class="mr-3">
-                                <asp:Image ID="imgPerfil" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/perfil-" + Eval("UsuarioEmisor.IDUsuario") + ".jpg" %>' />
+                                <asp:Image ID="imgPerfil" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/" + Eval("UsuarioEmisor.ImagenPerfil.URL") %>' />
                             </div>
                             <div class="media-body">
                                 <p class="card-text"><strong><%# Eval("UsuarioEmisor.NombreCompleto") %>:</strong> <%# Eval("CuerpoComentario") %></p>

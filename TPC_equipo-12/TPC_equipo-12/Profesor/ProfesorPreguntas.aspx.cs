@@ -57,6 +57,11 @@ namespace TPC_equipo_12
                     respuestas = comentarioNegocio.cargarRespuestas(idComentarioPadre);
                     rptRespuestas.DataSource = respuestas;
                     rptRespuestas.DataBind();
+                    txtRespuesta.Text = "";
+                }
+                else
+                {
+                    return;
                 }
             }
         }
