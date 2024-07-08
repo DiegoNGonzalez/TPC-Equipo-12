@@ -16,6 +16,11 @@ namespace TPC_equipo_12
             {
                 ProfesorMasterPage master = (ProfesorMasterPage)Page.Master;
                 master.VerificarMensaje();
+                if (Session["profesor"] == null)
+                {
+                    Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                    Response.Redirect("../LogIn.aspx");
+                }
                 inscripciones = inscripcionNegocio.listarInscripcionesXCurso((int)Session["IDCursoProfesor"]);
                 if (inscripciones.Count == 0)
                 {

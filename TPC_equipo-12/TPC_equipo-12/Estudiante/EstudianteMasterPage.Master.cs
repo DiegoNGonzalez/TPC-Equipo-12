@@ -28,12 +28,12 @@ namespace TPC_equipo_12
 
                 if (estudiante != null && estudiante.ImagenPerfil.URL != null)
                 {
-                    lblNombreEstudiante.Text = estudiante.Nombre;
+                    lblNombreEstudiante.Text = estudiante.NombreCompleto;
                     imgPerfil.ImageUrl = "~/Images/" + estudiante.ImagenPerfil.URL;
                 }
                 else
                 {
-                    lblNombreEstudiante.Text = estudiante.Nombre;
+                    lblNombreEstudiante.Text = estudiante.NombreCompleto;
                     imgPerfil.ImageUrl = "~/Images/perfil-0.jpg";
                 }
             }

@@ -26,8 +26,12 @@ namespace TPC_equipo_12
             {
                 EstudianteMasterPage master = (EstudianteMasterPage)Page.Master;
                 master.VerificarMensaje();
+                if (Session["estudiante"] == null)
+                {
+                    Session["MensajeError"] = "No puede acceder a esa pestaña sin ser un estudiante.";
+                    Response.Redirect("../LogIn.aspx");
+                }
                 listaCursos = cursoNegocio.ListarCursos();
-
                 EstudianteLogeado = (Estudiante)Session["estudiante"];
 
                 EstaInscripto(listaCursos);
@@ -105,7 +109,7 @@ namespace TPC_equipo_12
                     {
                         inscripcionNegocio.reinscribir(inscripcionAuxiliar.IDInscripcion);
                         notificacionNegocio.marcarComoNoLeidaYMensaje(idNotificacion, "Nueva Reinscripción");
-                        Session["MensajeExito"] = "La inscripción enviada correctamente!";
+                        Session["MensajeExito"] = "La Reinscripción enviada correctamente!";
                         Response.Redirect("DefaultEstudiante.aspx", false);
 
                     }

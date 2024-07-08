@@ -29,13 +29,13 @@ namespace TPC_equipo_12
                 CargarNotificaciones(profesor.IDUsuario);
                 if (profesor != null && profesor.ImagenPerfil.URL != null)
                 {
-                    lblNombreProfesor.Text = profesor.Nombre;
+                    lblNombreProfesor.Text = profesor.NombreCompleto;
                     imgPerfil.ImageUrl = "~/Images/" + profesor.ImagenPerfil.URL;
                 }
                 else
                 {
-                    lblNombreProfesor.Text = profesor.Nombre;
-                    imgPerfil.ImageUrl = "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+                    lblNombreProfesor.Text = profesor.NombreCompleto;
+                    imgPerfil.ImageUrl = "~/Images/perfil-0.jpg";
                 }
             }
 
