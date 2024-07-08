@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
         <asp:Button ID="ButtonBackLecciones" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Lecciones" OnClick="ButtonBackLecciones_Click" />
+        <h1 class="text-center">Materiales</h1>
         <asp:Repeater ID="rptMateriales" runat="server" OnItemDataBound="rptMateriales_ItemDataBound">
             <ItemTemplate>
                 <div class="card">
@@ -25,21 +26,23 @@
             </ItemTemplate>
         </asp:Repeater>
         <asp:Panel ID="pnlPreguntasRespuestas" runat="server" Visible="false">
-            <h3>Preguntas y Respuestas</h3>
+            <h3 class="mt-3 mb-3">Preguntas y Respuestas</h3>
             <asp:Repeater ID="rptComentarios" runat="server">
                 <ItemTemplate>
                     <div class="card mb-3">
                         <div class="card-body">
-                            <div class="media">
-                                <div class="mr-3">
-                                    <asp:Image ID="imgPerfil" runat="server" CssClass="mg-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/" + Eval("UsuarioEmisor.ImagenPerfil.URL") %>' />
+                            <div class="d-flex align-items-center mb-2">
+                                <div class="me-2">
+                                    <asp:Image ID="imgPerfil" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/" + Eval("UsuarioEmisor.ImagenPerfil.URL") %>' />
                                 </div>
-                                <div class="media-body">
-                                    <h5 class="mt-0"><%# Eval("UsuarioEmisor.Nombre") %></h5>
-                                    <p class="card-text"><%# Eval("CuerpoComentario") %></p>
-                                    <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
-                                    <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
+                                <div>
+                                    <h5 class="mt-0"><%# Eval("UsuarioEmisor.Nombre") %> <%# Eval("UsuarioEmisor.Apellido") %>:</h5>
                                 </div>
+                            </div>
+                            <div>
+                                <p class="card-text"><%# Eval("CuerpoComentario") %></p>
+                                <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                                <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
                             </div>
                         </div>
                     </div>
@@ -53,9 +56,10 @@
                     </div>
                 </div>
             </div>
-            
+
         </asp:Panel>
-        <br /> <asp:Label ID="lblMensajeInactivo" runat="server" CssClass="text-muted mt-3" Text="El contenido se encuentra deshabilitado." Visible="false"></asp:Label>
+        <br />
+        <asp:Label ID="lblMensajeInactivo" runat="server" CssClass="text-muted mt-3" Text="El contenido se encuentra deshabilitado." Visible="false"></asp:Label>
     </div>
 
 </asp:Content>

@@ -35,7 +35,7 @@ namespace TPC_equipo_12
                     else
                         imgPerfilPadre.ImageUrl = "~/Images/perfil-0.jpg";
 
-                    lblNombre.Text = comentarioPrincipal.UsuarioEmisor.Nombre;
+                    lblNombreYApellido.Text = comentarioPrincipal.UsuarioEmisor.Nombre +" "+ comentarioPrincipal.UsuarioEmisor.Apellido + ":";
                     lblCuerpoComentario.Text = comentarioPrincipal.CuerpoComentario;
                     lblFechaCreacion.Text = comentarioPrincipal.FechaCreacion.ToString("dd/MM/yyyy HH:mm");
                     respuestas = comentarioNegocio.cargarRespuestas(idComentarioPadre);

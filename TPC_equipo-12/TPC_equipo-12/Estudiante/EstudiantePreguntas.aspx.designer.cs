@@ -33,13 +33,13 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Image imgPerfilPadre;
 
         /// <summary>
-        /// Control lblNombre.
+        /// Control lblNombreYApellido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNombre;
+        protected global::System.Web.UI.WebControls.Label lblNombreYApellido;
 
         /// <summary>
         /// Control lblCuerpoComentario.

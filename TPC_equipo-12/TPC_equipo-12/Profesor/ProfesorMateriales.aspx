@@ -7,7 +7,7 @@
         <asp:Button ID="ButtonBackLeccionesProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver a Lecciones" OnClick="ButtonBackLeccionesProf_Click" />
         <asp:Button ID="ButtonCrearMaterialProf" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Crear un Material" OnClick="ButtonCrearMaterialProf_Click" />
         <asp:Button ID="ButtonEliminarMaterialProf" CssClass="btn btn-warning mb-3 mt-3" runat="server" Text="Habilitar/Deshabilitar Material" OnClick="ButtonEliminarMaterialProf_Click" />
-        <h1 class="text-center">Materiales de la Lección</h1>
+        <h1 class="text-center">Materiales</h1>
         <asp:Repeater ID="rptMaterialesProf" runat="server" OnItemDataBound="rptMaterialesProf_ItemDataBound">
             <ItemTemplate>
                 <div class="card">
@@ -28,25 +28,29 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
-        <h3>Preguntas y Respuestas de los Estudiantes</h3>
+        <h3 class="mt-3 mb-3">Preguntas y Respuestas de los Estudiantes</h3>
 
         <asp:Repeater ID="rptComentarios" runat="server">
             <ItemTemplate>
                 <div class="card mb-3">
-                    <div class="card-body d-flex flex-column">
-                        <div class="media">
-                            <div class="mr-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="me-2">
                                 <asp:Image ID="imgPerfil" runat="server" CssClass="img-fluid rounded-circle" Width="64px" Height="64px" ImageUrl='<%# "~/Images/" + Eval("UsuarioEmisor.ImagenPerfil.URL") %>' />
                             </div>
-                            <div class="media-body">
-                                <p class="card-text"><strong><%# Eval("UsuarioEmisor.NombreCompleto") %>:</strong> <%# Eval("CuerpoComentario") %></p>
-                                <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
-                                <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
+                            <div>
+                                <strong><%# Eval("UsuarioEmisor.NombreCompleto") %>:</strong>
                             </div>
+                        </div>
+                        <div>
+                            <p class="card-text"><%# Eval("CuerpoComentario") %></p>
+                            <p class="card-text"><small class="text-muted"><%# Eval("FechaCreacion", "{0:dd/MM/yyyy HH:mm}") %></small></p>
+                            <asp:Button ID="btnRespuesta" CssClass="btn btn-sm btn-secondary" runat="server" Text="Responder" OnClick="btnRespuesta_Click" CommandArgument='<%# Eval("IDComentario") %>' />
                         </div>
                     </div>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
+
     </div>
 </asp:Content>

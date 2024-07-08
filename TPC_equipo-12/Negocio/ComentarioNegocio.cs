@@ -141,6 +141,7 @@ namespace Negocio
                         c.CuerpoComentario,
                         c.IDUsuarioEmisor,
                         u.Nombre AS Nombre,
+                        u.Apellido As Apellido,
                         c.FechaCreacion,
                         ISNULL(i.URLIMG, 'perfil-0.jpg') AS ImagenPerfilURL
                     FROM 
@@ -161,6 +162,7 @@ namespace Negocio
                     comentario.UsuarioEmisor = new Usuario();
                     comentario.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDUsuarioEmisor"];
                     comentario.UsuarioEmisor.Nombre = (string)datos.Lector["Nombre"];
+                    comentario.UsuarioEmisor.Apellido = (string)datos.Lector["Apellido"];
                     if (datos.Lector["ImagenPerfilURL"] != DBNull.Value)
                     {
                         comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
@@ -194,7 +196,7 @@ namespace Negocio
             Comentario comentarioPrincipal = new Comentario();
             try
             {
-                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
+                datos.SetearConsulta("SELECT C.IDComentario, C.IDUsuarioEmisor, U.Nombre, U.Apellido, U.IDImagen, C.CuerpoComentario, C.FechaCreacion FROM Comentarios C INNER JOIN Usuarios U ON C.IDUsuarioEmisor = U.IDUsuario WHERE C.IDComentario = @IdComentarioPadre");
 
                 datos.SetearParametro("@IdComentarioPadre", idComentarioPadre);
                 datos.EjecutarLectura();
@@ -203,6 +205,7 @@ namespace Negocio
                 comentarioPrincipal.UsuarioEmisor = new Usuario();
                 comentarioPrincipal.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDUsuarioEmisor"];
                 comentarioPrincipal.UsuarioEmisor.Nombre = (string)datos.Lector["Nombre"];
+                comentarioPrincipal.UsuarioEmisor.Apellido = (string)datos.Lector["Apellido"];
                 comentarioPrincipal.CuerpoComentario = (string)datos.Lector["CuerpoComentario"];
                 if (datos.Lector["IDImagen"] != DBNull.Value)
                 {
@@ -238,6 +241,7 @@ namespace Negocio
                         c.CuerpoComentario,
                         c.IDUsuarioEmisor,
                         u.Nombre AS Nombre,
+                        u.Apellido As Apellido,
                         c.FechaCreacion,
                         i.URLIMG,
                         i.IDImagenes
@@ -259,6 +263,7 @@ namespace Negocio
                     comentario.UsuarioEmisor = new Usuario();
                     comentario.UsuarioEmisor.IDUsuario = (int)datos.Lector["IDUsuarioEmisor"];
                     comentario.UsuarioEmisor.Nombre = (string)datos.Lector["Nombre"];
+                    comentario.UsuarioEmisor.Apellido = (string)datos.Lector["Apellido"];
                     comentario.UsuarioEmisor.ImagenPerfil = new Imagen();
                     if (datos.Lector["IDImagenes"] != DBNull.Value)
                     {
