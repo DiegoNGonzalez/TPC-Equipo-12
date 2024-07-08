@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CambioContrasenia.aspx" />
+    <Content Include="Estudiante\EstudianteCambiarContrasenia.aspx" />
     <Content Include="Estudiante\AgregarResenia.aspx" />
     <Content Include="Custom\styles.css" />
     <Content Include="Estudiante\EstudiantePreguntas.aspx" />
@@ -118,6 +119,13 @@
     </Compile>
     <Compile Include="CambioContrasenia.aspx.designer.cs">
       <DependentUpon>CambioContrasenia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Estudiante\EstudianteCambiarContrasenia.aspx.cs">
+      <DependentUpon>EstudianteCambiarContrasenia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Estudiante\EstudianteCambiarContrasenia.aspx.designer.cs">
+      <DependentUpon>EstudianteCambiarContrasenia.aspx</DependentUpon>
     </Compile>
     <Compile Include="Estudiante\EstudiantePreguntas.aspx.cs">
       <DependentUpon>EstudiantePreguntas.aspx</DependentUpon>

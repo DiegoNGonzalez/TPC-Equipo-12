@@ -17,7 +17,12 @@ namespace TPC_equipo_12
         {
             ComentarioNegocio comentarioNegocio = new ComentarioNegocio();
             Comentario comentarioPrincipal = new Comentario();
-            List<Comentario> respuestas = new List<Comentario>(); 
+            List<Comentario> respuestas = new List<Comentario>();
+            if (Session["profesor"] == null)
+            {
+                Session["MensajeError"] = "No puede acceder a esa pestaña sin ser profesor.";
+                Response.Redirect("../LogIn.aspx");
+            }
             if (!IsPostBack)
             {
                 if (Session["IDComentarioPadre"] != null)
