@@ -7,7 +7,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Inscripciones Pendientes</h1>
+                <h3 class="text-center mt-3">Inscripciones Pendientes</h3>
+                <hr />
                 <asp:Panel ID="PanelInscripciones" runat="server" Visible="false">
 
                     <table class="table table-bordered">
@@ -46,7 +47,7 @@
                     </table>
                 </asp:Panel>
                 <div class="d-flex justify-content-center align-items-start">
-                    <asp:Label ID="LabelNoHayInscripciones" runat="server" CssClass="display-4 font-weight-bold mt-5" Visible="false">No hay inscripciones pendientes!</asp:Label>
+                    <asp:Label ID="LabelNoHayInscripciones" runat="server" CssClass="display-7 font-weight-bold" Visible="false"><b>No hay inscripciones pendientes!</b></asp:Label>
                 </div>
             </div>
         </div>

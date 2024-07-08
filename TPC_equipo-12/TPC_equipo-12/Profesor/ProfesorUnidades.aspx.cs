@@ -26,6 +26,14 @@ namespace TPC_equipo_12
 
                 listaUnidades = unidadNegocio.ListarUnidades((int)Session["IDCursoProfesor"]);
                 Session.Add("ListaUnidadesProfesor", listaUnidades);
+                if(listaUnidades.Count == 0)
+                {
+                    PanelHayUnidades.Visible = false;
+                    LabelNoUnidades.Visible = true;
+                } else
+                {
+                    PanelNoHayUnidades.Visible = false;
+                }
                 rptUnidadesProf.DataSource = listaUnidades;
                 rptUnidadesProf.DataBind();
 

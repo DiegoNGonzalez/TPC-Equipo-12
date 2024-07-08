@@ -9,17 +9,17 @@
             <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
                 <div class="card w-50 my-5">
                     <div class="card-body">
-                        <asp:Label ID="LabelAgregarLecciones" runat="server" CssClass="card-title d-flex justify-content-center align-items-center" Text="Crear Lección"></asp:Label>
+                        <asp:Label ID="LabelAgregarLecciones" runat="server" CssClass="h3 card-title d-flex justify-content-center align-items-center" Text="">Crear Lección</asp:Label>
                         <div class="mb-3">
-                            <asp:Label ID="LabelNombreLeccion" runat="server" CssClass="form-label" Text="Nombre"></asp:Label>
+                            <asp:Label ID="LabelNombreLeccion" runat="server" CssClass="form-label" Text=""><b>Nombre</b></asp:Label>
                             <asp:TextBox ID="TextBoxNombreLeccion" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="LabelDescripcionLeccion" runat="server" CssClass="form-label" Text="Descripción"></asp:Label>
+                            <asp:Label ID="LabelDescripcionLeccion" runat="server" CssClass="form-label" Text=""><b>Descripción</b></asp:Label>
                             <asp:TextBox ID="TextBoxDescripcionLeccion" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="LabelNumeroLeccion" runat="server" CssClass="form-label" Text="Número de Lección"></asp:Label>
+                            <asp:Label ID="LabelNumeroLeccion" runat="server" CssClass="form-label" Text=""><b>Número de Lección</b></asp:Label>
                             <asp:TextBox ID="TextBoxNumeroLeccion" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">

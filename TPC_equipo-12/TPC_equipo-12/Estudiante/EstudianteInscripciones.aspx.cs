@@ -27,6 +27,11 @@ namespace TPC_equipo_12
 
                 Estudiante = (Estudiante)Session["estudiante"];
                 listaInscripciones = inscripcionNegocio.listarInscripcionesXEstudiante(Estudiante.IDUsuario);
+                if(listaInscripciones.Count == 0)
+                {
+                    PanelMisInscripciones.Visible = false;
+                    LabelNoHayInscripciones.Visible = true;
+                }
                 rptInscripciones.DataSource = listaInscripciones;
                 rptInscripciones.DataBind();
 

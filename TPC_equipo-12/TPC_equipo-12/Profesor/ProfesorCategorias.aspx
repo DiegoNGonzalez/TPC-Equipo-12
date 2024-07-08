@@ -3,19 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h2 class="text-center">Categorías</h2>
+    <h3 class="text-center mt-3">Categorías</h3>
 
-    <div class="container vh-75 d-flex flex-column justify-content-center align-items-center mt-5">
-        <!-- Fila para el dropdown y los botones -->
+    <div class="container vh-75 d-flex flex-column justify-content-center align-items-center mt-4">
         <div class="row justify-content-center w-100">
-            <!-- Columna para el dropdown -->
             <div class="col-md-4">
                 <div class="mb-3">
-                    <label class="form-label">Seleccionar Categoría</label>
+                    <label class="form-label"><b>Seleccionar Categoría</b></label>
                     <asp:DropDownList ID="dropCategorias" runat="server" CssClass="form-control" />
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Nueva Categoría</label>
+                    <label class="form-label"><b>Nueva Categoría</b></label>
                     <asp:TextBox ID="txtNuevaCategoria" runat="server" CssClass="form-control" />
                     <asp:Label ID="lblNotificacion" runat="server" Text="" Visible="false" ForeColor="Red"></asp:Label>
                 </div>

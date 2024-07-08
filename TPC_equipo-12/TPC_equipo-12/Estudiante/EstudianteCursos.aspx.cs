@@ -30,6 +30,14 @@ namespace TPC_equipo_12
 
 
                 Estudiante estudiante = (Estudiante)Session["estudiante"];
+                if(estudiante.Cursos.Count == 0)
+                {
+                    LabelNoHayCursos.Visible = true;
+                    PanelCursosEstudiante.Visible = false;
+                } else
+                {
+                    PanelTituloNoHayCursos.Visible = false;
+                }
                 rptCursos.DataSource = estudiante.Cursos;
                 rptCursos.DataBind();
 

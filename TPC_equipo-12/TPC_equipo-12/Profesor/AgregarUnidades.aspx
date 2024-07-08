@@ -9,17 +9,17 @@
             <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
                 <div class="card w-50 my-5">
                     <div class="card-body">
-                        <asp:Label ID="LabelAgregarUnidad" runat="server" class="card-title d-flex justify-content-center align-items-center" Text="Crear Unidad"></asp:Label>
+                        <asp:Label ID="LabelAgregarUnidad" runat="server" class=" h3 card-title d-flex justify-content-center align-items-center" Text="">Crear Unidad</asp:Label>
                         <div class="mb-3">
-                            <asp:Label ID="LabelNombreUnidad" runat="server" CssClass="form-label" Text="Nombre"></asp:Label>
+                            <asp:Label ID="LabelNombreUnidad" runat="server" CssClass="form-label" Text=""><b>Nombre</b></asp:Label>
                             <asp:TextBox ID="TextBoxNombreUnidad" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="LabelDescripcionUnidad" runat="server" CssClass="form-label" Text="Descripción"></asp:Label>
+                            <asp:Label ID="LabelDescripcionUnidad" runat="server" CssClass="form-label" Text=""><b>Descripción</b></asp:Label>
                             <asp:TextBox ID="TextBoxDescripcionUnidad" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="mb-3">
-                            <asp:Label ID="LabelNumeroUnidad" runat="server" CssClass="form-label" Text="Numero de unidad"></asp:Label>
+                            <asp:Label ID="LabelNumeroUnidad" runat="server" CssClass="form-label" Text=""><b>Numero de unidad</b></asp:Label>
                             <asp:TextBox ID="TextBoxNumeroUnidad" runat="server" CssClass="form-control" TextMode="number"></asp:TextBox>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">

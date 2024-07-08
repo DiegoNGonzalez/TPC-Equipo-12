@@ -7,10 +7,12 @@
 
         <div class="row">
             <div class="col-md-12">
-                <asp:Button ID="btnVolver" CssClass="btn btn-primary mb-3 mt-3" runat="server" Text="Volver" OnClick="btnVolver_Click" />
-                <asp:Label ID="lblNoInscripciones" runat="server" text="No hay inscripciones en este curso" Visible="false"></asp:Label>
+                <asp:Button ID="btnVolver" CssClass="btn btn-primary mt-3" runat="server" Text="Volver" OnClick="btnVolver_Click" />
+                <div class="col-md-12 text-center">
+                <asp:Label ID="lblNoInscripciones" runat="server" Text="" Visible="false"><b>No hay inscripciones en este curso</b></asp:Label>
+                    </div>
                 <asp:Panel ID="pnlTablaInscripciones" runat="server">
-                    <h1>Estudiantes Inscriptos</h1>
+                    <h3 class="text-center mb-3">Estudiantes Inscriptos</h3>
 
                     <table class="table table-bordered">
                         <thead>

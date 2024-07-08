@@ -30,6 +30,10 @@ namespace TPC_equipo_12
                 List<Curso> listaCursosAux = new List<Curso>();
                 listaCursosAux = cursoNegocio.ListarCursos();
                 listaCursosAux = cursoNegocio.ValidarCursoIncompleto(listaCursosAux);
+                if(listaCursosAux.Count > 0)
+                {
+                    LabelNoHayCursos.Text= "<b>Estos son los cursos que aun te faltan completar.</b>";
+                }
                 rptProfesorCursos.DataSource = listaCursosAux;
                 rptProfesorCursos.DataBind();
                 

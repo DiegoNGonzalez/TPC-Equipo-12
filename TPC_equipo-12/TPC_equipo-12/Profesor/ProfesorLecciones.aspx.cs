@@ -26,6 +26,14 @@ namespace TPC_equipo_12
 
                 listaLecciones = leccionNegocio.ListarLecciones((int)Session["IDUnidadProfesor"]);
                 Session.Add("ListaLeccionesProfesor", listaLecciones);
+                if(listaLecciones.Count == 0)
+                {
+                    PanelHayLecciones.Visible = false;
+                    LabelNoLecciones.Visible = true;
+                } else
+                {
+                    PanelNoHayLecciones.Visible = false;
+                }
                 rptLeccionesProf.DataSource = listaLecciones;
                 rptLeccionesProf.DataBind();
 

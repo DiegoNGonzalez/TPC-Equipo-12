@@ -42,6 +42,33 @@ namespace TPC_equipo_12
         protected global::System.Web.UI.WebControls.Button ButtonEstadoLeccionProf;
 
         /// <summary>
+        /// Control PanelNoHayLecciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelNoHayLecciones;
+
+        /// <summary>
+        /// Control LabelNoLecciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelNoLecciones;
+
+        /// <summary>
+        /// Control PanelHayLecciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelHayLecciones;
+
+        /// <summary>
         /// Control rptLeccionesProf.
         /// </summary>
         /// <remarks>

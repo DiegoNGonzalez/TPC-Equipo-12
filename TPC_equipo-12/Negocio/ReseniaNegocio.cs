@@ -205,12 +205,8 @@ namespace Negocio
                     aux.FechaCreacion = (DateTime)Datos.Lector["Fecha"];
                     aux.IDCurso = IDCurso;
                     aux.Estudiante = new Estudiante();
-                    aux.Estudiante.IDUsuario = (int)Datos.Lector["IDEstudiante"];
+                    aux.Estudiante = estudianteNegocio.BuscarEstudiante((int)Datos.Lector["IDEstudiante"]);
                     lista.Add(aux);
-                }
-                foreach (Resenia resenia in lista)
-                {
-                    resenia.Estudiante = estudianteNegocio.BuscarEstudiante(resenia.Estudiante.IDUsuario);
                 }
                 return lista;
             }

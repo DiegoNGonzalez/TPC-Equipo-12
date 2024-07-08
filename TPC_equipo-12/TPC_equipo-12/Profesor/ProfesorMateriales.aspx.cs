@@ -41,10 +41,27 @@ namespace TPC_equipo_12
                     listaComentarios = comentarioNegocio.cargarComentarios(idleccion);
                 }
                 Session.Add("ListaMaterialesProfesor", listaMateriales);
+                if (listaMateriales.Count == 0)
+                {
+                    PanelMateriales.Visible = false;
+                    LabelNoMateriales.Visible = true;
+                }
+                else
+                {
+                    PanelNoMateriales.Visible = false;
+                }
                 rptMaterialesProf.DataSource = listaMateriales;
                 rptMaterialesProf.DataBind();
 
-                
+                if (listaComentarios.Count == 0)
+                {
+                    PanelComentarios.Visible = false;
+                    LabelNoComentarios.Visible = true;
+                }
+                else
+                {
+                    PanelNoComentarios.Visible = false;
+                }
                 rptComentarios.DataSource = listaComentarios;
                 rptComentarios.DataBind();
 
