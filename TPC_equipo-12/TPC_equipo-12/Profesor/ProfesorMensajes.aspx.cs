@@ -28,7 +28,7 @@ namespace TPC_equipo_12
                 mensajes = mensajeUsuarioNegocio.listarMensajes("recibidos",profesor.IDUsuario);
                 if (mensajes.Count == 0)
                 {
-                    PanelMensajes.Visible = false;
+                    PnlMensaje.Visible = false;
                     LabelNoHayMensajesRecibidos.Visible = true;
                 }
                 else

@@ -4,11 +4,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
-        <asp:Button ID="btnNuevoMensaje" runat="server" Text="Nuevo Mensaje" CssClass="btn btn-primary" OnClick="btnNuevoMensaje_Click" />
+        <asp:Button ID="btnNuevoMensaje" runat="server" Text="Nuevo Mensaje" CssClass="btn btn-primary mt-3 mb-3" OnClick="btnNuevoMensaje_Click" />
 
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Mensajes Recibidos</h1>
+                    <h3>Mensajes Recibidos</h3>
                     <hr />
                 </div>
             </div>
@@ -19,9 +19,9 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Fecha</th>
                                     <th>De</th>
                                     <th>Asunto</th>
+                                    <th>Fecha Y Hora</th>
                                     <th>Leido</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -30,9 +30,9 @@
                                 <asp:Repeater ID="rptMensajes" runat="server">
                                     <ItemTemplate>
                                         <tr>
-                                            <td><%# Eval("FechaHora") %></td>
                                             <td><%# Eval("UsuarioEmisor.Nombre") %> <%# Eval("UsuarioEmisor.Apellido")  %></td>
                                             <td><%# Eval("asunto") %></td>
+                                            <td><%# Eval("FechaHora") %></td>
 
                                             <td>
                                                 <%# 
@@ -55,11 +55,11 @@
             </div>
         </asp:Panel>
         <div class="d-flex justify-content-center align-items-start">
-            <asp:Label ID="LabelNoHayMensajes" runat="server" CssClass="display-4 font-weight-bold mt-5" Visible="false">No recibiste Mensajes aun!</asp:Label>
+            <asp:Label ID="LabelNoHayMensajes" runat="server" CssClass="display-7 font-weight-bold mt-3" Visible="false">No tienes mensajes recibidos.</asp:Label>
         </div>
                 <div class="row">
             <div class="col-md-12">
-                <h1>Mensajes Enviados</h1>
+                <h3>Mensajes Enviados</h3>
                 <hr />
             </div>
         </div>
@@ -70,9 +70,9 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Fecha</th>
                                     <th>Para</th>
                                     <th>Asunto</th>
+                                    <th>Fecha Y Hora</th>
                                     <th>Leido</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -81,9 +81,9 @@
                                 <asp:Repeater ID="rptMensajesEnviados" runat="server">
                                     <ItemTemplate>
                                         <tr>
-                                            <td><%# Eval("FechaHora") %></td>
                                             <td><%# Eval("UsuarioReceptor.Nombre") %> <%# Eval("UsuarioReceptor.Apellido")  %></td>
                                             <td><%# Eval("asunto") %></td>
+                                            <td><%# Eval("FechaHora") %></td>
 
                                             <td>
                                                 <%# 
@@ -106,7 +106,7 @@
             </div>
         </asp:Panel>
         <div class="d-flex justify-content-center align-items-start">
-    <asp:Label ID="LabelNoHayMensajesEnviados" runat="server" CssClass="display-4 font-weight-bold mt-5" Visible="false">No enviaste Mensajes aun!</asp:Label>
+    <asp:Label ID="LabelNoHayMensajesEnviados" runat="server" CssClass="display-7 font-weight-bold mt-3" Visible="false">No tienes mensajes enviados.</asp:Label>
 </div>
     </div>
 

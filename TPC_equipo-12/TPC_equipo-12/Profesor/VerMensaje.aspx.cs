@@ -55,7 +55,7 @@ namespace TPC_equipo_12
                     htmlRespuestas += $"<div class='respuesta'>";
                     htmlRespuestas += $"<b>{respuesta.UsuarioEmisor.Nombre} {respuesta.UsuarioEmisor.Apellido} ({respuesta.FechaHora}):</b><br/>";
                     htmlRespuestas += $"{respuesta.Texto}<br/>";
-                    htmlRespuestas += "</div><hr/>";
+                    htmlRespuestas += "</div>";
                 }
 
                 
