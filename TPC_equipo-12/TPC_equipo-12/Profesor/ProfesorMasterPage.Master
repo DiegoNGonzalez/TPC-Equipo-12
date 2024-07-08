@@ -91,6 +91,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="ProfesorMiPerfil.aspx">Mi perfil</a></li>
+                            <li><a class="dropdown-item" href="ProfesorCambiarContrasenia.aspx">Cambiar Contraseña</a></li>
                             <li>
                                 <asp:Button ID="btnCerrarSesionDropdown" Text="Cerrar Sesión" CssClass="dropdown-item" runat="server" OnClick="btnCerrarSesion_Click" /></li>
                         </ul>
