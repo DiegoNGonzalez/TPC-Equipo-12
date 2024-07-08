@@ -10,7 +10,7 @@ namespace TPC_equipo_12
 {
     public partial class CambioContraseña : System.Web.UI.Page
     {
-        Seguridad seguridad = new Seguridad();
+        ReinicioContraseniaNegocio seguridad = new ReinicioContraseniaNegocio();
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -24,7 +24,7 @@ namespace TPC_equipo_12
 
                     if (!tokenValido)
                     {
-                        Session["MensajeError"] = "Link invalido!";
+                        Session["MensajeError"] = "Link invalido o ya utilizado!";
                         Response.Redirect("LogIn.aspx");
                     }
                 }
@@ -53,6 +53,7 @@ namespace TPC_equipo_12
                 if (IDusuario != 0)
                 {
                     bool cambioExitoso = usuarioNegocio.CambiarContraseñaEnBaseDeDatos(IDusuario, nuevaContrasenia);
+                    seguridad.ActualizarFechaExp(IDusuario);
                     if (cambioExitoso)
                     {
                         

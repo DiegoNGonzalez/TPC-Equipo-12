@@ -1,4 +1,5 @@
 ﻿using AccesoDB;
+using Dominio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,43 +8,46 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    public class Seguridad
+    public class ReinicioContraseniaNegocio
     {
         Datos datos = new Datos();
-        public Seguridad()
+        public ReinicioContraseniaNegocio()
         {
             datos = new Datos();
         }
 
-        public void GuardarTokenEnBD(string token, int IDUsuario)
+        public void GuardarTokenEnBD(ReinicioContrasenia reinicioContrasenia)
         {
             try
             {
                 datos.SetearConsulta("SELECT COUNT(*) FROM ReiniciosContrasenias WHERE IDUsuario = @IDUsuario");
-                datos.SetearParametro("@IDUsuario", IDUsuario);
+                datos.SetearParametro("@IDUsuario", reinicioContrasenia.IDUsuario);
                 int tokenExiste = datos.ejecutarAccionScalar();
                 datos.LimpiarParametros();
                 datos.CerrarConexion();
                 if (tokenExiste > 0)
                 {
                     datos.SetearConsulta("UPDATE ReiniciosContrasenias SET Token = @Token, FechaExpiracion = DATEADD(MINUTE, 30, GETDATE()) WHERE IDUsuario = @IDUsuario");
-                    datos.SetearParametro("@Token", token);
-                    datos.SetearParametro("@IDUsuario", IDUsuario);
+                    datos.SetearParametro("@Token", reinicioContrasenia.Token);
+                    datos.SetearParametro("@IDUsuario", reinicioContrasenia.IDUsuario);
                     datos.EjecutarAccion();
                 }
                 else
                 {
                     datos.SetearConsulta("INSERT INTO ReiniciosContrasenias (IDUsuario, Token, FechaExpiracion) VALUES (@IDUsuario, @Token, DATEADD(MINUTE, 30, GETDATE()))");
-                    datos.SetearParametro("@IDUsuario", IDUsuario);
-                    datos.SetearParametro("@Token", token);
+                    datos.SetearParametro("@IDUsuario", reinicioContrasenia.IDUsuario);
+                    datos.SetearParametro("@Token", reinicioContrasenia.Token);
                     datos.EjecutarAccion();
                 }
-                datos.LimpiarParametros();
-                datos.CerrarConexion();
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
             }
             
         }
@@ -96,16 +100,37 @@ namespace Negocio
                         tokenValido = true;
                     }
                 }
-
-                datos.LimpiarParametros();
-                datos.CerrarConexion();
+                return tokenValido;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+        }
+        public void ActualizarFechaExp(int IDUsuario)
+        {
+            try
+            {
+                datos.SetearConsulta("UPDATE ReiniciosContrasenias SET FechaExpiracion = GETDATE() WHERE IDUsuario = @IDUsuario");
+                datos.SetearParametro("@IDUsuario", IDUsuario);
+                datos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
 
-            return tokenValido;
+                throw ex;
+            }
+            finally
+            {
+                datos.LimpiarParametros();
+                datos.CerrarConexion();
+            }
+
         }
     }
 }

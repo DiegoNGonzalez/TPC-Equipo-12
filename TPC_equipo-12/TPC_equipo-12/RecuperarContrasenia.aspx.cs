@@ -1,4 +1,5 @@
 ﻿using AccesoDB;
+using Dominio;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -18,26 +19,54 @@ namespace TPC_equipo_12
 
         protected void btnEnviar_Click(object sender, EventArgs e)
         {
-            Seguridad seguridad = new Seguridad();
+
+            ReinicioContraseniaNegocio seguridad = new ReinicioContraseniaNegocio();
+            ReinicioContrasenia reinicioContrasenia = new ReinicioContrasenia();
             EmailService emailService = new EmailService();
             string email = txtEmail.Text.Trim();
             UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-            int IDUsuario = usuarioNegocio.ObtenerIDporEmail(email);
-            if (IDUsuario != 0)
+            try
             {
-                string token = Guid.NewGuid().ToString();
-                seguridad.GuardarTokenEnBD(token, IDUsuario);
-                emailService.EnviarEmailConToken(email, token);
-                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Revise su correo!!', 'info');</script>", false);
+                if (!ValidarFormulario())
+                {
+                    return;
+                }
+                reinicioContrasenia.IDUsuario = usuarioNegocio.ObtenerIDporEmail(email);
+                if (reinicioContrasenia.IDUsuario != 0)
+                {
+                    string token = Guid.NewGuid().ToString();
+                    reinicioContrasenia.Token = token;
+                    seguridad.GuardarTokenEnBD(reinicioContrasenia);
+                    emailService.EnviarEmailConToken(email, token);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Revise su correo!!', 'info');</script>", false);
+                    Response.Redirect("Login.aspx");
+                }
+                else
+                {
+                    Session["MensajeError"] = "No existe el usuario!";
+                    Response.Redirect("Login.aspx");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Session["MensajeError"] = "No existe el usuario!";
-                Response.Redirect("Login.aspx");
+                ex.ToString();
+                Response.Redirect("LogIn.aspx");
             }
+            
 
 
         }
-    
+
+        protected bool ValidarFormulario()
+        {
+            if (txtEmail.Text == "")
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "info", "<script>showMessage('Faltan campos por completar!', 'info');</script>", false);
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }
